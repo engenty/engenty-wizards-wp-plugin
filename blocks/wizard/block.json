@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "engenty/wizard",
+	"version": "0.1.0",
+	"title": "engenty Wizard",
+	"category": "widgets",
+	"icon": "format-chat",
+	"description": "Ein Wizard von engenty.ai: im Text, hinter einem Button oder als Blase unten rechts.",
+	"keywords": [ "engenty", "wizard", "formular", "anfrage", "ki", "chat", "termin" ],
+	"textdomain": "engenty-wizards",
+	"attributes": {
+		"token": { "type": "string", "default": "" },
+		"title": { "type": "string", "default": "" },
+		"mode": { "type": "string", "enum": [ "inline", "modal", "bubble" ], "default": "inline" },
+		"label": { "type": "string", "default": "" },
+		"text": { "type": "string", "default": "" },
+		"color": { "type": "string", "default": "" }
+	},
+	"supports": { "html": false, "align": [ "wide", "full" ] },
+	"editorScript": "file:../../build/block.js",
+	"editorStyle": "file:../../build/block.css",
+	"render": "file:./render.php"
+}
