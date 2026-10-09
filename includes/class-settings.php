@@ -85,7 +85,7 @@ class Engenty_Settings {
 		if ( ! is_array( $saved ) ) {
 			return array();
 		}
-		foreach ( array( 'access_token', 'refresh_token' ) as $key ) {
+		foreach ( array( 'access_token', 'refresh_token', 'api_key' ) as $key ) {
 			if ( ! empty( $saved[ $key ] ) ) {
 				$saved[ $key ] = self::unseal( $saved[ $key ] );
 			}
@@ -99,7 +99,7 @@ class Engenty_Settings {
 	 * @param array $auth The whole connection.
 	 */
 	public static function save_auth( array $auth ) {
-		foreach ( array( 'access_token', 'refresh_token' ) as $key ) {
+		foreach ( array( 'access_token', 'refresh_token', 'api_key' ) as $key ) {
 			if ( ! empty( $auth[ $key ] ) ) {
 				$auth[ $key ] = self::seal( $auth[ $key ] );
 			}
@@ -121,7 +121,7 @@ class Engenty_Settings {
 	 */
 	public static function connected() {
 		$auth = self::auth();
-		return ! empty( $auth['refresh_token'] ) || ! empty( $auth['access_token'] );
+		return ! empty( $auth['refresh_token'] ) || ! empty( $auth['access_token'] ) || ! empty( $auth['api_key'] );
 	}
 
 	/**

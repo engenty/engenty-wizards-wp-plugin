@@ -33,7 +33,65 @@ class Engenty_Connect {
 	 * @return string
 	 */
 	public static function cloud() {
+		$auth = Engenty_Settings::auth();
+		if ( ! empty( $auth['cloud'] ) ) {
+			return untrailingslashit( (string) $auth['cloud'] );
+		}
 		return untrailingslashit( (string) apply_filters( 'engenty_wizards_cloud', ENGENTY_WIZARDS_CLOUD ) );
+	}
+
+	/**
+	 * Connects by hand: a runtime's address and an API Key from its studio (Einbinden). For an own
+	 * engenty server, or where signing in through the browser is not possible. The key is tried on
+	 * `/api/v1/me` before it is kept.
+	 *
+	 * @param string $cloud The runtime's address.
+	 * @param string $key   The API Key.
+	 * @return array|WP_Error The account.
+	 */
+	public static function connect_key( $cloud, $key ) {
+		$cloud = untrailingslashit( esc_url_raw( trim( $cloud ) ) );
+		$key   = trim( $key );
+		$host  = (string) wp_parse_url( $cloud, PHP_URL_HOST );
+		$local = in_array( $host, array( 'localhost', '127.0.0.1', '[::1]' ), true ) || str_ends_with( $host, '.localhost' );
+		if ( '' === $host || ( 'https' !== wp_parse_url( $cloud, PHP_URL_SCHEME ) && ! $local ) ) {
+			return new WP_Error( 'engenty_cloud', __( 'Die Adresse muss mit https:// beginnen.', 'engenty-wizards' ), array( 'status' => 400 ) );
+		}
+		if ( ! str_starts_with( $key, 'wz_' ) ) {
+			return new WP_Error( 'engenty_key', __( 'Ein API Key von engenty beginnt mit wz_.', 'engenty-wizards' ), array( 'status' => 400 ) );
+		}
+		$res = wp_remote_get(
+			$cloud . '/api/v1/me',
+			array(
+				'timeout' => 15,
+				'headers' => array(
+					'Authorization' => 'Bearer ' . $key,
+					'Accept'        => 'application/json',
+				),
+			)
+		);
+		if ( is_wp_error( $res ) ) {
+			return new WP_Error( 'engenty_unreachable', __( 'Unter dieser Adresse antwortet kein engenty.', 'engenty-wizards' ), array( 'status' => 502 ) );
+		}
+		$code = (int) wp_remote_retrieve_response_code( $res );
+		$me   = json_decode( (string) wp_remote_retrieve_body( $res ), true );
+		if ( 401 === $code || 403 === $code ) {
+			return new WP_Error( 'engenty_key', __( 'Dieser API Key gilt dort nicht.', 'engenty-wizards' ), array( 'status' => 400 ) );
+		}
+		if ( 200 !== $code || ! is_array( $me ) || empty( $me['urls'] ) ) {
+			return new WP_Error( 'engenty_unreachable', __( 'Unter dieser Adresse antwortet kein engenty.', 'engenty-wizards' ), array( 'status' => 502 ) );
+		}
+		Engenty_Settings::forget_auth();
+		Engenty_Settings::save_auth(
+			array(
+				'method'       => 'key',
+				'cloud'        => $cloud,
+				'api_key'      => $key,
+				'connected_at' => time(),
+			)
+		);
+		set_transient( 'engenty_wizards_me', $me, MINUTE_IN_SECONDS );
+		return $me;
 	}
 
 	/**
@@ -314,6 +372,9 @@ class Engenty_Connect {
 	 */
 	public static function access_token() {
 		$auth = Engenty_Settings::auth();
+		if ( ! empty( $auth['api_key'] ) ) {
+			return $auth['api_key'];
+		}
 		if ( empty( $auth['access_token'] ) && empty( $auth['refresh_token'] ) ) {
 			return new WP_Error( 'engenty_not_connected', __( 'Die Website ist nicht mit engenty.ai verbunden.', 'engenty-wizards' ), array( 'status' => 401 ) );
 		}

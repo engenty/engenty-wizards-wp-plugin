@@ -31,6 +31,9 @@ class Engenty_Client {
 		$res = self::send( $method, $path, $body, $token, $timeout );
 		// The token went stale before its time (revoked and given again, the clock off): once more.
 		if ( ! is_wp_error( $res ) && 401 === (int) wp_remote_retrieve_response_code( $res ) ) {
+			if ( ! empty( Engenty_Settings::auth()['api_key'] ) ) {
+				return new WP_Error( 'engenty_key', __( 'Der API Key gilt nicht mehr. Verbinde die Website neu.', 'engenty-wizards' ), array( 'status' => 401 ) );
+			}
 			$token = Engenty_Connect::refresh();
 			if ( is_wp_error( $token ) ) {
 				return $token;

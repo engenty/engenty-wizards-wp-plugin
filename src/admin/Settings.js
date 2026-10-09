@@ -105,6 +105,12 @@ export default function Settings( { status, reload } ) {
 							{ [ me?.user?.name, me?.user?.email ]
 								.filter( Boolean )
 								.join( ' · ' ) || '—' }
+							{ status.method === 'key'
+								? ` · ${ __(
+										'verbunden mit einem API Key',
+										'engenty-wizards'
+								  ) }`
+								: '' }
 						</dd>
 					</div>
 					<div>
@@ -409,6 +415,129 @@ export default function Settings( { status, reload } ) {
 				</p>
 				<CopyField value={ privacy } />
 			</Card>
+		</>
+	);
+}
+
+/**
+ * Einstellungen before the site is connected: only the connection – through the browser, or by hand
+ * with an address and an API Key (an own engenty server, or where signing in there is not possible).
+ * @param root0
+ * @param root0.status
+ */
+export function SettingsBeforeConnect( { status } ) {
+	const [ busy, setBusy ] = useState( null );
+	const [ error, setError ] = useState( null );
+	const [ cloud, setCloud ] = useState(
+		status.defaultCloud || status.cloud || 'https://engenty.ai'
+	);
+	const [ key, setKey ] = useState( '' );
+	const go = async ( signup ) => {
+		setBusy( signup ? 'signup' : 'login' );
+		setError( null );
+		try {
+			const { url } = await post( '/connect', { signup } );
+			window.location.href = url;
+		} catch ( e ) {
+			setError( problem( e ).message );
+			setBusy( null );
+		}
+	};
+	const byKey = async ( e ) => {
+		e.preventDefault();
+		setBusy( 'key' );
+		setError( null );
+		try {
+			await post( '/connect/key', { cloud, key } );
+			window.location.reload();
+		} catch ( err ) {
+			setError( problem( err ).message );
+			setBusy( null );
+		}
+	};
+	return (
+		<>
+			<h1 className="en-page-head">
+				{ __( 'Einstellungen', 'engenty-wizards' ) }
+			</h1>
+			<h2 className="en-section">
+				{ __( 'Verbindung', 'engenty-wizards' ) }
+			</h2>
+			<Card>
+				<p className="en-muted">
+					{ __(
+						'Die Website ist mit keinem engenty-Konto verbunden.',
+						'engenty-wizards'
+					) }
+				</p>
+				<div className="en-row">
+					<Button
+						kind="primary"
+						busy={ busy === 'signup' }
+						disabled={ busy !== null }
+						onClick={ () => go( true ) }
+					>
+						{ __( 'Kostenloses Konto anlegen', 'engenty-wizards' ) }
+					</Button>
+					<Button
+						busy={ busy === 'login' }
+						disabled={ busy !== null }
+						onClick={ () => go( false ) }
+					>
+						{ __( 'Anmelden', 'engenty-wizards' ) }
+					</Button>
+				</div>
+			</Card>
+			<h2 className="en-section">
+				{ __( 'Von Hand verbinden', 'engenty-wizards' ) }
+			</h2>
+			<Card>
+				<p className="en-muted">
+					{ __(
+						'Für einen eigenen engenty-Server, oder wenn die Anmeldung im Browser nicht geht. Den API Key legst du auf engenty.ai unter Konto an, auf einem eigenen Server im Studio unter Einbinden.',
+						'engenty-wizards'
+					) }
+				</p>
+				<form onSubmit={ byKey }>
+					<div className="en-grid en-grid--2">
+						<div className="en-field">
+							<label htmlFor="en-cloud">
+								{ __( 'Adresse', 'engenty-wizards' ) }
+							</label>
+							<input
+								id="en-cloud"
+								type="url"
+								required
+								value={ cloud }
+								onChange={ ( e ) => setCloud( e.target.value ) }
+							/>
+						</div>
+						<div className="en-field">
+							<label htmlFor="en-key">
+								{ __( 'API Key', 'engenty-wizards' ) }
+							</label>
+							<input
+								id="en-key"
+								type="password"
+								autoComplete="off"
+								required
+								placeholder="wz_…"
+								value={ key }
+								onChange={ ( e ) => setKey( e.target.value ) }
+							/>
+						</div>
+					</div>
+					<Button
+						kind="primary"
+						type="submit"
+						busy={ busy === 'key' }
+						disabled={ busy !== null }
+					>
+						{ __( 'Verbinden', 'engenty-wizards' ) }
+					</Button>
+				</form>
+			</Card>
+			{ error ? <Notice tone="error">{ error }</Notice> : null }
 		</>
 	);
 }

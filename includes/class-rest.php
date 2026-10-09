@@ -64,6 +64,7 @@ class Engenty_Rest {
 
 		self::route( '/status', 'GET', array( __CLASS__, 'status' ), $edit );
 		self::route( '/connect', 'POST', array( __CLASS__, 'connect' ), $manage );
+		self::route( '/connect/key', 'POST', array( __CLASS__, 'connect_key' ), $manage );
 		self::route( '/disconnect', 'POST', array( __CLASS__, 'disconnect' ), $manage );
 		self::route( '/settings', 'GET', array( __CLASS__, 'settings' ), $manage );
 		self::route( '/settings', 'POST', array( __CLASS__, 'save_settings' ), $manage );
@@ -134,19 +135,21 @@ class Engenty_Rest {
 		$auth     = Engenty_Settings::auth();
 		return rest_ensure_response(
 			array(
-				'connected'   => $connected,
-				'cloud'       => Engenty_Connect::cloud(),
-				'me'          => is_wp_error( $me ) ? null : $me,
-				'error'       => $error,
-				'connectedAt' => isset( $auth['connected_at'] ) ? gmdate( 'c', (int) $auth['connected_at'] ) : null,
-				'setup'       => $settings['setup'],
-				'site'        => array(
+				'connected'    => $connected,
+				'cloud'        => Engenty_Connect::cloud(),
+				'defaultCloud' => untrailingslashit( (string) apply_filters( 'engenty_wizards_cloud', ENGENTY_WIZARDS_CLOUD ) ),
+				'method'       => $auth['method'] ?? ( $connected ? 'oauth' : null ),
+				'me'           => is_wp_error( $me ) ? null : $me,
+				'error'        => $error,
+				'connectedAt'  => isset( $auth['connected_at'] ) ? gmdate( 'c', (int) $auth['connected_at'] ) : null,
+				'setup'        => $settings['setup'],
+				'site'         => array(
 					'name'  => wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ),
 					'url'   => home_url( '/' ),
 					'admin' => wp_get_current_user()->user_email,
 					'shop'  => class_exists( 'WooCommerce' ),
 				),
-				'can'         => array(
+				'can'          => array(
 					'manage'  => self::can_manage(),
 					'results' => self::can_read_results(),
 				),
@@ -163,6 +166,17 @@ class Engenty_Rest {
 	public static function connect( WP_REST_Request $request ) {
 		$url = Engenty_Connect::start( (bool) $request->get_param( 'signup' ) );
 		return is_wp_error( $url ) ? $url : rest_ensure_response( array( 'url' => $url ) );
+	}
+
+	/**
+	 * Connects by hand with an address and an API Key.
+	 *
+	 * @param WP_REST_Request $request `cloud`, `key`.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public static function connect_key( WP_REST_Request $request ) {
+		$me = Engenty_Connect::connect_key( (string) $request->get_param( 'cloud' ), (string) $request->get_param( 'key' ) );
+		return is_wp_error( $me ) ? $me : rest_ensure_response( array( 'ok' => true ) );
 	}
 
 	/** Disconnects the site. */

@@ -1,6 +1,6 @@
 import { useEffect, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import { boot, pageUrl } from './api';
+import { boot, pageUrl, post, problem } from './api';
 import { CORE_KINDS, engentyMarkup } from './engenties';
 
 /**
@@ -299,6 +299,108 @@ export function ProUpsell( { feature, me, compact = false } ) {
 				) : null }
 			</div>
 		</div>
+	);
+}
+
+const TEASER = {
+	contacts: [
+		[ 'Anna Berger', 'Angebotsanfrage', '/kontakt' ],
+		[ 'Huber & Söhne OG', 'Angebotsanfrage', '/leistungen' ],
+		[ 'Lukas Pichler', 'Störung melden', '/' ],
+	],
+	appointments: [
+		[ 'Do, 16.10. · 09:00', 'Vor-Ort-Termin', 'Anna Berger' ],
+		[ 'Do, 16.10. · 14:30', 'Beratung am Telefon', 'Lukas Pichler' ],
+		[ 'Fr, 17.10. · 10:00', 'Online-Termin', 'Huber & Söhne OG' ],
+	],
+};
+
+/**
+ * Kontakte or Termine before the site is connected: what Pro brings, and the way in – a free account first.
+ * @param root0
+ * @param root0.feature
+ * @param root0.status
+ */
+export function ProBeforeConnect( { feature, status } ) {
+	const f = FEATURES[ feature ];
+	const [ busy, setBusy ] = useState( null );
+	const [ error, setError ] = useState( null );
+	const go = async ( signup ) => {
+		setBusy( signup ? 'signup' : 'login' );
+		setError( null );
+		try {
+			const { url } = await post( '/connect', { signup } );
+			window.location.href = url;
+		} catch ( e ) {
+			setError( problem( e ).message );
+			setBusy( null );
+		}
+	};
+	return (
+		<>
+			<h1 className="en-page-head">
+				{ feature === 'contacts'
+					? __( 'Kontakte', 'engenty-wizards' )
+					: __( 'Termine', 'engenty-wizards' ) }
+			</h1>
+			<div className="en-upsell">
+				<div className="en-upsell__badge">Pro</div>
+				<h3>{ f.title }</h3>
+				<p>{ f.text }</p>
+				<ul>
+					{ f.points.map( ( p ) => (
+						<li key={ p }>{ p }</li>
+					) ) }
+				</ul>
+				<p className="en-muted">
+					{ __(
+						'Zuerst verbindest du die Website mit einem kostenlosen Konto. Auf Pro wechselst du danach, wann du willst.',
+						'engenty-wizards'
+					) }
+				</p>
+				{ status.can?.manage ? (
+					<div className="en-row">
+						<Button
+							kind="primary"
+							busy={ busy === 'signup' }
+							disabled={ busy !== null }
+							onClick={ () => go( true ) }
+						>
+							{ __(
+								'Kostenloses Konto anlegen',
+								'engenty-wizards'
+							) }{ ' ' }
+							→
+						</Button>
+						<Button
+							kind="ghost"
+							busy={ busy === 'login' }
+							disabled={ busy !== null }
+							onClick={ () => go( false ) }
+						>
+							{ __( 'Anmelden', 'engenty-wizards' ) }
+						</Button>
+					</div>
+				) : (
+					<p>
+						{ __(
+							'Bitte eine Administratorin oder einen Administrator, die Website zu verbinden.',
+							'engenty-wizards'
+						) }
+					</p>
+				) }
+				{ error ? <Notice tone="error">{ error }</Notice> : null }
+			</div>
+			<div className="en-teaser" aria-hidden="true">
+				{ TEASER[ feature ].map( ( row ) => (
+					<div key={ row[ 0 ] } className="en-teaser__row">
+						<strong>{ row[ 0 ] }</strong>
+						<span>{ row[ 1 ] }</span>
+						<span>{ row[ 2 ] }</span>
+					</div>
+				) ) }
+			</div>
+		</>
 	);
 }
 

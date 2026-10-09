@@ -43,11 +43,14 @@ class Engenty_Admin {
 	}
 
 	/**
-	 * What the account lacks, from the last answer of engenty.ai (no call on every admin page).
+	 * What the account lacks, from the last answer of engenty.ai (no call on every admin page); without an account, both Pro plugins.
 	 *
 	 * @return array Plugin ids.
 	 */
 	private static function missing() {
+		if ( ! Engenty_Settings::connected() ) {
+			return array( 'contacts', 'appointments' );
+		}
 		$me = get_transient( 'engenty_wizards_me' );
 		return is_array( $me ) && is_array( $me['missing'] ?? null ) ? $me['missing'] : array();
 	}

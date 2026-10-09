@@ -6,13 +6,13 @@ import {
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { api, boot, problem } from './api';
-import { Shell, Spinner, Notice } from './ui';
+import { ProBeforeConnect, Shell, Spinner, Notice } from './ui';
 import Home from './Home';
 import Wizards from './Wizards';
 import Results from './Results';
 import Contacts from './Contacts';
 import Appointments from './Appointments';
-import Settings from './Settings';
+import Settings, { SettingsBeforeConnect } from './Settings';
 import './admin.css';
 
 const VIEWS = {
@@ -23,6 +23,8 @@ const VIEWS = {
 	appointments: Appointments,
 	settings: Settings,
 };
+
+const PRO_FEATURES = [ 'contacts', 'appointments' ];
 
 function App( { view } ) {
 	const [ status, setStatus ] = useState( null );
@@ -42,22 +44,37 @@ function App( { view } ) {
 	}, [ load ] );
 	if ( error ) {
 		return (
-			<Shell view={ view }>
+			<Shell>
 				<Notice tone="error">{ error.message }</Notice>
 			</Shell>
 		);
 	}
 	if ( ! status ) {
 		return (
-			<Shell view={ view }>
+			<Shell>
 				<Spinner label={ __( 'engenty lädt …', 'engenty-wizards' ) } />
 			</Shell>
 		);
 	}
-	// Not connected: every page is the way in.
+	// Not connected: Kontakte and Termine show what Pro brings, Einstellungen only the connection,
+	// every other page is the way in.
+	if ( ! status.connected && PRO_FEATURES.includes( view ) ) {
+		return (
+			<Shell status={ status }>
+				<ProBeforeConnect feature={ view } status={ status } />
+			</Shell>
+		);
+	}
+	if ( ! status.connected && view === 'settings' && status.can?.manage ) {
+		return (
+			<Shell status={ status }>
+				<SettingsBeforeConnect status={ status } />
+			</Shell>
+		);
+	}
 	const View = status.connected ? VIEWS[ view ] ?? Home : Home;
 	return (
-		<Shell view={ status.connected ? view : 'home' } status={ status }>
+		<Shell status={ status }>
 			<View status={ status } reload={ load } />
 		</Shell>
 	);
