@@ -1,28 +1,58 @@
 import { useEffect, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { boot, pageUrl } from './api';
+import { CORE_KINDS, engentyMarkup } from './engenties';
 
 /**
- * The engenty, drawn: a round fellow with two eyes.
+ * An engenty as the studio draws it: one eye, its own shape and colour.
  * @param root0
+ * @param root0.kind
  * @param root0.size
- * @param root0.color
  */
-export function Mark( { size = 28, color = '#e0531b' } ) {
+export function Engenty( { kind = 'round', size = 28 } ) {
 	return (
 		<svg
 			width={ size }
 			height={ size }
-			viewBox="0 0 40 40"
+			viewBox="0 0 120 120"
+			overflow="visible"
+			aria-hidden="true"
+			className="en-engenty"
+			// eslint-disable-next-line react/no-danger -- fixed markup from engenties.js.
+			dangerouslySetInnerHTML={ { __html: engentyMarkup( kind ) } }
+		/>
+	);
+}
+
+/**
+ * The brand mark: the founding five in turn, like the studio's logo.
+ * @param root0
+ * @param root0.size
+ */
+export function Mark( { size = 30 } ) {
+	const [ index, setIndex ] = useState( 0 );
+	useEffect( () => {
+		if ( window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ) {
+			return undefined;
+		}
+		const id = window.setInterval(
+			() => setIndex( ( i ) => ( i + 1 ) % CORE_KINDS.length ),
+			2800
+		);
+		return () => window.clearInterval( id );
+	}, [] );
+	return (
+		<span
+			className="en-mark"
+			style={ { width: size, height: size } }
 			aria-hidden="true"
 		>
-			<path
-				fill={ color }
-				d="M20 3c9.6 0 17 7.2 17 16.4C37 29 29.6 37 20 37S3 29 3 19.4C3 10.2 10.4 3 20 3Z"
-			/>
-			<circle cx="14" cy="19" r="2.6" fill="#fff" />
-			<circle cx="26" cy="19" r="2.6" fill="#fff" />
-		</svg>
+			{ CORE_KINDS.map( ( kind, i ) => (
+				<span key={ kind } style={ { opacity: i === index ? 1 : 0 } }>
+					<Engenty kind={ kind } size={ size } />
+				</span>
+			) ) }
+		</span>
 	);
 }
 
@@ -104,7 +134,7 @@ export function Notice( { tone = 'info', children } ) {
 export function Empty( { title, children } ) {
 	return (
 		<div className="en-empty">
-			<Mark size={ 48 } color="#d6d3d1" />
+			<Engenty kind="drop" size={ 52 } />
 			<h3>{ title }</h3>
 			{ children }
 		</div>
@@ -272,70 +302,25 @@ export function ProUpsell( { feature, me, compact = false } ) {
 	);
 }
 
-const NAV = [
-	[ 'home', 'engenty', __( 'Übersicht', 'engenty-wizards' ) ],
-	[ 'wizards', 'engenty-wizards', __( 'Wizards', 'engenty-wizards' ) ],
-	[ 'results', 'engenty-results', __( 'Ergebnisse', 'engenty-wizards' ) ],
-	[ 'contacts', 'engenty-contacts', __( 'Kontakte', 'engenty-wizards' ) ],
-	[
-		'appointments',
-		'engenty-appointments',
-		__( 'Termine', 'engenty-wizards' ),
-	],
-	[
-		'settings',
-		'engenty-settings',
-		__( 'Einstellungen', 'engenty-wizards' ),
-	],
-];
-
-const PRO_VIEWS = { contacts: 'contacts', appointments: 'appointments' };
-
 /**
- * The plugin's header: the mark, the pages, the account with its plan and credits.
+ * The plugin's header: the mark and the account with its plan and credits. The pages are in WordPress' menu.
  * @param root0
- * @param root0.view
  * @param root0.status
  * @param root0.children
  */
-export function Shell( { view, status, children } ) {
+export function Shell( { status, children } ) {
 	const me = status?.me;
-	const missing = me?.missing ?? [];
 	return (
 		<div className="en-app">
 			<header className="en-top">
 				<a className="en-brand" href={ pageUrl( 'engenty' ) }>
 					<Mark />
-					<span>engenty</span>
+					<span>
+						engenty<span className="en-brand__dot">.</span>{ ' ' }
+						<span className="en-brand__product">wizards</span>
+					</span>
 				</a>
-				{ status?.connected ? (
-					<nav className="en-nav">
-						{ NAV.filter(
-							( [ id ] ) =>
-								( id !== 'settings' || status.can?.manage ) &&
-								( ! [
-									'results',
-									'contacts',
-									'appointments',
-								].includes( id ) ||
-									status.can?.results )
-						).map( ( [ id, page, label ] ) => (
-							<a
-								key={ id }
-								href={ pageUrl( page ) }
-								className={ view === id ? 'is-active' : '' }
-							>
-								{ label }
-								{ PRO_VIEWS[ id ] &&
-								missing.includes( PRO_VIEWS[ id ] ) ? (
-									<span className="en-pro">Pro</span>
-								) : null }
-							</a>
-						) ) }
-					</nav>
-				) : (
-					<span className="en-top__spacer" />
-				) }
+				<span className="en-top__spacer" />
 				{ me ? (
 					<div className="en-account">
 						<span className="en-account__plan">

@@ -33,12 +33,12 @@ class Engenty_Admin {
 	}
 
 	/**
-	 * The engenty as the menu's icon.
+	 * The engenty as the menu's icon: the drop of the favicon, its eye cut out.
 	 *
 	 * @return string
 	 */
 	private static function icon() {
-		$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="#a7aaad" d="M10 1.5c4.7 0 8.5 3.6 8.5 8.2 0 4.8-3.8 8.8-8.5 8.8S1.5 14.5 1.5 9.7C1.5 5.1 5.3 1.5 10 1.5Zm-3 7a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6Zm6 0a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6Z"/></svg>';
+		$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="17 14 86 86"><path fill="#a7aaad" fill-rule="evenodd" d="M60 16Q90 34 90 66Q90 96 60 98Q30 96 30 66Q30 34 60 16ZM50.5 56a9.5 11 0 1 0 19 0a9.5 11 0 1 0-19 0ZM55.5 57.5a4.5 4.5 0 1 0 9 0a4.5 4.5 0 1 0-9 0Z"/></svg>';
 		return 'data:image/svg+xml;base64,' . base64_encode( $svg ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 	}
 
