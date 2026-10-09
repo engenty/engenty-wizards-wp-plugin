@@ -135,21 +135,20 @@ class Engenty_Rest {
 		$auth     = Engenty_Settings::auth();
 		return rest_ensure_response(
 			array(
-				'connected'    => $connected,
-				'cloud'        => Engenty_Connect::cloud(),
-				'defaultCloud' => untrailingslashit( (string) apply_filters( 'engenty_wizards_cloud', ENGENTY_WIZARDS_CLOUD ) ),
-				'method'       => $auth['method'] ?? ( $connected ? 'oauth' : null ),
-				'me'           => is_wp_error( $me ) ? null : $me,
-				'error'        => $error,
-				'connectedAt'  => isset( $auth['connected_at'] ) ? gmdate( 'c', (int) $auth['connected_at'] ) : null,
-				'setup'        => $settings['setup'],
-				'site'         => array(
+				'connected'   => $connected,
+				'cloud'       => Engenty_Connect::cloud(),
+				'method'      => $auth['method'] ?? ( $connected ? 'oauth' : null ),
+				'me'          => is_wp_error( $me ) ? null : $me,
+				'error'       => $error,
+				'connectedAt' => isset( $auth['connected_at'] ) ? gmdate( 'c', (int) $auth['connected_at'] ) : null,
+				'setup'       => $settings['setup'],
+				'site'        => array(
 					'name'  => wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ),
 					'url'   => home_url( '/' ),
 					'admin' => wp_get_current_user()->user_email,
 					'shop'  => class_exists( 'WooCommerce' ),
 				),
-				'can'          => array(
+				'can'         => array(
 					'manage'  => self::can_manage(),
 					'results' => self::can_read_results(),
 				),

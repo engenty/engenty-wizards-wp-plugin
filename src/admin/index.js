@@ -68,7 +68,7 @@ function App( { view } ) {
 	if ( ! status.connected && view === 'settings' && status.can?.manage ) {
 		return (
 			<Shell status={ status }>
-				<SettingsBeforeConnect status={ status } />
+				<SettingsBeforeConnect />
 			</Shell>
 		);
 	}

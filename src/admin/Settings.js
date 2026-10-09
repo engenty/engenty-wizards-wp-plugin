@@ -422,15 +422,12 @@ export default function Settings( { status, reload } ) {
 /**
  * Einstellungen before the site is connected: only the connection – through the browser, or by hand
  * with an address and an API Key (an own engenty server, or where signing in there is not possible).
- * @param root0
- * @param root0.status
  */
-export function SettingsBeforeConnect( { status } ) {
+export function SettingsBeforeConnect() {
 	const [ busy, setBusy ] = useState( null );
 	const [ error, setError ] = useState( null );
-	const [ cloud, setCloud ] = useState(
-		status.defaultCloud || status.cloud || 'https://engenty.ai'
-	);
+	// engenty.ai as the start, also where wp-config points the plugin elsewhere for development.
+	const [ cloud, setCloud ] = useState( 'https://engenty.ai' );
 	const [ key, setKey ] = useState( '' );
 	const go = async ( signup ) => {
 		setBusy( signup ? 'signup' : 'login' );
@@ -507,6 +504,7 @@ export function SettingsBeforeConnect( { status } ) {
 							<input
 								id="en-cloud"
 								type="url"
+								placeholder="https://engenty.ai"
 								required
 								value={ cloud }
 								onChange={ ( e ) => setCloud( e.target.value ) }
