@@ -80,7 +80,12 @@
 .en-btn--primary:hover { background: var(--en-ember-strong); filter: brightness(1.06); }
 .en-btn--ghost { background: transparent; border-color: transparent; color: var(--en-ink-2) !important; }
 .en-btn--ghost:hover { color: var(--en-ink) !important; }
-.en-btn--danger { color: var(--en-rose) !important; }
+.en-btn--danger { background: transparent; border-color: transparent; color: var(--en-rose) !important; }
+.en-btn--danger:hover { background: var(--en-rose-tint); }
+.en-btn--danger-solid { background: var(--en-rose); border-color: var(--en-rose); color: #fff !important; }
+.en-btn--danger-solid:hover { background: var(--en-rose); filter: brightness(1.06); }
+.en-confirm { padding: 14px 16px; border-radius: 12px; background: var(--en-rose-tint); }
+.en-confirm p { margin: 0 0 10px; color: var(--en-ink); }
 .en-btn--small { height: 32px; padding: 0 12px; font-size: 13px; gap: 6px; }
 .en-link { background: none; border: 0; padding: 0; color: var(--en-ember-strong); cursor: pointer; font: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .en-icon-btn { width: 36px; height: 36px; border-radius: 50%; border: 0; background: transparent; color: var(--en-ink-3); font-size: 20px; line-height: 1; cursor: pointer; }

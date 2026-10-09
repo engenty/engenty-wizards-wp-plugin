@@ -16,6 +16,7 @@ export default function Settings( { status, reload } ) {
 	const [ saved, setSaved ] = useState( false );
 	const [ busy, setBusy ] = useState( null );
 	const [ error, setError ] = useState( null );
+	const [ asking, setAsking ] = useState( false );
 	useEffect( () => {
 		api( '/settings' )
 			.then( setData )
@@ -65,20 +66,16 @@ export default function Settings( { status, reload } ) {
 		}
 		setBusy( null );
 	};
+	// Asked in the page: a browser may answer window.confirm() with "no" without showing it.
 	const disconnect = async () => {
-		if (
-			// eslint-disable-next-line no-alert
-			! window.confirm(
-				__(
-					'Die Website von engenty.ai trennen? Wizards auf deinen Seiten zeigen sich weiter; der Admin sieht nichts mehr, bis du wieder verbindest.',
-					'engenty-wizards'
-				)
-			)
-		) {
+		setBusy( 'disconnect' );
+		try {
+			await post( '/disconnect' );
+		} catch ( e ) {
+			setError( problem( e ) );
+			setBusy( null );
 			return;
 		}
-		setBusy( 'disconnect' );
-		await post( '/disconnect' );
 		await reload( true );
 		window.location.reload();
 	};
@@ -148,20 +145,49 @@ export default function Settings( { status, reload } ) {
 						<dd>{ host }</dd>
 					</div>
 				</dl>
-				<div className="en-row">
-					{ me?.urls?.account ? (
-						<Button kind="ghost" href={ me.urls.account } external>
-							{ __( 'Konto verwalten', 'engenty-wizards' ) }
+				{ asking ? (
+					<div className="en-confirm">
+						<p>
+							{ __(
+								'Die Website von engenty.ai trennen? Wizards auf deinen Seiten zeigen sich weiter; der Admin sieht nichts mehr, bis du wieder verbindest.',
+								'engenty-wizards'
+							) }
+						</p>
+						<div className="en-row">
+							<Button
+								kind="danger-solid"
+								busy={ busy === 'disconnect' }
+								onClick={ disconnect }
+							>
+								{ __( 'Ja, trennen', 'engenty-wizards' ) }
+							</Button>
+							<Button
+								kind="ghost"
+								onClick={ () => setAsking( false ) }
+							>
+								{ __( 'Abbrechen', 'engenty-wizards' ) }
+							</Button>
+						</div>
+					</div>
+				) : (
+					<div className="en-row">
+						{ me?.urls?.account ? (
+							<Button
+								kind="ghost"
+								href={ me.urls.account }
+								external
+							>
+								{ __( 'Konto verwalten', 'engenty-wizards' ) }
+							</Button>
+						) : null }
+						<Button
+							kind="danger"
+							onClick={ () => setAsking( true ) }
+						>
+							{ __( 'Trennen', 'engenty-wizards' ) }
 						</Button>
-					) : null }
-					<Button
-						kind="danger"
-						busy={ busy === 'disconnect' }
-						onClick={ disconnect }
-					>
-						{ __( 'Trennen', 'engenty-wizards' ) }
-					</Button>
-				</div>
+					</div>
+				) }
 			</Card>
 
 			<h2 className="en-section">
