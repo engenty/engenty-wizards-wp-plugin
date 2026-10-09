@@ -302,6 +302,83 @@ export function ProUpsell( { feature, me, compact = false } ) {
 	);
 }
 
+/**
+ * Sign-up or sign-in on engenty.ai: the site asks for the address, the browser goes there.
+ * @return {{busy: string|null, error: string|null, go: Function}} `go( true )` for a new account.
+ */
+export function useConnect() {
+	const [ busy, setBusy ] = useState( null );
+	const [ error, setError ] = useState( null );
+	const go = async ( signup ) => {
+		setBusy( signup ? 'signup' : 'login' );
+		setError( null );
+		try {
+			const { url } = await post( '/connect', { signup } );
+			window.location.href = url;
+		} catch ( e ) {
+			setError( problem( e ).message );
+			setBusy( null );
+		}
+	};
+	return { busy, error, go };
+}
+
+/**
+ * A page as it will look, under a card that leads to the connection.
+ * @param root0
+ * @param root0.title
+ * @param root0.text
+ * @param root0.status
+ * @param root0.children
+ */
+export function ConnectOverlay( { title, text, status, children } ) {
+	const { busy, error, go } = useConnect();
+	return (
+		<div className="en-overlay">
+			<div className="en-overlay__under" aria-hidden="true" inert="">
+				{ children }
+			</div>
+			<div className="en-overlay__card">
+				<Engenty kind="drop" size={ 56 } />
+				<h2>{ title }</h2>
+				<p>{ text }</p>
+				{ status.can?.manage ? (
+					<div className="en-row en-row--center">
+						<Button
+							kind="primary"
+							busy={ busy === 'signup' }
+							disabled={ busy !== null }
+							onClick={ () => go( true ) }
+						>
+							{ __(
+								'Kostenloses Konto anlegen',
+								'engenty-wizards'
+							) }{ ' ' }
+							→
+						</Button>
+						<Button
+							kind="ghost"
+							busy={ busy === 'login' }
+							disabled={ busy !== null }
+							onClick={ () => go( false ) }
+						>
+							{ __( 'Anmelden', 'engenty-wizards' ) }
+						</Button>
+					</div>
+				) : (
+					<p className="en-muted">
+						{ __(
+							'Bitte eine Administratorin oder einen Administrator, die Website zu verbinden.',
+							'engenty-wizards'
+						) }
+					</p>
+				) }
+				{ error ? <Notice tone="error">{ error }</Notice> : null }
+			</div>
+		</div>
+	);
+}
+
 const TEASER = {
 	contacts: [
 		[ 'Anna Berger', 'Angebotsanfrage', '/kontakt' ],
@@ -323,19 +400,7 @@ const TEASER = {
  */
 export function ProBeforeConnect( { feature, status } ) {
 	const f = FEATURES[ feature ];
-	const [ busy, setBusy ] = useState( null );
-	const [ error, setError ] = useState( null );
-	const go = async ( signup ) => {
-		setBusy( signup ? 'signup' : 'login' );
-		setError( null );
-		try {
-			const { url } = await post( '/connect', { signup } );
-			window.location.href = url;
-		} catch ( e ) {
-			setError( problem( e ).message );
-			setBusy( null );
-		}
-	};
+	const { busy, error, go } = useConnect();
 	return (
 		<>
 			<h1 className="en-page-head">

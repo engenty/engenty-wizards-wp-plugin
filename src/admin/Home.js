@@ -83,19 +83,14 @@ function Welcome( { status } ) {
 						'engenty-wizards'
 					) }
 				</p>
-				<div className="en-site-bar">
-					<span className="en-site-bar__globe" aria-hidden="true">
-						◍
-					</span>
-					<span className="en-site-bar__url">{ site.url }</span>
-					<Button
-						kind="primary"
-						busy={ busy === 'signup' }
-						onClick={ () => go( true ) }
-					>
-						{ __( 'Eigene KI erstellen', 'engenty-wizards' ) } →
-					</Button>
-				</div>
+				<Button
+					kind="primary"
+					className="en-btn--large"
+					busy={ busy === 'signup' }
+					onClick={ () => go( true ) }
+				>
+					{ __( 'Eigene KI erstellen', 'engenty-wizards' ) } →
+				</Button>
 				<ul className="en-checks">
 					<li>{ __( 'Kostenloses Konto', 'engenty-wizards' ) }</li>
 					<li>{ __( 'Keine Kreditkarte', 'engenty-wizards' ) }</li>

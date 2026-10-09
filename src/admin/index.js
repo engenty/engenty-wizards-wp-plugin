@@ -9,7 +9,7 @@ import { api, boot, problem } from './api';
 import { ProBeforeConnect, Shell, Spinner, Notice } from './ui';
 import Home from './Home';
 import Wizards from './Wizards';
-import Results from './Results';
+import Results, { ResultsBeforeConnect } from './Results';
 import Contacts from './Contacts';
 import Appointments from './Appointments';
 import Settings, { SettingsBeforeConnect } from './Settings';
@@ -56,12 +56,20 @@ function App( { view } ) {
 			</Shell>
 		);
 	}
-	// Not connected: Kontakte and Termine show what Pro brings, Einstellungen only the connection,
+	// Not connected: Kontakte and Termine show what Pro brings, Ergebnisse the list under the way in,
+	// Einstellungen only the connection,
 	// every other page is the way in.
 	if ( ! status.connected && PRO_FEATURES.includes( view ) ) {
 		return (
 			<Shell status={ status }>
 				<ProBeforeConnect feature={ view } status={ status } />
+			</Shell>
+		);
+	}
+	if ( ! status.connected && view === 'results' ) {
+		return (
+			<Shell status={ status }>
+				<ResultsBeforeConnect status={ status } />
 			</Shell>
 		);
 	}
