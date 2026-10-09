@@ -290,6 +290,8 @@ class Engenty_Think {
 			return $seconds;
 		};
 		add_filter( 'wp_ai_client_default_request_timeout', $timeout );
+		// The Ollama provider plugin caps a request on its own (60 s): the step's seconds apply there too.
+		add_filter( 'ai_provider_for_ollama_request_timeout', $timeout );
 		// A local model may take longer than PHP's usual limit; the request may run as long as the step.
 		if ( function_exists( 'set_time_limit' ) ) {
 			set_time_limit( $seconds + 30 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
@@ -305,6 +307,7 @@ class Engenty_Think {
 			throw new Engenty_Step_Error( esc_html( self::friendly( $e->getMessage() ) ) );
 		} finally {
 			remove_filter( 'wp_ai_client_default_request_timeout', $timeout );
+			remove_filter( 'ai_provider_for_ollama_request_timeout', $timeout );
 			Engenty_Abilities::$open = false;
 		}
 		if ( is_wp_error( $text ) ) {
@@ -344,7 +347,14 @@ class Engenty_Think {
 		if ( $abilities ) {
 			$builder = self::call_method( $builder, array( 'using_abilities', 'usingAbilities' ), $abilities );
 		}
-		return $builder;
+		/**
+		 * The prompt before it goes out: a site may prefer a provider or a model here
+		 * (`using_provider`, `using_model_preference`) where WordPress's Connectors give no choice.
+		 *
+		 * @param WP_AI_Client_Prompt_Builder $builder   The prompt.
+		 * @param array                       $abilities The abilities offered.
+		 */
+		return apply_filters( 'engenty_wizards_prompt', $builder, $abilities );
 	}
 
 	/**

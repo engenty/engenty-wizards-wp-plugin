@@ -72,6 +72,23 @@ sixth=$($WP eval '
 for ($i = 0; $i < 7; $i++) { $req = new WP_REST_Request("POST", "/engenty/v1/local/wizards/'"$token"'/runs"); $req->set_header("content-type", "application/json"); $req->set_header("x-engenty-visitor", "limits"); $req->set_body(json_encode(["origin" => "x", "website" => ""])); $status = rest_do_request($req)->get_status(); }
 echo $status;')
 [ "$sixth" = "429" ] || fail "the seventh run in an hour was not refused ($sixth)"
+# A photo reaches the provider: placed as the upload route places it, named on the page, attached to the step.
+photo=$($WP eval '
+$png = base64_decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==");
+$def = array("version" => 1, "title" => "Foto", "avatar" => "round", "steps" => array(
+  array("id" => "ask", "type" => "page", "title" => "Foto", "fields" => array(array("id" => "photo", "kind" => "image", "label" => "Foto"))),
+  array("id" => "look", "type" => "agent", "title" => "Ansehen", "instructions" => "Describe {{photo}}", "tools" => array(), "output" => array("format" => "markdown")),
+  array("id" => "done", "type" => "result", "title" => "Fertig", "deliverables" => array(array("from" => "look", "formats" => array("md"))))));
+$row = Engenty_Packages::install($def, array(), array("fit" => "full", "notes" => array()), "upload", "photo-test");
+$req = new WP_REST_Request("POST", "/engenty/v1/local/wizards/" . $row["token"] . "/runs"); $req->set_header("content-type", "application/json"); $req->set_body(json_encode(["origin" => "x", "website" => ""]));
+$d = rest_do_request($req)->get_data(); $id = $d["runId"];
+$dir = Engenty_Runs::files_dir($id); wp_mkdir_p($dir); file_put_contents("$dir/a_smoke.png", $png); file_put_contents("$dir/a_smoke.png.json", json_encode(["name" => "p.png", "mime" => "image/png"]));
+$req = new WP_REST_Request("POST", "/engenty/v1/local/runs/$id/pages/ask"); $req->set_header("content-type", "application/json"); $req->set_body(json_encode(["values" => ["photo" => "a_smoke.png"]]));
+$d = rest_do_request($req)->get_data(); if ($d["status"] !== "running") { echo "ERR after page: ", json_encode($d); exit(1); }
+$req = new WP_REST_Request("POST", "/engenty/v1/local/runs/$id/steps/look"); $req->set_header("content-type", "application/json"); $req->set_body("{}");
+$d = rest_do_request($req)->get_data();
+echo $d["status"], " photos=", get_option("engenty_fake_photos", "none");')
+[ "$photo" = "done photos=1" ] || fail "the photo did not reach the provider: $photo"
 # Closed choices: a toggle whose "on" leads to a step the site cannot run is closed in the view and refused on submit.
 closed=$($WP eval '
 $def = array("version" => 1, "title" => "Geschlossen", "avatar" => "round", "steps" => array(

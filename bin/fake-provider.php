@@ -4,11 +4,13 @@
  *
  * Answers every step of a standalone wizard without a model: JSON that fits the schema asked
  * for, a short text, or a small document. For the smoke test and for developing the flow. The
- * photos attached and the abilities offered come along (`$photos`, `$abilities`), unused here.
+ * photos attached and the abilities offered come along (`$photos`, `$abilities`); how many photos
+ * the last step saw is kept in the option `engenty_fake_photos` for the smoke test.
  */
 add_filter(
 	'engenty_wizards_answer',
 	static function ( $answer, $system, $prompt, $schema, $photos = array(), $abilities = array() ) {
+		update_option( 'engenty_fake_photos', count( $photos ), false );
 		if ( is_array( $schema ) ) {
 			return wp_json_encode( engenty_fake_fill( $schema ) );
 		}
@@ -56,6 +58,6 @@ if ( ! function_exists( 'engenty_fake_fill' ) ) {
 add_filter(
 	'engenty_wizards_provider',
 	static function ( $out ) {
-		return array_merge( $out, array( 'ready' => true, 'name' => 'Test-KI', 'model' => 'canned-1', 'images' => false, 'note' => null ) );
+		return array_merge( $out, array( 'ready' => true, 'name' => 'Test-KI', 'model' => 'canned-1', 'images' => true, 'note' => null ) );
 	}
 );
