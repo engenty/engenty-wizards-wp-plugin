@@ -61,7 +61,7 @@ Contacts and bookings in the WordPress admin, building wizards from templates in
 == Changelog ==
 
 = 0.3.0 =
-* Thinking steps read web pages and call public APIs on the site itself (WordPress abilities, a switch in the settings); a choice that leads to something the site lacks is closed on the page; a package can carry the project's knowledge; on a connected site a wizard runs here with "Hier laufen lassen" and back over engenty.ai.
+* Thinking steps read web pages and call public APIs on the site itself (WordPress abilities, a switch in the settings); a choice that leads to something the site lacks is closed on the page; a package can carry the project's knowledge; on a connected site a wizard runs here with "Hier laufen lassen" and back over engenty.ai; seconds per thinking step as a setting, for local models.
 
 = 0.2.0 =
 * Wizards without an account: on WordPress 7.0 with an AI provider they run on the site itself; the shipped templates, a gallery with the entry dialog, import of a .wizard package with the check in the browser, results in WordPress, limits, the provider line in the settings.

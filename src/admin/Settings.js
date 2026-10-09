@@ -160,6 +160,26 @@ function Standalone( { status, local, onChange } ) {
 						/>
 					</div>
 					<div className="en-field">
+						<label htmlFor="en-timeout">
+							{ __(
+								'Sekunden pro Denkschritt',
+								'engenty-wizards'
+							) }
+						</label>
+						<input
+							id="en-timeout"
+							type="number"
+							min="30"
+							max="600"
+							value={ local.timeout }
+							onChange={ ( e ) =>
+								onChange( {
+									timeout: Number( e.target.value ),
+								} )
+							}
+						/>
+					</div>
+					<div className="en-field">
 						<label htmlFor="en-keep">
 							{ __( 'Ergebnisse behalten', 'engenty-wizards' ) }
 						</label>

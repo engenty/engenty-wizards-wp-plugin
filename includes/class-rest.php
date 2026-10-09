@@ -294,6 +294,7 @@ class Engenty_Rest {
 					'keepDays'    => isset( $l['keepDays'] ) ? max( 0, min( 3650, (int) $l['keepDays'] ) ) : null,
 					'photos'      => isset( $l['photos'] ) ? (bool) $l['photos'] : null,
 					'tools'       => isset( $l['tools'] ) ? (bool) $l['tools'] : null,
+					'timeout'     => isset( $l['timeout'] ) ? max( 30, min( 600, (int) $l['timeout'] ) ) : null,
 				),
 				static function ( $v ) {
 					return null !== $v;

@@ -285,10 +285,15 @@ class Engenty_Think {
 		if ( ! function_exists( 'wp_ai_client_prompt' ) ) {
 			throw new Engenty_Step_Error( esc_html__( 'Diese Website hat keinen KI-Anbieter: der AI Client fehlt (WordPress 7.0).', 'engenty-wizards' ) );
 		}
-		$timeout = static function () {
-			return 60;
+		$seconds = self::step_seconds();
+		$timeout = static function () use ( $seconds ) {
+			return $seconds;
 		};
 		add_filter( 'wp_ai_client_default_request_timeout', $timeout );
+		// A local model may take longer than PHP's usual limit; the request may run as long as the step.
+		if ( function_exists( 'set_time_limit' ) ) {
+			set_time_limit( $seconds + 30 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		}
 		try {
 			$builder = self::builder( $system, $prompt, $schema, $photos, $abilities, array() );
 			$text    = $abilities
@@ -396,6 +401,17 @@ class Engenty_Think {
 			}
 			return implode( "\n", $parts );
 		}
+	}
+
+	/**
+	 * How long one model call may take: the setting under Eigenständige Wizards (60 s; a local
+	 * model on the site's own machine may need more).
+	 *
+	 * @return int Seconds.
+	 */
+	public static function step_seconds() {
+		$seconds = (int) ( Engenty_Settings::all()['local']['timeout'] ?? 60 );
+		return max( 30, min( 600, $seconds ) );
 	}
 
 	/**

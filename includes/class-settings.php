@@ -59,6 +59,7 @@ class Engenty_Settings {
 				'keepDays'    => 90,
 				'photos'      => true,
 				'tools'       => true,
+				'timeout'     => 60,
 			),
 			'access' => array(
 				'roles' => array( 'administrator', 'editor' ),
