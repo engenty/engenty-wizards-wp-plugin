@@ -79,6 +79,17 @@ class Engenty_Rest {
 		self::route( '/templates', 'GET', array( __CLASS__, 'templates' ), $manage );
 		self::route( '/pages', 'POST', array( __CLASS__, 'create_page' ), $manage );
 
+		// Standalone: the shipped set, packages, the provider, the way the site went.
+		self::route( '/bundled', 'GET', array( __CLASS__, 'bundled' ), $edit );
+		self::route( '/bundled/(?P<id>[a-z0-9-]+)', 'GET', array( __CLASS__, 'bundled_one' ), $edit );
+		self::route( '/bundled/(?P<id>[a-z0-9-]+)/activate', 'POST', array( __CLASS__, 'activate_bundled' ), $manage );
+		self::route( '/packages', 'POST', array( __CLASS__, 'import_package' ), $manage );
+		self::route( '/packages/(?P<id>[\w-]+)/pause', 'POST', array( __CLASS__, 'pause_package' ), $manage );
+		self::route( '/packages/(?P<id>[\w-]+)', 'DELETE', array( __CLASS__, 'remove_package' ), $manage );
+		self::route( '/setup', 'POST', array( __CLASS__, 'setup' ), $manage );
+		self::route( '/provider', 'GET', array( __CLASS__, 'provider' ), $manage );
+		self::route( '/provider/test', 'POST', array( __CLASS__, 'test_provider' ), $manage );
+
 		self::route( '/runs', 'GET', array( __CLASS__, 'runs' ), $results );
 		self::route( '/runs/(?P<id>[\w-]+)', 'GET', array( __CLASS__, 'run' ), $results );
 		self::route( '/contacts', 'GET', array( __CLASS__, 'contacts' ), $results );
@@ -133,9 +144,18 @@ class Engenty_Rest {
 		}
 		$settings = Engenty_Settings::all();
 		$auth     = Engenty_Settings::auth();
+		$provider = Engenty_Think::provider( (bool) $request->get_param( 'fresh' ) );
 		return rest_ensure_response(
 			array(
 				'connected'   => $connected,
+				'local'       => array(
+					'mode'      => $settings['setup']['mode'],
+					'provider'  => $provider,
+					'wizards'   => count( Engenty_Packages::all() ),
+					'bundled'   => count( Engenty_Packages::bundled() ),
+					'wordpress' => get_bloginfo( 'version' ),
+					'settings'  => $settings['local'],
+				),
 				'cloud'       => Engenty_Connect::cloud(),
 				'method'      => $auth['method'] ?? ( $connected ? 'oauth' : null ),
 				'me'          => is_wp_error( $me ) ? null : $me,
@@ -261,6 +281,23 @@ class Engenty_Rest {
 				array_map( 'boolval', array_intersect_key( $in['setup'], Engenty_Settings::defaults()['setup'] ) )
 			);
 		}
+		if ( isset( $in['setup']['mode'] ) && in_array( $in['setup']['mode'], array( 'local', 'account', '' ), true ) ) {
+			$patch['setup']['mode'] = $in['setup']['mode'];
+		}
+		if ( isset( $in['local'] ) && is_array( $in['local'] ) ) {
+			$l              = $in['local'];
+			$patch['local'] = array_filter(
+				array(
+					'runsPerHour' => isset( $l['runsPerHour'] ) ? max( 1, min( 1000, (int) $l['runsPerHour'] ) ) : null,
+					'runsPerDay'  => isset( $l['runsPerDay'] ) ? max( 1, min( 100000, (int) $l['runsPerDay'] ) ) : null,
+					'keepDays'    => isset( $l['keepDays'] ) ? max( 0, min( 3650, (int) $l['keepDays'] ) ) : null,
+					'photos'      => isset( $l['photos'] ) ? (bool) $l['photos'] : null,
+				),
+				static function ( $v ) {
+					return null !== $v;
+				}
+			);
+		}
 		if ( isset( $in['access']['roles'] ) ) {
 			$roles                    = array_unique( array_merge( array( 'administrator' ), array_map( 'sanitize_key', (array) $in['access']['roles'] ) ) );
 			$patch['access']['roles'] = $roles;
@@ -326,8 +363,229 @@ class Engenty_Rest {
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public static function wizards( WP_REST_Request $request ) {
-		$list = Engenty_Client::wizards( (bool) $request->get_param( 'fresh' ) );
+		$list = self::all_wizards( (bool) $request->get_param( 'fresh' ) );
 		return is_wp_error( $list ) ? $list : rest_ensure_response( array( 'wizards' => $list ) );
+	}
+
+	/**
+	 * Every wizard the site has: the standalone ones first, then the account's.
+	 *
+	 * @param bool $fresh Ask the account anew.
+	 * @return array|WP_Error
+	 */
+	public static function all_wizards( $fresh = false ) {
+		$local = array_map( array( 'Engenty_Packages', 'summary' ), Engenty_Packages::all() );
+		if ( ! Engenty_Settings::connected() ) {
+			return $local;
+		}
+		$cloud = Engenty_Client::wizards( $fresh );
+		if ( is_wp_error( $cloud ) ) {
+			return $local ? $local : $cloud;
+		}
+		foreach ( $cloud as &$w ) {
+			$w['local'] = false;
+		}
+		unset( $w );
+		return array_merge( $local, $cloud );
+	}
+
+	/** The shipped set, with whether each is installed. */
+	public static function bundled() {
+		return rest_ensure_response(
+			array(
+				'templates' => Engenty_Packages::bundled(),
+				'provider'  => Engenty_Think::provider(),
+			)
+		);
+	}
+
+	/**
+	 * One shipped wizard's outline for the entry dialog: its steps and what it hands over.
+	 *
+	 * @param WP_REST_Request $request `id`.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public static function bundled_one( WP_REST_Request $request ) {
+		$read = Engenty_Packages::read_bundled( (string) $request['id'] );
+		if ( is_wp_error( $read ) ) {
+			return $read;
+		}
+		return rest_ensure_response( self::outline( (array) $read['definition'], array_column( $read['files'], 'path' ) ) );
+	}
+
+	/**
+	 * A definition as a reader sees it (marketplace-entry.ts wizardOutline): the steps, the results, the files.
+	 *
+	 * @param array $def   The definition.
+	 * @param array $files Its files' paths.
+	 * @return array
+	 */
+	private static function outline( array $def, array $files ) {
+		$outline = array();
+		$fields  = 0;
+		foreach ( (array) ( $def['steps'] ?? array() ) as $s ) {
+			$entry = array(
+				'id'    => $s['id'],
+				'type'  => $s['type'],
+				'title' => $s['title'],
+			);
+			if ( 'generate' === $s['type'] ) {
+				$entry['asset'] = $s['asset'];
+			}
+			if ( 'page' === $s['type'] ) {
+				$fields += count( (array) ( $s['fields'] ?? array() ) );
+			}
+			if ( ! empty( $s['next'] ) ) {
+				$entry['branches'] = array_map(
+					static function ( $r ) {
+						return array(
+							'to'   => $r['goto'],
+							'when' => ! empty( $r['ask'] ) ? $r['ask'] : ( isset( $r['when'] ) ? __( 'je nach Antwort', 'engenty-wizards' ) : __( 'sonst', 'engenty-wizards' ) ),
+						);
+					},
+					(array) $s['next']
+				);
+			}
+			$outline[] = $entry;
+		}
+		$results = array();
+		foreach ( (array) ( $def['steps'] ?? array() ) as $s ) {
+			if ( 'result' !== $s['type'] ) {
+				continue;
+			}
+			foreach ( (array) $s['deliverables'] as $d ) {
+				$from  = Engenty_Runs::step_of( $def, (string) $d['from'] );
+				$title = $d['label'] ?? ( $from['title'] ?? $d['from'] );
+				$kind  = 'text';
+				if ( $from && 'generate' === $from['type'] ) {
+					$kind = 'voice' === $from['asset'] ? 'audio' : $from['asset'];
+				} elseif ( $from && 'agent' === $from['type'] && 'json' === ( $from['output']['format'] ?? '' ) ) {
+					$kind = 'table';
+				}
+				$results[] = array(
+					'title'   => $title,
+					'kind'    => $kind,
+					'formats' => array_values( (array) $d['formats'] ),
+				);
+			}
+		}
+		return array(
+			'description' => (string) ( $def['description'] ?? '' ),
+			'intro'       => (string) ( $def['intro'] ?? '' ),
+			'outline'     => $outline,
+			'results'     => $results,
+			'files'       => $files,
+			'fields'      => $fields,
+		);
+	}
+
+	/**
+	 * Installs a shipped wizard: live at once.
+	 *
+	 * @param WP_REST_Request $request `id`.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public static function activate_bundled( WP_REST_Request $request ) {
+		$id   = (string) $request['id'];
+		$read = Engenty_Packages::read_bundled( $id );
+		if ( is_wp_error( $read ) ) {
+			return $read;
+		}
+		$fit = array( 'fit' => 'full' );
+		foreach ( Engenty_Packages::bundled() as $t ) {
+			if ( $t['id'] === $id ) {
+				$fit = $t['standalone'];
+				if ( $t['installed'] ) {
+					return rest_ensure_response( array( 'wizard' => Engenty_Packages::summary( Engenty_Packages::get( $t['installed'] ) ) ) );
+				}
+			}
+		}
+		$row = Engenty_Packages::install( (array) $read['definition'], $read['files'], $fit, 'bundled', $id );
+		if ( is_wp_error( $row ) ) {
+			return $row;
+		}
+		Engenty_Settings::update( array( 'setup' => array( 'wizard' => true ) ) );
+		return rest_ensure_response( array( 'wizard' => Engenty_Packages::summary( $row ) ) );
+	}
+
+	/**
+	 * A package the admin app checked: the definition, its files, the fit.
+	 *
+	 * @param WP_REST_Request $request `{ definition, files, fit, source, sourceRef }`.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public static function import_package( WP_REST_Request $request ) {
+		$in  = (array) $request->get_json_params();
+		$row = Engenty_Packages::install(
+			(array) ( $in['definition'] ?? array() ),
+			(array) ( $in['files'] ?? array() ),
+			(array) ( $in['fit'] ?? array() ),
+			(string) ( $in['source'] ?? 'upload' ),
+			(string) ( $in['sourceRef'] ?? '' ),
+			(string) ( $in['replace'] ?? '' )
+		);
+		if ( is_wp_error( $row ) ) {
+			return $row;
+		}
+		Engenty_Settings::update( array( 'setup' => array( 'wizard' => true ) ) );
+		return rest_ensure_response( array( 'wizard' => Engenty_Packages::summary( $row ) ) );
+	}
+
+	/**
+	 * Pauses or resumes a standalone wizard.
+	 *
+	 * @param WP_REST_Request $request `id`, `{ paused }`.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public static function pause_package( WP_REST_Request $request ) {
+		$row = Engenty_Packages::set_paused( (string) $request['id'], (bool) ( ( (array) $request->get_json_params() )['paused'] ?? true ) );
+		return $row ? rest_ensure_response( array( 'wizard' => Engenty_Packages::summary( $row ) ) ) : new WP_Error( 'engenty_not_found', __( 'Diesen Wizard gibt es nicht.', 'engenty-wizards' ), array( 'status' => 404 ) );
+	}
+
+	/**
+	 * Removes a standalone wizard with its runs.
+	 *
+	 * @param WP_REST_Request $request `id`.
+	 * @return WP_REST_Response
+	 */
+	public static function remove_package( WP_REST_Request $request ) {
+		Engenty_Packages::remove( (string) $request['id'] );
+		return rest_ensure_response( array( 'ok' => true ) );
+	}
+
+	/**
+	 * The way the site goes: `local` needs a provider that answers; `account` is the OAuth flow.
+	 *
+	 * @param WP_REST_Request $request `{ mode }`.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public static function setup( WP_REST_Request $request ) {
+		$mode = (string) ( ( (array) $request->get_json_params() )['mode'] ?? '' );
+		if ( ! in_array( $mode, array( 'local', 'account', '' ), true ) ) {
+			return new WP_Error( 'engenty_invalid', __( 'Unbekannter Weg.', 'engenty-wizards' ), array( 'status' => 400 ) );
+		}
+		if ( 'local' === $mode && empty( Engenty_Think::provider( true )['ready'] ) ) {
+			return new WP_Error(
+				'engenty_provider',
+				Engenty_Think::provider()['note'] ?? __( 'WordPress hat noch keinen KI-Anbieter: Einstellungen → Connectors.', 'engenty-wizards' ),
+				array(
+					'status' => 409,
+					'code'   => 'provider',
+				)
+			);
+		}
+		$settings = Engenty_Settings::update( array( 'setup' => array( 'mode' => $mode ) ) );
+		return rest_ensure_response( array( 'settings' => $settings ) );
+	}
+
+	/** The provider the AI Client would answer with. */
+	public static function provider() {
+		return rest_ensure_response( Engenty_Think::provider( true ) );
+	}
+
+	/** One test prompt. */
+	public static function test_provider() {
+		return self::answer( Engenty_Think::test_provider() );
 	}
 
 	/**
@@ -416,6 +674,20 @@ class Engenty_Rest {
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public static function runs( WP_REST_Request $request ) {
+		$wizard = (string) $request->get_param( 'wizard' );
+		if ( $request->get_param( 'local' ) || ! Engenty_Settings::connected() || str_starts_with( $wizard, 'w_' ) ) {
+			return rest_ensure_response(
+				Engenty_Runs::list_runs(
+					array(
+						'wizard' => $wizard,
+						'status' => (string) $request->get_param( 'status' ),
+						'q'      => (string) $request->get_param( 'q' ),
+						'days'   => (int) $request->get_param( 'days' ),
+						'page'   => (int) $request->get_param( 'page' ),
+					)
+				)
+			);
+		}
 		return self::answer( Engenty_Client::call( 'GET', '/runs' . self::query( $request, array( 'space', 'wizard', 'status', 'q', 'days', 'page' ) ) ) );
 	}
 
@@ -426,7 +698,11 @@ class Engenty_Rest {
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public static function run( WP_REST_Request $request ) {
-		return self::answer( Engenty_Client::call( 'GET', '/runs/' . rawurlencode( (string) $request['id'] ) ) );
+		$id = (string) $request['id'];
+		if ( str_starts_with( $id, 'loc_' ) ) {
+			return self::answer( Engenty_Runs::report( $id ) );
+		}
+		return self::answer( Engenty_Client::call( 'GET', '/runs/' . rawurlencode( $id ) ) );
 	}
 
 	/**

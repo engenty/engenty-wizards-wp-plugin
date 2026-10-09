@@ -15,10 +15,10 @@ const ROLES = {
 /**
  * Reads the site's base data, shows what was found and sends the admin's choice to engenty.ai,
  * where the space takes it: details, logo, colours, the pages as Wissen.
- * @param root0
- * @param root0.me
- * @param root0.onDone
- * @param root0.onSkip
+ * @param {Object} root0
+ * @param {Object} root0.me
+ * @param {Object} root0.onDone
+ * @param {Object} root0.onSkip
  */
 export default function SiteRead( { me, onDone, onSkip } ) {
 	const [ found, setFound ] = useState( null );

@@ -43,7 +43,7 @@ class Engenty_Elementor_Widget extends \Elementor\Widget_Base {
 	 * @return array
 	 */
 	private function choices() {
-		$list = Engenty_Settings::connected() ? Engenty_Client::wizards() : array();
+		$list = Engenty_Rest::all_wizards();
 		if ( is_wp_error( $list ) || ! $list ) {
 			return array( '' => __( '— keine Wizards —', 'engenty-wizards' ) );
 		}
@@ -59,7 +59,7 @@ class Engenty_Elementor_Widget extends \Elementor\Widget_Base {
 	/** The controls. */
 	protected function register_controls() {
 		$this->start_controls_section( 'wizard', array( 'label' => 'engenty' ) );
-		if ( ! Engenty_Settings::connected() ) {
+		if ( ! Engenty_Settings::connected() && ! Engenty_Packages::all() ) {
 			$this->add_control(
 				'connect',
 				array(

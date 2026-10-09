@@ -93,6 +93,106 @@ function Edit( { attributes, setAttributes } ) {
 			__nextHasNoMarginBottom
 		/>
 	);
+	/** What the block shows in the editor: a problem, the wizards loading, the pick, the wizard. */
+	const preview = () => {
+		if ( error ) {
+			return (
+				<Placeholder
+					icon="warning"
+					label="engenty Wizard"
+					instructions={ error }
+				/>
+			);
+		}
+		if ( ! wizards ) {
+			return (
+				<Placeholder icon="format-chat" label="engenty Wizard">
+					<Spinner />
+				</Placeholder>
+			);
+		}
+		if ( ! current ) {
+			return (
+				<Placeholder
+					icon="format-chat"
+					label="engenty Wizard"
+					instructions={
+						wizards.length
+							? __(
+									'Welcher Wizard soll hier stehen?',
+									'engenty-wizards'
+							  )
+							: __(
+									'Noch kein Wizard ist live. Leg einen in engenty an.',
+									'engenty-wizards'
+							  )
+					}
+				>
+					{ wizards.length ? (
+						pick
+					) : (
+						<Button
+							variant="primary"
+							href={ boot.setup }
+							target="_blank"
+						>
+							{ __( 'Wizard anlegen', 'engenty-wizards' ) }
+						</Button>
+					) }
+				</Placeholder>
+			);
+		}
+		if ( mode === 'inline' && current.local ) {
+			return (
+				<div className="engenty-block__button">
+					<span className="engenty-block__label">
+						{ current.title }
+					</span>
+					<span className="engenty-block__note">
+						{ __(
+							'läuft auf dieser Website · im Text',
+							'engenty-wizards'
+						) }
+					</span>
+				</div>
+			);
+		}
+		if ( mode === 'inline' ) {
+			return (
+				<iframe
+					className="engenty-block__frame"
+					title={ current.title }
+					src={ `${ current.shareUrl }?embed=inline` }
+				/>
+			);
+		}
+		return (
+			<div className="engenty-block__button">
+				<span
+					className={
+						mode === 'bubble'
+							? 'engenty-block__bubble'
+							: 'engenty-block__label'
+					}
+					style={
+						mode === 'bubble' && color
+							? { background: color }
+							: undefined
+					}
+				>
+					{ mode === 'bubble'
+						? ''
+						: label || __( 'Jetzt starten', 'engenty-wizards' ) }
+				</span>
+				<span className="engenty-block__note">
+					{ current.title } ·{ ' ' }
+					{ mode === 'bubble'
+						? __( 'als Blase unten rechts', 'engenty-wizards' )
+						: __( 'öffnet im Fenster', 'engenty-wizards' ) }
+				</span>
+			</div>
+		);
+	};
 	return (
 		<div { ...props }>
 			<InspectorControls>
@@ -146,77 +246,7 @@ function Edit( { attributes, setAttributes } ) {
 					</p>
 				</PanelBody>
 			</InspectorControls>
-			{ error ? (
-				<Placeholder
-					icon="warning"
-					label="engenty Wizard"
-					instructions={ error }
-				/>
-			) : ! wizards ? (
-				<Placeholder icon="format-chat" label="engenty Wizard">
-					<Spinner />
-				</Placeholder>
-			) : ! current ? (
-				<Placeholder
-					icon="format-chat"
-					label="engenty Wizard"
-					instructions={
-						wizards.length
-							? __(
-									'Welcher Wizard soll hier stehen?',
-									'engenty-wizards'
-							  )
-							: __(
-									'Noch kein Wizard ist live. Leg einen in engenty an.',
-									'engenty-wizards'
-							  )
-					}
-				>
-					{ wizards.length ? (
-						pick
-					) : (
-						<Button
-							variant="primary"
-							href={ boot.setup }
-							target="_blank"
-						>
-							{ __( 'Wizard anlegen', 'engenty-wizards' ) }
-						</Button>
-					) }
-				</Placeholder>
-			) : mode === 'inline' ? (
-				<iframe
-					className="engenty-block__frame"
-					title={ current.title }
-					src={ `${ current.shareUrl }?embed=inline` }
-				/>
-			) : (
-				<div className="engenty-block__button">
-					<span
-						className={
-							mode === 'bubble'
-								? 'engenty-block__bubble'
-								: 'engenty-block__label'
-						}
-						style={
-							mode === 'bubble' && color
-								? { background: color }
-								: undefined
-						}
-					>
-						{ mode === 'bubble'
-							? ''
-							: label ||
-							  __( 'Jetzt starten', 'engenty-wizards' ) }
-					</span>
-					<span className="engenty-block__note">
-						{ current.title } ·{ ' ' }
-						{ mode === 'bubble'
-							? __( 'als Blase unten rechts', 'engenty-wizards' )
-							: __( 'öffnet im Fenster', 'engenty-wizards' ) }
-					</span>
-				</div>
-			) }
+			{ preview() }
 		</div>
 	);
 }

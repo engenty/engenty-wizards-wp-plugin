@@ -12,10 +12,12 @@ import {
 	isFree,
 	when,
 	pathOf,
+	useConnect,
 } from './ui';
 import SiteRead from './SiteRead';
 import Templates from './Templates';
 import Place from './Place';
+import { Choice, LocalSetup } from './Start';
 
 const ERRORS = {
 	denied: __(
@@ -34,11 +36,13 @@ const ERRORS = {
 
 /**
  * Not connected: what engenty does for the site, and the way to a free account.
- * @param root0
- * @param root0.status
+ * @param {Object} root0
+ * @param {Object} root0.status
+ * @param {Object} root0.onLocal
  */
-function Welcome( { status } ) {
+function Welcome( { status, onLocal } ) {
 	const [ busy, setBusy ] = useState( null );
+	const [ choosing, setChoosing ] = useState( false );
 	const [ error, setError ] = useState(
 		boot.error ? ERRORS[ boot.error ] ?? ERRORS.failed : null
 	);
@@ -66,6 +70,17 @@ function Welcome( { status } ) {
 			</Card>
 		);
 	}
+	if ( choosing ) {
+		return (
+			<div className="en-welcome">
+				<Choice
+					status={ status }
+					onLocal={ onLocal }
+					onBack={ () => setChoosing( false ) }
+				/>
+			</div>
+		);
+	}
 	return (
 		<div className="en-welcome">
 			<div className="en-welcome__hero">
@@ -86,8 +101,7 @@ function Welcome( { status } ) {
 				<Button
 					kind="primary"
 					className="en-btn--large"
-					busy={ busy === 'signup' }
-					onClick={ () => go( true ) }
+					onClick={ () => setChoosing( true ) }
 				>
 					{ __( 'Eigene KI erstellen', 'engenty-wizards' ) } →
 				</Button>
@@ -165,9 +179,9 @@ const STEPS = [
 
 /**
  * Connected: the setup's steps until they are done, then the overview.
- * @param root0
- * @param root0.status
- * @param root0.reload
+ * @param {Object} root0
+ * @param {Object} root0.status
+ * @param {Object} root0.reload
  */
 function Setup( { status, reload } ) {
 	const me = status.me;
@@ -298,9 +312,55 @@ function Setup( { status, reload } ) {
 
 /**
  * What is going on: wizards live, the latest results, what Pro would add.
- * @param root0
- * @param root0.status
+ * @param {Object} root0
+ * @param {Object} root0.status
  */
+/**
+ * The latest results, or why there are none.
+ * @param {Object} status
+ * @param {Object} runs
+ */
+function latestResults( status, runs ) {
+	if ( ! status.can?.results ) {
+		return (
+			<p className="en-muted">
+				{ __(
+					'Ergebnisse sehen die Rollen, die in den Einstellungen dafür gewählt sind.',
+					'engenty-wizards'
+				) }
+			</p>
+		);
+	}
+	if ( ! runs ) {
+		return <Spinner />;
+	}
+	if ( ! runs.runs.length ) {
+		return (
+			<p className="en-muted">
+				{ __(
+					'Noch keine. Sobald Besucher einen Wizard abschließen, stehen ihre Antworten hier.',
+					'engenty-wizards'
+				) }
+			</p>
+		);
+	}
+	return (
+		<ul className="en-list">
+			{ runs.runs.slice( 0, 6 ).map( ( r ) => (
+				<li key={ r.id }>
+					<a href={ pageUrl( 'engenty-results', `&run=${ r.id }` ) }>
+						<strong>{ r.wizard }</strong>
+						<span className="en-muted">
+							{ r.email || r.summary || '—' }
+						</span>
+					</a>
+					<span className="en-muted">{ when( r.createdAt ) }</span>
+				</li>
+			) ) }
+		</ul>
+	);
+}
+
 function Overview( { status } ) {
 	const me = status.me;
 	const [ wizards, setWizards ] = useState( null );
@@ -366,44 +426,7 @@ function Overview( { status } ) {
 						</a>
 					}
 				>
-					{ ! status.can?.results ? (
-						<p className="en-muted">
-							{ __(
-								'Ergebnisse sehen die Rollen, die in den Einstellungen dafür gewählt sind.',
-								'engenty-wizards'
-							) }
-						</p>
-					) : ! runs ? (
-						<Spinner />
-					) : runs.runs.length ? (
-						<ul className="en-list">
-							{ runs.runs.slice( 0, 6 ).map( ( r ) => (
-								<li key={ r.id }>
-									<a
-										href={ pageUrl(
-											'engenty-results',
-											`&run=${ r.id }`
-										) }
-									>
-										<strong>{ r.wizard }</strong>
-										<span className="en-muted">
-											{ r.email || r.summary || '—' }
-										</span>
-									</a>
-									<span className="en-muted">
-										{ when( r.createdAt ) }
-									</span>
-								</li>
-							) ) }
-						</ul>
-					) : (
-						<p className="en-muted">
-							{ __(
-								'Noch keine. Sobald Besucher einen Wizard abschließen, stehen ihre Antworten hier.',
-								'engenty-wizards'
-							) }
-						</p>
-					) }
+					{ latestResults( status, runs ) }
 				</Card>
 				{ me?.missing?.length ? (
 					<ProUpsell
@@ -451,10 +474,129 @@ function Overview( { status } ) {
 	);
 }
 
-export default function Home( { status, reload } ) {
-	return status.connected ? (
-		<Setup status={ status } reload={ reload } />
-	) : (
-		<Welcome status={ status } />
+/**
+ * A site that went local: the three steps until they are done, then what is going on.
+ * @param {Object} root0
+ * @param {Object} root0.status
+ * @param {Object} root0.reload
+ */
+function LocalHome( { status, reload } ) {
+	const [ wizards, setWizards ] = useState( null );
+	const [ runs, setRuns ] = useState( null );
+	useEffect( () => {
+		api( '/wizards' )
+			.then( ( r ) => setWizards( r.wizards ) )
+			.catch( () => setWizards( [] ) );
+		if ( status.can?.results ) {
+			api( '/runs?local=1&days=30' )
+				.then( setRuns )
+				.catch( () => setRuns( null ) );
+		}
+	}, [ status.can?.results ] );
+	const live = ( wizards ?? [] ).filter( ( w ) => w.available );
+	return (
+		<>
+			{ status.local?.provider?.ready ? null : (
+				<Notice tone="error">
+					{ status.local?.provider?.note ||
+						__(
+							'WordPress hat gerade keinen KI-Anbieter, der antwortet: Einstellungen → Connectors.',
+							'engenty-wizards'
+						) }
+				</Notice>
+			) }
+			<LocalSetup status={ status } reload={ reload } />
+			<div className="en-grid en-grid--3">
+				<div className="en-stat">
+					<span className="en-stat__n">
+						{ wizards ? live.length : '–' }
+					</span>
+					<span>{ __( 'Wizards live', 'engenty-wizards' ) }</span>
+				</div>
+				<div className="en-stat">
+					<span className="en-stat__n">
+						{ runs ? runs.total : '–' }
+					</span>
+					<span>
+						{ __( 'Ergebnisse in 30 Tagen', 'engenty-wizards' ) }
+					</span>
+				</div>
+				<div className="en-stat">
+					<span className="en-stat__n">
+						{ status.local?.provider?.name ?? '–' }
+					</span>
+					<span>
+						{ __(
+							'denkt für die Wizards · ohne Credits',
+							'engenty-wizards'
+						) }
+					</span>
+				</div>
+			</div>
+			<div className="en-grid en-grid--2">
+				<Card
+					title={ __( 'Neueste Ergebnisse', 'engenty-wizards' ) }
+					aside={
+						<a href={ pageUrl( 'engenty-results' ) }>
+							{ __( 'Alle', 'engenty-wizards' ) }
+						</a>
+					}
+				>
+					{ latestResults( status, runs ?? { runs: [] } ) }
+				</Card>
+				<Card
+					title={ __( 'Mit einem Konto', 'engenty-wizards' ) }
+					aside={ <Chip tone="ember">Pro</Chip> }
+				>
+					<p className="en-muted">
+						{ __(
+							'Studio, Kontakte, Termine, PDFs, Websuche und die Wizards, die mehr brauchen. Die lokalen laufen weiter.',
+							'engenty-wizards'
+						) }
+					</p>
+					<ConnectButtons status={ status } />
+				</Card>
+			</div>
+		</>
 	);
+}
+
+function ConnectButtons( { status } ) {
+	const { busy, error, go } = useConnect();
+	if ( ! status.can?.manage ) {
+		return null;
+	}
+	return (
+		<>
+			<div className="en-row">
+				<Button
+					kind="primary"
+					className="en-btn--small"
+					busy={ busy === 'signup' }
+					onClick={ () => go( true ) }
+				>
+					{ __( 'Kostenloses Konto anlegen', 'engenty-wizards' ) } →
+				</Button>
+				<Button
+					kind="ghost"
+					className="en-btn--small"
+					busy={ busy === 'login' }
+					onClick={ () => go( false ) }
+				>
+					{ __( 'Anmelden', 'engenty-wizards' ) }
+				</Button>
+			</div>
+			{ error ? <Notice tone="error">{ error }</Notice> : null }
+		</>
+	);
+}
+
+export default function Home( { status, reload } ) {
+	if ( status.connected ) {
+		return <Setup status={ status } reload={ reload } />;
+	}
+	if ( status.local?.mode === 'local' ) {
+		return <LocalHome status={ status } reload={ reload } />;
+	}
+	return <Welcome status={ status } onLocal={ () => reload( true ) } />;
 }

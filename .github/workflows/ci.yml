@@ -34,6 +34,7 @@ jobs:
       - run: npm run lint:js
       - run: npm run build
       - run: sh bin/zip.sh
+      - run: test -s vendor-runner/index.js && test -s wizards/index.json
       - uses: actions/upload-artifact@v4
         with:
           name: engenty-wizards
@@ -65,6 +66,8 @@ jobs:
           ln -s "$GITHUB_WORKSPACE" wp-content/plugins/engenty-wizards
           wp plugin activate engenty-wizards
       - run: WP_PATH=/tmp/wp sh bin/smoke.sh
+        env:
+          WP_CLI_PHP_ARGS: -d memory_limit=512M
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')

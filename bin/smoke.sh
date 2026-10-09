@@ -34,3 +34,43 @@ found=$($WP eval 'echo wp_json_encode(Engenty_Site_Reader::found());')
 echo "$found" | grep -q '"pages"' || fail "the site reader finds no pages"
 
 echo "ok"
+
+# --- standalone: a wizard that runs on the site itself, with a provider that answers canned ---
+mu="$WP_PATH/wp-content/mu-plugins"
+mkdir -p "$mu"
+cp "$(dirname "$0")/fake-provider.php" "$mu/engenty-fake-provider.php"
+$WP eval 'echo count(Engenty_Packages::bundled());' | grep -qv '^0$' || fail "no shipped wizards under wizards/"
+token=$($WP eval '
+$read = Engenty_Packages::read_bundled("web-faq");
+$fit = array("fit" => "full");
+foreach (Engenty_Packages::bundled() as $t) if ($t["id"] === "web-faq") $fit = $t["standalone"];
+$row = Engenty_Packages::install((array) $read["definition"], $read["files"], $fit, "bundled", "web-faq");
+if (is_wp_error($row)) { echo "ERR ", $row->get_error_message(); exit(1); }
+echo $row["token"];')
+echo "$token" | grep -qE '^[A-Za-z0-9]{22}$' || fail "the shipped wizard did not install: $token"
+status=$($WP eval 'wp_set_current_user(1); $r = rest_do_request(new WP_REST_Request("GET", "/engenty/v1/status")); echo wp_json_encode($r->get_data()["local"]);')
+echo "$status" | grep -q '"ready":true' || fail "the test provider is not seen as ready: $status"
+# The browser's flow, one request each: start, the page, the thinking step, the result.
+run=$($WP eval '
+$req = new WP_REST_Request("POST", "/engenty/v1/local/wizards/'"$token"'/runs"); $req->set_header("content-type", "application/json"); $req->set_body(json_encode(["origin" => "http://localhost/test", "website" => ""]));
+$res = rest_do_request($req); $d = $res->get_data(); if ($res->get_status() !== 200) { echo "ERR ", json_encode($d); exit(1); }
+$id = $d["runId"]; $step = $d["view"]["step"]["id"];
+$req = new WP_REST_Request("POST", "/engenty/v1/local/runs/$id/pages/$step"); $req->set_header("content-type", "application/json"); $req->set_body(json_encode(["values" => ["question" => "Habt ihr samstags offen?"]]));
+$d = rest_do_request($req)->get_data(); if ($d["status"] !== "running") { echo "ERR after page: ", json_encode($d); exit(1); }
+$req = new WP_REST_Request("POST", "/engenty/v1/local/runs/$id/steps/" . $d["step"]["id"]); $req->set_header("content-type", "application/json"); $req->set_body("{}");
+$d = rest_do_request($req)->get_data(); echo $d["status"], " ", $id, " ", count($d["shown"]);')
+echo "$run" | grep -q '^done ' || fail "the standalone run did not finish: $run"
+runid=$(echo "$run" | cut -d' ' -f2)
+report=$($WP eval 'wp_set_current_user(1); $r = rest_do_request(new WP_REST_Request("GET", "/engenty/v1/runs/'"$runid"'")); echo wp_json_encode($r->get_data());')
+echo "$report" | grep -q '"local":true' || fail "Ergebnisse does not list the local run"
+echo "$report" | grep -q 'Habt ihr samstags offen' || fail "the run's answers are missing"
+tag=$($WP eval 'echo do_shortcode("[engenty_wizard id=\"'"$token"'\" mode=\"inline\"]");')
+echo "$tag" | grep -q 'data-engenty-local="'"$token"'"' || fail "the shortcode does not render the runner for a standalone wizard"
+echo "$tag" | grep -q 'instructions' && fail "a prompt leaked into the page"
+# The seventh run of a visitor in an hour is refused.
+sixth=$($WP eval '
+for ($i = 0; $i < 7; $i++) { $req = new WP_REST_Request("POST", "/engenty/v1/local/wizards/'"$token"'/runs"); $req->set_header("content-type", "application/json"); $req->set_header("x-engenty-visitor", "limits"); $req->set_body(json_encode(["origin" => "x", "website" => ""])); $status = rest_do_request($req)->get_status(); }
+echo $status;')
+[ "$sixth" = "429" ] || fail "the seventh run in an hour was not refused ($sixth)"
+rm -f "$mu/engenty-fake-provider.php"
+echo "standalone ok"

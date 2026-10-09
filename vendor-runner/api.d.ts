@@ -1,0 +1,20 @@
+export declare class ApiError extends Error {
+    readonly status: number;
+    readonly body: any;
+    constructor(message: string, status: number, body: any);
+}
+/** The request never reached the server: no network, a tunnel, a phone switching cells. */
+export declare function isOffline(err: unknown): boolean;
+export interface Api {
+    get<T>(path: string): Promise<T>;
+    post<T>(path: string, body?: unknown): Promise<T>;
+    put<T>(path: string, body?: unknown): Promise<T>;
+    patch<T>(path: string, body?: unknown): Promise<T>;
+    del<T>(path: string): Promise<T>;
+    upload<T>(path: string, file: File): Promise<T>;
+}
+/**
+ * JSON calls with the host's credentials; a refused call throws an `ApiError` with the server's
+ * `error` and its body (`fields`, `issues`, a `code`).
+ */
+export declare function createApi(withBase: (path: string) => string, headers?: Record<string, string>): Api;

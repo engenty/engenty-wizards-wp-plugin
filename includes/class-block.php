@@ -25,7 +25,7 @@ class Engenty_Block {
 			'engenty-wizard-editor-script',
 			'window.engentyWizards = Object.assign(window.engentyWizards || {}, ' . wp_json_encode(
 				array(
-					'connected' => Engenty_Settings::connected(),
+					'connected' => Engenty_Settings::connected() || count( Engenty_Packages::all() ) > 0,
 					'setup'     => admin_url( 'admin.php?page=engenty' ),
 					'wizards'   => admin_url( 'admin.php?page=engenty-wizards' ),
 				)

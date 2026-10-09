@@ -1,32 +1,54 @@
 import { useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { api, problem } from './api';
+import { __, sprintf } from '@wordpress/i18n';
+import { api, post, problem } from './api';
 import {
 	Button,
-	Card,
 	Chip,
 	CopyField,
 	Drawer,
 	Empty,
+	Engenty,
 	Notice,
 	ProUpsell,
 	Spinner,
-	when,
+	Modal,
 } from './ui';
+import { Icon } from './icons';
+import { withoutLine } from './fit';
 import Templates from './Templates';
+import Import from './Import';
 import Place, { shortcodeOf } from './Place';
 
 /**
- * The account's wizards: test, embed, open in the studio, make a new one.
- * @param root0
- * @param root0.status
+ * The studio's home page (studio/HomePage.tsx): Importieren, the gallery, Neuer Wizard; a grid
+ * of wizard cards — the engenty on the top edge, the chips, the title, two lines, the steps,
+ * the link and the open arrow. Both kinds in one list: the account's, and the site's own.
+ * @param {Object} root0
+ * @param {Object} root0.status
  */
+/**
+ * Live, Entwurf or Pausiert, as the studio's WhereChip.
+ * @param {Object} w
+ */
+function stateChip( w ) {
+	if ( ! w.published ) {
+		return <Chip>{ __( 'Entwurf', 'engenty-wizards' ) }</Chip>;
+	}
+	if ( w.available ) {
+		return <Chip tone="moss">Live</Chip>;
+	}
+	return <Chip tone="rose">{ __( 'Pausiert', 'engenty-wizards' ) }</Chip>;
+}
+
 export default function Wizards( { status } ) {
 	const me = status.me;
+	const local = status.local;
+	const connected = status.connected;
 	const [ list, setList ] = useState( null );
 	const [ error, setError ] = useState( null );
 	const [ embed, setEmbed ] = useState( null );
 	const [ adding, setAdding ] = useState( false );
+	const [ copied, setCopied ] = useState( null );
 	const load = ( fresh ) =>
 		api( `/wizards${ fresh ? '?fresh=1' : '' }` )
 			.then( ( r ) => setList( r.wizards ) )
@@ -35,164 +57,244 @@ export default function Wizards( { status } ) {
 		load( false );
 	}, [] );
 
+	const copyLink = ( w ) => {
+		const text = w.shareUrl || shortcodeOf( w );
+		window.navigator.clipboard?.writeText( text );
+		setCopied( w.id );
+		setTimeout( () => setCopied( null ), 1500 );
+	};
+	const pause = async ( w, paused ) => {
+		try {
+			await post( `/packages/${ encodeURIComponent( w.id ) }/pause`, {
+				paused,
+			} );
+			load( false );
+		} catch ( e ) {
+			setError( problem( e ) );
+		}
+	};
+	/** What "Neuer Wizard" opens: the account's templates, the shipped set, or what Pro brings. */
+	const picker = () => {
+		if ( connected && me?.build ) {
+			return (
+				<Templates
+					me={ me }
+					onCreated={ () => {
+						setAdding( false );
+						load( true );
+					} }
+					onSkip={ () => setAdding( false ) }
+				/>
+			);
+		}
+		if ( local?.provider?.ready || local?.wizards ) {
+			return (
+				<Templates
+					local
+					me={ me }
+					provider={ local?.provider?.name }
+					onCreated={ () => {
+						setAdding( false );
+						load( false );
+					} }
+					onSkip={ () => setAdding( false ) }
+				/>
+			);
+		}
+		return <ProUpsell feature="build" me={ me } />;
+	};
+	const remove = async ( w ) => {
+		try {
+			await api( `/packages/${ encodeURIComponent( w.id ) }`, {
+				method: 'DELETE',
+			} );
+			setEmbed( null );
+			load( false );
+		} catch ( e ) {
+			setError( problem( e ) );
+		}
+	};
+
 	return (
 		<>
 			<div className="en-row en-row--between en-page-head">
 				<h1>{ __( 'Wizards', 'engenty-wizards' ) }</h1>
 				<div className="en-row">
-					<Button kind="ghost" onClick={ () => load( true ) }>
-						{ __( 'Neu laden', 'engenty-wizards' ) }
-					</Button>
+					{ status.can?.manage &&
+					( local?.provider?.ready || local?.wizards ) ? (
+						<Import onImported={ () => load( false ) } />
+					) : null }
 					{ status.can?.manage ? (
 						<Button
 							kind="primary"
 							onClick={ () => setAdding( true ) }
 						>
+							<Icon name="plus" />{ ' ' }
 							{ __( 'Neuer Wizard', 'engenty-wizards' ) }
 						</Button>
 					) : null }
 				</div>
 			</div>
 			{ error ? <Notice tone="error">{ error.message }</Notice> : null }
-			{ ! list ? (
-				<Spinner />
-			) : ! list.length ? (
-				<Empty title={ __( 'Noch keine Wizards', 'engenty-wizards' ) }>
-					<p>
-						{ __(
-							'Leg einen aus einer Vorlage an – eine Anfrage, ein Angebot, eine Terminbuchung.',
-							'engenty-wizards'
-						) }
-					</p>
-					{ status.can?.manage ? (
-						<Button
-							kind="primary"
-							onClick={ () => setAdding( true ) }
-						>
-							{ __( 'Vorlage wählen', 'engenty-wizards' ) }
-						</Button>
-					) : null }
-				</Empty>
-			) : (
-				<div className="en-wizards">
-					{ list.map( ( w ) => (
-						<Card key={ w.id } className="en-wizard">
-							<div className="en-wizard__main">
-								{ w.iconUrl ? (
-									<img
-										className="en-wizard__icon"
-										src={ w.iconUrl }
-										alt=""
-									/>
-								) : (
-									<span className="en-wizard__icon en-wizard__icon--draft" />
-								) }
-								<div>
-									<div className="en-row">
-										<strong className="en-wizard__title">
-											{ w.title }
-										</strong>
-										{ ! w.published ? (
-											<Chip>
-												{ __(
-													'Entwurf',
-													'engenty-wizards'
-												) }
-											</Chip>
-										) : w.available ? (
-											<Chip tone="moss">Live</Chip>
-										) : (
-											<Chip tone="rose">
-												{ __(
-													'Pausiert',
-													'engenty-wizards'
-												) }
-											</Chip>
-										) }
-										{ w.plugins.map( ( p ) => (
-											<Chip
-												key={ p }
-												tone={
-													me?.plugins?.includes( p )
-														? 'grey'
-														: 'ember'
-												}
-											>
-												{ p }
-											</Chip>
-										) ) }
-									</div>
-									<p className="en-muted">
-										{ w.description }
-									</p>
-									{ w.unavailableReason ? (
-										<p className="en-warn">
-											{ w.unavailableReason }
-										</p>
-									) : null }
-									{ w.plugins.some(
-										( p ) => ! me?.plugins?.includes( p )
-									) ? (
-										<p className="en-warn">
-											{ __(
-												'Braucht ein Plugin, das dein Paket nicht hat – mit Pro läuft er.',
-												'engenty-wizards'
-											) }
-										</p>
-									) : null }
-									<span className="en-muted en-small">
-										{ w.code ? `ID ${ w.code } · ` : '' }
-										{ __(
-											'geändert',
-											'engenty-wizards'
-										) }{ ' ' }
-										{ when( w.updatedAt ) }
+			{ ! list ? <Spinner /> : null }
+			{ list &&
+				( ! list.length ? (
+					<Empty
+						title={ __( 'Noch keine Wizards', 'engenty-wizards' ) }
+					>
+						<p>
+							{ __(
+								'Leg einen aus einer Vorlage an – eine Anfrage, ein Angebot, eine Terminbuchung.',
+								'engenty-wizards'
+							) }
+						</p>
+						{ status.can?.manage ? (
+							<Button
+								kind="primary"
+								onClick={ () => setAdding( true ) }
+							>
+								{ __( 'Vorlage wählen', 'engenty-wizards' ) }
+							</Button>
+						) : null }
+					</Empty>
+				) : (
+					<div className="en-wgrid">
+						{ list.map( ( w ) => {
+							const fit = w.standalone;
+							const needsPlugin =
+								! w.local &&
+								( w.plugins ?? [] ).some(
+									( p ) => ! me?.plugins?.includes( p )
+								);
+							return (
+								<div key={ w.id } className="en-wcard">
+									<span className="en-wcard__engenty">
+										<Engenty
+											kind={ w.avatar || 'round' }
+											size={ 52 }
+										/>
 									</span>
+									<div className="en-wcard__card">
+										<div className="en-wcard__chips">
+											{ w.local &&
+											fit &&
+											fit.fit !== 'no' &&
+											withoutLine( fit ) ? (
+												<Chip tone="amber">
+													{ withoutLine( fit ) }
+												</Chip>
+											) : null }
+											{ w.local ? (
+												<Chip>
+													<Icon
+														name="laptop"
+														size={ 12 }
+													/>{ ' ' }
+													{ __(
+														'Lokal',
+														'engenty-wizards'
+													) }
+												</Chip>
+											) : null }
+											{ needsPlugin ? (
+												<Chip tone="ember">Pro</Chip>
+											) : null }
+											{ stateChip( w ) }
+										</div>
+										<h3>{ w.title }</h3>
+										<p>{ w.description }</p>
+										{ w.published ? (
+											<div className="en-wcard__foot">
+												<span>
+													{ w.steps
+														? sprintf(
+																/* translators: %d: steps */ __(
+																	'%d Schritte',
+																	'engenty-wizards'
+																),
+																w.steps
+														  )
+														: '' }
+												</span>
+												<div className="en-row">
+													<button
+														type="button"
+														className="en-iconbtn"
+														onClick={ () =>
+															copyLink( w )
+														}
+													>
+														<Icon
+															name={
+																copied === w.id
+																	? 'check'
+																	: 'link'
+															}
+															size={ 14 }
+														/>
+														{ copied === w.id
+															? __(
+																	'Kopiert',
+																	'engenty-wizards'
+															  )
+															: __(
+																	'Link',
+																	'engenty-wizards'
+															  ) }
+													</button>
+													<button
+														type="button"
+														className="en-iconbtn en-iconbtn--round"
+														aria-label={ __(
+															'Einbinden',
+															'engenty-wizards'
+														) }
+														onClick={ () =>
+															setEmbed( w )
+														}
+													>
+														<Icon
+															name="arrow"
+															size={ 16 }
+														/>
+													</button>
+												</div>
+											</div>
+										) : (
+											<div className="en-wcard__foot">
+												<span />
+												<Button
+													kind="ghost"
+													className="en-btn--small"
+													href={ w.studioUrl }
+													external
+												>
+													{ __(
+														'Im Studio',
+														'engenty-wizards'
+													) }
+												</Button>
+											</div>
+										) }
+									</div>
 								</div>
-							</div>
-							<div className="en-row">
-								{ w.published ? (
-									<>
-										<Button
-											className="en-btn--small"
-											href={ w.shareUrl }
-											external
-										>
-											{ __(
-												'Testen',
-												'engenty-wizards'
-											) }
-										</Button>
-										<Button
-											kind="primary"
-											className="en-btn--small"
-											onClick={ () => setEmbed( w ) }
-										>
-											{ __(
-												'Einbinden',
-												'engenty-wizards'
-											) }
-										</Button>
-									</>
-								) : null }
-								<Button
-									kind="ghost"
-									className="en-btn--small"
-									href={ w.studioUrl }
-									external
-								>
-									{ __( 'Im Studio', 'engenty-wizards' ) }
-								</Button>
-							</div>
-						</Card>
-					) ) }
-				</div>
-			) }
+							);
+						} ) }
+					</div>
+				) ) }
 			{ embed ? (
 				<Drawer
 					title={ embed.title }
 					onClose={ () => setEmbed( null ) }
 				>
+					{ embed.local ? (
+						<p className="en-muted">
+							{ __(
+								'Läuft auf dieser Website mit dem KI-Anbieter aus den WordPress-Einstellungen. Ergebnisse unter Ergebnisse.',
+								'engenty-wizards'
+							) }
+						</p>
+					) : null }
 					<h3>{ __( 'Shortcode', 'engenty-wizards' ) }</h3>
 					<CopyField
 						label={ __( 'Button + Fenster', 'engenty-wizards' ) }
@@ -223,26 +325,52 @@ export default function Wizards( { status } ) {
 							<Place me={ me } wizard={ embed } />
 						</>
 					) : null }
+					{ embed.local && status.can?.manage ? (
+						<>
+							<h3>
+								{ __( 'Dieser Wizard', 'engenty-wizards' ) }
+							</h3>
+							<div className="en-row">
+								{ embed.available ? (
+									<Button
+										onClick={ () => pause( embed, true ) }
+									>
+										{ __( 'Pausieren', 'engenty-wizards' ) }
+									</Button>
+								) : (
+									<Button
+										onClick={ () => pause( embed, false ) }
+									>
+										{ __(
+											'Wieder live',
+											'engenty-wizards'
+										) }
+									</Button>
+								) }
+								<Button
+									kind="danger"
+									onClick={ () => remove( embed ) }
+								>
+									{ __( 'Entfernen', 'engenty-wizards' ) }
+								</Button>
+							</div>
+							<p className="en-muted en-small">
+								{ __(
+									'Texte und Schritte änderst du im Studio von engenty und importierst das Paket neu.',
+									'engenty-wizards'
+								) }
+							</p>
+						</>
+					) : null }
 				</Drawer>
 			) : null }
 			{ adding ? (
-				<Drawer
-					title={ __( 'Neuer Wizard', 'engenty-wizards' ) }
-					onClose={ () => setAdding( false ) }
-				>
-					{ me?.build ? (
-						<Templates
-							me={ me }
-							onCreated={ () => {
-								setAdding( false );
-								load( true );
-							} }
-							onSkip={ () => setAdding( false ) }
-						/>
-					) : (
-						<ProUpsell feature="build" me={ me } />
-					) }
-				</Drawer>
+				<Modal onClose={ () => setAdding( false ) } wide>
+					<div className="en-dialog__inner">
+						<h2>{ __( 'Neuer Wizard', 'engenty-wizards' ) }</h2>
+						{ picker() }
+					</div>
+				</Modal>
 			) : null }
 		</>
 	);

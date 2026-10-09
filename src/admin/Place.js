@@ -5,18 +5,18 @@ import { Button, CopyField, Notice, Spinner } from './ui';
 
 /**
  * The shortcode of a wizard.
- * @param w
- * @param mode
+ * @param {Object} w
+ * @param {Object} mode
  */
 export const shortcodeOf = ( w, mode = 'modal' ) =>
 	`[engenty_wizard id="${ w.code || w.token }" mode="${ mode }"]`;
 
 /**
  * Puts a wizard on the site: the bubble on every page, a new page with it, or by hand.
- * @param root0
- * @param root0.me
- * @param root0.onPlaced
- * @param root0.wizard
+ * @param {Object} root0
+ * @param {Object} root0.me
+ * @param {Object} root0.onPlaced
+ * @param {Object} root0.wizard
  */
 export default function Place( { me, onPlaced, wizard: given } ) {
 	const [ wizards, setWizards ] = useState( null );

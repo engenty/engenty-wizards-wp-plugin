@@ -66,7 +66,10 @@ function App( { view } ) {
 			</Shell>
 		);
 	}
-	if ( ! status.connected && view === 'results' ) {
+	const local =
+		! status.connected &&
+		( status.local?.mode === 'local' || status.local?.wizards > 0 );
+	if ( ! status.connected && ! local && view === 'results' ) {
 		return (
 			<Shell status={ status }>
 				<ResultsBeforeConnect status={ status } />
@@ -76,11 +79,11 @@ function App( { view } ) {
 	if ( ! status.connected && view === 'settings' && status.can?.manage ) {
 		return (
 			<Shell status={ status }>
-				<SettingsBeforeConnect />
+				<SettingsBeforeConnect status={ status } reload={ load } />
 			</Shell>
 		);
 	}
-	const View = status.connected ? VIEWS[ view ] ?? Home : Home;
+	const View = status.connected || local ? VIEWS[ view ] ?? Home : Home;
 	return (
 		<Shell status={ status }>
 			<View status={ status } reload={ load } />

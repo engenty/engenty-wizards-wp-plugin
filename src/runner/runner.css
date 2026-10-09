@@ -1,0 +1,33 @@
+/*
+ * The box around the runner on a website: the start screen, the dialog behind a button, the
+ * bubble. The runner's own look comes scoped from @engenty-wizards/runner/runner.css.
+ */
+.engenty-runner { position: relative; min-height: 80px; }
+.engenty-runner--inline { margin: 24px 0; }
+.engenty-runner .en-run { max-width: 640px; margin: 0 auto; padding: 8px 0 16px; }
+.engenty-runner .en-run__loading { min-height: 120px; }
+.engenty-runner .en-run__gone { padding: 48px 0; text-align: center; color: var(--ink-3); }
+.engenty-runner .en-run__start { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 24px 16px 32px; text-align: center; }
+.engenty-runner .en-run__engenty { display: block; }
+.engenty-runner .en-run__title { margin: 8px 0 0; font: 600 1.875rem/1.1 var(--f-display); letter-spacing: -0.01em; color: var(--ink); }
+.engenty-runner .en-run__lead { max-width: 480px; margin: 0; font-size: 1rem; line-height: 1.5; color: var(--ink-2); }
+.engenty-runner .en-run__cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 12rem; height: 48px; margin-top: 24px; padding: 0 24px; border: 0; border-radius: 999px; background: var(--primary); color: var(--primary-foreground); font: 500 0.9375rem var(--f-ui); cursor: pointer; }
+.engenty-runner .en-run__cta:hover { filter: brightness(1.06); }
+.engenty-runner .en-run__cta:disabled { opacity: .5; cursor: default; }
+.engenty-runner .en-run__cta--open { margin: 0; }
+.engenty-runner .en-run__unavailable { margin-top: 24px; padding: 14px 20px; border-radius: 12px; background: var(--paper-2); color: var(--ink-2); font-size: 0.9375rem; }
+.engenty-runner .en-run__error { margin-top: 12px; color: var(--rose); font-size: 0.875rem; }
+.engenty-runner .en-run__foot { margin: 16px 0 0; text-align: center; font-size: 0.75rem; color: var(--ink-4); }
+.engenty-runner .en-run__foot a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+.engenty-runner .en-run__bubble { position: fixed; right: 20px; bottom: 20px; z-index: 99990; display: inline-flex; align-items: center; gap: 10px; padding: 6px 6px 6px 16px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; box-shadow: 0 6px 24px rgba(40, 38, 35, .25); cursor: pointer; font: 500 0.9375rem var(--f-ui); }
+.engenty-runner .en-run__bubble:hover { filter: brightness(1.1); }
+.engenty-runner .en-run__bubble-dot { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, .14); }
+.engenty-runner .en-run__bubble-text { padding-right: 2px; }
+@media (max-width: 480px) { .engenty-runner .en-run__bubble-text { display: none; } .engenty-runner .en-run__bubble { padding-left: 6px; } }
+
+.engenty-runner .en-run__dialog { width: min(720px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; padding: 0; border: 0; border-radius: 16px; background: var(--paper); color: var(--ink); box-shadow: 0 2px 4px rgba(40, 38, 35, .08), 0 24px 70px rgba(40, 38, 35, .18); overflow-y: auto; overscroll-behavior: contain; }
+.engenty-runner .en-run__dialog::backdrop { background: rgba(40, 38, 35, .4); backdrop-filter: blur(2px); }
+.engenty-runner .en-run__dialog .en-run { padding: 24px 24px 20px; }
+.engenty-runner .en-run__close { position: sticky; top: 8px; float: right; margin: 8px 8px 0 0; width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--card); color: var(--ink-2); font-size: 22px; line-height: 1; cursor: pointer; box-shadow: 0 0 0 1px rgba(219, 217, 214, .55); z-index: 2; }
+@media (max-width: 640px) { .engenty-runner .en-run__dialog { width: 100%; max-width: none; height: 100dvh; max-height: none; margin: 0; border-radius: 0; } }

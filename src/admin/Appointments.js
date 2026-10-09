@@ -24,8 +24,8 @@ const placeOf = ( location ) => {
 
 /**
  * The bookings of the appointments plugin (Pro).
- * @param root0
- * @param root0.status
+ * @param {Object} root0
+ * @param {Object} root0.status
  */
 export default function Appointments( { status } ) {
 	const me = status.me;
@@ -94,84 +94,85 @@ export default function Appointments( { status } ) {
 				) ) }
 			</div>
 			{ error ? <Notice tone="error">{ error.message }</Notice> : null }
-			{ ! data ? (
-				error ? null : (
-					<Spinner />
-				)
-			) : ! data.bookings.length ? (
-				<Empty title={ __( 'Keine Termine', 'engenty-wizards' ) }>
-					<p>
-						{ __(
-							'Wizards mit Terminbuchung tragen sie hier ein. Leg einen aus der Vorlage „Termin buchen“ an.',
-							'engenty-wizards'
-						) }
-					</p>
-				</Empty>
-			) : (
-				<table className="en-table">
-					<thead>
-						<tr>
-							<th>{ __( 'Wann', 'engenty-wizards' ) }</th>
-							<th>{ __( 'Was', 'engenty-wizards' ) }</th>
-							<th>{ __( 'Wer', 'engenty-wizards' ) }</th>
-							<th>{ __( 'Wo', 'engenty-wizards' ) }</th>
-							<th />
-						</tr>
-					</thead>
-					<tbody>
-						{ data.bookings.map( ( b ) => (
-							<tr key={ b.id }>
-								<td className="en-nowrap">
-									<strong>{ day( b.start ) }</strong>{ ' ' }
-									{ time( b.start ) }–{ time( b.end ) }
-								</td>
-								<td>
-									{ b.title }
-									{ b.wizardTitle ? (
-										<span className="en-muted en-small en-block">
-											{ b.wizardTitle }
-										</span>
-									) : null }
-								</td>
-								<td>
-									{ b.name }
-									<span className="en-muted en-small en-block">
-										{ [ b.email, b.phone ]
-											.filter( Boolean )
-											.join( ' · ' ) }
-									</span>
-								</td>
-								<td className="en-muted">
-									{ placeOf( b.location ) }
-								</td>
-								<td>
-									{ b.status === 'cancelled' ? (
-										<Chip tone="rose">
-											{ __(
-												'abgesagt',
-												'engenty-wizards'
-											) }
-										</Chip>
-									) : null }
-									{ b.test ? (
-										<Chip>
-											{ __( 'Test', 'engenty-wizards' ) }
-										</Chip>
-									) : null }
-									<a
-										href={ b.page }
-										target="_blank"
-										rel="noopener noreferrer"
-										className="en-small"
-									>
-										{ __( 'Seite', 'engenty-wizards' ) }
-									</a>
-								</td>
+			{ ! data && ! error ? <Spinner /> : null }
+			{ data &&
+				( ! data.bookings.length ? (
+					<Empty title={ __( 'Keine Termine', 'engenty-wizards' ) }>
+						<p>
+							{ __(
+								'Wizards mit Terminbuchung tragen sie hier ein. Leg einen aus der Vorlage „Termin buchen“ an.',
+								'engenty-wizards'
+							) }
+						</p>
+					</Empty>
+				) : (
+					<table className="en-table">
+						<thead>
+							<tr>
+								<th>{ __( 'Wann', 'engenty-wizards' ) }</th>
+								<th>{ __( 'Was', 'engenty-wizards' ) }</th>
+								<th>{ __( 'Wer', 'engenty-wizards' ) }</th>
+								<th>{ __( 'Wo', 'engenty-wizards' ) }</th>
+								<th />
 							</tr>
-						) ) }
-					</tbody>
-				</table>
-			) }
+						</thead>
+						<tbody>
+							{ data.bookings.map( ( b ) => (
+								<tr key={ b.id }>
+									<td className="en-nowrap">
+										<strong>{ day( b.start ) }</strong>{ ' ' }
+										{ time( b.start ) }–{ time( b.end ) }
+									</td>
+									<td>
+										{ b.title }
+										{ b.wizardTitle ? (
+											<span className="en-muted en-small en-block">
+												{ b.wizardTitle }
+											</span>
+										) : null }
+									</td>
+									<td>
+										{ b.name }
+										<span className="en-muted en-small en-block">
+											{ [ b.email, b.phone ]
+												.filter( Boolean )
+												.join( ' · ' ) }
+										</span>
+									</td>
+									<td className="en-muted">
+										{ placeOf( b.location ) }
+									</td>
+									<td>
+										{ b.status === 'cancelled' ? (
+											<Chip tone="rose">
+												{ __(
+													'abgesagt',
+													'engenty-wizards'
+												) }
+											</Chip>
+										) : null }
+										{ b.test ? (
+											<Chip>
+												{ __(
+													'Test',
+													'engenty-wizards'
+												) }
+											</Chip>
+										) : null }
+										<a
+											href={ b.page }
+											target="_blank"
+											rel="noopener noreferrer"
+											className="en-small"
+										>
+											{ __( 'Seite', 'engenty-wizards' ) }
+										</a>
+									</td>
+								</tr>
+							) ) }
+						</tbody>
+					</table>
+				) ) }
 		</>
 	);
 }

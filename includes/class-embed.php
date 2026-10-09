@@ -56,7 +56,11 @@ class Engenty_Embed {
 	 */
 	public static function tag( $id, array $args = array() ) {
 		$settings = Engenty_Settings::all();
-		$token    = self::token( $id );
+		$local    = strlen( trim( (string) $id ) ) === 22 ? Engenty_Packages::by_token( trim( (string) $id ) ) : null;
+		if ( $local ) {
+			return self::local_tag( $local, $args );
+		}
+		$token = self::token( $id );
 		if ( '' === $token ) {
 			return '';
 		}
@@ -78,6 +82,61 @@ class Engenty_Embed {
 		}
 		// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- one tag per wizard, where it stands.
 		return sprintf( '<script async src="%s"%s></script>', esc_url( Engenty_Connect::cloud() . '/embed.js' ), $attrs );
+	}
+
+	/**
+	 * A standalone wizard: a box the runner script draws into, in the page or behind a button.
+	 * Its visitors talk to this site's REST routes; nothing leaves the site but the model call.
+	 *
+	 * @param array $w    The wizard's row.
+	 * @param array $args `mode`, `label`, `text`, `color`, `page`.
+	 * @return string
+	 */
+	public static function local_tag( array $w, array $args = array() ) {
+		$settings = Engenty_Settings::all();
+		$mode     = in_array( $args['mode'] ?? '', self::MODES, true ) ? $args['mode'] : $settings['mode'];
+		self::enqueue_runner();
+		$data  = array(
+			'engenty-local' => $w['token'],
+			'mode'          => $mode,
+			'label'         => (string) ( $args['label'] ?? '' ) !== '' ? (string) $args['label'] : $settings['label'],
+			'text'          => (string) ( $args['text'] ?? '' ),
+			'color'         => (string) ( $args['color'] ?? '' ),
+			'page'          => (string) ( $args['page'] ?? '' ) !== '' ? (string) $args['page'] : self::current_page(),
+			'title'         => $w['title'],
+		);
+		$attrs = '';
+		foreach ( $data as $name => $value ) {
+			if ( '' !== $value ) {
+				$attrs .= sprintf( ' data-%s="%s"', $name, esc_attr( $value ) );
+			}
+		}
+		return sprintf( '<div class="engenty-runner engenty-runner--%s"%s></div>', esc_attr( $mode ), $attrs );
+	}
+
+	/** The runner bundle and its stylesheet, once per page. */
+	public static function enqueue_runner() {
+		$asset = ENGENTY_WIZARDS_DIR . 'build/runner.asset.php';
+		$meta  = file_exists( $asset ) ? require $asset : array(
+			'dependencies' => array( 'react', 'react-dom', 'react-jsx-runtime', 'wp-api-fetch' ),
+			'version'      => ENGENTY_WIZARDS_VERSION,
+		);
+		wp_enqueue_style( 'engenty-runner-fonts', 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap', array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		wp_enqueue_style( 'engenty-runner', ENGENTY_WIZARDS_URL . 'build/runner.css', array(), $meta['version'] );
+		wp_enqueue_script( 'engenty-runner', ENGENTY_WIZARDS_URL . 'build/runner.js', $meta['dependencies'], $meta['version'], true );
+		wp_add_inline_script(
+			'engenty-runner',
+			'window.engentyRunner = ' . wp_json_encode(
+				array(
+					'rest'     => esc_url_raw( rest_url( 'engenty/v1' ) ),
+					'lang'     => str_starts_with( get_locale(), 'de' ) ? 'de' : 'en',
+					'provider' => Engenty_Think::provider()['name'] ?? null,
+					'privacy'  => (string) get_privacy_policy_url(),
+					'site'     => wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ),
+				)
+			) . ';',
+			'before'
+		);
 	}
 
 	/**

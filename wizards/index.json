@@ -1,0 +1,593 @@
+{
+  "exportedAt": "2026-10-09T08:23:59.377Z",
+  "source": "https://engenty.ai/wizards",
+  "templates": [
+    {
+      "id": "invoice",
+      "file": "invoice.wizard",
+      "title": "Rechnung",
+      "pitch": "Positionen eingeben, fertige Rechnung als PDF erhalten.",
+      "language": "de",
+      "avatar": "pebble",
+      "useCases": [
+        "accounting"
+      ],
+      "industries": [
+        "any"
+      ],
+      "formats": [
+        "document"
+      ],
+      "capabilities": [
+        "text"
+      ],
+      "effort": {
+        "fields": 10,
+        "required": 4,
+        "reviews": 1,
+        "minutes": 3
+      },
+      "costTier": "low",
+      "steps": 6,
+      "plan": "free",
+      "plugins": [],
+      "hash": "69e6b2148216565decfdf510df99fa0b",
+      "revision": 2,
+      "standalone": {
+        "fit": "less",
+        "notes": [
+          {
+            "stepId": "done",
+            "need": "format:pdf",
+            "hard": false
+          },
+          {
+            "stepId": "done",
+            "need": "format:docx",
+            "hard": false
+          }
+        ],
+        "missing": [],
+        "optional": [],
+        "needs": [],
+        "without": [
+          "pdf",
+          "docx"
+        ]
+      }
+    },
+    {
+      "id": "quote",
+      "file": "quote.wizard",
+      "title": "Angebot",
+      "pitch": "Angebot mit Einleitung, Leistungsbeschreibung und Preisen.",
+      "language": "de",
+      "avatar": "bean",
+      "useCases": [
+        "sales"
+      ],
+      "industries": [
+        "any"
+      ],
+      "formats": [
+        "text",
+        "document"
+      ],
+      "capabilities": [
+        "text"
+      ],
+      "effort": {
+        "fields": 6,
+        "required": 3,
+        "reviews": 2,
+        "minutes": 3
+      },
+      "costTier": "low",
+      "steps": 7,
+      "plan": "free",
+      "plugins": [],
+      "hash": "8c02f7f3175f3862f991284154286f83",
+      "revision": 2,
+      "standalone": {
+        "fit": "less",
+        "notes": [
+          {
+            "stepId": "done",
+            "need": "format:pdf",
+            "hard": false
+          },
+          {
+            "stepId": "done",
+            "need": "format:docx",
+            "hard": false
+          }
+        ],
+        "missing": [],
+        "optional": [],
+        "needs": [],
+        "without": [
+          "pdf",
+          "docx"
+        ]
+      }
+    },
+    {
+      "id": "damage-report",
+      "file": "damage-report.wizard",
+      "title": "Schadensmeldung",
+      "pitch": "Vor Ort mit dem Handy: Fotos, Standort, Sprachnotiz, Unterschrift – fertig ist der Bericht.",
+      "language": "de",
+      "avatar": "pebble",
+      "useCases": [
+        "operations"
+      ],
+      "industries": [
+        "trades",
+        "realEstate"
+      ],
+      "formats": [
+        "text",
+        "document"
+      ],
+      "capabilities": [
+        "text",
+        "documents",
+        "listening"
+      ],
+      "effort": {
+        "fields": 9,
+        "required": 4,
+        "reviews": 1,
+        "minutes": 4
+      },
+      "costTier": "low",
+      "steps": 8,
+      "plan": "free",
+      "plugins": [],
+      "hash": "8393fd476258d204a17d350c16d95172",
+      "revision": 2,
+      "standalone": {
+        "fit": "less",
+        "notes": [
+          {
+            "stepId": "photos",
+            "need": "field:image",
+            "hard": false
+          },
+          {
+            "stepId": "where",
+            "need": "field:location",
+            "hard": false
+          },
+          {
+            "stepId": "what",
+            "need": "field:audio",
+            "hard": false
+          },
+          {
+            "stepId": "done",
+            "need": "format:pdf",
+            "hard": false
+          },
+          {
+            "stepId": "done",
+            "need": "format:docx",
+            "hard": false
+          }
+        ],
+        "missing": [],
+        "optional": [
+          "documents",
+          "listening"
+        ],
+        "needs": [],
+        "without": [
+          "pdf",
+          "docx"
+        ]
+      }
+    },
+    {
+      "id": "window-quote",
+      "file": "window-quote.wizard",
+      "title": "Angebot Fenstertausch",
+      "pitch": "Vor Ort beim Kunden: Fotos und Maße einsprechen – Positionen aus eurer Preisliste, Angebot als PDF.",
+      "language": "de",
+      "avatar": "bean",
+      "useCases": [
+        "sales",
+        "advice"
+      ],
+      "industries": [
+        "trades"
+      ],
+      "formats": [
+        "text",
+        "document",
+        "table"
+      ],
+      "capabilities": [
+        "text",
+        "documents",
+        "listening"
+      ],
+      "effort": {
+        "fields": 13,
+        "required": 2,
+        "reviews": 2,
+        "minutes": 6
+      },
+      "costTier": "low",
+      "steps": 10,
+      "plan": "free",
+      "plugins": [],
+      "hash": "098e0b8ed286337a041de7545a360eab",
+      "revision": 3,
+      "standalone": {
+        "fit": "less",
+        "notes": [
+          {
+            "stepId": "customer",
+            "need": "field:location",
+            "hard": false
+          },
+          {
+            "stepId": "survey",
+            "need": "field:image",
+            "hard": false
+          },
+          {
+            "stepId": "survey",
+            "need": "field:audio",
+            "hard": false
+          },
+          {
+            "stepId": "done",
+            "need": "format:pdf",
+            "hard": false
+          },
+          {
+            "stepId": "done",
+            "need": "format:docx",
+            "hard": false
+          },
+          {
+            "stepId": "done",
+            "need": "format:xlsx",
+            "hard": false
+          }
+        ],
+        "missing": [],
+        "optional": [
+          "documents",
+          "listening"
+        ],
+        "needs": [],
+        "without": [
+          "pdf",
+          "docx",
+          "xlsx"
+        ]
+      }
+    },
+    {
+      "id": "web-faq",
+      "file": "web-faq.wizard",
+      "title": "Frag uns",
+      "pitch": "Besucher stellen eine Frage und bekommen die Antwort aus euren eigenen Angaben.",
+      "language": "de",
+      "avatar": "round",
+      "useCases": [
+        "website",
+        "service",
+        "inquiries"
+      ],
+      "industries": [
+        "health"
+      ],
+      "formats": [
+        "text"
+      ],
+      "capabilities": [
+        "text"
+      ],
+      "effort": {
+        "fields": 1,
+        "required": 1,
+        "reviews": 0,
+        "minutes": 1
+      },
+      "costTier": "low",
+      "steps": 3,
+      "plan": "free",
+      "plugins": [],
+      "hash": "a9b87486bc231f16630f1f19c85941d4",
+      "revision": 3,
+      "standalone": {
+        "fit": "full",
+        "notes": [],
+        "missing": [],
+        "optional": [],
+        "needs": [],
+        "without": []
+      }
+    },
+    {
+      "id": "web-price",
+      "file": "web-price.wizard",
+      "title": "Was kostet das?",
+      "pitch": "Richtpreis in einer Minute: Angaben des Besuchers, Preise aus eurer Preisliste.",
+      "language": "de",
+      "avatar": "bean",
+      "useCases": [
+        "website",
+        "sales",
+        "advice"
+      ],
+      "industries": [
+        "trades"
+      ],
+      "formats": [
+        "document"
+      ],
+      "capabilities": [
+        "text"
+      ],
+      "effort": {
+        "fields": 5,
+        "required": 2,
+        "reviews": 0,
+        "minutes": 2
+      },
+      "costTier": "low",
+      "steps": 5,
+      "plan": "free",
+      "plugins": [],
+      "hash": "ffd88435bc981aafc55f0b51abe68190",
+      "revision": 3,
+      "standalone": {
+        "fit": "less",
+        "notes": [
+          {
+            "stepId": "done",
+            "need": "format:pdf",
+            "hard": false
+          }
+        ],
+        "missing": [],
+        "optional": [],
+        "needs": [],
+        "without": [
+          "pdf"
+        ]
+      }
+    },
+    {
+      "id": "web-advisor",
+      "file": "web-advisor.wizard",
+      "title": "Produktberater",
+      "pitch": "Vier Fragen, dann die passende Empfehlung aus eurem Sortiment – mit Begründung.",
+      "language": "de",
+      "avatar": "wedge",
+      "useCases": [
+        "website",
+        "sales",
+        "advice"
+      ],
+      "industries": [
+        "retail"
+      ],
+      "formats": [
+        "text",
+        "document"
+      ],
+      "capabilities": [
+        "text"
+      ],
+      "effort": {
+        "fields": 4,
+        "required": 1,
+        "reviews": 0,
+        "minutes": 1
+      },
+      "costTier": "low",
+      "steps": 3,
+      "plan": "free",
+      "plugins": [],
+      "hash": "cf3f20e204e9c509f75f0d108b16b530",
+      "revision": 3,
+      "standalone": {
+        "fit": "less",
+        "notes": [
+          {
+            "stepId": "done",
+            "need": "format:pdf",
+            "hard": false
+          }
+        ],
+        "missing": [],
+        "optional": [],
+        "needs": [],
+        "without": [
+          "pdf"
+        ]
+      }
+    },
+    {
+      "id": "web-appointment",
+      "file": "web-appointment.wizard",
+      "title": "Termin vorbereiten",
+      "pitch": "Vor dem Erstgespräch: Anliegen schildern, Checkliste mit allen Unterlagen bekommen.",
+      "language": "de",
+      "avatar": "dome",
+      "useCases": [
+        "website",
+        "service",
+        "inquiries"
+      ],
+      "industries": [
+        "professional"
+      ],
+      "formats": [
+        "text",
+        "document"
+      ],
+      "capabilities": [
+        "text",
+        "listening"
+      ],
+      "effort": {
+        "fields": 3,
+        "required": 1,
+        "reviews": 0,
+        "minutes": 1
+      },
+      "costTier": "low",
+      "steps": 3,
+      "plan": "free",
+      "plugins": [],
+      "hash": "50c3cf7ef0e8f9ce16829e7d32985c93",
+      "revision": 3,
+      "standalone": {
+        "fit": "less",
+        "notes": [
+          {
+            "stepId": "concern",
+            "need": "field:audio",
+            "hard": false
+          },
+          {
+            "stepId": "done",
+            "need": "format:pdf",
+            "hard": false
+          }
+        ],
+        "missing": [],
+        "optional": [
+          "listening"
+        ],
+        "needs": [],
+        "without": [
+          "pdf"
+        ]
+      }
+    },
+    {
+      "id": "web-complaint",
+      "file": "web-complaint.wizard",
+      "title": "Reklamation melden",
+      "pitch": "Foto, Bestellnummer scannen, kurz erzählen – fertig ist die vollständige Reklamation.",
+      "language": "de",
+      "avatar": "pebble",
+      "useCases": [
+        "website",
+        "service",
+        "inquiries"
+      ],
+      "industries": [
+        "retail"
+      ],
+      "formats": [
+        "document"
+      ],
+      "capabilities": [
+        "text",
+        "documents",
+        "listening"
+      ],
+      "effort": {
+        "fields": 7,
+        "required": 3,
+        "reviews": 0,
+        "minutes": 3
+      },
+      "costTier": "low",
+      "steps": 5,
+      "plan": "free",
+      "plugins": [],
+      "hash": "8a1127e1e11c7d24d55a0ff8c1c2dd2b",
+      "revision": 3,
+      "standalone": {
+        "fit": "less",
+        "notes": [
+          {
+            "stepId": "what",
+            "need": "field:image",
+            "hard": false
+          },
+          {
+            "stepId": "what",
+            "need": "field:audio",
+            "hard": false
+          },
+          {
+            "stepId": "done",
+            "need": "format:pdf",
+            "hard": false
+          }
+        ],
+        "missing": [],
+        "optional": [
+          "documents",
+          "listening"
+        ],
+        "needs": [],
+        "without": [
+          "pdf"
+        ]
+      }
+    },
+    {
+      "id": "web-event",
+      "file": "web-event.wizard",
+      "title": "Feier anfragen",
+      "pitch": "Anlass, Gäste, Budget – sofort ein Vorschlag mit Raum, Menü und Preis pro Person.",
+      "language": "de",
+      "avatar": "oval",
+      "useCases": [
+        "website",
+        "sales",
+        "inquiries"
+      ],
+      "industries": [
+        "gastronomy",
+        "events"
+      ],
+      "formats": [
+        "text",
+        "document"
+      ],
+      "capabilities": [
+        "text"
+      ],
+      "effort": {
+        "fields": 5,
+        "required": 3,
+        "reviews": 0,
+        "minutes": 2
+      },
+      "costTier": "low",
+      "steps": 3,
+      "plan": "free",
+      "plugins": [],
+      "hash": "b29f89233de6ea3b657a4dec8c8a89ac",
+      "revision": 3,
+      "standalone": {
+        "fit": "less",
+        "notes": [
+          {
+            "stepId": "done",
+            "need": "format:pdf",
+            "hard": false
+          }
+        ],
+        "missing": [],
+        "optional": [],
+        "needs": [],
+        "without": [
+          "pdf"
+        ]
+      }
+    }
+  ]
+}

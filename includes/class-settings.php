@@ -49,6 +49,15 @@ class Engenty_Settings {
 				'wizard' => false,
 				'placed' => false,
 				'done'   => false,
+				/** The way the site went: `account` (engenty.ai) or `local` (its own provider); empty before the choice. */
+				'mode'   => '',
+			),
+			/** Standalone wizards: the limits, how long results are kept, photos to the provider. */
+			'local'  => array(
+				'runsPerHour' => 6,
+				'runsPerDay'  => 50,
+				'keepDays'    => 90,
+				'photos'      => true,
 			),
 			'access' => array(
 				'roles' => array( 'administrator', 'editor' ),

@@ -22,12 +22,57 @@ const STATUS = {
 };
 
 /**
- * One result: what the person answered, what the wizard made, the downloads.
- * @param root0
- * @param root0.id
- * @param root0.onClose
+ * What a run cost: credits of the account, or the calls to the site's provider.
+ * @param {Object} run
  */
-function Result( { id, onClose } ) {
+function costLine( run ) {
+	if ( run.local ) {
+		return sprintf(
+			/* translators: 1: calls 2: provider */
+			__( '%1$d Aufrufe an %2$s', 'engenty-wizards' ),
+			run.calls ?? 0,
+			run.provider || __( 'den KI-Anbieter', 'engenty-wizards' )
+		);
+	}
+	return sprintf(
+		/* translators: %d: credits */
+		__( '%d Credits', 'engenty-wizards' ),
+		run.credits
+	);
+}
+
+/**
+ * A structured output as label and value rows.
+ * @param {Object} json
+ */
+function jsonFacts( json ) {
+	if ( ! json || typeof json !== 'object' || Array.isArray( json ) ) {
+		return null;
+	}
+	return (
+		<dl className="en-facts">
+			{ Object.entries( json ).map( ( [ k, v ] ) => (
+				<div key={ k }>
+					<dt>{ k }</dt>
+					<dd>
+						{ typeof v === 'object'
+							? JSON.stringify( v )
+							: String( v ) }
+					</dd>
+				</div>
+			) ) }
+		</dl>
+	);
+}
+
+/**
+ * One result: what the person answered, what the wizard made, the downloads.
+ * @param {Object} root0
+ * @param {Object} root0.id
+ * @param {Object} root0.onClose
+ * @param {Object} root0.status
+ */
+function Result( { id, onClose, status } ) {
 	const [ run, setRun ] = useState( null );
 	const [ error, setError ] = useState( null );
 	useEffect( () => {
@@ -41,12 +86,26 @@ function Result( { id, onClose } ) {
 			onClose={ onClose }
 		>
 			{ error ? <Notice tone="error">{ error.message }</Notice> : null }
-			{ ! run ? (
-				error ? null : (
-					<Spinner />
-				)
-			) : (
+			{ ! run && ! error ? <Spinner /> : null }
+			{ run ? (
 				<>
+					<div className="en-row">
+						{ run.local ? (
+							<Chip>
+								{ __(
+									'Auf dieser Website',
+									'engenty-wizards'
+								) }
+							</Chip>
+						) : null }
+						<Chip
+							tone={
+								( STATUS[ run.status ] ?? STATUS.done )[ 0 ]
+							}
+						>
+							{ ( STATUS[ run.status ] ?? STATUS.done )[ 1 ] }
+						</Chip>
+					</div>
 					<p className="en-muted">
 						{ when( run.createdAt ) }
 						{ run.origin ? (
@@ -62,11 +121,7 @@ function Result( { id, onClose } ) {
 							</>
 						) : null }
 						{ ' · ' }
-						{ sprintf(
-							/* translators: %d: credits */
-							__( '%d Credits', 'engenty-wizards' ),
-							run.credits
-						) }
+						{ costLine( run ) }
 					</p>
 					<h3>{ __( 'Antworten', 'engenty-wizards' ) }</h3>
 					{ run.answers.length ? (
@@ -100,6 +155,7 @@ function Result( { id, onClose } ) {
 							{ o.text ? (
 								<p className="en-output__text">{ o.text }</p>
 							) : null }
+							{ ! o.text ? jsonFacts( o.json ) : null }
 							<div className="en-row">
 								{ Object.entries( o.downloads ).map(
 									( [ format, url ] ) => (
@@ -130,6 +186,14 @@ function Result( { id, onClose } ) {
 					{ run.error ? (
 						<Notice tone="error">{ run.error }</Notice>
 					) : null }
+					{ run.local && ! status?.me ? (
+						<p className="en-muted en-small">
+							{ __(
+								'Kein Kontakt angelegt – Kontakte gibt es mit einem Konto und Pro.',
+								'engenty-wizards'
+							) }
+						</p>
+					) : null }
 					{ run.shareUrl ? (
 						<p>
 							<a
@@ -145,21 +209,21 @@ function Result( { id, onClose } ) {
 						</p>
 					) : null }
 				</>
-			) }
+			) : null }
 		</Drawer>
 	);
 }
 
 /**
  * What visitors left, newest first, by pages of 50.
- * @param root0
- * @param root0.status
+ * @param {Object} root0
+ * @param {Object} root0.status
  */
 /**
  * The list of results.
- * @param root0
- * @param root0.runs
- * @param root0.onOpen
+ * @param {Object} root0
+ * @param {Object} root0.runs
+ * @param {Object} root0.onOpen
  */
 function RunsTable( { runs, onOpen } ) {
 	return (
@@ -261,8 +325,8 @@ const SAMPLE = [
 
 /**
  * Ergebnisse before the site is connected: the list as it will look, under the way in.
- * @param root0
- * @param root0.status
+ * @param {Object} root0
+ * @param {Object} root0.status
  */
 export function ResultsBeforeConnect( { status } ) {
 	return (
@@ -421,22 +485,22 @@ export default function Results( { status } ) {
 				</select>
 			</div>
 			{ error ? <Notice tone="error">{ error.message }</Notice> : null }
-			{ ! data ? (
-				error ? null : (
-					<Spinner />
-				)
-			) : ! data.runs.length ? (
-				<Empty title={ __( 'Keine Ergebnisse', 'engenty-wizards' ) }>
-					<p>
-						{ __(
-							'Sobald Besucher einen Wizard abschließen, stehen ihre Antworten hier. Ergebnisse ohne Konto hält engenty eine Woche.',
-							'engenty-wizards'
-						) }
-					</p>
-				</Empty>
-			) : (
-				<RunsTable runs={ data.runs } onOpen={ setOpen } />
-			) }
+			{ ! data && ! error ? <Spinner /> : null }
+			{ data &&
+				( ! data.runs.length ? (
+					<Empty
+						title={ __( 'Keine Ergebnisse', 'engenty-wizards' ) }
+					>
+						<p>
+							{ __(
+								'Sobald Besucher einen Wizard abschließen, stehen ihre Antworten hier. Ergebnisse ohne Konto hält engenty eine Woche.',
+								'engenty-wizards'
+							) }
+						</p>
+					</Empty>
+				) : (
+					<RunsTable runs={ data.runs } onOpen={ setOpen } />
+				) ) }
 			{ data && data.pages > 1 ? (
 				<div className="en-row en-pager">
 					<Button

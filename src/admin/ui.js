@@ -2,12 +2,14 @@ import { useEffect, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { boot, pageUrl, post, problem } from './api';
 import { CORE_KINDS, engentyMarkup } from './engenties';
+import { Icon, CAPABILITY_ICONS } from './icons';
+import { needLines } from './fit';
 
 /**
  * An engenty as the studio draws it: one eye, its own shape and colour.
- * @param root0
- * @param root0.kind
- * @param root0.size
+ * @param {Object} root0
+ * @param {Object} root0.kind
+ * @param {Object} root0.size
  */
 export function Engenty( { kind = 'round', size = 28 } ) {
 	return (
@@ -26,8 +28,8 @@ export function Engenty( { kind = 'round', size = 28 } ) {
 
 /**
  * The brand mark: the founding five in turn, like the studio's logo.
- * @param root0
- * @param root0.size
+ * @param {Object} root0
+ * @param {Object} root0.size
  */
 export function Mark( { size = 30 } ) {
 	const [ index, setIndex ] = useState( 0 );
@@ -143,10 +145,10 @@ export function Empty( { title, children } ) {
 
 /**
  * A side panel over the page, closed with Esc or a click beside it.
- * @param root0
- * @param root0.title
- * @param root0.onClose
- * @param root0.children
+ * @param {Object} root0
+ * @param {Object} root0.title
+ * @param {Object} root0.onClose
+ * @param {Object} root0.children
  */
 export function Drawer( { title, onClose, children } ) {
 	useEffect( () => {
@@ -267,10 +269,10 @@ const FEATURES = {
 
 /**
  * What a plan above Free adds, where it is missing, with the way to it.
- * @param root0
- * @param root0.feature
- * @param root0.me
- * @param root0.compact
+ * @param {Object} root0
+ * @param {Object} root0.feature
+ * @param {Object} root0.me
+ * @param {Object} root0.compact
  */
 export function ProUpsell( { feature, me, compact = false } ) {
 	const f = FEATURES[ feature ];
@@ -325,11 +327,11 @@ export function useConnect() {
 
 /**
  * A page as it will look, under a card that leads to the connection.
- * @param root0
- * @param root0.title
- * @param root0.text
- * @param root0.status
- * @param root0.children
+ * @param {Object} root0
+ * @param {Object} root0.title
+ * @param {Object} root0.text
+ * @param {Object} root0.status
+ * @param {Object} root0.children
  */
 export function ConnectOverlay( { title, text, status, children } ) {
 	const { busy, error, go } = useConnect();
@@ -394,9 +396,9 @@ const TEASER = {
 
 /**
  * Kontakte or Termine before the site is connected: what Pro brings, and the way in – a free account first.
- * @param root0
- * @param root0.feature
- * @param root0.status
+ * @param {Object} root0
+ * @param {Object} root0.feature
+ * @param {Object} root0.status
  */
 export function ProBeforeConnect( { feature, status } ) {
 	const f = FEATURES[ feature ];
@@ -471,12 +473,14 @@ export function ProBeforeConnect( { feature, status } ) {
 
 /**
  * The plugin's header: the mark and the account with its plan and credits. The pages are in WordPress' menu.
- * @param root0
- * @param root0.status
- * @param root0.children
+ * @param {Object} root0
+ * @param {Object} root0.status
+ * @param {Object} root0.children
  */
 export function Shell( { status, children } ) {
 	const me = status?.me;
+	const local = status?.local;
+	const { busy, go } = useConnect();
 	return (
 		<div className="en-app">
 			<header className="en-top">
@@ -488,8 +492,39 @@ export function Shell( { status, children } ) {
 					</span>
 				</a>
 				<span className="en-top__spacer" />
+				{ ! me && local?.mode === 'local' ? (
+					<div className="en-account">
+						<span className="en-account__credits en-status">
+							{ __( 'Lokal', 'engenty-wizards' ) }
+							{ local.provider?.name
+								? ` · ${ local.provider.name }`
+								: '' }
+						</span>
+						{ status.can?.manage ? (
+							<Button
+								kind="ghost"
+								className="en-btn--small"
+								busy={ busy === 'login' }
+								onClick={ () => go( false ) }
+							>
+								{ __(
+									'Mit Konto verbinden',
+									'engenty-wizards'
+								) }
+							</Button>
+						) : null }
+					</div>
+				) : null }
 				{ me ? (
 					<div className="en-account">
+						{ local?.wizards ? (
+							<span className="en-account__credits en-status">
+								{ __( 'Lokal', 'engenty-wizards' ) }
+								{ local.provider?.name
+									? ` · ${ local.provider.name }`
+									: '' }
+							</span>
+						) : null }
 						<span className="en-account__plan">
 							{ me.tenant?.plan?.name ?? 'Free' }
 						</span>
@@ -554,7 +589,7 @@ export function when( iso ) {
 
 /**
  * A page address as its path, for a narrow column.
- * @param url
+ * @param {Object} url
  */
 export function pathOf( url ) {
 	if ( ! url ) {
@@ -566,4 +601,131 @@ export function pathOf( url ) {
 	} catch {
 		return url;
 	}
+}
+
+/**
+ * A modal over the page, as the studio's Dialog: closed with Esc or a click beside it.
+ * @param {Object} root0
+ * @param {Object} root0.onClose
+ * @param {Object} root0.children
+ * @param {Object} root0.wide
+ * @param {Object} root0.small
+ */
+export function Modal( { onClose, children, wide = false, small = false } ) {
+	useEffect( () => {
+		const onKey = ( e ) => e.key === 'Escape' && onClose();
+		window.addEventListener( 'keydown', onKey );
+		document.body.classList.add( 'en-modal-open' );
+		return () => {
+			window.removeEventListener( 'keydown', onKey );
+			document.body.classList.remove( 'en-modal-open' );
+		};
+	}, [ onClose ] );
+	return (
+		<div className="en-modal" role="dialog" aria-modal="true">
+			<button
+				type="button"
+				className="en-modal__backdrop"
+				aria-label={ __( 'Schließen', 'engenty-wizards' ) }
+				onClick={ onClose }
+			/>
+			<div
+				className={ `en-dialog ${ wide ? 'en-dialog--wide' : '' } ${
+					small ? 'en-dialog--small' : ''
+				}` }
+			>
+				<button
+					type="button"
+					className="en-dialog__close"
+					aria-label={ __( 'Schließen', 'engenty-wizards' ) }
+					onClick={ onClose }
+				>
+					<Icon name="x" />
+				</button>
+				{ children }
+			</div>
+		</div>
+	);
+}
+
+/**
+ * The chip a standalone wizard carries: Live as is; "Geht auch ohne: …" where it runs with less.
+ * @param {Object} root0
+ * @param {Object} root0.fit
+ */
+export function FitChip( { fit } ) {
+	if ( ! fit ) {
+		return null;
+	}
+	if ( fit.fit === 'no' ) {
+		return (
+			<Chip tone="rose">
+				{ __( 'Braucht ein Konto', 'engenty-wizards' ) }
+			</Chip>
+		);
+	}
+	return null;
+}
+
+const NEED_TONE = { ok: '', missing: 'is-rose', optional: 'is-amber' };
+const NEED_ICON = {
+	ok: CAPABILITY_ICONS.text,
+	missing: 'minus',
+	optional: 'alert',
+};
+const NEED_NOTE = {
+	ok: null,
+	missing: __( 'nicht eingerichtet', 'engenty-wizards' ),
+	optional: __( 'geht auch ohne', 'engenty-wizards' ),
+};
+
+/**
+ * The "Braucht" list as the gallery's entry dialog draws it (studio/Marketplace.tsx Detail rows).
+ * @param {Object} root0
+ * @param {Object} root0.fit
+ * @param {Object} root0.thinks
+ */
+export function NeedList( { fit, thinks = true } ) {
+	const lines = needLines( fit, thinks );
+	return (
+		<ul className="en-needs">
+			{ lines.map( ( line ) => (
+				<li key={ line.text }>
+					<span
+						className={ `en-need__icon ${
+							NEED_TONE[ line.tone ]
+						}` }
+					>
+						<Icon name={ NEED_ICON[ line.tone ] } />
+					</span>
+					<span>{ line.text }</span>
+					{ NEED_NOTE[ line.tone ] ? (
+						<span
+							className={ `en-need__note ${
+								NEED_TONE[ line.tone ]
+							}` }
+						>
+							{ NEED_NOTE[ line.tone ] }
+						</span>
+					) : null }
+				</li>
+			) ) }
+			{ fit.needs?.length ? (
+				<li>
+					<span className="en-need__icon is-rose">
+						<Icon name="minus" />
+					</span>
+					<span>
+						{ sprintf(
+							/* translators: %s: plugins */ __(
+								'Mit Konto: braucht %s',
+								'engenty-wizards'
+							),
+							fit.needs.join( ', ' )
+						) }
+					</span>
+				</li>
+			) : null }
+		</ul>
+	);
 }

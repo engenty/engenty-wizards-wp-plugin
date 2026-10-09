@@ -35,11 +35,8 @@ function Contact( { id, onClose } ) {
 			onClose={ onClose }
 		>
 			{ error ? <Notice tone="error">{ error.message }</Notice> : null }
-			{ ! c ? (
-				error ? null : (
-					<Spinner />
-				)
-			) : (
+			{ ! c && ! error ? <Spinner /> : null }
+			{ c ? (
 				<>
 					<dl className="en-facts">
 						{ [
@@ -89,15 +86,15 @@ function Contact( { id, onClose } ) {
 							) ) }
 					</dl>
 				</>
-			) }
+			) : null }
 		</Drawer>
 	);
 }
 
 /**
  * The leads of the contacts plugin (Pro): who came through which wizard.
- * @param root0
- * @param root0.status
+ * @param {Object} root0
+ * @param {Object} root0.status
  */
 export default function Contacts( { status } ) {
 	const me = status.me;
@@ -199,61 +196,64 @@ export default function Contacts( { status } ) {
 				) : null }
 			</div>
 			{ error ? <Notice tone="error">{ error.message }</Notice> : null }
-			{ ! data ? (
-				error ? null : (
-					<Spinner />
-				)
-			) : ! data.contacts.length ? (
-				<Empty title={ __( 'Noch keine Kontakte', 'engenty-wizards' ) }>
-					<p>
-						{ __(
-							'Wizards, die nach Name und E-Mail fragen, legen Kontakte hier an.',
-							'engenty-wizards'
-						) }
-					</p>
-				</Empty>
-			) : (
-				<table className="en-table">
-					<thead>
-						<tr>
-							<th>{ __( 'Name', 'engenty-wizards' ) }</th>
-							<th>{ __( 'E-Mail', 'engenty-wizards' ) }</th>
-							<th>{ __( 'Telefon', 'engenty-wizards' ) }</th>
-							<th>{ __( 'Kam über', 'engenty-wizards' ) }</th>
-							<th>{ __( 'Seit', 'engenty-wizards' ) }</th>
-						</tr>
-					</thead>
-					<tbody>
-						{ data.contacts.map( ( c ) => (
-							<tr
-								key={ c.id }
-								onClick={ () => setOpen( c.id ) }
-								tabIndex={ 0 }
-								onKeyDown={ ( e ) =>
-									e.key === 'Enter' && setOpen( c.id )
-								}
-							>
-								<td>
-									<strong>{ c.displayName }</strong>{ ' ' }
-									{ c.type === 'organisation' ? (
-										<Chip>
-											{ __( 'Firma', 'engenty-wizards' ) }
-										</Chip>
-									) : null }
-								</td>
-								<td>{ c.email }</td>
-								<td className="en-nowrap">{ c.phone }</td>
-								<td className="en-muted">
-									{ c.sourceWizardTitle }
-								</td>
-								<td className="en-nowrap en-muted">
-									{ when( c.createdAt ) }
-								</td>
+			{ ! data && ! error ? <Spinner /> : null }
+			{ data &&
+				( ! data.contacts.length ? (
+					<Empty
+						title={ __( 'Noch keine Kontakte', 'engenty-wizards' ) }
+					>
+						<p>
+							{ __(
+								'Wizards, die nach Name und E-Mail fragen, legen Kontakte hier an.',
+								'engenty-wizards'
+							) }
+						</p>
+					</Empty>
+				) : (
+					<table className="en-table">
+						<thead>
+							<tr>
+								<th>{ __( 'Name', 'engenty-wizards' ) }</th>
+								<th>{ __( 'E-Mail', 'engenty-wizards' ) }</th>
+								<th>{ __( 'Telefon', 'engenty-wizards' ) }</th>
+								<th>{ __( 'Kam über', 'engenty-wizards' ) }</th>
+								<th>{ __( 'Seit', 'engenty-wizards' ) }</th>
 							</tr>
-						) ) }
-					</tbody>
-				</table>
-			) }
+						</thead>
+						<tbody>
+							{ data.contacts.map( ( c ) => (
+								<tr
+									key={ c.id }
+									onClick={ () => setOpen( c.id ) }
+									tabIndex={ 0 }
+									onKeyDown={ ( e ) =>
+										e.key === 'Enter' && setOpen( c.id )
+									}
+								>
+									<td>
+										<strong>{ c.displayName }</strong>{ ' ' }
+										{ c.type === 'organisation' ? (
+											<Chip>
+												{ __(
+													'Firma',
+													'engenty-wizards'
+												) }
+											</Chip>
+										) : null }
+									</td>
+									<td>{ c.email }</td>
+									<td className="en-nowrap">{ c.phone }</td>
+									<td className="en-muted">
+										{ c.sourceWizardTitle }
+									</td>
+									<td className="en-nowrap en-muted">
+										{ when( c.createdAt ) }
+									</td>
+								</tr>
+							) ) }
+						</tbody>
+					</table>
+				) ) }
 			{ pages > 1 ? (
 				<div className="en-row en-pager">
 					<Button
