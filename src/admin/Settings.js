@@ -13,7 +13,7 @@ import {
 
 /**
  * "Eigenständige Wizards": one line naming the provider WordPress set (Einstellungen → Connectors),
- * a test, the limits, how long results are kept, photos to the provider.
+ * a test, the limits, how long results are kept, photos to the provider, the web as a tool.
  * @param {Object} root0
  * @param {Object} root0.status
  * @param {Object} root0.local    The local settings as edited.
@@ -212,6 +212,22 @@ function Standalone( { status, local, onChange } ) {
 					<span>
 						{ __(
 							'Fotos an den Anbieter schicken, wenn er Bilder nimmt',
+							'engenty-wizards'
+						) }
+					</span>
+				</label>
+				<label className="en-check" htmlFor="en-tools">
+					<input
+						id="en-tools"
+						type="checkbox"
+						checked={ Boolean( local.tools ) }
+						onChange={ ( e ) =>
+							onChange( { tools: e.target.checked } )
+						}
+					/>
+					<span>
+						{ __(
+							'Wizards dürfen Webseiten lesen und öffentliche APIs aufrufen, wenn ein Schritt das vorsieht',
 							'engenty-wizards'
 						) }
 					</span>

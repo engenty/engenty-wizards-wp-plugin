@@ -4,7 +4,7 @@ Tags: ai, forms, chatbot, appointments, lead generation
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.2.0
+Stable tag: 0.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,9 @@ Contacts and bookings in the WordPress admin, building wizards from templates in
 3. Results with answers and downloads.
 
 == Changelog ==
+
+= 0.3.0 =
+* Thinking steps read web pages and call public APIs on the site itself (WordPress abilities, a switch in the settings); a choice that leads to something the site lacks is closed on the page; a package can carry the project's knowledge; on a connected site a wizard runs here with "Hier laufen lassen" and back over engenty.ai.
 
 = 0.2.0 =
 * Wizards without an account: on WordPress 7.0 with an AI provider they run on the site itself; the shipped templates, a gallery with the entry dialog, import of a .wizard package with the check in the browser, results in WordPress, limits, the provider line in the settings.

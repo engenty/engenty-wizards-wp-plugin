@@ -84,6 +84,7 @@ class Engenty_Rest {
 		self::route( '/bundled/(?P<id>[a-z0-9-]+)', 'GET', array( __CLASS__, 'bundled_one' ), $edit );
 		self::route( '/bundled/(?P<id>[a-z0-9-]+)/activate', 'POST', array( __CLASS__, 'activate_bundled' ), $manage );
 		self::route( '/packages', 'POST', array( __CLASS__, 'import_package' ), $manage );
+		self::route( '/packages/studio', 'POST', array( __CLASS__, 'pull_package' ), $manage );
 		self::route( '/packages/(?P<id>[\w-]+)/pause', 'POST', array( __CLASS__, 'pause_package' ), $manage );
 		self::route( '/packages/(?P<id>[\w-]+)', 'DELETE', array( __CLASS__, 'remove_package' ), $manage );
 		self::route( '/setup', 'POST', array( __CLASS__, 'setup' ), $manage );
@@ -292,6 +293,7 @@ class Engenty_Rest {
 					'runsPerDay'  => isset( $l['runsPerDay'] ) ? max( 1, min( 100000, (int) $l['runsPerDay'] ) ) : null,
 					'keepDays'    => isset( $l['keepDays'] ) ? max( 0, min( 3650, (int) $l['keepDays'] ) ) : null,
 					'photos'      => isset( $l['photos'] ) ? (bool) $l['photos'] : null,
+					'tools'       => isset( $l['tools'] ) ? (bool) $l['tools'] : null,
 				),
 				static function ( $v ) {
 					return null !== $v;
@@ -368,7 +370,8 @@ class Engenty_Rest {
 	}
 
 	/**
-	 * Every wizard the site has: the standalone ones first, then the account's.
+	 * Every wizard the site has: the standalone ones first, then the account's; one pulled from
+	 * the account to run here is listed once, as the site's own.
 	 *
 	 * @param bool $fresh Ask the account anew.
 	 * @return array|WP_Error
@@ -382,11 +385,21 @@ class Engenty_Rest {
 		if ( is_wp_error( $cloud ) ) {
 			return $local ? $local : $cloud;
 		}
-		foreach ( $cloud as &$w ) {
-			$w['local'] = false;
+		$here = array();
+		foreach ( $local as $w ) {
+			if ( ! empty( $w['cloudId'] ) ) {
+				$here[ $w['cloudId'] ] = true;
+			}
 		}
-		unset( $w );
-		return array_merge( $local, $cloud );
+		$rest = array();
+		foreach ( $cloud as $w ) {
+			if ( isset( $here[ $w['id'] ?? '' ] ) ) {
+				continue;
+			}
+			$w['local'] = false;
+			$rest[]     = $w;
+		}
+		return array_merge( $local, $rest );
 	}
 
 	/** The shipped set, with whether each is installed. */
@@ -528,6 +541,24 @@ class Engenty_Rest {
 			return $row;
 		}
 		Engenty_Settings::update( array( 'setup' => array( 'wizard' => true ) ) );
+		return rest_ensure_response( array( 'wizard' => Engenty_Packages::summary( $row ) ) );
+	}
+
+	/**
+	 * Pulls an account wizard's published package and runs it here (the share dialog's
+	 * "Hier laufen lassen"); pulled again, it replaces the earlier copy.
+	 *
+	 * @param WP_REST_Request $request `{ wizardId }`.
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public static function pull_package( WP_REST_Request $request ) {
+		$in  = (array) $request->get_json_params();
+		$row = Engenty_Packages::pull( (string) ( $in['wizardId'] ?? '' ) );
+		if ( is_wp_error( $row ) ) {
+			return $row;
+		}
+		Engenty_Settings::update( array( 'setup' => array( 'wizard' => true ) ) );
+		delete_transient( 'engenty_wizards_list' );
 		return rest_ensure_response( array( 'wizard' => Engenty_Packages::summary( $row ) ) );
 	}
 

@@ -9,8 +9,10 @@ bookings in the admin. Two ways:
 - **Without an account** (WordPress 7.0 or newer) a wizard runs on the site itself: the browser
   follows the flow and draws every page with the studio's runner, PHP keeps the prompts and the
   run and asks the site's AI provider (WordPress → Einstellungen → Connectors) once per thinking
-  step through the AI Client. Wizards come with the plugin (`wizards/`) or as a `.wizard` package
-  from the studio; results stay in WordPress.
+  step through the AI Client; a step that reads a web page or calls a public API does so through
+  the site's own abilities (`includes/class-abilities.php`, the loop in `class-think.php`).
+  Wizards come with the plugin (`wizards/`) or as a `.wizard` package from the studio, or over
+  from the account with "Hier laufen lassen"; results stay in WordPress.
 
 GPLv2 or later. The runner's components come from the open repository's package
 `@engenty-wizards/runner` (MIT), vendored as built under `vendor-runner/`.
@@ -31,6 +33,7 @@ GPLv2 or later. The runner's components come from the open repository's package
 | `includes/class-packages.php` | Standalone wizards: the table, the shipped set, imports, the definition without prompts |
 | `includes/class-runs.php` | Standalone runs: the state, the public routes a visitor's browser calls, limits, the flow and the page reader ported from the runtime |
 | `includes/class-think.php` | The one model call through the AI Client: templates, the system prompt, JSON schemas, decisions, documents |
+| `includes/class-abilities.php` | What a thinking step may do on the site: read a public web page, call a public API, as WordPress abilities the model calls through the AI Client |
 | `includes/class-downloads.php` | A result as html, md, txt, csv, json |
 | `src/admin/` | The admin app (React through `@wordpress/element`) |
 | `src/block/` | The block's editor |

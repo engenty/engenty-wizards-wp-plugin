@@ -35,6 +35,16 @@ class Engenty_Think {
 	/** A decided branch is taken only when the pick leads clearly; a language model answers 1 or 0 (runner.ts BRANCH_MARGIN). */
 	const BRANCH_MARGIN = 0.1;
 
+	/** How often a step may call its tools before it has to answer (one model call each). */
+	const MAX_TOOL_TURNS = 6;
+
+	/**
+	 * The model calls the last `ask` took: one, or a tool loop's turns.
+	 *
+	 * @var int
+	 */
+	public static $last_calls = 1;
+
 	/**
 	 * The definition with its prompts.
 	 *
@@ -189,7 +199,7 @@ class Engenty_Think {
 	}
 
 	/**
-	 * Whether any of the models takes images in a message (its supported options name input modalities with image).
+	 * Whether any of the models takes images in a message (its supported options name input modalities with image; the SDK spells the key inputModalities).
 	 *
 	 * @param array $models The models' metadata.
 	 * @return bool
@@ -197,7 +207,7 @@ class Engenty_Think {
 	private static function takes_images( array $models ) {
 		foreach ( $models as $m ) {
 			$text = wp_json_encode( method_exists( $m, 'toArray' ) ? $m->toArray() : (array) $m );
-			if ( $text && preg_match( '/input_modalities.{0,200}image/i', (string) $text ) ) {
+			if ( $text && preg_match( '/input_?modalities.{0,400}image/i', (string) $text ) ) {
 				return true;
 			}
 		}
@@ -248,23 +258,27 @@ class Engenty_Think {
 	/**
 	 * The call. A filter may answer in its place (tests, a site without the AI Client).
 	 *
-	 * @param string     $system The system instruction.
-	 * @param string     $prompt The prompt.
-	 * @param array|null $schema A JSON schema the answer must fit, or null for text.
-	 * @param array      $photos `[{ path, mime }]` the model looks at, where it takes images.
+	 * @param string     $system    The system instruction.
+	 * @param string     $prompt    The prompt.
+	 * @param array|null $schema    A JSON schema the answer must fit, or null for text.
+	 * @param array      $photos    `[{ path, mime }]` the model looks at, where it takes images.
+	 * @param array      $abilities The abilities (WordPress Abilities API) the model may call: the step's tools.
 	 * @return string The answer.
 	 * @throws Engenty_Step_Error When the provider does not answer.
 	 */
-	public static function ask( $system, $prompt, $schema, array $photos ) {
+	public static function ask( $system, $prompt, $schema, array $photos, array $abilities = array() ) {
+		self::$last_calls = 1;
 		/**
 		 * Answers a step in the provider's place: a string, or null to ask the provider.
 		 *
-		 * @param string|null $answer Null.
-		 * @param string      $system The system instruction.
-		 * @param string      $prompt The prompt.
-		 * @param array|null  $schema The JSON schema wanted, or null.
+		 * @param string|null $answer    Null.
+		 * @param string      $system    The system instruction.
+		 * @param string      $prompt    The prompt.
+		 * @param array|null  $schema    The JSON schema wanted, or null.
+		 * @param array       $photos    `[{ path, mime }]` attached to the message.
+		 * @param array       $abilities The abilities the model may call.
 		 */
-		$answer = apply_filters( 'engenty_wizards_answer', null, $system, $prompt, $schema );
+		$answer = apply_filters( 'engenty_wizards_answer', null, $system, $prompt, $schema, $photos, $abilities );
 		if ( is_string( $answer ) ) {
 			return $answer;
 		}
@@ -276,21 +290,17 @@ class Engenty_Think {
 		};
 		add_filter( 'wp_ai_client_default_request_timeout', $timeout );
 		try {
-			$builder = wp_ai_client_prompt( $prompt );
-			$builder = self::call_method( $builder, array( 'using_system_instruction', 'usingSystemInstruction' ), array( $system ) );
-			foreach ( $photos as $photo ) {
-				$builder = self::call_method( $builder, array( 'with_file', 'withFile' ), array( $photo['path'], $photo['mime'] ) );
-			}
-			if ( $schema ) {
-				$builder = self::call_method( $builder, array( 'as_json_response', 'asJsonResponse' ), array( $schema ) );
-			}
-			$text = self::call_method( $builder, array( 'generate_text', 'generateText' ), array() );
+			$builder = self::builder( $system, $prompt, $schema, $photos, $abilities, array() );
+			$text    = $abilities
+				? self::with_tools( $builder, $system, $prompt, $schema, $abilities )
+				: self::call_method( $builder, array( 'generate_text', 'generateText' ), array() );
 		} catch ( Engenty_Step_Error $e ) {
 			throw $e;
 		} catch ( \Throwable $e ) {
 			throw new Engenty_Step_Error( esc_html( self::friendly( $e->getMessage() ) ) );
 		} finally {
 			remove_filter( 'wp_ai_client_default_request_timeout', $timeout );
+			Engenty_Abilities::$open = false;
 		}
 		if ( is_wp_error( $text ) ) {
 			throw new Engenty_Step_Error( esc_html( self::friendly( $text->get_error_message() ) ) );
@@ -299,6 +309,132 @@ class Engenty_Think {
 			throw new Engenty_Step_Error( esc_html__( 'Der KI-Anbieter hat nicht geantwortet.', 'engenty-wizards' ) );
 		}
 		return $text;
+	}
+
+	/**
+	 * The prompt as the AI Client takes it: the system instruction, the photos, the JSON schema
+	 * wanted, the abilities, and what was said before (a tool loop's earlier turns).
+	 *
+	 * @param string        $system    The system instruction.
+	 * @param string|object $prompt   The prompt: text, or the answers of the abilities called.
+	 * @param array|null    $schema    A JSON schema, or null.
+	 * @param array         $photos    `[{ path, mime }]`.
+	 * @param array         $abilities Ability names.
+	 * @param array         $history   Messages before this one.
+	 * @return object The builder.
+	 * @throws Engenty_Step_Error When the builder lacks a method.
+	 */
+	private static function builder( $system, $prompt, $schema, array $photos, array $abilities, array $history ) {
+		$builder = wp_ai_client_prompt( $prompt );
+		if ( $history ) {
+			$builder = self::call_method( $builder, array( 'with_history', 'withHistory' ), $history );
+		}
+		$builder = self::call_method( $builder, array( 'using_system_instruction', 'usingSystemInstruction' ), array( $system ) );
+		foreach ( $photos as $photo ) {
+			$builder = self::call_method( $builder, array( 'with_file', 'withFile' ), array( $photo['path'], $photo['mime'] ) );
+		}
+		if ( $schema ) {
+			$builder = self::call_method( $builder, array( 'as_json_response', 'asJsonResponse' ), array( $schema ) );
+		}
+		if ( $abilities ) {
+			$builder = self::call_method( $builder, array( 'using_abilities', 'usingAbilities' ), $abilities );
+		}
+		return $builder;
+	}
+
+	/**
+	 * The model's answer with its tool calls run in between (tools/index.ts): WordPress 7.1's AI
+	 * Client declares the abilities and resolves a call, but leaves the loop to the caller. Each
+	 * turn the abilities it called answer in a message of their own, until it writes text or the
+	 * turns are used up.
+	 *
+	 * @param object     $builder   The first prompt.
+	 * @param string     $system    The system instruction.
+	 * @param string     $prompt    The prompt's text.
+	 * @param array|null $schema    A JSON schema, or null.
+	 * @param array      $abilities Ability names.
+	 * @return string|WP_Error The text.
+	 * @throws Engenty_Step_Error When the builder lacks a method.
+	 */
+	private static function with_tools( $builder, $system, $prompt, $schema, array $abilities ) {
+		$resolver = new WP_AI_Client_Ability_Function_Resolver( ...$abilities );
+		$history  = array( new \WordPress\AiClient\Messages\DTO\UserMessage( array( new \WordPress\AiClient\Messages\DTO\MessagePart( $prompt ) ) ) );
+
+		Engenty_Abilities::$open = true;
+		for ( $turn = 0; ; $turn++ ) {
+			$result = self::call_method( $builder, array( 'generate_text_result', 'generateTextResult' ), array() );
+			if ( is_wp_error( $result ) ) {
+				return $result;
+			}
+			self::$last_calls = $turn + 1;
+			$message          = $result->toMessage();
+			if ( $turn >= self::MAX_TOOL_TURNS || ! $resolver->has_ability_calls( $message ) ) {
+				return self::text_of( $result );
+			}
+			$answers   = $resolver->execute_abilities( $message );
+			$history[] = $message;
+			$builder   = self::builder( $system, $answers, $schema, array(), $abilities, $history );
+			$history[] = $answers;
+		}
+	}
+
+	/**
+	 * The text of a result; one that still holds a function call gives what text it has.
+	 *
+	 * @param object $result The result.
+	 * @return string
+	 */
+	private static function text_of( $result ) {
+		try {
+			return (string) $result->toText();
+		} catch ( \Throwable $e ) {
+			$parts = array();
+			foreach ( $result->toMessage()->getParts() as $part ) {
+				if ( is_string( $part->getText() ) ) {
+					$parts[] = $part->getText();
+				}
+			}
+			return implode( "\n", $parts );
+		}
+	}
+
+	/**
+	 * Whether wizards here may read the web and call APIs: the setting, and a WordPress with the
+	 * Abilities API.
+	 *
+	 * @return bool
+	 */
+	public static function abilities_on() {
+		return ! empty( Engenty_Settings::all()['local']['tools'] ) && Engenty_Abilities::supported();
+	}
+
+	/**
+	 * The abilities a thinking step gets: `web_fetch` (and `web_search`, which fetches what it
+	 * knows) read a page, `http` calls an API. Nothing else of the runtime's tools runs here.
+	 *
+	 * @param array $step The step.
+	 * @return array Ability names.
+	 */
+	private static function abilities_for( array $step ) {
+		if ( ! self::abilities_on() ) {
+			return array();
+		}
+		$tools = (array) ( $step['tools'] ?? array() );
+		$out   = array();
+		if ( array_intersect( array( 'web_fetch', 'web_search' ), $tools ) ) {
+			$out[] = Engenty_Abilities::FETCH;
+		}
+		if ( in_array( 'http', $tools, true ) ) {
+			$out[] = Engenty_Abilities::HTTP;
+		}
+		return array_values(
+			array_filter(
+				$out,
+				static function ( $name ) {
+					return (bool) wp_get_ability( $name );
+				}
+			)
+		);
 	}
 
 	/**
@@ -786,8 +922,10 @@ class Engenty_Think {
 	 * fit. What a template calls "Wissen" or a price list is usually one of them.
 	 *
 	 * @return string
+	 *
+	 * @param bool $with_tools Whether the step has the site's abilities (a web page, an API) as tools.
 	 */
-	private function workspace_block() {
+	private function workspace_block( $with_tools = false ) {
 		$dir   = Engenty_Packages::files_dir( $this->wizard['id'] );
 		$parts = array();
 		$left  = self::MAX_WORKSPACE_CHARS;
@@ -808,7 +946,10 @@ class Engenty_Think {
 		if ( ! $parts ) {
 			return '';
 		}
-		return "# THE WIZARD'S FILES\nYou have no tools here. What the task tells you to read with a tool (read_workspace_file, scan_documents, …) is given below instead; use it as it is.\n\n" . implode( "\n\n", $parts );
+		$tools = $with_tools
+			? 'Your only tools here are the functions offered to you (reading a web page, calling an API). What the task tells you to read with a file tool (read_workspace_file, scan_documents, …) is given below instead; use it as it is.'
+			: 'You have no tools here. What the task tells you to read with a tool (read_workspace_file, scan_documents, …) is given below instead; use it as it is.';
+		return "# THE WIZARD'S FILES\n" . $tools . "\n\n" . implode( "\n\n", $parts );
 	}
 
 	/**
@@ -1080,15 +1221,16 @@ class Engenty_Think {
 		if ( ! empty( $step['each'] ) ) {
 			return $this->run_agent_each( $step, $state );
 		}
-		$format = (string) ( $step['output']['format'] ?? 'markdown' );
-		$hint   = 'markdown' === $format
+		$format    = (string) ( $step['output']['format'] ?? 'markdown' );
+		$hint      = 'markdown' === $format
 			? 'Answer with the finished result in clean Markdown — no preamble, no closing remarks.'
 			: ( 'text' === $format
 				? 'Answer with the finished result as plain text — no Markdown, no preamble.'
 				: 'Answer with the result as JSON that fits the schema exactly. Keep every number and source exactly.' );
-		$system = implode( "\n\n", array_filter( array( self::GROUND_RULES, 'Today is ' . $this->today() . '.', $this->brand_block(), $this->workspace_block(), $hint ) ) );
-		$photos = $this->seen_photos( $step, $state );
-		$prompt = implode(
+		$abilities = self::abilities_for( $step );
+		$system    = implode( "\n\n", array_filter( array( self::GROUND_RULES, 'Today is ' . $this->today() . '.', $this->brand_block(), $this->workspace_block( (bool) $abilities ), $hint ) ) );
+		$photos    = $this->seen_photos( $step, $state );
+		$prompt    = implode(
 			"\n\n",
 			array_filter(
 				array(
@@ -1108,13 +1250,13 @@ class Engenty_Think {
 				)
 			)
 		);
-		$at     = gmdate( 'c' );
+		$at        = gmdate( 'c' );
 		if ( self::is_decision_step( $step ) ) {
 			return $this->decide_step( $step, $prompt, $at );
 		}
 		if ( 'json' !== $format ) {
-			$text = trim( self::ask( $system, $prompt, null, $photos ) );
-			++$this->calls;
+			$text         = trim( self::ask( $system, $prompt, null, $photos, $abilities ) );
+			$this->calls += self::$last_calls;
 			if ( '' === $text ) {
 				throw new Engenty_Step_Error( esc_html__( 'Der Schritt hat kein Ergebnis geliefert.', 'engenty-wizards' ) );
 			}
@@ -1124,9 +1266,9 @@ class Engenty_Think {
 			);
 		}
 		list( $schema, $fields ) = self::output_schema( $step );
-		$answer                  = self::ask( $system, $prompt, $schema, $photos );
-		++$this->calls;
-		$json = json_decode( self::json_in( $answer ), true );
+		$answer                  = self::ask( $system, $prompt, $schema, $photos, $abilities );
+		$this->calls            += self::$last_calls;
+		$json                    = json_decode( self::json_in( $answer ), true );
 		if ( ! is_array( $json ) ) {
 			throw new Engenty_Step_Error( esc_html__( 'Die Antwort des KI-Anbieters war keine gültige Struktur.', 'engenty-wizards' ) );
 		}

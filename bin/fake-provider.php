@@ -3,11 +3,12 @@
  * Plugin Name: engenty wizards – a provider that answers canned (the smoke test only)
  *
  * Answers every step of a standalone wizard without a model: JSON that fits the schema asked
- * for, a short text, or a small document. For the smoke test and for developing the flow.
+ * for, a short text, or a small document. For the smoke test and for developing the flow. The
+ * photos attached and the abilities offered come along (`$photos`, `$abilities`), unused here.
  */
 add_filter(
 	'engenty_wizards_answer',
-	static function ( $answer, $system, $prompt, $schema ) {
+	static function ( $answer, $system, $prompt, $schema, $photos = array(), $abilities = array() ) {
 		if ( is_array( $schema ) ) {
 			return wp_json_encode( engenty_fake_fill( $schema ) );
 		}
@@ -17,7 +18,7 @@ add_filter(
 		return "## Einschätzung (Test)\n\nDas ist eine Antwort der Test-KI. Sie hat gelesen:\n\n" . mb_substr( $prompt, 0, 200 );
 	},
 	10,
-	4
+	6
 );
 
 if ( ! function_exists( 'engenty_fake_fill' ) ) {

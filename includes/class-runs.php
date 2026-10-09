@@ -438,6 +438,19 @@ class Engenty_Runs {
 		$input   = (array) ( ( (array) $request->get_json_params() )['values'] ?? array() );
 		$context = self::page_context( $w['definition'], $state, $step );
 		$read    = self::read_page_input( $step, $input, $context );
+		// An answer that leads to a step the site cannot run would stop the run there, later.
+		foreach ( self::closed_choices( $w['definition'], $step, $state['values'], self::lacking_of( $w ) ) as $id => $choice ) {
+			if ( ! array_key_exists( $id, $read['values'] ) ) {
+				continue;
+			}
+			$answer = self::as_string( $read['values'][ $id ] );
+			if ( ! $choice['values'] || in_array( $answer, array_map( array( __CLASS__, 'as_string' ), $choice['values'] ), true ) ) {
+				$read['errors'][] = array(
+					'field'   => $id,
+					'message' => __( 'Das ist hier gerade nicht verfügbar.', 'engenty-wizards' ),
+				);
+			}
+		}
 		if ( $read['errors'] ) {
 			return self::respond(
 				new WP_Error(
@@ -1252,6 +1265,251 @@ class Engenty_Runs {
 		return self::taken( $def, $step_id, $outcome['rule'], $outcome['cursor'], $state );
 	}
 
+	// --- closed choices (fit.ts, ported) --------------------------------------------------
+
+	/**
+	 * Where step `i` goes when none of its rules holds, as an index; the count = the end
+	 * (fit.ts otherwiseIndex).
+	 *
+	 * @param array $def   The definition.
+	 * @param int   $i     The step's index.
+	 * @param array $index Step id → index.
+	 * @return int
+	 */
+	private static function otherwise_index( array $def, $i, array $index ) {
+		foreach ( (array) ( $def['steps'][ $i ]['next'] ?? array() ) as $rule ) {
+			if ( self::is_otherwise( $rule ) ) {
+				return 'end' === $rule['goto'] ? count( $def['steps'] ) : ( $index[ $rule['goto'] ] ?? $i + 1 );
+			}
+		}
+		return $i + 1;
+	}
+
+	/**
+	 * The steps every path from `from` to the end passes through (fit.ts unavoidableFrom). A rule
+	 * on an answer in `known` goes one way; a rule on anything else may go either way.
+	 *
+	 * @param array  $def   The definition.
+	 * @param string $from  The step to start from.
+	 * @param array  $known The answers given.
+	 * @return array Step ids.
+	 */
+	public static function unavoidable_from( array $def, $from, array $known ) {
+		$index = array();
+		foreach ( $def['steps'] as $i => $s ) {
+			$index[ $s['id'] ] = $i;
+		}
+		$count       = count( $def['steps'] );
+		$start       = $index[ $from ] ?? 0;
+		$successors  = static function ( $i ) use ( $def, $index, $count, $known ) {
+			$out = array();
+			foreach ( (array) ( $def['steps'][ $i ]['next'] ?? array() ) as $rule ) {
+				if ( self::is_otherwise( $rule ) ) {
+					continue;
+				}
+				$target  = 'end' === $rule['goto'] ? $count : ( $index[ $rule['goto'] ] ?? -1 );
+				$decided = true;
+				foreach ( self::conditions_of( $rule['when'] ?? null ) as $c ) {
+					if ( ! array_key_exists( $c['field'], $known ) ) {
+						$decided = false;
+					}
+				}
+				if ( ! empty( $rule['ask'] ) || ! $decided ) {
+					if ( $target >= 0 ) {
+						$out[] = $target;
+					}
+					continue;
+				}
+				if ( self::when_holds( $rule['when'] ?? null, $known ) ) {
+					// The first rule that matches decides; nothing after it is tried.
+					if ( $target >= 0 ) {
+						$out[] = $target;
+					}
+					return $out;
+				}
+			}
+			// No rule matching goes on to the "otherwise" step, else the next (or ends after the last).
+			$out[] = self::otherwise_index( $def, $i, $index );
+			return $out;
+		};
+		$reaches_end = static function ( $without ) use ( $start, $count, $successors ) {
+			if ( $without === $start ) {
+				return false;
+			}
+			$seen  = array( $start => true );
+			$queue = array( $start );
+			while ( $queue ) {
+				$i = array_shift( $queue );
+				if ( $i >= $count ) {
+					return true;
+				}
+				foreach ( $successors( $i ) as $j ) {
+					if ( $j !== $without && ! isset( $seen[ $j ] ) ) {
+						$seen[ $j ] = true;
+						$queue[]    = $j;
+					}
+				}
+			}
+			return false;
+		};
+		$out         = array();
+		foreach ( $def['steps'] as $i => $s ) {
+			if ( ! $reaches_end( $i ) ) {
+				$out[] = $s['id'];
+			}
+		}
+		return $out;
+	}
+
+	/**
+	 * The choices a page offers (fit.ts choicesOf): each select's options, a toggle's on and off.
+	 *
+	 * @param array $step The page.
+	 * @return array `[{ field, values }]`.
+	 */
+	private static function choices_of( array $step ) {
+		$out = array();
+		foreach ( (array) $step['fields'] as $f ) {
+			if ( 'select' === $f['kind'] && ! empty( $f['options'] ) ) {
+				$out[] = array(
+					'field'  => $f['id'],
+					'values' => array_values( (array) $f['options'] ),
+				);
+			} elseif ( 'toggle' === $f['kind'] ) {
+				$out[] = array(
+					'field'  => $f['id'],
+					'values' => array( true, false ),
+				);
+			}
+		}
+		return $out;
+	}
+
+	/**
+	 * What a need is called where a visitor reads that it is missing (the runner's class groups):
+	 * what a model would do, or the account behind everything else.
+	 *
+	 * @param string $need A need (fit.ts Need).
+	 * @return string audio | image | video | speech | account.
+	 */
+	public static function need_group( $need ) {
+		if ( 'field:audio' === $need ) {
+			return 'audio';
+		}
+		if ( in_array( $need, array( 'tool:image', 'asset:image' ), true ) ) {
+			return 'image';
+		}
+		if ( in_array( $need, array( 'asset:video', 'film', 'widget:video' ), true ) ) {
+			return 'video';
+		}
+		if ( in_array( $need, array( 'asset:voice', 'asset:speech' ), true ) ) {
+			return 'speech';
+		}
+		return 'account';
+	}
+
+	/**
+	 * What each step lacks here, from the check made when the wizard was installed: its hard
+	 * needs as groups. Reading the web and calling an API are not lacking where the site's
+	 * abilities do it.
+	 *
+	 * @param array $w The wizard.
+	 * @return callable Step → groups.
+	 */
+	public static function lacking_of( array $w ) {
+		$runs_here = Engenty_Think::abilities_on();
+		$hard      = array();
+		foreach ( (array) ( $w['notes']['notes'] ?? array() ) as $n ) {
+			if ( empty( $n['hard'] ) || ! isset( $n['stepId'], $n['need'] ) ) {
+				continue;
+			}
+			if ( $runs_here && in_array( $n['need'], array( 'tool:web_fetch', 'tool:http' ), true ) ) {
+				continue;
+			}
+			$hard[ $n['stepId'] ][] = self::need_group( (string) $n['need'] );
+		}
+		return static function ( array $step ) use ( $hard ) {
+			return array_values( array_unique( $hard[ $step['id'] ] ?? array() ) );
+		};
+	}
+
+	/**
+	 * The answers on a page that lead to a step this site cannot run (fit.ts closedChoicesFor):
+	 * with them the run would stop there. The answers given already count; the page's other
+	 * fields may still go either way. A choice whose every value leads there is left open: the
+	 * run cannot go around it, and the start already warned. A voice note is closed as a whole:
+	 * nothing here listens.
+	 *
+	 * @param array    $def     The definition.
+	 * @param array    $step    The page.
+	 * @param array    $values  The answers so far.
+	 * @param callable $lacking Step → groups it lacks.
+	 * @return array Field → `{ values, classes }`.
+	 */
+	public static function closed_choices( array $def, array $step, array $values, $lacking ) {
+		$ids = array();
+		foreach ( (array) $step['fields'] as $f ) {
+			$ids[ $f['id'] ] = true;
+		}
+		$known = array_diff_key( $values, $ids );
+		$out   = array();
+		foreach ( (array) $step['fields'] as $f ) {
+			if ( 'audio' === $f['kind'] ) {
+				$out[ $f['id'] ] = array(
+					'values'  => array(),
+					'classes' => array( 'audio' ),
+				);
+			}
+		}
+		foreach ( self::choices_of( $step ) as $choice ) {
+			$closed = array(
+				'values'  => array(),
+				'classes' => array(),
+			);
+			foreach ( $choice['values'] as $value ) {
+				$ahead   = self::unavoidable_from( $def, $step['id'], array_merge( $known, array( $choice['field'] => $value ) ) );
+				$missing = array();
+				foreach ( $ahead as $id ) {
+					$s = self::step_of( $def, $id );
+					if ( $s ) {
+						$missing = array_merge( $missing, (array) $lacking( $s ) );
+					}
+				}
+				if ( $missing ) {
+					$closed['values'][] = $value;
+					$closed['classes']  = array_values( array_unique( array_merge( $closed['classes'], $missing ) ) );
+				}
+			}
+			if ( $closed['values'] && count( $closed['values'] ) < count( $choice['values'] ) ) {
+				$out[ $choice['field'] ] = $closed;
+			}
+		}
+		return $out;
+	}
+
+	/**
+	 * The answer a closed choice gets instead (fit.ts openValue): its first value that stays open.
+	 *
+	 * @param array  $step   The page.
+	 * @param string $field  The field.
+	 * @param array  $closed Its closed choice.
+	 * @return mixed
+	 */
+	private static function open_value( array $step, $field, array $closed ) {
+		$shut = array_map( array( __CLASS__, 'as_string' ), $closed['values'] );
+		foreach ( self::choices_of( $step ) as $choice ) {
+			if ( $choice['field'] !== $field ) {
+				continue;
+			}
+			foreach ( $choice['values'] as $v ) {
+				if ( ! in_array( self::as_string( $v ), $shut, true ) ) {
+					return $v;
+				}
+			}
+		}
+		return null;
+	}
+
 	// --- pages (input.ts, ported) ---------------------------------------------------------
 
 	/**
@@ -1597,12 +1855,13 @@ class Engenty_Runs {
 	/**
 	 * What the page's fields start with (runner.ts prefillOf): an earlier step's result.
 	 *
-	 * @param array $def   The definition.
-	 * @param array $state The state.
+	 * @param array $def    The definition.
+	 * @param array $state  The state.
 	 * @param array $step  The page.
+	 * @param array $closed The page's closed choices: a closed start value gives way to an open one.
 	 * @return array
 	 */
-	private static function prefill_of( array $def, array $state, array $step ) {
+	private static function prefill_of( array $def, array $state, array $step, array $closed = array() ) {
 		$out = array();
 		foreach ( $step['fields'] as $field ) {
 			if ( empty( $field['prefill'] ) ) {
@@ -1611,6 +1870,22 @@ class Engenty_Runs {
 			$value = Engenty_Think::resolve_ref( trim( preg_replace( '/^\{\{\s*|\s*\}\}$/', '', (string) $field['prefill'] ) ), $def, $state, array() );
 			if ( null !== $value && '' !== $value ) {
 				$out[ $field['id'] ] = $value;
+			}
+		}
+		// A closed choice starts on a value that stays open, not on one the site refuses.
+		foreach ( $closed as $id => $choice ) {
+			$field = null;
+			foreach ( $step['fields'] as $f ) {
+				if ( $f['id'] === $id ) {
+					$field = $f;
+				}
+			}
+			if ( ! $field ) {
+				continue;
+			}
+			$start = $out[ $id ] ?? ( $field['default'] ?? ( 'toggle' === $field['kind'] ? false : null ) );
+			if ( null !== $start && in_array( self::as_string( $start ), array_map( array( __CLASS__, 'as_string' ), $choice['values'] ), true ) ) {
+				$out[ $id ] = self::open_value( $step, $id, $choice );
 			}
 		}
 		return $out;
@@ -1680,6 +1955,9 @@ class Engenty_Runs {
 			);
 		}
 		$context = $step && 'page' === $step['type'] ? self::page_context( $def, $state, $step ) : null;
+		$closed  = $step && 'page' === $step['type'] && 'waiting_input' === $run['status']
+			? self::closed_choices( $def, $step, $state['values'], self::lacking_of( $w ) )
+			: array();
 		return array(
 			'id'            => $run['id'],
 			'status'        => $run['status'],
@@ -1692,11 +1970,11 @@ class Engenty_Runs {
 			),
 			'step'          => $step ? Engenty_Packages::public_step( $step ) : null,
 			'values'        => (object) $state['values'],
-			'prefill'       => (object) ( $step && 'page' === $step['type'] ? self::prefill_of( $def, $state, $step ) : array() ),
+			'prefill'       => (object) ( $step && 'page' === $step['type'] ? self::prefill_of( $def, $state, $step, $closed ) : array() ),
 			'known'         => (object) ( $context['known'] ?? array() ),
 			'options'       => (object) ( $context['options'] ?? array() ),
 			'decidedFields' => $context['decided'] ?? array(),
-			'closed'        => new stdClass(),
+			'closed'        => (object) $closed,
 			'outputs'       => (object) $outputs,
 			'shown'         => $shown,
 			'progress'      => array(

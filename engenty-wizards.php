@@ -3,7 +3,7 @@
  * Plugin Name:       engenty wizards
  * Plugin URI:        https://engenty.ai/wordpress
  * Description:       Your own AI assistants on your website: as a block, a shortcode, an Elementor widget or a bubble on every page. With an engenty.ai account, or on the site itself with its AI provider.
- * Version:           0.2.0
+ * Version:           0.3.0
  * Requires at least: 6.6
  * Requires PHP:      8.1
  * Author:            engenty
@@ -18,7 +18,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ENGENTY_WIZARDS_VERSION', '0.2.0' );
+define( 'ENGENTY_WIZARDS_VERSION', '0.3.0' );
 define( 'ENGENTY_WIZARDS_FILE', __FILE__ );
 define( 'ENGENTY_WIZARDS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ENGENTY_WIZARDS_URL', plugin_dir_url( __FILE__ ) );
@@ -39,6 +39,7 @@ require_once ENGENTY_WIZARDS_DIR . 'includes/class-connect.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-client.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-site-reader.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-packages.php';
+require_once ENGENTY_WIZARDS_DIR . 'includes/class-abilities.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-think.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-step-error.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-runs.php';
@@ -81,6 +82,7 @@ add_action(
 		load_plugin_textdomain( 'engenty-wizards', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		Engenty_Connect::init();
 		Engenty_Packages::init();
+		Engenty_Abilities::init();
 		Engenty_Runs::init();
 		Engenty_Embed::init();
 		Engenty_Rest::init();

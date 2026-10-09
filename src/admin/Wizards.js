@@ -114,6 +114,51 @@ export default function Wizards( { status } ) {
 			setError( problem( e ) );
 		}
 	};
+	const [ pulling, setPulling ] = useState( false );
+	/**
+	 * "Hier laufen lassen": the published package comes over with the site's key and runs here.
+	 * @param {Object} w
+	 */
+	const pull = async ( w ) => {
+		setPulling( true );
+		try {
+			const r = await post( '/packages/studio', {
+				wizardId: w.cloudId || w.id,
+			} );
+			setEmbed( r.wizard );
+			load( true );
+		} catch ( e ) {
+			setError( problem( e ) );
+		}
+		setPulling( false );
+	};
+	/**
+	 * "Über engenty.ai laufen lassen": the local copy goes, the account's wizard is listed again.
+	 * @param {Object} w
+	 */
+	const release = async ( w ) => {
+		try {
+			await api( `/packages/${ encodeURIComponent( w.id ) }`, {
+				method: 'DELETE',
+			} );
+			setEmbed( null );
+			load( true );
+		} catch ( e ) {
+			setError( problem( e ) );
+		}
+	};
+	/**
+	 * Whether an account wizard may run here: a provider, published, and a fit the site has.
+	 * @param {Object} w
+	 */
+	const canRunHere = ( w ) =>
+		Boolean(
+			status.can?.manage &&
+				local?.provider?.ready &&
+				w.published &&
+				w.standalone &&
+				w.standalone.fit !== 'no'
+		);
 
 	return (
 		<>
@@ -325,12 +370,69 @@ export default function Wizards( { status } ) {
 							<Place me={ me } wizard={ embed } />
 						</>
 					) : null }
+					{ ! embed.local && canRunHere( embed ) ? (
+						<>
+							<h3>
+								{ __( 'Dieser Wizard', 'engenty-wizards' ) }
+							</h3>
+							<p className="en-muted en-small">
+								{ __(
+									'Läuft gerade über engenty.ai. Hier laufen lassen holt die veröffentlichte Version auf diese Website: Sie denkt dann mit dem KI-Anbieter von WordPress, ohne Credits, und die Ergebnisse bleiben hier.',
+									'engenty-wizards'
+								) }
+								{ withoutLine( embed.standalone )
+									? ' ' + withoutLine( embed.standalone )
+									: '' }
+							</p>
+							<div className="en-row">
+								<Button
+									disabled={ pulling }
+									onClick={ () => pull( embed ) }
+								>
+									{ __(
+										'Hier laufen lassen',
+										'engenty-wizards'
+									) }
+								</Button>
+							</div>
+						</>
+					) : null }
 					{ embed.local && status.can?.manage ? (
 						<>
 							<h3>
 								{ __( 'Dieser Wizard', 'engenty-wizards' ) }
 							</h3>
+							{ embed.cloudId ? (
+								<p className="en-muted en-small">
+									{ __(
+										'Aus deinem Konto geholt und läuft hier mit dem KI-Anbieter von WordPress. Neu laden holt die veröffentlichte Version noch einmal.',
+										'engenty-wizards'
+									) }
+								</p>
+							) : null }
 							<div className="en-row">
+								{ embed.cloudId && connected ? (
+									<>
+										<Button
+											disabled={ pulling }
+											onClick={ () => pull( embed ) }
+										>
+											{ __(
+												'Neu laden',
+												'engenty-wizards'
+											) }
+										</Button>
+										<Button
+											kind="ghost"
+											onClick={ () => release( embed ) }
+										>
+											{ __(
+												'Über engenty.ai laufen lassen',
+												'engenty-wizards'
+											) }
+										</Button>
+									</>
+								) : null }
 								{ embed.available ? (
 									<Button
 										onClick={ () => pause( embed, true ) }
@@ -347,19 +449,23 @@ export default function Wizards( { status } ) {
 										) }
 									</Button>
 								) }
-								<Button
-									kind="danger"
-									onClick={ () => remove( embed ) }
-								>
-									{ __( 'Entfernen', 'engenty-wizards' ) }
-								</Button>
-							</div>
-							<p className="en-muted en-small">
-								{ __(
-									'Texte und Schritte änderst du im Studio von engenty und importierst das Paket neu.',
-									'engenty-wizards'
+								{ embed.cloudId ? null : (
+									<Button
+										kind="danger"
+										onClick={ () => remove( embed ) }
+									>
+										{ __( 'Entfernen', 'engenty-wizards' ) }
+									</Button>
 								) }
-							</p>
+							</div>
+							{ embed.cloudId ? null : (
+								<p className="en-muted en-small">
+									{ __(
+										'Texte und Schritte änderst du im Studio von engenty und importierst das Paket neu.',
+										'engenty-wizards'
+									) }
+								</p>
+							) }
 						</>
 					) : null }
 				</Drawer>

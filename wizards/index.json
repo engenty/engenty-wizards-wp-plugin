@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-10-09T08:23:59.377Z",
+  "exportedAt": "2026-10-09T10:25:07.684Z",
   "source": "https://engenty.ai/wizards",
   "templates": [
     {
@@ -571,6 +571,58 @@
       "plan": "free",
       "plugins": [],
       "hash": "b29f89233de6ea3b657a4dec8c8a89ac",
+      "revision": 3,
+      "standalone": {
+        "fit": "less",
+        "notes": [
+          {
+            "stepId": "done",
+            "need": "format:pdf",
+            "hard": false
+          }
+        ],
+        "missing": [],
+        "optional": [],
+        "needs": [],
+        "without": [
+          "pdf"
+        ]
+      }
+    },
+    {
+      "id": "web-dayplan",
+      "file": "web-dayplan.wizard",
+      "title": "Dein Tagesplan",
+      "pitch": "Für Hotels und Regionen: Wetter am Tag, Interessen – ein Plan aus euren eigenen Tipps.",
+      "language": "de",
+      "avatar": "sprout",
+      "useCases": [
+        "website",
+        "service",
+        "inquiries"
+      ],
+      "industries": [
+        "hospitality"
+      ],
+      "formats": [
+        "text",
+        "document"
+      ],
+      "capabilities": [
+        "text",
+        "connectors"
+      ],
+      "effort": {
+        "fields": 4,
+        "required": 1,
+        "reviews": 0,
+        "minutes": 2
+      },
+      "costTier": "low",
+      "steps": 3,
+      "plan": "free",
+      "plugins": [],
+      "hash": "810a5edf47b7c15e93e1866f6822a57a",
       "revision": 3,
       "standalone": {
         "fit": "less",

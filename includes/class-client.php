@@ -24,6 +24,40 @@ class Engenty_Client {
 	 * @return array|WP_Error The answer's JSON.
 	 */
 	public static function call( $method, $path, $body = null, $timeout = 20 ) {
+		$res = self::request( $method, $path, $body, $timeout );
+		if ( is_wp_error( $res ) ) {
+			return $res;
+		}
+		$json = json_decode( (string) wp_remote_retrieve_body( $res ), true );
+		return is_array( $json ) ? $json : array();
+	}
+
+	/**
+	 * A call whose answer is a file, not JSON: the bytes, or the runtime's error.
+	 *
+	 * @param string $path    Below `/api/v1`.
+	 * @param int    $timeout Seconds.
+	 * @return string|WP_Error
+	 */
+	public static function fetch_raw( $path, $timeout = 60 ) {
+		$res = self::request( 'GET', $path, null, $timeout );
+		if ( is_wp_error( $res ) ) {
+			return $res;
+		}
+		return (string) wp_remote_retrieve_body( $res );
+	}
+
+	/**
+	 * One call with the site's token, once more after a refresh when the token went stale;
+	 * an answer of 400 and up becomes a WP_Error with the runtime's code.
+	 *
+	 * @param string     $method  HTTP method.
+	 * @param string     $path    Below `/api/v1`.
+	 * @param array|null $body    JSON body.
+	 * @param int        $timeout Seconds.
+	 * @return array|WP_Error The response.
+	 */
+	private static function request( $method, $path, $body, $timeout ) {
 		$token = Engenty_Connect::access_token();
 		if ( is_wp_error( $token ) ) {
 			return $token;
@@ -44,8 +78,8 @@ class Engenty_Client {
 			return new WP_Error( 'engenty_unreachable', __( 'engenty.ai ist gerade nicht erreichbar.', 'engenty-wizards' ), array( 'status' => 502 ) );
 		}
 		$code = (int) wp_remote_retrieve_response_code( $res );
-		$json = json_decode( (string) wp_remote_retrieve_body( $res ), true );
 		if ( $code >= 400 ) {
+			$json         = json_decode( (string) wp_remote_retrieve_body( $res ), true );
 			$runtime_code = is_array( $json ) && is_string( $json['code'] ?? null ) ? $json['code'] : 'http_' . $code;
 			$message      = is_array( $json ) && is_string( $json['error'] ?? null ) ? $json['error'] : __( 'engenty.ai hat die Anfrage abgelehnt.', 'engenty-wizards' );
 			return new WP_Error(
@@ -58,7 +92,7 @@ class Engenty_Client {
 				)
 			);
 		}
-		return is_array( $json ) ? $json : array();
+		return $res;
 	}
 
 	/**

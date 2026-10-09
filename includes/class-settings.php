@@ -58,6 +58,7 @@ class Engenty_Settings {
 				'runsPerDay'  => 50,
 				'keepDays'    => 90,
 				'photos'      => true,
+				'tools'       => true,
 			),
 			'access' => array(
 				'roles' => array( 'administrator', 'editor' ),

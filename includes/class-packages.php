@@ -246,6 +246,7 @@ class Engenty_Packages {
 			),
 			'source'            => $w['source'],
 			'sourceRef'         => $w['source_ref'],
+			'cloudId'           => 'studio' === $w['source'] ? $w['source_ref'] : null,
 			'steps'             => $w['steps'],
 			'studioUrl'         => null,
 			'updatedAt'         => mysql2date( 'c', $w['updated_at'], false ),
@@ -377,6 +378,68 @@ class Engenty_Packages {
 		}
 		delete_transient( 'engenty_wizards_local' );
 		return self::get( $id );
+	}
+
+	/**
+	 * The wizard on the site that stands in for an account wizard (pulled from the studio).
+	 *
+	 * @param string $cloud_id The account wizard's id.
+	 * @return array|null
+	 */
+	public static function of_cloud( $cloud_id ) {
+		foreach ( self::all() as $w ) {
+			if ( 'studio' === $w['source'] && $w['source_ref'] === $cloud_id ) {
+				return $w;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Pulls an account wizard's published package with the site's key and installs it here, in
+	 * the place of an earlier pull: the wizard then runs with the site's provider instead of the
+	 * account. Its fit comes from the account's list (`standalone`), checked there.
+	 *
+	 * @param string $cloud_id The account wizard's id.
+	 * @return array|WP_Error The row.
+	 */
+	public static function pull( $cloud_id ) {
+		$list = Engenty_Client::wizards( true );
+		if ( is_wp_error( $list ) ) {
+			return $list;
+		}
+		$cloud = null;
+		foreach ( $list as $w ) {
+			if ( ( $w['id'] ?? '' ) === $cloud_id ) {
+				$cloud = $w;
+			}
+		}
+		if ( ! $cloud ) {
+			return new WP_Error( 'engenty_not_found', __( 'Diesen Wizard gibt es im Konto nicht.', 'engenty-wizards' ), array( 'status' => 404 ) );
+		}
+		if ( empty( $cloud['published'] ) ) {
+			return new WP_Error( 'engenty_draft', __( 'Der Wizard ist noch nicht veröffentlicht.', 'engenty-wizards' ), array( 'status' => 409 ) );
+		}
+		$fit = (array) ( $cloud['standalone'] ?? array() );
+		if ( 'no' === ( $fit['fit'] ?? 'no' ) ) {
+			return new WP_Error( 'engenty_fit', __( 'Dieser Wizard braucht ein engenty-Konto – auf dieser Website läuft er nicht.', 'engenty-wizards' ), array( 'status' => 400 ) );
+		}
+		$bytes = Engenty_Client::fetch_raw( '/wizards/' . rawurlencode( $cloud_id ) . '/package' );
+		if ( is_wp_error( $bytes ) ) {
+			return $bytes;
+		}
+		if ( strlen( $bytes ) > self::MAX_BYTES ) {
+			return new WP_Error( 'engenty_too_large', __( 'Das Paket ist größer als 30 MB.', 'engenty-wizards' ), array( 'status' => 413 ) );
+		}
+		$tmp = wp_tempnam( 'engenty-wizard' );
+		file_put_contents( $tmp, $bytes ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- a temporary file, read and deleted at once.
+		$read = self::read_package( $tmp );
+		wp_delete_file( $tmp );
+		if ( is_wp_error( $read ) ) {
+			return $read;
+		}
+		$existing = self::of_cloud( $cloud_id );
+		return self::install( (array) $read['definition'], $read['files'], $fit, 'studio', $cloud_id, $existing ? $existing['id'] : '' );
 	}
 
 	/**

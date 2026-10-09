@@ -72,5 +72,32 @@ sixth=$($WP eval '
 for ($i = 0; $i < 7; $i++) { $req = new WP_REST_Request("POST", "/engenty/v1/local/wizards/'"$token"'/runs"); $req->set_header("content-type", "application/json"); $req->set_header("x-engenty-visitor", "limits"); $req->set_body(json_encode(["origin" => "x", "website" => ""])); $status = rest_do_request($req)->get_status(); }
 echo $status;')
 [ "$sixth" = "429" ] || fail "the seventh run in an hour was not refused ($sixth)"
+# Closed choices: a toggle whose "on" leads to a step the site cannot run is closed in the view and refused on submit.
+closed=$($WP eval '
+$def = array("version" => 1, "title" => "Geschlossen", "avatar" => "round", "steps" => array(
+  array("id" => "ask", "type" => "page", "title" => "Frage", "fields" => array(array("id" => "question", "kind" => "text", "label" => "Frage"), array("id" => "voiceOn", "kind" => "toggle", "label" => "Als Sprache")), "next" => array(array("when" => array("field" => "voiceOn", "op" => "equals", "value" => true), "goto" => "speak"))),
+  array("id" => "reply", "type" => "agent", "title" => "Antwort", "instructions" => "Answer {{question}}", "tools" => array(), "output" => array("format" => "markdown"), "next" => array(array("goto" => "done"))),
+  array("id" => "speak", "type" => "generate", "title" => "Sprache", "asset" => "voice", "prompt" => "{{question}}"),
+  array("id" => "done", "type" => "result", "title" => "Fertig", "deliverables" => array(array("from" => "reply", "formats" => array("md"))))));
+$fit = array("fit" => "less", "notes" => array(array("stepId" => "speak", "need" => "asset:voice", "hard" => true)));
+$row = Engenty_Packages::install($def, array(), $fit, "upload", "closed-test");
+if (is_wp_error($row)) { echo "ERR ", $row->get_error_message(); exit(1); }
+$req = new WP_REST_Request("POST", "/engenty/v1/local/wizards/" . $row["token"] . "/runs"); $req->set_header("content-type", "application/json"); $req->set_body(json_encode(["origin" => "x", "website" => ""]));
+$d = rest_do_request($req)->get_data(); $closed = $d["view"]["closed"];
+$req = new WP_REST_Request("POST", "/engenty/v1/local/runs/" . $d["runId"] . "/pages/ask"); $req->set_header("content-type", "application/json"); $req->set_body(json_encode(["values" => ["question" => "Hallo", "voiceOn" => true]]));
+$refused = rest_do_request($req)->get_status();
+$req = new WP_REST_Request("POST", "/engenty/v1/local/runs/" . $d["runId"] . "/pages/ask"); $req->set_header("content-type", "application/json"); $req->set_body(json_encode(["values" => ["question" => "Hallo", "voiceOn" => false]]));
+$taken = rest_do_request($req)->get_data();
+echo json_encode($closed), " ", $refused, " ", $taken["status"], " ", $taken["step"]["id"];')
+echo "$closed" | grep -q '{"voiceOn":{"values":\[true\],"classes":\["speech"\]}} 422 running reply$' || fail "closed choices: $closed"
+# The abilities a thinking step may call: only while it thinks, never a private address.
+abilities=$($WP eval '
+$a = wp_get_ability("engenty-wizards/web-fetch"); if (!$a) { echo "none"; exit; }
+$shut = $a->execute(array("url" => "https://example.com/"));
+Engenty_Abilities::$open = true;
+$private = $a->execute(array("url" => "http://127.0.0.1/"));
+$bad = $a->execute(array("url" => "ftp://example.com/"));
+echo (is_wp_error($shut) ? "refused" : "open"), " ", ($private["error"] ?? "fetched"), " ", ($bad["error"] ?? "fetched");')
+[ "$abilities" = "refused Private addresses are not reachable from a wizard. Only http and https URLs are allowed." ] || fail "abilities: $abilities"
 rm -f "$mu/engenty-fake-provider.php"
 echo "standalone ok"
