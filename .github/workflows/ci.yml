@@ -48,7 +48,8 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
-          tools: wp-cli
+      - name: wp-cli
+        run: sudo curl -fsSL -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && sudo chmod +x /usr/local/bin/wp && wp --version
       - uses: actions/setup-node@v4
         with:
           node-version: 22
