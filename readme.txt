@@ -68,7 +68,7 @@ Contacts and bookings in the WordPress admin, building wizards from templates in
 == Changelog ==
 
 = 0.3.0 =
-* English source strings; German ships as de_DE in languages/ until the language packs take over.
+* English source strings; German ships as de_DE in languages/ until the language packs take over, with French, Spanish, Italian, Dutch, Portuguese, Polish, Swedish, Danish, Norwegian, Finnish and Czech beside it.
 * Thinking steps read web pages and call public APIs on the site itself (WordPress abilities, a switch in the settings); a choice that leads to something the site lacks is closed on the page; a package can carry the project's knowledge; on a connected site a wizard runs here with "Run here" and back over engenty.ai; seconds per thinking step as a setting, for local models.
 
 = 0.2.0 =

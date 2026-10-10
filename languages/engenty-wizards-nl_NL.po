@@ -1,0 +1,2179 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: engenty wizards 0.3.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/engenty-wizards\n"
+"Last-Translator: engenty\n"
+"Language-Team: engenty\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-10T14:08:27+00:00\n"
+"PO-Revision-Date: 2026-10-10T14:08:27+00:00\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: engenty-wizards\n"
+"X-Generator: WP-CLI 2.12.0\n"
+
+#. Plugin Name of the plugin
+#: engenty-wizards.php
+msgid "engenty wizards"
+msgstr "engenty wizards"
+
+#. Plugin URI of the plugin
+#: engenty-wizards.php
+msgid "https://engenty.ai/wordpress"
+msgstr "https://engenty.ai/wordpress"
+
+#. Description of the plugin
+#: engenty-wizards.php
+msgid "Your own AI assistants on your website: as a block, a shortcode, an Elementor widget or a bubble on every page. With an engenty.ai account, or on the site itself with its AI provider."
+msgstr "Je eigen AI-assistenten op je website: als blok, shortcode, Elementor-widget of als bubbel op elke pagina. Met een engenty.ai-account, of op de site zelf met zijn eigen AI-provider."
+
+#. Author of the plugin
+#: engenty-wizards.php
+msgid "engenty"
+msgstr "engenty"
+
+#. Author URI of the plugin
+#: engenty-wizards.php
+msgid "https://engenty.ai"
+msgstr "https://engenty.ai"
+
+#: blocks/wizard/render.php:13
+msgid "No wizard is chosen in the block yet."
+msgstr "In het blok is nog geen wizard gekozen."
+
+#: includes/class-abilities.php:64
+msgid "engenty Wizards"
+msgstr "Wizards van engenty"
+
+#: includes/class-abilities.php:65
+msgid "What a wizard may do while it thinks on this website."
+msgstr "Wat een wizard mag doen terwijl hij op deze website denkt."
+
+#: includes/class-abilities.php:80
+msgid "Read a web page"
+msgstr "Een webpagina lezen"
+
+#: includes/class-abilities.php:101
+msgid "Call an API"
+msgstr "Een API aanroepen"
+
+#: includes/class-admin.php:64
+msgid "Overview"
+msgstr "Overzicht"
+
+#: includes/class-admin.php:65
+#: src/admin/Home.js:443
+#: src/admin/Wizards.js:166
+msgid "Wizards"
+msgstr "Wizards"
+
+#: includes/class-admin.php:66
+#: src/admin/Results.js:332
+#: src/admin/Results.js:412
+msgid "Results"
+msgstr "Resultaten"
+
+#: includes/class-admin.php:67
+#: src/admin/Contacts.js:137
+#: src/admin/Contacts.js:160
+#: src/admin/ui.js:407
+msgid "Contacts"
+msgstr "Contacten"
+
+#: includes/class-admin.php:68
+#: src/admin/Appointments.js:54
+#: src/admin/Appointments.js:74
+#: src/admin/ui.js:408
+msgid "Appointments"
+msgstr "Afspraken"
+
+#: includes/class-admin.php:69
+#: includes/class-admin.php:138
+#: src/admin/Settings.js:356
+#: src/admin/Settings.js:789
+#: src/admin/Settings.js:1150
+msgid "Settings"
+msgstr "Instellingen"
+
+#: includes/class-admin.php:79
+#: src/admin/index.js:56
+msgid "engenty is loading …"
+msgstr "engenty laadt …"
+
+#: includes/class-admin.php:139
+#: includes/class-elementor-widget.php:71
+#: src/block/index.js:68
+msgid "Connect for free"
+msgstr "Gratis verbinden"
+
+#: includes/class-admin.php:166
+msgid "Your own AI assistants for your website"
+msgstr "Je eigen AI-assistenten voor je website"
+
+#: includes/class-admin.php:167
+msgid "engenty reads your website and builds wizards for requests, quotes and appointments from it – as a block, a shortcode or a chat bubble. Start for free, no credit card."
+msgstr "engenty leest je website en bouwt er wizards van voor aanvragen, offertes en afspraken – als blok, shortcode of chatbubbel. Gratis beginnen, geen creditcard nodig."
+
+#: includes/class-admin.php:169
+msgid "Start for free"
+msgstr "Gratis beginnen"
+
+#: includes/class-admin.php:177
+msgid "Your engenty credit is running low"
+msgstr "Je tegoed bij engenty raakt op"
+
+#: includes/class-admin.php:178
+msgid "Without credit, your wizards no longer start on the website. Top up – or take Pro with monthly credits."
+msgstr "Zonder tegoed starten je wizards niet meer op de website. Waardeer op – of neem Pro met maandelijkse credits."
+
+#: includes/class-admin.php:180
+msgid "Top up credit"
+msgstr "Tegoed opwaarderen"
+
+#: includes/class-client.php:69
+msgid "The API key no longer works. Connect the website again."
+msgstr "De API-sleutel werkt niet meer. Verbind de website opnieuw."
+
+#: includes/class-client.php:78
+#: includes/class-connect.php:139
+#: includes/class-connect.php:433
+msgid "engenty.ai cannot be reached right now."
+msgstr "engenty.ai is op dit moment niet bereikbaar."
+
+#: includes/class-client.php:84
+#: includes/class-connect.php:147
+msgid "engenty.ai refused the request."
+msgstr "engenty.ai heeft het verzoek geweigerd."
+
+#: includes/class-connect.php:58
+msgid "The address must start with https://."
+msgstr "Het adres moet beginnen met https://."
+
+#: includes/class-connect.php:61
+msgid "An engenty API key starts with wz_."
+msgstr "Een API-sleutel van engenty begint met wz_."
+
+#: includes/class-connect.php:74
+#: includes/class-connect.php:82
+msgid "No engenty answers at this address."
+msgstr "Op dit adres antwoordt geen engenty."
+
+#: includes/class-connect.php:79
+msgid "This API key is not valid there."
+msgstr "Deze API-sleutel is daar niet geldig."
+
+#: includes/class-connect.php:170
+msgid "engenty.ai names no sign-in server."
+msgstr "engenty.ai noemt geen inlogserver."
+
+#: includes/class-connect.php:187
+msgid "The sign-in server of engenty.ai answers incompletely."
+msgstr "De inlogserver van engenty.ai antwoordt onvolledig."
+
+#: includes/class-connect.php:213
+msgid "The sign-in server accepts no new applications."
+msgstr "De inlogserver accepteert geen nieuwe applicaties."
+
+#: includes/class-connect.php:234
+msgid "The website could not be registered with engenty.ai."
+msgstr "De website kon niet bij engenty.ai worden geregistreerd."
+
+#: includes/class-connect.php:261
+msgid "The WordPress admin runs without HTTPS. engenty.ai connects only websites with https:// – switch the website address under Settings → General to https (your host helps with the certificate)."
+msgstr "De WordPress-beheeromgeving draait zonder HTTPS. engenty.ai verbindt alleen websites met https:// – zet het websiteadres onder Instellingen → Algemeen op https (je hostingprovider helpt met het certificaat)."
+
+#: includes/class-connect.php:307
+msgid "You are not allowed to connect the website."
+msgstr "Je mag de website niet verbinden."
+
+#: includes/class-connect.php:379
+msgid "The website is not connected to engenty.ai."
+msgstr "De website is niet verbonden met engenty.ai."
+
+#: includes/class-connect.php:404
+msgid "The connection to engenty.ai has expired. Please connect again."
+msgstr "De verbinding met engenty.ai is verlopen. Verbind opnieuw."
+
+#: includes/class-connect.php:431
+msgid "The connection to engenty.ai was cut. Please connect again."
+msgstr "De verbinding met engenty.ai is verbroken. Verbind opnieuw."
+
+#: includes/class-downloads.php:41
+#: includes/class-downloads.php:92
+msgid "This format does not exist here."
+msgstr "Dit formaat bestaat hier niet."
+
+#: includes/class-elementor-widget.php:48
+msgid "— no wizards —"
+msgstr "— geen wizards —"
+
+#: includes/class-elementor-widget.php:50
+#: src/block/index.js:76
+msgid "— choose a wizard —"
+msgstr "— kies een wizard —"
+
+#: includes/class-elementor-widget.php:69
+msgid "Connect the website to engenty.ai for free, then your wizards are available here."
+msgstr "Verbind de website gratis met engenty.ai, dan zijn je wizards hier beschikbaar."
+
+#: includes/class-elementor-widget.php:79
+#: src/admin/Results.js:231
+#: src/admin/Results.js:355
+#: src/admin/Results.js:437
+#: src/admin/Settings.js:517
+#: src/admin/Settings.js:893
+#: src/block/index.js:84
+msgid "Wizard"
+msgstr "Wizard"
+
+#: includes/class-elementor-widget.php:88
+#: src/admin/Settings.js:472
+#: src/admin/Settings.js:849
+#: src/block/index.js:199
+msgid "Display"
+msgstr "Weergave"
+
+#: includes/class-elementor-widget.php:91
+#: src/admin/Settings.js:491
+#: src/admin/Settings.js:868
+#: src/admin/Wizards.js:347
+#: src/block/index.js:33
+msgid "In the text"
+msgstr "In de tekst"
+
+#: includes/class-elementor-widget.php:92
+#: src/admin/Settings.js:488
+#: src/admin/Settings.js:865
+#: src/admin/Wizards.js:343
+#: src/block/index.js:34
+msgid "Button + window"
+msgstr "Knop + venster"
+
+#: includes/class-elementor-widget.php:93
+#: src/block/index.js:35
+msgid "Bubble bottom right"
+msgstr "Bubbel rechtsonder"
+
+#: includes/class-elementor-widget.php:101
+#: src/block/index.js:207
+msgid "Label"
+msgstr "Label"
+
+#: includes/class-elementor-widget.php:110
+#: src/block/index.js:217
+msgid "Line beside the bubble"
+msgstr "Regel naast de bubbel"
+
+#: includes/class-elementor-widget.php:119
+#: src/admin/Settings.js:581
+#: src/admin/Settings.js:953
+#: src/block/index.js:227
+msgid "Color"
+msgstr "Kleur"
+
+#: includes/class-elementor-widget.php:132
+msgid "Choose a wizard on the left."
+msgstr "Kies links een wizard."
+
+#: includes/class-embed.php:174
+msgid "The shortcode lacks id=\"…\": the ID or the link token of the wizard."
+msgstr "De shortcode mist id=\"…\": het ID of het linktoken van de wizard."
+
+#: includes/class-embed.php:190
+msgid "Open engenty"
+msgstr "engenty openen"
+
+#: includes/class-packages.php:236
+#: src/admin/Home.js:459
+#: src/admin/Wizards.js:40
+msgid "Paused"
+msgstr "Gepauzeerd"
+
+#: includes/class-packages.php:266
+msgid "This is not a wizard: title or steps are missing."
+msgstr "Dit is geen wizard: titel of stappen ontbreken."
+
+#: includes/class-packages.php:269
+msgid "This wizard comes from a newer version."
+msgstr "Deze wizard komt uit een nieuwere versie."
+
+#: includes/class-packages.php:274
+msgid "A step has no valid ID or no title."
+msgstr "Een stap heeft geen geldig ID of geen titel."
+
+#. translators: %s: step type
+#: includes/class-packages.php:277
+#, php-format
+msgid "The step type “%s” is not known here."
+msgstr "Het staptype “%s” is hier niet bekend."
+
+#: includes/class-packages.php:280
+msgid "Two steps carry the same ID."
+msgstr "Twee stappen hebben hetzelfde ID."
+
+#: includes/class-packages.php:286
+msgid "The last step must be the result."
+msgstr "De laatste stap moet het resultaat zijn."
+
+#: includes/class-packages.php:339
+#: includes/class-packages.php:456
+#: src/admin/Import.js:61
+msgid "This wizard needs an engenty account – it does not run on this website."
+msgstr "Deze wizard heeft een engenty-account nodig – hij draait niet op deze website."
+
+#: includes/class-packages.php:356
+#: includes/class-packages.php:463
+msgid "The package is larger than 30 MB."
+msgstr "Het pakket is groter dan 30 MB."
+
+#: includes/class-packages.php:408
+msgid "The wizard could not be saved."
+msgstr "De wizard kon niet worden opgeslagen."
+
+#: includes/class-packages.php:449
+msgid "This wizard does not exist in the account."
+msgstr "Deze wizard bestaat niet in het account."
+
+#: includes/class-packages.php:452
+msgid "The wizard is not published yet."
+msgstr "De wizard is nog niet gepubliceerd."
+
+#: includes/class-packages.php:608
+msgid "This template does not exist."
+msgstr "Dit sjabloon bestaat niet."
+
+#: includes/class-packages.php:624
+#: includes/class-packages.php:639
+msgid "The wizard package cannot be opened."
+msgstr "Het wizardpakket kan niet worden geopend."
+
+#: includes/class-packages.php:648
+msgid "This is not a wizard package: wizard.json is missing."
+msgstr "Dit is geen wizardpakket: wizard.json ontbreekt."
+
+#: includes/class-rest.php:457
+msgid "depending on the answer"
+msgstr "afhankelijk van het antwoord"
+
+#: includes/class-rest.php:457
+msgid "otherwise"
+msgstr "anders"
+
+#: includes/class-rest.php:574
+#: includes/class-runs.php:306
+#: includes/class-runs.php:352
+msgid "This wizard does not exist."
+msgstr "Deze wizard bestaat niet."
+
+#: includes/class-rest.php:597
+msgid "Unknown way."
+msgstr "Onbekende route."
+
+#: includes/class-rest.php:602
+msgid "WordPress has no AI provider yet: Settings → Connectors."
+msgstr "WordPress heeft nog geen AI-provider: Instellingen → Connectors."
+
+#: includes/class-rest.php:669
+#: src/admin/Place.js:105
+msgid "Which wizard?"
+msgstr "Welke wizard?"
+
+#: includes/class-packages.php:371
+#: includes/class-runs.php:895
+msgid "The file could not be saved."
+msgstr "Het bestand kon niet worden opgeslagen."
+
+#: includes/class-runs.php:252
+msgid "That was enough tries for this hour. Please try again later."
+msgstr "Dat waren genoeg pogingen voor dit uur. Probeer het later opnieuw."
+
+#: includes/class-runs.php:264
+msgid "This wizard has had enough to do today. Please try again tomorrow."
+msgstr "Deze wizard heeft vandaag genoeg gedaan. Probeer het morgen opnieuw."
+
+#: includes/class-runs.php:320
+msgid "This wizard cannot be reached right now."
+msgstr "Deze wizard is op dit moment niet bereikbaar."
+
+#: includes/class-runs.php:320
+msgid "This wizard is paused."
+msgstr "Deze wizard is gepauzeerd."
+
+#: includes/class-runs.php:360
+msgid "That did not work."
+msgstr "Dat is niet gelukt."
+
+#: includes/class-runs.php:413
+msgid "This run no longer exists."
+msgstr "Deze run bestaat niet meer."
+
+#: includes/class-runs.php:448
+#: includes/class-runs.php:548
+#: includes/class-runs.php:759
+msgid "The wizard is working right now."
+msgstr "De wizard is op dit moment bezig."
+
+#: includes/class-runs.php:451
+#: includes/class-runs.php:700
+#: includes/class-runs.php:908
+msgid "This page is no longer current."
+msgstr "Deze pagina is niet meer actueel."
+
+#: includes/class-runs.php:466
+msgid "That is not available here right now."
+msgstr "Dat is hier op dit moment niet beschikbaar."
+
+#: includes/class-runs.php:474
+#: includes/class-runs.php:491
+msgid "Please check the marked fields."
+msgstr "Controleer de gemarkeerde velden."
+
+#: includes/class-runs.php:497
+msgid "File not found"
+msgstr "Bestand niet gevonden"
+
+#: includes/class-runs.php:707
+msgid "Unknown target."
+msgstr "Onbekend doel."
+
+#: includes/class-runs.php:710
+msgid "A new variant, please."
+msgstr "Graag een nieuwe variant."
+
+#: includes/class-runs.php:764
+msgid "No previous step."
+msgstr "Geen vorige stap."
+
+#: includes/class-runs.php:792
+msgid "Nothing to repeat."
+msgstr "Niets om te herhalen."
+
+#: includes/class-runs.php:866
+msgid "No file."
+msgstr "Geen bestand."
+
+#: includes/class-runs.php:869
+#: includes/class-runs.php:878
+msgid "The file is larger than 4 MB."
+msgstr "Het bestand is groter dan 4 MB."
+
+#: includes/class-runs.php:874
+msgid "Only photos work here (JPEG, PNG, WebP)."
+msgstr "Hier werken alleen foto's (JPEG, PNG, WebP)."
+
+#: includes/class-runs.php:1007
+msgid "This file does not exist."
+msgstr "Dit bestand bestaat niet."
+
+#: includes/class-runs.php:1069
+#: includes/class-runs.php:2245
+msgid "This result does not exist."
+msgstr "Dit resultaat bestaat niet."
+
+#: includes/class-runs.php:1887
+msgid "Required"
+msgstr "Verplicht"
+
+#. translators: %d: files
+#: includes/class-runs.php:1895
+#, php-format
+msgid "Please choose at least %d"
+msgstr "Kies er minstens %d"
+
+#. translators: %d: files
+#: includes/class-runs.php:1902
+#, php-format
+msgid "At most %d – please remove some"
+msgstr "Maximaal %d – verwijder er een paar"
+
+#: includes/class-runs.php:1910
+msgid "Please enter a number"
+msgstr "Vul een getal in"
+
+#: includes/class-runs.php:1917
+msgid "Invalid choice"
+msgstr "Ongeldige keuze"
+
+#: includes/class-runs.php:1924
+msgid "This slot is not offered"
+msgstr "Dit tijdslot wordt niet aangeboden"
+
+#: includes/class-runs.php:1931
+msgid "Not a valid email address"
+msgstr "Geen geldig e-mailadres"
+
+#: includes/class-runs.php:1938
+msgid "Not a valid URL"
+msgstr "Geen geldige URL"
+
+#: includes/class-settings.php:38
+#: src/block/index.js:182
+#: src/block/index.js:209
+msgid "Start now"
+msgstr "Nu starten"
+
+#: includes/class-settings.php:42
+msgid "Questions? We help."
+msgstr "Vragen? Wij helpen."
+
+#: includes/class-site-reader.php:238
+#: src/admin/Contacts.js:59
+#: src/admin/Settings.js:1084
+#: src/admin/Settings.js:1194
+msgid "Address"
+msgstr "Adres"
+
+#: includes/class-site-reader.php:239
+#: includes/class-site-reader.php:247
+#: includes/class-site-reader.php:254
+#: src/admin/Contacts.js:44
+#: src/admin/Contacts.js:215
+msgid "Email"
+msgstr "E-mail"
+
+#: includes/class-site-reader.php:240
+msgid "Currency"
+msgstr "Valuta"
+
+#: includes/class-site-reader.php:250
+#: src/admin/Contacts.js:52
+#: src/admin/Contacts.js:216
+msgid "Phone"
+msgstr "Telefoon"
+
+#: includes/class-site-reader.php:359
+#: src/admin/SiteRead.js:12
+msgid "Products"
+msgstr "Producten"
+
+#: includes/class-think.php:142
+msgid "This WordPress version does not have the AI Client yet (WordPress 7.0 and later)."
+msgstr "Deze WordPress-versie heeft de AI Client nog niet (WordPress 7.0 en nieuwer)."
+
+#: includes/class-think.php:160
+msgid "WordPress has no AI provider yet: set one up under Settings → Connectors (its plugin comes from WordPress.org)."
+msgstr "WordPress heeft nog geen AI-provider: stel er een in onder Instellingen → Connectors (de plugin daarvoor komt van WordPress.org)."
+
+#: includes/class-think.php:190
+msgid "WordPress knows an AI provider, but without a key: Settings → Connectors."
+msgstr "WordPress kent een AI-provider, maar zonder sleutel: Instellingen → Connectors."
+
+#: includes/class-think.php:294
+msgid "This website has no AI provider: the AI Client is missing (WordPress 7.0)."
+msgstr "Deze website heeft geen AI-provider: de AI Client ontbreekt (WordPress 7.0)."
+
+#: includes/class-think.php:328
+msgid "The AI provider did not answer."
+msgstr "De AI-provider heeft niet geantwoord."
+
+#: includes/class-think.php:502
+msgid "The AI Client of this WordPress version does not match the plugin."
+msgstr "De AI Client van deze WordPress-versie past niet bij de plugin."
+
+#: includes/class-think.php:513
+msgid "The AI service is busy right now. Please try again in a moment."
+msgstr "De AI-dienst is op dit moment bezet. Probeer het zo meteen opnieuw."
+
+#: includes/class-think.php:516
+msgid "The step took too long. Please try again."
+msgstr "De stap duurde te lang. Probeer het opnieuw."
+
+#: includes/class-think.php:519
+msgid "The AI service cannot be reached right now. Please try again later."
+msgstr "De AI-dienst is op dit moment niet bereikbaar. Probeer het later opnieuw."
+
+#. translators: %s: what went wrong
+#: includes/class-think.php:521
+#, php-format
+msgid "This step failed: %s"
+msgstr "Deze stap is mislukt: %s"
+
+#: includes/class-think.php:1092
+#: includes/class-think.php:1096
+#: includes/class-think.php:1265
+msgid "This step needs an engenty account."
+msgstr "Deze stap heeft een engenty-account nodig."
+
+#: includes/class-think.php:1307
+msgid "The step returned no result."
+msgstr "De stap gaf geen resultaat terug."
+
+#: includes/class-think.php:1319
+msgid "The AI provider answered with no valid structure."
+msgstr "De AI-provider antwoordde zonder geldige structuur."
+
+#: includes/class-think.php:1340
+msgid "There are no entries for this step to work on."
+msgstr "Er zijn geen items waarmee deze stap kan werken."
+
+#: includes/class-think.php:1389
+#: includes/class-think.php:1637
+#: includes/class-think.php:1849
+msgid "The answer of the AI provider does not match the questions."
+msgstr "Het antwoord van de AI-provider past niet bij de vragen."
+
+#: includes/class-think.php:1477
+msgid "The document could not be created."
+msgstr "Het document kon niet worden gemaakt."
+
+#: src/admin/fit.js:10
+msgid "Write text"
+msgstr "Tekst schrijven"
+
+#: src/admin/fit.js:11
+msgid "Web search"
+msgstr "Zoeken op het web"
+
+#: src/admin/fit.js:12
+msgid "Use a browser"
+msgstr "Een browser gebruiken"
+
+#: src/admin/fit.js:13
+msgid "Read documents & photos"
+msgstr "Documenten & foto's lezen"
+
+#: src/admin/fit.js:14
+msgid "Generate images"
+msgstr "Afbeeldingen genereren"
+
+#: src/admin/fit.js:15
+msgid "Generate videos"
+msgstr "Video's genereren"
+
+#: src/admin/fit.js:16
+msgid "Speech output"
+msgstr "Spraakuitvoer"
+
+#: src/admin/fit.js:17
+msgid "Understand voice notes"
+msgstr "Spraakberichten begrijpen"
+
+#: src/admin/fit.js:18
+msgid "Run code"
+msgstr "Code uitvoeren"
+
+#: src/admin/fit.js:19
+msgid "Connected accounts & systems"
+msgstr "Gekoppelde accounts & systemen"
+
+#: src/admin/fit.js:20
+msgid "Films with Claude Code (on your subscription)"
+msgstr "Films met Claude Code (op je abonnement)"
+
+#: src/admin/fit.js:27
+msgid "cheap"
+msgstr "goedkoop"
+
+#: src/admin/fit.js:28
+msgid "medium"
+msgstr "gemiddeld"
+
+#: src/admin/fit.js:29
+msgid "expensive"
+msgstr "duur"
+
+#: src/admin/fit.js:33
+msgid "Marketing & Social Media"
+msgstr "Marketing & social media"
+
+#: src/admin/fit.js:34
+msgid "Quotes & sales"
+msgstr "Offertes & verkoop"
+
+#: src/admin/fit.js:35
+msgid "Bookkeeping & receipts"
+msgstr "Boekhouding & bonnetjes"
+
+#: src/admin/fit.js:36
+msgid "Customer service"
+msgstr "Klantenservice"
+
+#: src/admin/fit.js:37
+msgid "Research & analysis"
+msgstr "Onderzoek & analyse"
+
+#: src/admin/fit.js:38
+msgid "HR & applications"
+msgstr "HR & sollicitaties"
+
+#: src/admin/fit.js:39
+msgid "Planning & processes"
+msgstr "Planning & processen"
+
+#: src/admin/fit.js:40
+msgid "Helpers for the website"
+msgstr "Hulpjes voor de website"
+
+#: src/admin/fit.js:41
+msgid "Images & video"
+msgstr "Afbeeldingen & video"
+
+#: src/admin/fit.js:42
+msgid "Requests & appointments"
+msgstr "Aanvragen & afspraken"
+
+#: src/admin/fit.js:43
+msgid "Advice & prices"
+msgstr "Advies & prijzen"
+
+#: src/admin/fit.js:47
+msgid "Text"
+msgstr "Tekst"
+
+#: src/admin/fit.js:48
+msgid "Document (PDF, Word)"
+msgstr "Document (pdf, Word)"
+
+#: src/admin/fit.js:49
+msgid "Table"
+msgstr "Tabel"
+
+#: src/admin/fit.js:50
+msgid "Image"
+msgstr "Afbeelding"
+
+#: src/admin/fit.js:51
+msgid "Video"
+msgstr "Video"
+
+#: src/admin/fit.js:52
+msgid "Audio"
+msgstr "Audio"
+
+#: src/admin/fit.js:53
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: src/admin/fit.js:73
+msgid "Lists the wizard keeps between runs"
+msgstr "Lijsten die de wizard tussen runs bewaart"
+
+#: src/admin/fit.js:74
+msgid "The memory of the wizard"
+msgstr "Het geheugen van de wizard"
+
+#: src/admin/fit.js:75
+msgid "One run per entry (one after the other here)"
+msgstr "Eén run per item (hier na elkaar)"
+
+#: src/admin/fit.js:79
+msgid "Choosing a slot from free times"
+msgstr "Een tijdslot kiezen uit vrije tijden"
+
+#: src/admin/fit.js:80
+msgid "Reading the pages of the space"
+msgstr "De pagina's van de werkruimte lezen"
+
+#: src/admin/fit.js:81
+msgid "A widget"
+msgstr "Een widget"
+
+#. translators: %s: a file format
+#: src/admin/fit.js:157
+#, js-format
+msgid "Result as %s"
+msgstr "Resultaat als %s"
+
+#. translators: %s: a list
+#: src/admin/fit.js:177
+#, js-format
+msgid "Works without: %s"
+msgstr "Werkt zonder: %s"
+
+#. translators: %s: a list
+#: src/admin/fit.js:194
+#, js-format
+msgid "Not set up here: %s"
+msgstr "Hier niet ingesteld: %s"
+
+#: src/admin/Import.js:138
+#: src/admin/Templates.js:440
+#: src/admin/ui.js:169
+#: src/admin/ui.js:179
+#: src/admin/ui.js:623
+#: src/admin/ui.js:634
+msgid "Close"
+msgstr "Sluiten"
+
+#: src/admin/ui.js:206
+#: src/admin/Wizards.js:279
+msgid "Copied"
+msgstr "Gekopieerd"
+
+#: src/admin/ui.js:207
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: src/admin/ui.js:218
+msgid "Contacts – with Pro"
+msgstr "Contacten – met Pro"
+
+#: src/admin/ui.js:219
+msgid "Every wizard that asks for name and email creates the contact. Here you see who came through which page, search, and export as CSV – without a CRM of your own."
+msgstr "Elke wizard die om naam en e-mail vraagt, maakt het contact aan. Hier zie je wie via welke pagina kwam, zoek je en exporteer je als CSV – zonder eigen CRM."
+
+#: src/admin/ui.js:224
+msgid "Leads from every wizard, with the page they came from"
+msgstr "Leads uit elke wizard, met de pagina waar ze vandaan kwamen"
+
+#: src/admin/ui.js:228
+msgid "People and companies, roles, notes"
+msgstr "Personen en bedrijven, rollen, notities"
+
+#: src/admin/ui.js:229
+msgid "Export as CSV"
+msgstr "Exporteren als CSV"
+
+#: src/admin/ui.js:233
+msgid "Appointments – with Pro"
+msgstr "Afspraken – met Pro"
+
+#: src/admin/ui.js:234
+msgid "Wizards book free slots in your calendar: opening hours, holidays, Google or Microsoft calendar. You see the bookings here, visitors get their confirmation."
+msgstr "Wizards boeken vrije plekken in je agenda: openingstijden, feestdagen, Google- of Microsoft-agenda. Jij ziet de boekingen hier, bezoekers krijgen hun bevestiging."
+
+#: src/admin/ui.js:239
+msgid "Booking on the website, without double bookings"
+msgstr "Boeken op de website, zonder dubbele boekingen"
+
+#: src/admin/ui.js:243
+msgid "On site, by phone or online"
+msgstr "Op locatie, telefonisch of online"
+
+#: src/admin/ui.js:244
+msgid "Calendar file and cancellation link for every guest"
+msgstr "Agendabestand en annuleringslink voor elke gast"
+
+#: src/admin/ui.js:251
+msgid "Create wizards right here – with Pro"
+msgstr "Wizards hier maken – met Pro"
+
+#: src/admin/ui.js:252
+msgid "With Free you build wizards in the free app on your computer and publish them, then they are available here. With Pro you create them in the cloud, from templates or in the Studio, and engenty reads your website."
+msgstr "Met Free bouw je wizards in de gratis app op je computer en publiceer je ze, daarna zijn ze hier beschikbaar. Met Pro maak je ze in de cloud, vanuit sjablonen of in de Studio, en engenty leest je website."
+
+#: src/admin/ui.js:257
+msgid "Templates live with one click"
+msgstr "Sjablonen live met één klik"
+
+#: src/admin/ui.js:258
+msgid "Your website as knowledge: services, prices, contact"
+msgstr "Je website als kennis: diensten, prijzen, contact"
+
+#: src/admin/ui.js:262
+msgid "Monthly credits, contacts and appointments included"
+msgstr "Maandelijkse credits, contacten en afspraken inbegrepen"
+
+#: src/admin/Templates.js:287
+#: src/admin/ui.js:294
+msgid "Upgrade to Pro"
+msgstr "Upgraden naar Pro"
+
+#: src/admin/ui.js:299
+msgid "Compare plans"
+msgstr "Abonnementen vergelijken"
+
+#: src/admin/Home.js:578
+#: src/admin/Import.js:146
+#: src/admin/Settings.js:810
+#: src/admin/Settings.js:1169
+#: src/admin/Start.js:73
+#: src/admin/Templates.js:280
+#: src/admin/ui.js:355
+#: src/admin/ui.js:433
+msgid "Create a free account"
+msgstr "Gratis account aanmaken"
+
+#: src/admin/Home.js:131
+#: src/admin/Home.js:586
+#: src/admin/Settings.js:819
+#: src/admin/Settings.js:1176
+#: src/admin/Start.js:82
+#: src/admin/ui.js:364
+#: src/admin/ui.js:442
+msgid "Sign in"
+msgstr "Inloggen"
+
+#: src/admin/ui.js:369
+#: src/admin/ui.js:447
+msgid "Ask an administrator to connect the website."
+msgstr "Vraag een beheerder om de website te verbinden."
+
+#: src/admin/ui.js:420
+msgid "First you connect the website with a free account. You switch to Pro afterwards, whenever you like."
+msgstr "Eerst verbind je de website met een gratis account. Overstappen naar Pro kan daarna, wanneer je maar wilt."
+
+#: src/admin/ui.js:492
+#: src/admin/ui.js:516
+#: src/admin/Wizards.js:236
+msgid "Local"
+msgstr "Lokaal"
+
+#: src/admin/ui.js:504
+msgid "Connect with an account"
+msgstr "Verbinden met een account"
+
+#. translators: %s: credits
+#: src/admin/ui.js:535
+#, js-format
+msgid "%s credits"
+msgstr "%s credits"
+
+#: src/admin/ui.js:549
+msgid "Upgrade"
+msgstr "Upgraden"
+
+#: src/admin/ui.js:563
+msgid "Help"
+msgstr "Hulp"
+
+#: src/admin/ui.js:672
+msgid "not set up"
+msgstr "niet ingesteld"
+
+#: src/admin/ui.js:673
+msgid "works without"
+msgstr "werkt zonder"
+
+#. translators: %s: plugins
+#: src/admin/Templates.js:128
+#: src/admin/ui.js:714
+#, js-format
+msgid "With an account: needs %s"
+msgstr "Met een account: %s nodig"
+
+#: src/admin/SiteRead.js:7
+msgid "Home page"
+msgstr "Homepage"
+
+#: src/admin/SiteRead.js:8
+msgid "Legal notice"
+msgstr "Colofon"
+
+#: src/admin/Contacts.js:34
+#: src/admin/SiteRead.js:9
+msgid "Contact"
+msgstr "Contact"
+
+#: src/admin/SiteRead.js:10
+msgid "About us"
+msgstr "Over ons"
+
+#: src/admin/Settings.js:676
+#: src/admin/Settings.js:1045
+#: src/admin/SiteRead.js:11
+msgid "Privacy"
+msgstr "Privacy"
+
+#: src/admin/SiteRead.js:91
+msgid "Reading the website …"
+msgstr "Website lezen …"
+
+#. translators: %d: number of pages
+#: src/admin/SiteRead.js:103
+#, js-format
+msgid "Taken over: your details and %d pages. Your wizards now know your business."
+msgstr "Overgenomen: je gegevens en %d pagina's. Je wizards kennen je bedrijf nu."
+
+#: src/admin/SiteRead.js:144
+#: src/admin/Start.js:295
+#: src/admin/Templates.js:559
+msgid "Continue"
+msgstr "Verder"
+
+#: src/admin/SiteRead.js:148
+msgid "View and change in the Studio"
+msgstr "Bekijken en wijzigen in de Studio"
+
+#: src/admin/SiteRead.js:164
+msgid "This is what engenty found on your website. Remove what does not belong; only what is checked goes to engenty.ai."
+msgstr "Dit heeft engenty op je website gevonden. Verwijder wat er niet bij hoort; alleen wat is aangevinkt gaat naar engenty.ai."
+
+#: src/admin/Contacts.js:214
+#: src/admin/SiteRead.js:172
+msgid "Name"
+msgstr "Naam"
+
+#: src/admin/SiteRead.js:182
+msgid "Tagline"
+msgstr "Slogan"
+
+#: src/admin/SiteRead.js:201
+msgid "Logo"
+msgstr "Logo"
+
+#: src/admin/SiteRead.js:211
+msgid "none found"
+msgstr "geen gevonden"
+
+#: src/admin/SiteRead.js:225
+msgid "Theme colors"
+msgstr "Themakleuren"
+
+#: src/admin/SiteRead.js:238
+msgid "none"
+msgstr "geen"
+
+#: src/admin/SiteRead.js:245
+msgid "Details"
+msgstr "Gegevens"
+
+#: src/admin/SiteRead.js:309
+msgid "Add a detail (opening hours, phone, VAT ID …)"
+msgstr "Voeg een gegeven toe (openingstijden, telefoon, btw-nummer …)"
+
+#. translators: 1: chosen pages, 2: all pages
+#: src/admin/SiteRead.js:318
+#, js-format
+msgid "Pages as knowledge (%1$d of %2$d)"
+msgstr "Pagina's als kennis (%1$d van %2$d)"
+
+#: src/admin/SiteRead.js:358
+msgid "No published pages with text."
+msgstr "Geen gepubliceerde pagina's met tekst."
+
+#: src/admin/SiteRead.js:376
+#: src/admin/SiteRead.js:400
+#: src/admin/Templates.js:597
+msgid "Skip"
+msgstr "Overslaan"
+
+#: src/admin/SiteRead.js:384
+msgid "Reading …"
+msgstr "Lezen …"
+
+#: src/admin/SiteRead.js:385
+msgid "Hand over to engenty"
+msgstr "Overdragen aan engenty"
+
+#: src/admin/SiteRead.js:389
+msgid "This takes about a minute."
+msgstr "Dit duurt ongeveer een minuut."
+
+#. translators: %d: minutes
+#: src/admin/Templates.js:81
+#, js-format
+msgid "~ %d min"
+msgstr "~ %d min"
+
+#: src/admin/Templates.js:171
+msgid "branches"
+msgstr "vertakkingen"
+
+#. translators: %s: the provider
+#: src/admin/Templates.js:191
+#, js-format
+msgid "calls to %s per run, on your key"
+msgstr "aanroepen naar %s per keer, op je eigen sleutel"
+
+#: src/admin/Templates.js:192
+msgid "your AI provider"
+msgstr "je AI-provider"
+
+#. translators: %d: credits
+#: src/admin/Templates.js:198
+#, js-format
+msgid "≈ %d credits per run"
+msgstr "≈ %d credits per keer"
+
+#: src/admin/Templates.js:202
+msgid "in credits of your account"
+msgstr "in credits van je account"
+
+#: src/admin/Templates.js:218
+msgid "Your wizard now runs on this website. Next, you put it on a page."
+msgstr "Je wizard draait nu op deze website. Hierna zet je hem op een pagina."
+
+#: src/admin/Templates.js:223
+msgid "Your wizard is live. Try it out, then we put it on the website."
+msgstr "Je wizard is live. Probeer hem uit, dan zetten we hem op de website."
+
+#: src/admin/Templates.js:212
+msgid "The wizard is created but still needs work in the Studio before it goes live."
+msgstr "De wizard is gemaakt, maar heeft nog werk in de Studio nodig voordat hij live gaat."
+
+#: src/admin/Templates.js:322
+msgid "Duration"
+msgstr "Duur"
+
+#. translators: %d: fields
+#: src/admin/Templates.js:332
+#, js-format
+msgid "from start to result, with %d inputs from you"
+msgstr "van start tot resultaat, met %d antwoorden van jou"
+
+#: src/admin/Templates.js:342
+msgid "Cost"
+msgstr "Kosten"
+
+#: src/admin/Results.js:85
+#: src/admin/Results.js:147
+#: src/admin/Templates.js:355
+msgid "Result"
+msgstr "Resultaat"
+
+#: src/admin/Templates.js:378
+msgid "Needs"
+msgstr "Nodig"
+
+#. translators: %s: plugins
+#: src/admin/Templates.js:402
+#, js-format
+msgid "With Pro: needs %s"
+msgstr "Met Pro: %s nodig"
+
+#: src/admin/Templates.js:416
+msgid "How the wizard runs"
+msgstr "Hoe de wizard loopt"
+
+#. translators: %d: steps
+#: src/admin/Templates.js:423
+#: src/admin/Wizards.js:254
+#, js-format
+msgid "%d steps"
+msgstr "%d stappen"
+
+#: src/admin/Templates.js:269
+msgid "Start with this template"
+msgstr "Beginnen met dit sjabloon"
+
+#: src/admin/Templates.js:543
+msgid "Try it out"
+msgstr "Uitproberen"
+
+#: src/admin/Templates.js:552
+msgid "Adjust in the Studio"
+msgstr "Aanpassen in de Studio"
+
+#: src/admin/Templates.js:566
+msgid "Choose another"
+msgstr "Een andere kiezen"
+
+#: src/admin/Templates.js:613
+msgid "Search templates"
+msgstr "Sjablonen zoeken"
+
+#: src/admin/Templates.js:617
+msgid "Search templates …"
+msgstr "Sjablonen zoeken …"
+
+#: src/admin/Home.js:425
+#: src/admin/Home.js:446
+#: src/admin/Home.js:541
+#: src/admin/Results.js:478
+#: src/admin/Templates.js:633
+msgid "All"
+msgstr "Alle"
+
+#. translators: %d: templates
+#: src/admin/Templates.js:657
+#, js-format
+msgid "%d templates · all run here"
+msgstr "%d sjablonen · draaien allemaal hier"
+
+#. translators: %d: templates
+#: src/admin/Templates.js:664
+#, js-format
+msgid "%d templates"
+msgstr "%d sjablonen"
+
+#: src/admin/Templates.js:578
+msgid "With Free: download the free app, build your wizard there and publish it – then it appears here."
+msgstr "Met Free: download de gratis app, bouw daar je wizard en publiceer hem – dan verschijnt hij hier."
+
+#: src/admin/Templates.js:587
+msgid "How it works"
+msgstr "Hoe het werkt"
+
+#: src/admin/Place.js:50
+msgid "No wizard is live yet. Create one or publish one in the Studio, then it comes here."
+msgstr "Er is nog geen wizard live. Maak er een of publiceer er een in de Studio, dan komt hij hier."
+
+#: src/admin/Place.js:62
+msgid "To the Studio"
+msgstr "Naar de Studio"
+
+#: src/admin/Place.js:122
+msgid "The bubble is now at the bottom right of every page. You set text, color and exceptions in the settings."
+msgstr "De bubbel staat nu rechtsonder op elke pagina. Tekst, kleur en uitzonderingen stel je in bij de instellingen."
+
+#: src/admin/Place.js:131
+msgid "View website"
+msgstr "Website bekijken"
+
+#: src/admin/Place.js:144
+msgid "As a bubble on every page"
+msgstr "Als bubbel op elke pagina"
+
+#: src/admin/Place.js:147
+msgid "Bottom right, for questions and requests from anywhere."
+msgstr "Rechtsonder, voor vragen en aanvragen vanaf elke pagina."
+
+#: src/admin/Place.js:158
+msgid "Turn on"
+msgstr "Inschakelen"
+
+#: src/admin/Place.js:169
+msgid "On a new page"
+msgstr "Op een nieuwe pagina"
+
+#: src/admin/Place.js:172
+msgid "A draft with the wizard block; you publish it."
+msgstr "Een concept met het wizardblok; jij publiceert het."
+
+#: src/admin/Place.js:182
+msgid "Create page"
+msgstr "Pagina maken"
+
+#: src/admin/Place.js:193
+msgid "Place it yourself"
+msgstr "Zelf plaatsen"
+
+#: src/admin/Place.js:196
+msgid "The “engenty Wizard” block, the Elementor widget or this shortcode:"
+msgstr "Het blok “Wizard van engenty”, de Elementor-widget of deze shortcode:"
+
+#: src/admin/Place.js:207
+msgid "Done"
+msgstr "Klaar"
+
+#: src/admin/Start.js:21
+msgid "Wizards from the shipped templates run on this website, without an account and without credits. The provider bills your key."
+msgstr "Wizards uit de meegeleverde sjablonen draaien op deze website, zonder account en zonder credits. De provider rekent af via je sleutel."
+
+#: src/admin/Start.js:27
+msgid "Set up an AI provider first: WordPress → Settings → Connectors."
+msgstr "Stel eerst een AI-provider in: WordPress → Instellingen → Connectors."
+
+#: src/admin/Start.js:32
+msgid "Needs WordPress 7.0 with an AI provider under Settings → Connectors."
+msgstr "Vereist WordPress 7.0 met een AI-provider onder Instellingen → Connectors."
+
+#: src/admin/Start.js:58
+msgid "Your AI at engenty"
+msgstr "Je AI bij engenty"
+
+#: src/admin/Start.js:60
+msgid "A free account, and engenty reads your website, builds wizards from templates and shows results, contacts and appointments here in the admin."
+msgstr "Een gratis account, en engenty leest je website, bouwt wizards uit sjablonen en toont resultaten, contacten en afspraken hier in de beheeromgeving."
+
+#: src/admin/Start.js:88
+msgid "or"
+msgstr "of"
+
+#: src/admin/Start.js:93
+msgid "Local, with your own AI provider"
+msgstr "Lokaal, met je eigen AI-provider"
+
+#. translators: %s: provider
+#: src/admin/Start.js:100
+#, js-format
+msgid "%s found"
+msgstr "%s gevonden"
+
+#: src/admin/Start.js:109
+msgid "no provider"
+msgstr "geen provider"
+
+#: src/admin/Start.js:120
+#: src/admin/Start.js:199
+msgid "Set up locally"
+msgstr "Lokaal instellen"
+
+#: src/admin/Start.js:126
+msgid "Open Connectors"
+msgstr "Connectors openen"
+
+#: src/admin/Start.js:131
+msgid "You can switch at any time later."
+msgstr "Je kunt later altijd wisselen."
+
+#: src/admin/Start.js:140
+msgid "Back"
+msgstr "Terug"
+
+#: src/admin/Start.js:150
+msgid "AI provider"
+msgstr "AI-provider"
+
+#: src/admin/Start.js:151
+msgid "Choose wizards"
+msgstr "Wizards kiezen"
+
+#: src/admin/Home.js:177
+#: src/admin/Start.js:152
+msgid "Put on the website"
+msgstr "Op de website zetten"
+
+#: src/admin/Home.js:226
+#: src/admin/Start.js:206
+msgid "Later"
+msgstr "Later"
+
+#: src/admin/Start.js:241
+msgid "Which provider and which key: WordPress settles that under Settings → Connectors, not the plugin. Here you see whether it answers."
+msgstr "Welke provider en welke sleutel: dat regelt WordPress onder Instellingen → Connectors, niet de plugin. Hier zie je of hij antwoordt."
+
+#: src/admin/Settings.js:89
+#: src/admin/Start.js:251
+msgid "Run a test"
+msgstr "Test uitvoeren"
+
+#. translators: %s: seconds
+#: src/admin/Start.js:259
+#, js-format
+msgid "answers · %s s"
+msgstr "antwoordt · %s s"
+
+#: src/admin/Settings.js:97
+#: src/admin/Start.js:269
+msgid "no JSON"
+msgstr "geen JSON"
+
+#: src/admin/Settings.js:102
+#: src/admin/Start.js:274
+msgid "takes images"
+msgstr "accepteert afbeeldingen"
+
+#: src/admin/Settings.js:106
+#: src/admin/Start.js:278
+msgid "takes no images"
+msgstr "accepteert geen afbeeldingen"
+
+#: src/admin/Home.js:23
+msgid "The connection was refused at engenty.ai. You can try again at any time."
+msgstr "De verbinding is bij engenty.ai geweigerd. Je kunt het altijd opnieuw proberen."
+
+#: src/admin/Home.js:27
+msgid "The sign-in took too long. Please try again."
+msgstr "Het inloggen duurde te lang. Probeer het opnieuw."
+
+#: src/admin/Home.js:31
+msgid "The connection did not work. Please try again."
+msgstr "De verbinding is niet gelukt. Probeer het opnieuw."
+
+#. translators: %s: site name
+#: src/admin/Home.js:91
+#, js-format
+msgid "Your own AI for %s"
+msgstr "Je eigen AI voor %s"
+
+#: src/admin/Home.js:96
+msgid "engenty reads your website and turns it into assistants for requests, quotes and appointments. They run on engenty.ai and appear on your site as a block, a shortcode, an Elementor widget or a chat bubble."
+msgstr "engenty leest je website en maakt er assistenten van voor aanvragen, offertes en afspraken. Ze draaien op engenty.ai en verschijnen op je site als blok, shortcode, Elementor-widget of chatbubbel."
+
+#: src/admin/Home.js:106
+msgid "Create your own AI"
+msgstr "Maak je eigen AI"
+
+#: src/admin/Home.js:109
+msgid "Free account"
+msgstr "Gratis account"
+
+#: src/admin/Home.js:110
+msgid "No credit card"
+msgstr "Geen creditcard"
+
+#: src/admin/Home.js:112
+msgid "Your website stays as it is"
+msgstr "Je website blijft zoals hij is"
+
+#: src/admin/Home.js:119
+msgid "Already have an engenty account?"
+msgstr "Heb je al een engenty-account?"
+
+#: src/admin/Home.js:130
+msgid "One moment …"
+msgstr "Een moment …"
+
+#: src/admin/Home.js:137
+msgid "1 · Account"
+msgstr "1 · Account"
+
+#: src/admin/Home.js:139
+msgid "You create an account at engenty.ai or sign in and allow the website access. Then you come back here."
+msgstr "Je maakt een account aan bij engenty.ai of logt in en geeft de website toegang. Daarna kom je hier terug."
+
+#: src/admin/Home.js:145
+msgid "2 · Read the website"
+msgstr "2 · Website lezen"
+
+#: src/admin/Home.js:147
+msgid "Name, logo, colors, contact details and your pages: you see what was found and choose what engenty gets."
+msgstr "Naam, logo, kleuren, contactgegevens en je pagina's: je ziet wat er is gevonden en kiest wat engenty krijgt."
+
+#: src/admin/Home.js:154
+msgid "3 · Wizard on the site"
+msgstr "3 · Wizard op de site"
+
+#: src/admin/Home.js:157
+msgid "Choose a template, set it live, show it as a chat bubble or on a page. You see results here in the admin."
+msgstr "Kies een sjabloon, zet het live, toon het als chatbubbel of op een pagina. Resultaten zie je hier in de beheeromgeving."
+
+#: src/admin/Home.js:165
+msgid "Visitors talk directly to engenty.ai; WordPress stores no answers. Mention engenty in your privacy policy – you find the sentence for it in the settings after connecting."
+msgstr "Bezoekers praten rechtstreeks met engenty.ai; WordPress slaat geen antwoorden op. Noem engenty in je privacybeleid – de zin daarvoor vind je na het verbinden bij de instellingen."
+
+#: src/admin/Home.js:65
+msgid "engenty is not connected yet. Ask an administrator to connect the website."
+msgstr "engenty is nog niet verbonden. Vraag een beheerder om de website te verbinden."
+
+#: src/admin/Home.js:175
+msgid "Read the website"
+msgstr "Website lezen"
+
+#: src/admin/Home.js:176
+msgid "Create the first wizard"
+msgstr "De eerste wizard maken"
+
+#. translators: %s: account e-mail
+#: src/admin/Home.js:206
+#, js-format
+msgid "Connected as %s. Welcome to engenty!"
+msgstr "Verbonden als %s. Welkom bij engenty!"
+
+#: src/admin/Home.js:219
+msgid "Set up"
+msgstr "Instellen"
+
+#: src/admin/Home.js:235
+msgid "Account connected"
+msgstr "Account verbonden"
+
+#: src/admin/Home.js:340
+msgid "None yet. As soon as visitors complete a wizard, their answers are here."
+msgstr "Nog geen. Zodra bezoekers een wizard afronden, staan hun antwoorden hier."
+
+#: src/admin/Home.js:327
+msgid "Results are visible to the roles chosen for it in the settings."
+msgstr "Resultaten zijn zichtbaar voor de rollen die daarvoor in de instellingen zijn gekozen."
+
+#: src/admin/Home.js:386
+#: src/admin/Home.js:514
+msgid "Wizards live"
+msgstr "Wizards live"
+
+#: src/admin/Home.js:393
+#: src/admin/Home.js:521
+msgid "Results in 30 days"
+msgstr "Resultaten in 30 dagen"
+
+#: src/admin/Home.js:404
+msgid "Credits"
+msgstr "Credits"
+
+#: src/admin/Home.js:413
+msgid "top up"
+msgstr "opwaarderen"
+
+#: src/admin/Home.js:422
+#: src/admin/Home.js:538
+msgid "Latest results"
+msgstr "Laatste resultaten"
+
+#: src/admin/Home.js:502
+msgid "WordPress has no AI provider that answers right now: Settings → Connectors."
+msgstr "WordPress heeft geen AI-provider die op dit moment antwoordt: Instellingen → Connectors."
+
+#: src/admin/Home.js:529
+msgid "thinks for the wizards · without credits"
+msgstr "denkt voor de wizards · zonder credits"
+
+#: src/admin/Home.js:548
+msgid "With an account"
+msgstr "Met een account"
+
+#: src/admin/Home.js:552
+msgid "Studio, contacts, appointments, PDFs, web search and the wizards that need more. The local ones keep running."
+msgstr "Studio, contacten, afspraken, pdf's, zoeken op het web en de wizards die meer nodig hebben. De lokale blijven draaien."
+
+#: src/admin/Import.js:111
+msgid "Import"
+msgstr "Importeren"
+
+#: src/admin/Import.js:47
+msgid "The wizard has errors that must be fixed in the Studio first."
+msgstr "De wizard heeft fouten die eerst in de Studio moeten worden opgelost."
+
+#: src/admin/Import.js:71
+msgid "Plugins:"
+msgstr "Plugins:"
+
+#: src/admin/Import.js:127
+msgid "Import did not work"
+msgstr "Importeren is niet gelukt"
+
+#: src/admin/Wizards.js:35
+msgid "Draft"
+msgstr "Concept"
+
+#: src/admin/Results.js:17
+#: src/admin/Results.js:364
+#: src/admin/Results.js:472
+msgid "Finished"
+msgstr "Afgerond"
+
+#: src/admin/Results.js:18
+msgid "Open"
+msgstr "Open"
+
+#: src/admin/Results.js:19
+msgid "Running"
+msgstr "Bezig"
+
+#: src/admin/Results.js:20
+msgid "Error"
+msgstr "Fout"
+
+#: src/admin/Results.js:21
+msgid "Stopped"
+msgstr "Gestopt"
+
+#. translators: 1: calls 2: provider
+#: src/admin/Results.js:32
+#, js-format
+msgid "%1$d calls to %2$s"
+msgstr "%1$d aanroepen naar %2$s"
+
+#: src/admin/Results.js:34
+msgid "the AI provider"
+msgstr "de AI-provider"
+
+#. translators: %d: credits
+#: src/admin/Results.js:39
+#, js-format
+msgid "%d credits"
+msgstr "%d credits"
+
+#: src/admin/Results.js:95
+msgid "On this website"
+msgstr "Op deze website"
+
+#: src/admin/Results.js:123
+msgid "Answers"
+msgstr "Antwoorden"
+
+#: src/admin/Results.js:143
+msgid "None."
+msgstr "Geen."
+
+#: src/admin/Results.js:188
+msgid "No contact created – contacts come with an account and Pro."
+msgstr "Geen contact aangemaakt – contacten komen met een account en Pro."
+
+#: src/admin/Results.js:201
+msgid "Shared result page"
+msgstr "Gedeelde resultaatpagina"
+
+#: src/admin/Appointments.js:112
+#: src/admin/Results.js:230
+msgid "When"
+msgstr "Wanneer"
+
+#: src/admin/Results.js:232
+msgid "From"
+msgstr "Van"
+
+#: src/admin/Appointments.js:168
+#: src/admin/Results.js:233
+msgid "Page"
+msgstr "Pagina"
+
+#: src/admin/Results.js:234
+#: src/admin/Results.js:363
+#: src/admin/Results.js:469
+msgid "Status"
+msgstr "Status"
+
+#: src/admin/Results.js:336
+msgid "The answers of your visitors land here"
+msgstr "De antwoorden van je bezoekers komen hier terecht"
+
+#: src/admin/Results.js:340
+msgid "Every run of a wizard on your website: who, when, on which page, with all answers and the result. Connect the website with a free account."
+msgstr "Elke run van een wizard op je website: wie, wanneer, op welke pagina, met alle antwoorden en het resultaat. Verbind de website met een gratis account."
+
+#: src/admin/Results.js:349
+#: src/admin/Results.js:427
+msgid "Search: name, email, answer, page …"
+msgstr "Zoeken: naam, e-mail, antwoord, pagina …"
+
+#: src/admin/Results.js:357
+#: src/admin/Results.js:440
+#: src/block/index.js:238
+msgid "All wizards"
+msgstr "Alle wizards"
+
+#: src/admin/Results.js:360
+#: src/admin/Results.js:451
+msgid "Period"
+msgstr "Periode"
+
+#: src/admin/Results.js:361
+#: src/admin/Results.js:454
+msgid "Any time"
+msgstr "Altijd"
+
+#: src/admin/Contacts.js:61
+#: src/admin/Contacts.js:237
+msgid "Company"
+msgstr "Bedrijf"
+
+#: src/admin/Contacts.js:67
+msgid "Roles"
+msgstr "Rollen"
+
+#: src/admin/Contacts.js:71
+#: src/admin/Contacts.js:218
+msgid "Came through"
+msgstr "Kwam via"
+
+#: src/admin/Contacts.js:75
+msgid "Created"
+msgstr "Aangemaakt"
+
+#: src/admin/Contacts.js:78
+msgid "Notes"
+msgstr "Notities"
+
+#: src/admin/Appointments.js:7
+msgid "Upcoming"
+msgstr "Komend"
+
+#: src/admin/Appointments.js:8
+msgid "Past"
+msgstr "Voorbij"
+
+#: src/admin/Appointments.js:9
+msgid "Canceled"
+msgstr "Geannuleerd"
+
+#: src/admin/Settings.js:40
+msgid "Standalone wizards"
+msgstr "Zelfstandige wizards"
+
+#: src/admin/Settings.js:47
+msgid "Thinks with"
+msgstr "Denkt met"
+
+#: src/admin/Settings.js:53
+msgid "set in WordPress under"
+msgstr "ingesteld in WordPress onder"
+
+#: src/admin/Settings.js:58
+#: src/admin/Settings.js:74
+msgid "Settings → Connectors"
+msgstr "Instellingen → Connectors"
+
+#: src/admin/Settings.js:68
+msgid "No AI provider set up"
+msgstr "Geen AI-provider ingesteld"
+
+#: src/admin/Settings.js:93
+msgid "answers"
+msgstr "antwoordt"
+
+#: src/admin/Settings.js:118
+msgid "Which provider and which key: WordPress settles that, not the plugin. Every run costs at the provider what its calls cost."
+msgstr "Welke provider en welke sleutel: dat regelt WordPress, niet de plugin. Elke run kost bij de provider wat zijn aanroepen kosten."
+
+#: src/admin/Settings.js:126
+msgid "Runs per hour and visitor"
+msgstr "Runs per uur en bezoeker"
+
+#: src/admin/Settings.js:145
+msgid "Runs per day and wizard"
+msgstr "Runs per dag en wizard"
+
+#: src/admin/Settings.js:164
+msgid "Seconds per thinking step"
+msgstr "Seconden per denkstap"
+
+#: src/admin/Settings.js:184
+msgid "Keep results"
+msgstr "Resultaten bewaren"
+
+#: src/admin/Results.js:463
+#: src/admin/Settings.js:196
+msgid "30 days"
+msgstr "30 dagen"
+
+#: src/admin/Settings.js:199
+msgid "90 days"
+msgstr "90 dagen"
+
+#: src/admin/Settings.js:202
+msgid "1 year"
+msgstr "1 jaar"
+
+#: src/admin/Settings.js:205
+msgid "Unlimited"
+msgstr "Onbeperkt"
+
+#: src/admin/Settings.js:211
+msgid "Protection from bots"
+msgstr "Bescherming tegen bots"
+
+#: src/admin/Settings.js:216
+msgid "Honeypot and limits"
+msgstr "Honeypot en limieten"
+
+#: src/admin/Settings.js:233
+msgid "Send photos to the provider when it takes images"
+msgstr "Foto's naar de provider sturen als hij afbeeldingen accepteert"
+
+#: src/admin/Settings.js:249
+msgid "Wizards may read web pages and call public APIs when a step calls for it"
+msgstr "Wizards mogen webpagina's lezen en openbare API's aanroepen als een stap daarom vraagt"
+
+#: src/admin/Settings.js:360
+#: src/admin/Settings.js:793
+#: src/admin/Settings.js:1153
+msgid "Connection"
+msgstr "Verbinding"
+
+#: src/admin/Settings.js:797
+msgid "Not connected – the wizards run on this website, without an account and without engenty credits. A free account brings Studio, contacts, appointments, PDFs and the wizards that need more; the local ones keep running."
+msgstr "Niet verbonden – de wizards draaien op deze website, zonder account en zonder engenty-credits. Een gratis account brengt Studio, contacten, afspraken, pdf's en de wizards die meer nodig hebben; de lokale blijven draaien."
+
+#: src/admin/Settings.js:822
+msgid "Your own server, or no sign-in in the browser?"
+msgstr "Je eigen server, of lukt inloggen in de browser niet?"
+
+#: src/admin/Settings.js:829
+#: src/admin/Settings.js:1181
+msgid "Connect by hand"
+msgstr "Handmatig verbinden"
+
+#: src/admin/Settings.js:478
+#: src/admin/Settings.js:855
+msgid "Unless said otherwise"
+msgstr "Tenzij anders aangegeven"
+
+#: src/admin/Settings.js:497
+#: src/admin/Settings.js:874
+msgid "Button label"
+msgstr "Knoptekst"
+
+#: src/admin/Settings.js:511
+#: src/admin/Settings.js:887
+msgid "Bubble on every page"
+msgstr "Bubbel op elke pagina"
+
+#: src/admin/Settings.js:536
+#: src/admin/Settings.js:912
+msgid "— no bubble —"
+msgstr "— geen bubbel —"
+
+#: src/admin/Settings.js:547
+#: src/admin/Settings.js:923
+msgid "Name for screen readers"
+msgstr "Naam voor schermlezers"
+
+#: src/admin/Settings.js:562
+#: src/admin/Settings.js:938
+msgid "Line beside it (optional)"
+msgstr "Regel ernaast (optioneel)"
+
+#: src/admin/Settings.js:595
+#: src/admin/Settings.js:967
+msgid "Not on these pages"
+msgstr "Niet op deze pagina's"
+
+#: src/admin/Settings.js:622
+#: src/admin/Settings.js:993
+msgid "Access to results, contacts and appointments"
+msgstr "Toegang tot resultaten, contacten en afspraken"
+
+#: src/admin/Settings.js:666
+#: src/admin/Settings.js:1036
+msgid "Save"
+msgstr "Opslaan"
+
+#: src/admin/Settings.js:670
+#: src/admin/Settings.js:1040
+msgid "Saved."
+msgstr "Opgeslagen."
+
+#: src/admin/Settings.js:689
+#: src/admin/Settings.js:1049
+msgid "Standalone wizards send the answers of visitors to the AI provider of the website. Name it in the privacy policy:"
+msgstr "Zelfstandige wizards sturen de antwoorden van bezoekers naar de AI-provider van de website. Noem die in het privacybeleid:"
+
+#: src/admin/Settings.js:1096
+#: src/admin/Settings.js:1207
+msgid "API key"
+msgstr "API-sleutel"
+
+#: src/admin/Settings.js:1110
+#: src/admin/Settings.js:1226
+msgid "Connect"
+msgstr "Verbinden"
+
+#: src/admin/Settings.js:1157
+msgid "The website is not connected to an engenty account."
+msgstr "De website is niet verbonden met een engenty-account."
+
+#: src/admin/Settings.js:1185
+msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed."
+msgstr "Voor je eigen engenty-server, of als inloggen in de browser niet werkt. De API-sleutel maak je bij engenty.ai onder Account, op je eigen server in de Studio onder Insluiten."
+
+#: src/admin/Wizards.js:178
+#: src/admin/Wizards.js:467
+msgid "New wizard"
+msgstr "Nieuwe wizard"
+
+#: src/admin/Wizards.js:283
+msgid "Link"
+msgstr "Link"
+
+#: src/admin/Wizards.js:291
+msgid "Embed"
+msgstr "Insluiten"
+
+#: src/admin/Wizards.js:315
+msgid "In the Studio"
+msgstr "In de Studio"
+
+#: src/admin/Wizards.js:187
+msgid "No wizards yet"
+msgstr "Nog geen wizards"
+
+#: src/admin/Wizards.js:189
+msgid "Create one from a template – a request, a quote, a booking."
+msgstr "Maak er een vanuit een sjabloon – een aanvraag, een offerte, een boeking."
+
+#: src/admin/Wizards.js:199
+msgid "Choose a template"
+msgstr "Kies een sjabloon"
+
+#: src/admin/Wizards.js:335
+msgid "Runs on this website with the AI provider from the WordPress settings. Results under Results."
+msgstr "Draait op deze website met de AI-provider uit de WordPress-instellingen. Resultaten onder Resultaten."
+
+#: src/admin/Wizards.js:341
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: src/admin/Wizards.js:350
+msgid "In the block editor"
+msgstr "In de blok-editor"
+
+#: src/admin/Wizards.js:352
+msgid "Insert the “engenty Wizard” block and choose this wizard. In Elementor the widget has the same name."
+msgstr "Voeg het blok “Wizard van engenty” in en kies deze wizard. In Elementor heeft de widget dezelfde naam."
+
+#: src/admin/Wizards.js:357
+msgid "In the theme (PHP)"
+msgstr "In het thema (PHP)"
+
+#: src/admin/Wizards.js:366
+msgid "With one click"
+msgstr "Met één klik"
+
+#: src/admin/Wizards.js:373
+#: src/admin/Wizards.js:395
+msgid "This wizard"
+msgstr "Deze wizard"
+
+#: src/admin/Wizards.js:375
+msgid "Runs through engenty.ai right now. Run here brings the published version to this website: it then thinks with the AI provider of WordPress, without credits, and the results stay here."
+msgstr "Draait op dit moment via engenty.ai. Hier draaien haalt de gepubliceerde versie naar deze website: hij denkt dan met de AI-provider van WordPress, zonder credits, en de resultaten blijven hier."
+
+#: src/admin/Wizards.js:388
+msgid "Run here"
+msgstr "Hier draaien"
+
+#: src/admin/Wizards.js:398
+msgid "Fetched from your account and runs here with the AI provider of WordPress. Reload fetches the published version again."
+msgstr "Opgehaald uit je account en draait hier met de AI-provider van WordPress. Opnieuw laden haalt de gepubliceerde versie opnieuw op."
+
+#: src/admin/Wizards.js:411
+msgid "Reload"
+msgstr "Opnieuw laden"
+
+#: src/admin/Wizards.js:420
+msgid "Run through engenty.ai"
+msgstr "Via engenty.ai draaien"
+
+#: src/admin/Wizards.js:431
+msgid "Pause"
+msgstr "Pauzeren"
+
+#: src/admin/Wizards.js:437
+msgid "Live again"
+msgstr "Weer live"
+
+#: src/admin/Wizards.js:448
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: src/admin/Wizards.js:454
+msgid "You change texts and steps in the engenty Studio and import the package again."
+msgstr "Teksten en stappen wijzig je in de engenty Studio, daarna importeer je het pakket opnieuw."
+
+#. translators: %d: number of results
+#: src/admin/Results.js:417
+#, js-format
+msgid "%d in total"
+msgstr "%d in totaal"
+
+#: src/admin/Results.js:457
+msgid "Today"
+msgstr "Vandaag"
+
+#: src/admin/Results.js:460
+msgid "7 days"
+msgstr "7 dagen"
+
+#: src/admin/Results.js:475
+msgid "Started"
+msgstr "Gestart"
+
+#: src/admin/Results.js:486
+msgid "No results"
+msgstr "Geen resultaten"
+
+#: src/admin/Results.js:488
+msgid "As soon as visitors complete a wizard, their answers are here. Without an account, engenty keeps results for a week."
+msgstr "Zodra bezoekers een wizard afronden, staan hun antwoorden hier. Zonder account bewaart engenty resultaten een week."
+
+#: src/admin/Results.js:527
+msgid "With Pro, every result with an email becomes a contact under “Contacts”."
+msgstr "Met Pro wordt elk resultaat met een e-mailadres een contact onder “Contacten”."
+
+#. translators: 1: people, 2: organisations
+#: src/admin/Contacts.js:165
+#, js-format
+msgid "%1$d people · %2$d companies"
+msgstr "%1$d personen · %2$d bedrijven"
+
+#: src/admin/Contacts.js:179
+msgid "Name, email, company …"
+msgstr "Naam, e-mail, bedrijf …"
+
+#: src/admin/Contacts.js:194
+msgid "Edit in the Studio"
+msgstr "Bewerken in de Studio"
+
+#: src/admin/Contacts.js:220
+msgid "Since"
+msgstr "Sinds"
+
+#: src/admin/Contacts.js:202
+msgid "No contacts yet"
+msgstr "Nog geen contacten"
+
+#: src/admin/Contacts.js:204
+msgid "Wizards that ask for name and email create contacts here."
+msgstr "Wizards die om naam en e-mail vragen, maken hier contacten aan."
+
+#: src/admin/Appointments.js:77
+msgid "Set up the calendar in the Studio"
+msgstr "Agenda instellen in de Studio"
+
+#: src/admin/Appointments.js:113
+msgid "What"
+msgstr "Wat"
+
+#: src/admin/Appointments.js:114
+msgid "Who"
+msgstr "Wie"
+
+#: src/admin/Appointments.js:115
+msgid "Where"
+msgstr "Waar"
+
+#: src/admin/Appointments.js:148
+msgid "canceled"
+msgstr "geannuleerd"
+
+#: src/admin/Appointments.js:156
+msgid "Test"
+msgstr "Test"
+
+#: src/admin/Appointments.js:100
+msgid "No appointments"
+msgstr "Geen afspraken"
+
+#: src/admin/Appointments.js:102
+msgid "Wizards with booking enter them here. Create one from the “Book an appointment” template."
+msgstr "Wizards met boeking zetten ze hier neer. Maak er een vanuit het sjabloon “Afspraak boeken”."
+
+#: src/admin/Settings.js:365
+msgid "Account"
+msgstr "Account"
+
+#: src/admin/Settings.js:371
+msgid "connected with an API key"
+msgstr "verbonden met een API-sleutel"
+
+#: src/admin/Settings.js:379
+msgid "Team"
+msgstr "Team"
+
+#: src/admin/Settings.js:383
+msgid "Plan"
+msgstr "Abonnement"
+
+#: src/admin/Settings.js:394
+msgid "upgrade to Pro"
+msgstr "upgraden naar Pro"
+
+#: src/admin/Settings.js:404
+msgid "Plugins"
+msgstr "Plugins"
+
+#: src/admin/Settings.js:412
+msgid "Runs on"
+msgstr "Draait op"
+
+#: src/admin/Settings.js:419
+msgid "Disconnect the website from engenty.ai? Wizards on your pages keep showing; the admin sees nothing until you connect again."
+msgstr "De website loskoppelen van engenty.ai? Wizards op je pagina's blijven zichtbaar; de beheeromgeving ziet niets tot je opnieuw verbindt."
+
+#: src/admin/Settings.js:430
+msgid "Yes, disconnect"
+msgstr "Ja, loskoppelen"
+
+#: src/admin/Settings.js:436
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: src/admin/Settings.js:448
+msgid "Manage account"
+msgstr "Account beheren"
+
+#: src/admin/Settings.js:455
+msgid "Disconnect"
+msgstr "Loskoppelen"
+
+#: src/admin/Settings.js:570
+msgid "e.g. a quote in 2 minutes"
+msgstr "bijv. een offerte in 2 minuten"
+
+#: src/admin/Settings.js:680
+msgid "Visitors talk directly to engenty; WordPress stores no answers. A suggestion for your privacy policy – check it for your case:"
+msgstr "Bezoekers praten rechtstreeks met engenty; WordPress slaat geen antwoorden op. Een voorstel voor je privacybeleid – controleer het voor jouw situatie:"
+
+#: src/block/index.js:58
+msgid "Connect the website to engenty.ai for free: then you choose a wizard for requests, quotes or appointments here."
+msgstr "Verbind de website gratis met engenty.ai: dan kies je hier een wizard voor aanvragen, offertes of afspraken."
+
+#: src/block/index.js:149
+msgid "runs on this website · in the text"
+msgstr "draait op deze website · in de tekst"
+
+#: src/block/index.js:187
+msgid "as a bubble bottom right"
+msgstr "als bubbel rechtsonder"
+
+#: src/block/index.js:188
+msgid "opens in a window"
+msgstr "opent in een venster"
+
+#: src/block/index.js:121
+msgid "Which wizard goes here?"
+msgstr "Welke wizard komt hier?"
+
+#: src/block/index.js:122
+msgid "No wizard is live yet. Create one in engenty."
+msgstr "Er is nog geen wizard live. Maak er een in engenty."
+
+#: src/block/index.js:136
+msgid "Create a wizard"
+msgstr "Een wizard maken"
+
+#: src/admin/ui.js:657
+msgid "Needs an account"
+msgstr "Account nodig"
+
+#: blocks/wizard/block.json
+msgctxt "block title"
+msgid "engenty Wizard"
+msgstr "Wizard van engenty"
+
+#: blocks/wizard/block.json
+msgctxt "block description"
+msgid "A wizard from engenty.ai: in the text, behind a button or as a bubble at the bottom right."
+msgstr "Een wizard van engenty.ai: in de tekst, achter een knop of als bubbel rechtsonder."
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "engenty"
+msgstr "engenty"
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "wizard"
+msgstr "wizard"
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "form"
+msgstr "formulier"
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "request"
+msgstr "aanvraag"
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "ai"
+msgstr "ai"
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "chat"
+msgstr "chat"
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "appointment"
+msgstr "afspraak"
+
+#: includes/class-connect.php:395
+#: includes/class-connect.php:418
+msgid "The connection is being refreshed. Please retry shortly."
+msgstr ""
+
+#: includes/class-packages.php:61
+msgid "Wizard files could not be moved into private storage. Check database capacity and the system temporary directory, then reload."
+msgstr ""
+
+#: includes/class-packages.php:305
+msgid "A package is being installed. Please retry shortly."
+msgstr ""
+
+#: includes/class-packages.php:348
+msgid "This package contains an unsupported file type."
+msgstr ""
+
+#: includes/class-packages.php:352
+msgid "This package contains invalid file data."
+msgstr ""
+
+#: includes/class-runs.php:829
+msgid "Please try the upload again."
+msgstr ""
+
+#: includes/class-runs.php:861
+msgid "This page does not accept uploads."
+msgstr ""
+
+#: includes/class-runs.php:881
+msgid "The upload limit has been reached."
+msgstr ""
+
+#: includes/class-think.php:286
+#: includes/class-think.php:392
+#: includes/class-think.php:405
+msgid "This request no longer owns the run. Please retry."
+msgstr ""
+
+#: includes/class-think.php:1492
+msgid "The document could not be saved."
+msgstr ""
