@@ -3,4 +3,5 @@ build/
 vendor/
 dist/
 *.zip
+.env.local
 .DS_Store

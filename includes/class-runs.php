@@ -78,8 +78,8 @@ class Engenty_Runs {
 	public static function load( $id ) {
 		global $wpdb;
 		$table = Engenty_Packages::runs_table();
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- own table.
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %s", $id ), ARRAY_A );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
+		$row = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE id = %s', $table, $id ), ARRAY_A );
 		if ( ! $row ) {
 			return null;
 		}
@@ -167,6 +167,48 @@ class Engenty_Runs {
 	}
 
 	/**
+	 * Moves an uploaded photo into a run's folder through WordPress' own upload handling.
+	 *
+	 * @param array  $file The entry of the request's files.
+	 * @param string $dir  The run's folder under uploads.
+	 * @param string $id   The name the file keeps there.
+	 * @return true|WP_Error
+	 */
+	private static function keep_upload( array $file, $dir, $id ) {
+		if ( ! function_exists( 'wp_handle_upload' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+		$upload = wp_upload_dir();
+		$into   = static function ( $dirs ) use ( $dir, $upload ) {
+			$dirs['path']   = $dir;
+			$dirs['url']    = str_replace( $upload['basedir'], $upload['baseurl'], $dir );
+			$dirs['subdir'] = '';
+			return $dirs;
+		};
+		add_filter( 'upload_dir', $into );
+		$moved = wp_handle_upload(
+			$file,
+			array(
+				'test_form'                => false,
+				'mimes'                    => array(
+					'jpg|jpeg' => 'image/jpeg',
+					'png'      => 'image/png',
+					'webp'     => 'image/webp',
+					'gif'      => 'image/gif',
+				),
+				'unique_filename_callback' => static function () use ( $id ) {
+					return $id;
+				},
+			)
+		);
+		remove_filter( 'upload_dir', $into );
+		if ( ! is_array( $moved ) || ! empty( $moved['error'] ) || empty( $moved['file'] ) ) {
+			return new WP_Error( 'engenty_io', __( 'Die Datei konnte nicht gespeichert werden.', 'engenty-wizards' ), array( 'status' => 500 ) );
+		}
+		return true;
+	}
+
+	/**
 	 * Removes a wizard's runs with their files.
 	 *
 	 * @param string $wizard_id The wizard.
@@ -174,8 +216,8 @@ class Engenty_Runs {
 	public static function remove_of_wizard( $wizard_id ) {
 		global $wpdb;
 		$table = Engenty_Packages::runs_table();
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- own table.
-		$ids = $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$table} WHERE wizard_id = %s", $wizard_id ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
+		$ids = $wpdb->get_col( $wpdb->prepare( 'SELECT id FROM %i WHERE wizard_id = %s', $table, $wizard_id ) );
 		foreach ( (array) $ids as $id ) {
 			Engenty_Packages::remove_dir( self::files_dir( $id ) );
 		}
@@ -192,8 +234,8 @@ class Engenty_Runs {
 		}
 		$table  = Engenty_Packages::runs_table();
 		$before = gmdate( 'Y-m-d H:i:s', time() - $days * DAY_IN_SECONDS );
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- own table.
-		$ids = $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$table} WHERE started_at < %s", $before ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
+		$ids = $wpdb->get_col( $wpdb->prepare( 'SELECT id FROM %i WHERE started_at < %s', $table, $before ) );
 		foreach ( (array) $ids as $id ) {
 			Engenty_Packages::remove_dir( self::files_dir( $id ) );
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
@@ -228,8 +270,8 @@ class Engenty_Runs {
 		$settings = Engenty_Settings::all()['local'];
 		$hour     = gmdate( 'Y-m-d H:i:s', time() - HOUR_IN_SECONDS );
 		$day      = gmdate( 'Y-m-d H:i:s', time() - DAY_IN_SECONDS );
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- own table.
-		$by_visitor = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE visitor = %s AND started_at > %s", $visitor, $hour ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
+		$by_visitor = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE visitor = %s AND started_at > %s', $table, $visitor, $hour ) );
 		if ( $by_visitor >= (int) $settings['runsPerHour'] ) {
 			return new WP_Error(
 				'engenty_limit',
@@ -240,8 +282,8 @@ class Engenty_Runs {
 				)
 			);
 		}
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- own table.
-		$by_wizard = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE wizard_id = %s AND started_at > %s", $wizard_id, $day ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
+		$by_wizard = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE wizard_id = %s AND started_at > %s', $table, $wizard_id, $day ) );
 		if ( $by_wizard >= (int) $settings['runsPerDay'] ) {
 			return new WP_Error(
 				'engenty_limit',
@@ -810,8 +852,9 @@ class Engenty_Runs {
 		$dir = self::files_dir( $run['id'] );
 		wp_mkdir_p( $dir );
 		file_put_contents( $dir . '/index.html', '' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- no listing of the folder.
-		if ( ! move_uploaded_file( $file['tmp_name'], $dir . '/' . $id ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_move_uploaded_file -- the plugin's own folder under uploads.
-			return self::respond( new WP_Error( 'engenty_io', __( 'Die Datei konnte nicht gespeichert werden.', 'engenty-wizards' ), array( 'status' => 500 ) ) );
+		$kept = self::keep_upload( $file, $dir, $id );
+		if ( is_wp_error( $kept ) ) {
+			return self::respond( $kept );
 		}
 		$name = sanitize_file_name( (string) $file['name'] );
 		file_put_contents( // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- the plugin's own folder under uploads.
@@ -2027,13 +2070,17 @@ class Engenty_Runs {
 			$args[]  = $like;
 			$args[]  = $like;
 		}
-		$sql   = implode( ' AND ', $where );
-		$page  = max( 1, (int) ( $filter['page'] ?? 1 ) );
-		$count = "SELECT COUNT(*) FROM {$table} WHERE {$sql}";
-		$list  = "SELECT * FROM {$table} WHERE {$sql} ORDER BY started_at DESC LIMIT 50 OFFSET " . ( ( $page - 1 ) * 50 );
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- own table; the fragments are placeholders.
-		$total = (int) $wpdb->get_var( $args ? $wpdb->prepare( $count, $args ) : $count );
-		$rows  = $wpdb->get_results( $args ? $wpdb->prepare( $list, $args ) : $list, ARRAY_A );
+		$sql  = implode( ' AND ', $where );
+		$page = max( 1, (int) ( $filter['page'] ?? 1 ) );
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, PluginCheck.Security.DirectDB.UnescapedDBParameter -- own table; $sql holds literal fragments with placeholders, their values follow in $args.
+		$total = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE {$sql}", array_merge( array( $table ), $args ) ) );
+		$rows  = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM %i WHERE {$sql} ORDER BY started_at DESC LIMIT %d OFFSET %d",
+				array_merge( array( $table ), $args, array( 50, ( $page - 1 ) * 50 ) )
+			),
+			ARRAY_A
+		);
 		// phpcs:enable
 		$wizards = array();
 		foreach ( Engenty_Packages::all() as $w ) {

@@ -146,8 +146,8 @@ class Engenty_Packages {
 	public static function all() {
 		global $wpdb;
 		$table = self::table();
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- own table.
-		$rows = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY installed_at DESC", ARRAY_A );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
+		$rows = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i ORDER BY installed_at DESC', $table ), ARRAY_A );
 		return array_map( array( __CLASS__, 'row' ), $rows ? $rows : array() );
 	}
 
@@ -160,8 +160,8 @@ class Engenty_Packages {
 	public static function get( $id ) {
 		global $wpdb;
 		$table = self::table();
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- own table.
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %s", $id ), ARRAY_A );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
+		$row = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE id = %s', $table, $id ), ARRAY_A );
 		return $row ? self::row( $row ) : null;
 	}
 
@@ -174,8 +174,8 @@ class Engenty_Packages {
 	public static function by_token( $token ) {
 		global $wpdb;
 		$table = self::table();
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- own table.
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE token = %s", $token ), ARRAY_A );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
+		$row = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE token = %s', $table, $token ), ARRAY_A );
 		return $row ? self::row( $row ) : null;
 	}
 

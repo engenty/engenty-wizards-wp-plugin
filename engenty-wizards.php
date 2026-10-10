@@ -11,7 +11,6 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       engenty-wizards
- * Domain Path:       /languages
  *
  * @package Engenty_Wizards
  */
@@ -79,7 +78,6 @@ register_activation_hook(
 add_action(
 	'plugins_loaded',
 	static function () {
-		load_plugin_textdomain( 'engenty-wizards', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		Engenty_Connect::init();
 		Engenty_Packages::init();
 		Engenty_Abilities::init();

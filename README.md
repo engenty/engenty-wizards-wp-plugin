@@ -41,6 +41,16 @@ GPLv2 or later. The runner's components come from the open repository's package
 | `vendor-runner/` | The runner package as built (`bin/sync-runner.sh`) |
 | `wizards/` | The templates that run on a site, exported from the marketplace with their fit (`pnpm templates:export` in the open repository) |
 
+## Release
+
+```bash
+sh bin/zip.sh                      # engenty-wizards.zip: what WordPress installs, top folder engenty-wizards/
+wp plugin check <unzipped folder>  # the Plugin Check wordpress.org runs; the zip passes with no errors
+```
+
+`.wordpress-org/` holds the listing's icon, banners and screenshots (the SVN `assets/` folder on
+wordpress.org, not part of the zip); the GitHub release on a `v*` tag attaches the zip.
+
 ## Develop
 
 ```bash

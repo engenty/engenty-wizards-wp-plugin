@@ -22,11 +22,15 @@ engenty wizards are guided assistants for your visitors: a request that asks the
 * **With Pro**: contacts (a small CRM of your leads) and bookings in your calendar.
 * **Without an account**: on WordPress 7.0 with an AI provider under Settings → Connectors, the shipped wizards run on your site by themselves. No account, no credits; the provider bills your key. Results stay in WordPress.
 
-= External service =
+Source code: https://github.com/engenty/engenty-wizards-wp-plugin – the scripts in build/ are made from src/ with `npm install && npm run build`. The runner they bundle is the package @engenty-wizards/runner (MIT) from https://github.com/engenty/engenty-wizards, vendored as built in vendor-runner/.
 
-This plugin connects to engenty.ai, which runs the wizards. Your site's settings stay in WordPress; when you connect, the plugin keeps an access token for your account. What you choose under "Website einlesen" (name, logo, colours, contact details, page texts) is sent to engenty.ai for your account. Visitors who open a wizard talk to engenty.ai directly from a frame on your page.
+= External services =
+
+With an account, this plugin connects to engenty.ai, which runs the wizards. Your site's settings stay in WordPress; when you connect, the plugin keeps an access token for your account. What you choose under "Website einlesen" (name, logo, colours, contact details, page texts) is sent to engenty.ai for your account. Visitors who open a wizard talk to engenty.ai directly from a frame on your page.
 
 Terms of use: https://engenty.ai/nutzungsbedingungen · Privacy: https://engenty.ai/datenschutz
+
+Without an account, a wizard thinks through the AI provider you set up under Settings → Connectors: each thinking step sends the wizard's prompt and what the visitor entered (answers, photos) to that provider, under its terms. When "Werkzeuge" is on in the settings, a step may also read a public web page or call a public API the wizard names, from your server. Nothing goes to engenty.ai in this mode.
 
 == Installation ==
 
@@ -54,9 +58,12 @@ Contacts and bookings in the WordPress admin, building wizards from templates in
 
 == Screenshots ==
 
-1. The setup: connect, read the website, a first wizard, on the site.
-2. The bubble on every page.
-3. Results with answers and downloads.
+1. Wizards: what runs on the site, each with what it still needs.
+2. The gallery: a shipped wizard goes live in one click.
+3. A wizard on a page, the bubble on every page.
+4. A visitor's question, answered on the site.
+5. Results in the admin.
+6. Settings: the provider line, limits, tools.
 
 == Changelog ==
 

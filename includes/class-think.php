@@ -144,9 +144,13 @@ class Engenty_Think {
 			return $out;
 		}
 		try {
-			$registry = \WordPress\AiClient\AiClient::defaultRegistry();
-			$names    = array();
-			foreach ( wp_get_connectors() as $id => $connector ) {
+			$registry   = \WordPress\AiClient\AiClient::defaultRegistry();
+			$names      = array();
+			$connectors = array();
+			if ( function_exists( 'wp_get_connectors' ) ) {
+				$connectors = wp_get_connectors();
+			}
+			foreach ( $connectors as $id => $connector ) {
 				if ( 'ai_provider' === ( $connector['type'] ?? '' ) ) {
 					$names[ $id ] = (string) ( $connector['name'] ?? $id );
 				}
@@ -294,7 +298,7 @@ class Engenty_Think {
 		add_filter( 'ai_provider_for_ollama_request_timeout', $timeout );
 		// A local model may take longer than PHP's usual limit; the request may run as long as the step.
 		if ( function_exists( 'set_time_limit' ) ) {
-			set_time_limit( $seconds + 30 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			set_time_limit( $seconds + 30 ); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged -- a local model answers slower than PHP's usual limit allows.
 		}
 		try {
 			$builder = self::builder( $system, $prompt, $schema, $photos, $abilities, array() );
@@ -457,6 +461,9 @@ class Engenty_Think {
 			array_filter(
 				$out,
 				static function ( $name ) {
+					if ( ! function_exists( 'wp_get_ability' ) ) {
+						return false;
+					}
 					return (bool) wp_get_ability( $name );
 				}
 			)
