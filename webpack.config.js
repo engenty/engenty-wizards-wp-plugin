@@ -7,7 +7,7 @@ const defaults = require( '@wordpress/scripts/config/webpack.config' );
 module.exports = {
 	...defaults,
 	entry: {
-		admin: './src/admin/index.js',
+		app: './src/admin/index.js', // not "admin": wp-cli's make-json mangles a built file whose name holds "min" (its .min.js regex), and the JSON of translations is named by this path
 		block: './src/block/index.js',
 		runner: './src/runner/index.js',
 	},

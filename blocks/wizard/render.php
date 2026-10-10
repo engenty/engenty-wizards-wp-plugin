@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( empty( $attributes['token'] ) ) {
-	echo current_user_can( 'edit_posts' ) ? Engenty_Embed::editor_hint( __( 'Im Block ist noch kein Wizard gewählt.', 'engenty-wizards' ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo current_user_can( 'edit_posts' ) ? Engenty_Embed::editor_hint( __( 'No wizard is chosen in the block yet.', 'engenty-wizards' ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	return;
 }
 $engenty_tag = Engenty_Embed::tag(

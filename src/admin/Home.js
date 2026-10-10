@@ -21,15 +21,15 @@ import { Choice, LocalSetup } from './Start';
 
 const ERRORS = {
 	denied: __(
-		'Die Verbindung wurde bei engenty.ai abgelehnt. Du kannst es jederzeit noch einmal versuchen.',
+		'The connection was refused at engenty.ai. You can try again at any time.',
 		'engenty-wizards'
 	),
 	expired: __(
-		'Die Anmeldung hat zu lange gedauert. Bitte noch einmal.',
+		'The sign-in took too long. Please try again.',
 		'engenty-wizards'
 	),
 	failed: __(
-		'Die Verbindung hat nicht geklappt. Bitte noch einmal versuchen.',
+		'The connection did not work. Please try again.',
 		'engenty-wizards'
 	),
 };
@@ -63,7 +63,7 @@ function Welcome( { status, onLocal } ) {
 			<Card>
 				<p>
 					{ __(
-						'engenty ist noch nicht verbunden. Bitte eine Administratorin oder einen Administrator, die Website zu verbinden.',
+						'engenty is not connected yet. Ask an administrator to connect the website.',
 						'engenty-wizards'
 					) }
 				</p>
@@ -88,13 +88,13 @@ function Welcome( { status, onLocal } ) {
 				<h1>
 					{ sprintf(
 						/* translators: %s: site name */
-						__( 'Eigene KI für %s', 'engenty-wizards' ),
+						__( 'Your own AI for %s', 'engenty-wizards' ),
 						site.name || pathOf( site.url )
 					) }
 				</h1>
 				<p className="en-lead">
 					{ __(
-						'engenty liest deine Website und macht daraus Assistenten für Anfragen, Angebote und Termine. Sie laufen auf engenty.ai und erscheinen auf deiner Seite als Block, Shortcode, Elementor-Widget oder Chat-Blase.',
+						'engenty reads your website and turns it into assistants for requests, quotes and appointments. They run on engenty.ai and appear on your site as a block, a shortcode, an Elementor widget or a chat bubble.',
 						'engenty-wizards'
 					) }
 				</p>
@@ -103,20 +103,23 @@ function Welcome( { status, onLocal } ) {
 					className="en-btn--large"
 					onClick={ () => setChoosing( true ) }
 				>
-					{ __( 'Eigene KI erstellen', 'engenty-wizards' ) } →
+					{ __( 'Create your own AI', 'engenty-wizards' ) } →
 				</Button>
 				<ul className="en-checks">
-					<li>{ __( 'Kostenloses Konto', 'engenty-wizards' ) }</li>
-					<li>{ __( 'Keine Kreditkarte', 'engenty-wizards' ) }</li>
+					<li>{ __( 'Free account', 'engenty-wizards' ) }</li>
+					<li>{ __( 'No credit card', 'engenty-wizards' ) }</li>
 					<li>
 						{ __(
-							'Deine Website bleibt, wie sie ist',
+							'Your website stays as it is',
 							'engenty-wizards'
 						) }
 					</li>
 				</ul>
 				<p className="en-muted">
-					{ __( 'Schon ein Konto bei engenty?', 'engenty-wizards' ) }{ ' ' }
+					{ __(
+						'Already have an engenty account?',
+						'engenty-wizards'
+					) }{ ' ' }
 					<button
 						type="button"
 						className="en-link"
@@ -124,38 +127,35 @@ function Welcome( { status, onLocal } ) {
 						disabled={ busy !== null }
 					>
 						{ busy === 'login'
-							? __( 'Einen Moment …', 'engenty-wizards' )
-							: __( 'Anmelden', 'engenty-wizards' ) }
+							? __( 'One moment …', 'engenty-wizards' )
+							: __( 'Sign in', 'engenty-wizards' ) }
 					</button>
 				</p>
 				{ error ? <Notice tone="error">{ error }</Notice> : null }
 			</div>
 			<div className="en-grid en-grid--3">
-				<Card title={ __( '1 · Konto', 'engenty-wizards' ) }>
+				<Card title={ __( '1 · Account', 'engenty-wizards' ) }>
 					<p>
 						{ __(
-							'Du legst bei engenty.ai ein Konto an oder meldest dich an und erlaubst der Website den Zugriff. Danach geht es hierher zurück.',
+							'You create an account at engenty.ai or sign in and allow the website access. Then you come back here.',
 							'engenty-wizards'
 						) }
 					</p>
 				</Card>
-				<Card title={ __( '2 · Website einlesen', 'engenty-wizards' ) }>
+				<Card title={ __( '2 · Read the website', 'engenty-wizards' ) }>
 					<p>
 						{ __(
-							'Name, Logo, Farben, Kontaktdaten und deine Seiten: Du siehst, was gefunden wurde, und wählst, was engenty bekommt.',
+							'Name, logo, colors, contact details and your pages: you see what was found and choose what engenty gets.',
 							'engenty-wizards'
 						) }
 					</p>
 				</Card>
 				<Card
-					title={ __(
-						'3 · Wizard auf die Seite',
-						'engenty-wizards'
-					) }
+					title={ __( '3 · Wizard on the site', 'engenty-wizards' ) }
 				>
 					<p>
 						{ __(
-							'Eine Vorlage wählen, live schalten, als Chat-Blase oder auf einer Seite zeigen. Ergebnisse siehst du hier im Admin.',
+							'Choose a template, set it live, show it as a chat bubble or on a page. You see results here in the admin.',
 							'engenty-wizards'
 						) }
 					</p>
@@ -163,7 +163,7 @@ function Welcome( { status, onLocal } ) {
 			</div>
 			<p className="en-fine">
 				{ __(
-					'Besucher reden direkt mit engenty.ai; WordPress speichert keine Antworten. Erwähne engenty in deiner Datenschutzerklärung – den Satz dazu findest du nach dem Verbinden in den Einstellungen.',
+					'Visitors talk directly to engenty.ai; WordPress stores no answers. Mention engenty in your privacy policy – you find the sentence for it in the settings after connecting.',
 					'engenty-wizards'
 				) }
 			</p>
@@ -172,9 +172,9 @@ function Welcome( { status, onLocal } ) {
 }
 
 const STEPS = [
-	[ 'site', __( 'Website einlesen', 'engenty-wizards' ) ],
-	[ 'wizard', __( 'Ersten Wizard anlegen', 'engenty-wizards' ) ],
-	[ 'placed', __( 'Auf die Website bringen', 'engenty-wizards' ) ],
+	[ 'site', __( 'Read the website', 'engenty-wizards' ) ],
+	[ 'wizard', __( 'Create the first wizard', 'engenty-wizards' ) ],
+	[ 'placed', __( 'Put on the website', 'engenty-wizards' ) ],
 ];
 
 /**
@@ -204,7 +204,7 @@ function Setup( { status, reload } ) {
 					{ sprintf(
 						/* translators: %s: account e-mail */
 						__(
-							'Verbunden als %s. Willkommen bei engenty!',
+							'Connected as %s. Welcome to engenty!',
 							'engenty-wizards'
 						),
 						me?.user?.email || me?.user?.name || ''
@@ -216,14 +216,14 @@ function Setup( { status, reload } ) {
 			) : null }
 			{ done ? null : (
 				<Card
-					title={ __( 'Einrichten', 'engenty-wizards' ) }
+					title={ __( 'Set up', 'engenty-wizards' ) }
 					aside={
 						<button
 							type="button"
 							className="en-link"
 							onClick={ () => mark( 'done' ) }
 						>
-							{ __( 'Später', 'engenty-wizards' ) }
+							{ __( 'Later', 'engenty-wizards' ) }
 						</button>
 					}
 				>
@@ -233,7 +233,7 @@ function Setup( { status, reload } ) {
 								<span className="en-step__dot">✓</span>
 								<strong>
 									{ __(
-										'Konto verbunden',
+										'Account connected',
 										'engenty-wizards'
 									) }
 								</strong>
@@ -325,7 +325,7 @@ function latestResults( status, runs ) {
 		return (
 			<p className="en-muted">
 				{ __(
-					'Ergebnisse sehen die Rollen, die in den Einstellungen dafür gewählt sind.',
+					'Results are visible to the roles chosen for it in the settings.',
 					'engenty-wizards'
 				) }
 			</p>
@@ -338,7 +338,7 @@ function latestResults( status, runs ) {
 		return (
 			<p className="en-muted">
 				{ __(
-					'Noch keine. Sobald Besucher einen Wizard abschließen, stehen ihre Antworten hier.',
+					'None yet. As soon as visitors complete a wizard, their answers are here.',
 					'engenty-wizards'
 				) }
 			</p>
@@ -390,7 +390,7 @@ function Overview( { status } ) {
 						{ runs ? runs.total : '–' }
 					</span>
 					<span>
-						{ __( 'Ergebnisse in 30 Tagen', 'engenty-wizards' ) }
+						{ __( 'Results in 30 days', 'engenty-wizards' ) }
 					</span>
 				</div>
 				<div className="en-stat">
@@ -410,7 +410,7 @@ function Overview( { status } ) {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									{ __( 'aufladen', 'engenty-wizards' ) }
+									{ __( 'top up', 'engenty-wizards' ) }
 								</a>
 							</>
 						) : null }
@@ -419,10 +419,10 @@ function Overview( { status } ) {
 			</div>
 			<div className="en-grid en-grid--2">
 				<Card
-					title={ __( 'Neueste Ergebnisse', 'engenty-wizards' ) }
+					title={ __( 'Latest results', 'engenty-wizards' ) }
 					aside={
 						<a href={ pageUrl( 'engenty-results' ) }>
-							{ __( 'Alle', 'engenty-wizards' ) }
+							{ __( 'All', 'engenty-wizards' ) }
 						</a>
 					}
 				>
@@ -443,7 +443,7 @@ function Overview( { status } ) {
 						title={ __( 'Wizards', 'engenty-wizards' ) }
 						aside={
 							<a href={ pageUrl( 'engenty-wizards' ) }>
-								{ __( 'Alle', 'engenty-wizards' ) }
+								{ __( 'All', 'engenty-wizards' ) }
 							</a>
 						}
 					>
@@ -457,7 +457,7 @@ function Overview( { status } ) {
 										{ w.available
 											? 'Live'
 											: __(
-													'Pausiert',
+													'Paused',
 													'engenty-wizards'
 											  ) }
 									</Chip>
@@ -500,7 +500,7 @@ function LocalHome( { status, reload } ) {
 				<Notice tone="error">
 					{ status.local?.provider?.note ||
 						__(
-							'WordPress hat gerade keinen KI-Anbieter, der antwortet: Einstellungen → Connectors.',
+							'WordPress has no AI provider that answers right now: Settings → Connectors.',
 							'engenty-wizards'
 						) }
 				</Notice>
@@ -518,7 +518,7 @@ function LocalHome( { status, reload } ) {
 						{ runs ? runs.total : '–' }
 					</span>
 					<span>
-						{ __( 'Ergebnisse in 30 Tagen', 'engenty-wizards' ) }
+						{ __( 'Results in 30 days', 'engenty-wizards' ) }
 					</span>
 				</div>
 				<div className="en-stat">
@@ -527,7 +527,7 @@ function LocalHome( { status, reload } ) {
 					</span>
 					<span>
 						{ __(
-							'denkt für die Wizards · ohne Credits',
+							'thinks for the wizards · without credits',
 							'engenty-wizards'
 						) }
 					</span>
@@ -535,22 +535,22 @@ function LocalHome( { status, reload } ) {
 			</div>
 			<div className="en-grid en-grid--2">
 				<Card
-					title={ __( 'Neueste Ergebnisse', 'engenty-wizards' ) }
+					title={ __( 'Latest results', 'engenty-wizards' ) }
 					aside={
 						<a href={ pageUrl( 'engenty-results' ) }>
-							{ __( 'Alle', 'engenty-wizards' ) }
+							{ __( 'All', 'engenty-wizards' ) }
 						</a>
 					}
 				>
 					{ latestResults( status, runs ?? { runs: [] } ) }
 				</Card>
 				<Card
-					title={ __( 'Mit einem Konto', 'engenty-wizards' ) }
+					title={ __( 'With an account', 'engenty-wizards' ) }
 					aside={ <Chip tone="ember">Pro</Chip> }
 				>
 					<p className="en-muted">
 						{ __(
-							'Studio, Kontakte, Termine, PDFs, Websuche und die Wizards, die mehr brauchen. Die lokalen laufen weiter.',
+							'Studio, contacts, appointments, PDFs, web search and the wizards that need more. The local ones keep running.',
 							'engenty-wizards'
 						) }
 					</p>
@@ -575,7 +575,7 @@ function ConnectButtons( { status } ) {
 					busy={ busy === 'signup' }
 					onClick={ () => go( true ) }
 				>
-					{ __( 'Kostenloses Konto anlegen', 'engenty-wizards' ) } →
+					{ __( 'Create a free account', 'engenty-wizards' ) } →
 				</Button>
 				<Button
 					kind="ghost"
@@ -583,7 +583,7 @@ function ConnectButtons( { status } ) {
 					busy={ busy === 'login' }
 					onClick={ () => go( false ) }
 				>
-					{ __( 'Anmelden', 'engenty-wizards' ) }
+					{ __( 'Sign in', 'engenty-wizards' ) }
 				</Button>
 			</div>
 			{ error ? <Notice tone="error">{ error }</Notice> : null }

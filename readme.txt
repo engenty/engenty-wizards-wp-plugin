@@ -26,16 +26,16 @@ Source code: https://github.com/engenty/engenty-wizards-wp-plugin – the script
 
 = External services =
 
-With an account, this plugin connects to engenty.ai, which runs the wizards. Your site's settings stay in WordPress; when you connect, the plugin keeps an access token for your account. What you choose under "Website einlesen" (name, logo, colours, contact details, page texts) is sent to engenty.ai for your account. Visitors who open a wizard talk to engenty.ai directly from a frame on your page.
+With an account, this plugin connects to engenty.ai, which runs the wizards. Your site's settings stay in WordPress; when you connect, the plugin keeps an access token for your account. What you choose under "Read the website" (name, logo, colours, contact details, page texts) is sent to engenty.ai for your account. Visitors who open a wizard talk to engenty.ai directly from a frame on your page.
 
 Terms of use: https://engenty.ai/nutzungsbedingungen · Privacy: https://engenty.ai/datenschutz
 
-Without an account, a wizard thinks through the AI provider you set up under Settings → Connectors: each thinking step sends the wizard's prompt and what the visitor entered (answers, photos) to that provider, under its terms. When "Werkzeuge" is on in the settings, a step may also read a public web page or call a public API the wizard names, from your server. Nothing goes to engenty.ai in this mode.
+Without an account, a wizard thinks through the AI provider you set up under Settings → Connectors: each thinking step sends the wizard's prompt and what the visitor entered (answers, photos) to that provider, under its terms. When the tools switch is on in the settings, a step may also read a public web page or call a public API the wizard names, from your server. Nothing goes to engenty.ai in this mode.
 
 == Installation ==
 
 1. Upload the plugin and activate it.
-2. Open **engenty** in the admin menu and choose "Eigene KI erstellen" (new account) or "Anmelden".
+2. Open **engenty** in the admin menu and choose "Create your own AI" (new account) or "Sign in".
 3. Follow the three steps: read your website, pick a template, put it on the site.
 
 == Frequently Asked Questions ==
@@ -68,7 +68,8 @@ Contacts and bookings in the WordPress admin, building wizards from templates in
 == Changelog ==
 
 = 0.3.0 =
-* Thinking steps read web pages and call public APIs on the site itself (WordPress abilities, a switch in the settings); a choice that leads to something the site lacks is closed on the page; a package can carry the project's knowledge; on a connected site a wizard runs here with "Hier laufen lassen" and back over engenty.ai; seconds per thinking step as a setting, for local models.
+* English source strings; German ships as de_DE in languages/ until the language packs take over.
+* Thinking steps read web pages and call public APIs on the site itself (WordPress abilities, a switch in the settings); a choice that leads to something the site lacks is closed on the page; a package can carry the project's knowledge; on a connected site a wizard runs here with "Run here" and back over engenty.ai; seconds per thinking step as a setting, for local models.
 
 = 0.2.0 =
 * Wizards without an account: on WordPress 7.0 with an AI provider they run on the site itself; the shipped templates, a gallery with the entry dialog, import of a .wizard package with the check in the browser, results in WordPress, limits, the provider line in the settings.

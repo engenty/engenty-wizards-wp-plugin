@@ -19,18 +19,18 @@ import Place from './Place';
 function localText( provider ) {
 	if ( provider?.ready ) {
 		return __(
-			'Wizards aus den mitgelieferten Vorlagen laufen auf dieser Website, ohne Konto und ohne Credits. Der Anbieter rechnet mit deinem Schlüssel ab.',
+			'Wizards from the shipped templates run on this website, without an account and without credits. The provider bills your key.',
 			'engenty-wizards'
 		);
 	}
 	if ( provider?.client ) {
 		return __(
-			'Richte zuerst einen KI-Anbieter ein: WordPress → Einstellungen → Connectors.',
+			'Set up an AI provider first: WordPress → Settings → Connectors.',
 			'engenty-wizards'
 		);
 	}
 	return __(
-		'Braucht WordPress 7.0 mit einem KI-Anbieter unter Einstellungen → Connectors.',
+		'Needs WordPress 7.0 with an AI provider under Settings → Connectors.',
 		'engenty-wizards'
 	);
 }
@@ -55,10 +55,10 @@ export function Choice( { status, onLocal, onBack } ) {
 		<div className="en-choice">
 			<div className="en-choice__card">
 				<Engenty kind="drop" size={ 72 } />
-				<h2>{ __( 'Deine KI bei engenty', 'engenty-wizards' ) }</h2>
+				<h2>{ __( 'Your AI at engenty', 'engenty-wizards' ) }</h2>
 				<p>
 					{ __(
-						'Ein kostenloses Konto, und engenty liest deine Website ein, baut Wizards aus Vorlagen und zeigt Ergebnisse, Kontakte und Termine hier im Admin.',
+						'A free account, and engenty reads your website, builds wizards from templates and shows results, contacts and appointments here in the admin.',
 						'engenty-wizards'
 					) }
 				</p>
@@ -70,8 +70,7 @@ export function Choice( { status, onLocal, onBack } ) {
 						disabled={ busy !== null }
 						onClick={ () => go( true ) }
 					>
-						{ __( 'Kostenloses Konto anlegen', 'engenty-wizards' ) }{ ' ' }
-						→
+						{ __( 'Create a free account', 'engenty-wizards' ) } →
 					</Button>
 					<Button
 						kind="ghost"
@@ -80,26 +79,26 @@ export function Choice( { status, onLocal, onBack } ) {
 						disabled={ busy !== null }
 						onClick={ () => go( false ) }
 					>
-						{ __( 'Anmelden', 'engenty-wizards' ) }
+						{ __( 'Sign in', 'engenty-wizards' ) }
 					</Button>
 				</div>
 				{ error ? <Notice tone="error">{ error }</Notice> : null }
 			</div>
 			<div className="en-choice__or">
-				{ __( 'oder', 'engenty-wizards' ) }
+				{ __( 'or', 'engenty-wizards' ) }
 			</div>
 			<div className="en-choice__local">
 				<div>
 					<strong>
 						{ __(
-							'Lokal, mit eigenem KI-Anbieter',
+							'Local, with your own AI provider',
 							'engenty-wizards'
 						) }
 						{ provider?.ready ? (
 							<Chip tone="moss">
 								{ sprintf(
 									/* translators: %s: provider */ __(
-										'%s erkannt',
+										'%s found',
 										'engenty-wizards'
 									),
 									provider.name
@@ -107,7 +106,7 @@ export function Choice( { status, onLocal, onBack } ) {
 							</Chip>
 						) : (
 							<Chip>
-								{ __( 'kein Anbieter', 'engenty-wizards' ) }
+								{ __( 'no provider', 'engenty-wizards' ) }
 							</Chip>
 						) }
 					</strong>
@@ -118,18 +117,18 @@ export function Choice( { status, onLocal, onBack } ) {
 				</div>
 				{ provider?.ready ? (
 					<Button busy={ picking } onClick={ local }>
-						{ __( 'Lokal einrichten', 'engenty-wizards' ) }
+						{ __( 'Set up locally', 'engenty-wizards' ) }
 					</Button>
 				) : (
 					<Button
 						href={ `${ window.location.origin }/wp-admin/options-general.php?page=connectors` }
 					>
-						{ __( 'Connectors öffnen', 'engenty-wizards' ) }
+						{ __( 'Open Connectors', 'engenty-wizards' ) }
 					</Button>
 				) }
 			</div>
 			<p className="en-muted en-small">
-				{ __( 'Wechseln geht später jederzeit.', 'engenty-wizards' ) }
+				{ __( 'You can switch at any time later.', 'engenty-wizards' ) }
 				{ onBack ? (
 					<>
 						{ ' · ' }
@@ -138,7 +137,7 @@ export function Choice( { status, onLocal, onBack } ) {
 							className="en-link"
 							onClick={ onBack }
 						>
-							{ __( 'Zurück', 'engenty-wizards' ) }
+							{ __( 'Back', 'engenty-wizards' ) }
 						</button>
 					</>
 				) : null }
@@ -148,9 +147,9 @@ export function Choice( { status, onLocal, onBack } ) {
 }
 
 const STEPS = [
-	[ 'provider', __( 'KI-Anbieter', 'engenty-wizards' ) ],
-	[ 'wizard', __( 'Wizards wählen', 'engenty-wizards' ) ],
-	[ 'placed', __( 'Auf die Website bringen', 'engenty-wizards' ) ],
+	[ 'provider', __( 'AI provider', 'engenty-wizards' ) ],
+	[ 'wizard', __( 'Choose wizards', 'engenty-wizards' ) ],
+	[ 'placed', __( 'Put on the website', 'engenty-wizards' ) ],
 ];
 
 /**
@@ -197,14 +196,14 @@ export function LocalSetup( { status, reload } ) {
 	}
 	return (
 		<Card
-			title={ __( 'Lokal einrichten', 'engenty-wizards' ) }
+			title={ __( 'Set up locally', 'engenty-wizards' ) }
 			aside={
 				<button
 					type="button"
 					className="en-link"
 					onClick={ () => mark( 'done' ) }
 				>
-					{ __( 'Später', 'engenty-wizards' ) }
+					{ __( 'Later', 'engenty-wizards' ) }
 				</button>
 			}
 		>
@@ -240,7 +239,7 @@ export function LocalSetup( { status, reload } ) {
 									<>
 										<p className="en-muted">
 											{ __(
-												'Welcher Anbieter und welcher Schlüssel: das regelt WordPress unter Einstellungen → Connectors, nicht das Plugin. Hier siehst du, ob er antwortet.',
+												'Which provider and which key: WordPress settles that under Settings → Connectors, not the plugin. Here you see whether it answers.',
 												'engenty-wizards'
 											) }
 										</p>
@@ -250,7 +249,7 @@ export function LocalSetup( { status, reload } ) {
 												onClick={ runTest }
 											>
 												{ __(
-													'Testen',
+													'Run a test',
 													'engenty-wizards'
 												) }
 											</Button>
@@ -258,7 +257,7 @@ export function LocalSetup( { status, reload } ) {
 												<span className="en-muted en-small">
 													{ sprintf(
 														/* translators: %s: seconds */ __(
-															'antwortet · %s s',
+															'answers · %s s',
 															'engenty-wizards'
 														),
 														String(
@@ -268,16 +267,16 @@ export function LocalSetup( { status, reload } ) {
 													{ test.json
 														? ` · JSON ok`
 														: ` · ${ __(
-																'kein JSON',
+																'no JSON',
 																'engenty-wizards'
 														  ) }` }
 													{ test.provider?.images
 														? ` · ${ __(
-																'nimmt Bilder',
+																'takes images',
 																'engenty-wizards'
 														  ) }`
 														: ` · ${ __(
-																'nimmt keine Bilder',
+																'takes no images',
 																'engenty-wizards'
 														  ) }` }
 												</span>
@@ -294,7 +293,7 @@ export function LocalSetup( { status, reload } ) {
 												}
 											>
 												{ __(
-													'Weiter',
+													'Continue',
 													'engenty-wizards'
 												) }
 											</Button>

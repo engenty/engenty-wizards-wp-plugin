@@ -235,23 +235,23 @@ class Engenty_Site_Reader {
 			$street  = trim( get_option( 'woocommerce_store_address', '' ) . ' ' . get_option( 'woocommerce_store_address_2', '' ) );
 			$city    = trim( get_option( 'woocommerce_store_postcode', '' ) . ' ' . get_option( 'woocommerce_store_city', '' ) );
 			$country = (string) get_option( 'woocommerce_default_country', '' );
-			$add( __( 'Adresse', 'engenty-wizards' ), implode( ', ', array_filter( array( $street, $city, strtok( $country, ':' ) ) ) ) );
-			$add( __( 'E-Mail', 'engenty-wizards' ), get_option( 'woocommerce_email_from_address', '' ) );
-			$add( __( 'Währung', 'engenty-wizards' ), get_option( 'woocommerce_currency', '' ) );
+			$add( __( 'Address', 'engenty-wizards' ), implode( ', ', array_filter( array( $street, $city, strtok( $country, ':' ) ) ) ) );
+			$add( __( 'Email', 'engenty-wizards' ), get_option( 'woocommerce_email_from_address', '' ) );
+			$add( __( 'Currency', 'engenty-wizards' ), get_option( 'woocommerce_currency', '' ) );
 		}
 		foreach ( self::pages() as $page ) {
 			if ( ! in_array( $page['role'], array( 'imprint', 'contact' ), true ) ) {
 				continue;
 			}
 			if ( preg_match( '/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i', $page['markdown'], $m ) ) {
-				$add( __( 'E-Mail', 'engenty-wizards' ), $m[0] );
+				$add( __( 'Email', 'engenty-wizards' ), $m[0] );
 			}
 			if ( preg_match( '/(?:Tel(?:efon)?\.?|Phone|Fon)\s*:?\s*(\+?[\d][\d \/().-]{6,}\d)/iu', $page['markdown'], $m ) ) {
-				$add( __( 'Telefon', 'engenty-wizards' ), $m[1] );
+				$add( __( 'Phone', 'engenty-wizards' ), $m[1] );
 			}
 		}
 		// The admin's address is often a person's own: offered, not proposed.
-		$add( __( 'E-Mail', 'engenty-wizards' ), get_option( 'admin_email', '' ), false );
+		$add( __( 'Email', 'engenty-wizards' ), get_option( 'admin_email', '' ), false );
 		return $facts;
 	}
 
@@ -356,7 +356,7 @@ class Engenty_Site_Reader {
 		}
 		return array(
 			'key'      => 'products',
-			'title'    => __( 'Produkte', 'engenty-wizards' ),
+			'title'    => __( 'Products', 'engenty-wizards' ),
 			'url'      => function_exists( 'wc_get_page_permalink' ) ? (string) wc_get_page_permalink( 'shop' ) : home_url( '/' ),
 			'role'     => 'product',
 			'markdown' => mb_substr( implode( "\n\n", $lines ), 0, self::MAX_CHARS * 2 ),

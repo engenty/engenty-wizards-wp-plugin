@@ -14,11 +14,11 @@ import {
 } from './ui';
 
 const STATUS = {
-	done: [ 'moss', __( 'Fertig', 'engenty-wizards' ) ],
-	waiting_input: [ 'grey', __( 'Offen', 'engenty-wizards' ) ],
-	running: [ 'grey', __( 'Läuft', 'engenty-wizards' ) ],
-	failed: [ 'rose', __( 'Fehler', 'engenty-wizards' ) ],
-	cancelled: [ 'grey', __( 'Abgebrochen', 'engenty-wizards' ) ],
+	done: [ 'moss', __( 'Finished', 'engenty-wizards' ) ],
+	waiting_input: [ 'grey', __( 'Open', 'engenty-wizards' ) ],
+	running: [ 'grey', __( 'Running', 'engenty-wizards' ) ],
+	failed: [ 'rose', __( 'Error', 'engenty-wizards' ) ],
+	cancelled: [ 'grey', __( 'Stopped', 'engenty-wizards' ) ],
 };
 
 /**
@@ -29,14 +29,14 @@ function costLine( run ) {
 	if ( run.local ) {
 		return sprintf(
 			/* translators: 1: calls 2: provider */
-			__( '%1$d Aufrufe an %2$s', 'engenty-wizards' ),
+			__( '%1$d calls to %2$s', 'engenty-wizards' ),
 			run.calls ?? 0,
-			run.provider || __( 'den KI-Anbieter', 'engenty-wizards' )
+			run.provider || __( 'the AI provider', 'engenty-wizards' )
 		);
 	}
 	return sprintf(
 		/* translators: %d: credits */
-		__( '%d Credits', 'engenty-wizards' ),
+		__( '%d credits', 'engenty-wizards' ),
 		run.credits
 	);
 }
@@ -82,7 +82,7 @@ function Result( { id, onClose, status } ) {
 	}, [ id ] );
 	return (
 		<Drawer
-			title={ run?.wizard ?? __( 'Ergebnis', 'engenty-wizards' ) }
+			title={ run?.wizard ?? __( 'Result', 'engenty-wizards' ) }
 			onClose={ onClose }
 		>
 			{ error ? <Notice tone="error">{ error.message }</Notice> : null }
@@ -92,10 +92,7 @@ function Result( { id, onClose, status } ) {
 					<div className="en-row">
 						{ run.local ? (
 							<Chip>
-								{ __(
-									'Auf dieser Website',
-									'engenty-wizards'
-								) }
+								{ __( 'On this website', 'engenty-wizards' ) }
 							</Chip>
 						) : null }
 						<Chip
@@ -123,7 +120,7 @@ function Result( { id, onClose, status } ) {
 						{ ' · ' }
 						{ costLine( run ) }
 					</p>
-					<h3>{ __( 'Antworten', 'engenty-wizards' ) }</h3>
+					<h3>{ __( 'Answers', 'engenty-wizards' ) }</h3>
 					{ run.answers.length ? (
 						<dl className="en-facts">
 							{ run.answers.map( ( a, i ) => (
@@ -143,11 +140,11 @@ function Result( { id, onClose, status } ) {
 						</dl>
 					) : (
 						<p className="en-muted">
-							{ __( 'Keine.', 'engenty-wizards' ) }
+							{ __( 'None.', 'engenty-wizards' ) }
 						</p>
 					) }
 					{ run.outputs.length ? (
-						<h3>{ __( 'Ergebnis', 'engenty-wizards' ) }</h3>
+						<h3>{ __( 'Result', 'engenty-wizards' ) }</h3>
 					) : null }
 					{ run.outputs.map( ( o ) => (
 						<div key={ o.stepId } className="en-output">
@@ -189,7 +186,7 @@ function Result( { id, onClose, status } ) {
 					{ run.local && ! status?.me ? (
 						<p className="en-muted en-small">
 							{ __(
-								'Kein Kontakt angelegt – Kontakte gibt es mit einem Konto und Pro.',
+								'No contact created – contacts come with an account and Pro.',
 								'engenty-wizards'
 							) }
 						</p>
@@ -202,7 +199,7 @@ function Result( { id, onClose, status } ) {
 								rel="noopener noreferrer"
 							>
 								{ __(
-									'Geteilte Ergebnisseite',
+									'Shared result page',
 									'engenty-wizards'
 								) }
 							</a>
@@ -230,10 +227,10 @@ function RunsTable( { runs, onOpen } ) {
 		<table className="en-table">
 			<thead>
 				<tr>
-					<th>{ __( 'Wann', 'engenty-wizards' ) }</th>
+					<th>{ __( 'When', 'engenty-wizards' ) }</th>
 					<th>{ __( 'Wizard', 'engenty-wizards' ) }</th>
-					<th>{ __( 'Von', 'engenty-wizards' ) }</th>
-					<th>{ __( 'Seite', 'engenty-wizards' ) }</th>
+					<th>{ __( 'From', 'engenty-wizards' ) }</th>
+					<th>{ __( 'Page', 'engenty-wizards' ) }</th>
 					<th>{ __( 'Status', 'engenty-wizards' ) }</th>
 				</tr>
 			</thead>
@@ -332,16 +329,16 @@ export function ResultsBeforeConnect( { status } ) {
 	return (
 		<>
 			<div className="en-row en-row--between en-page-head">
-				<h1>{ __( 'Ergebnisse', 'engenty-wizards' ) }</h1>
+				<h1>{ __( 'Results', 'engenty-wizards' ) }</h1>
 			</div>
 			<ConnectOverlay
 				status={ status }
 				title={ __(
-					'Hier landen die Antworten deiner Besucher',
+					'The answers of your visitors land here',
 					'engenty-wizards'
 				) }
 				text={ __(
-					'Jeder Lauf eines Wizards auf deiner Website: wer, wann, auf welcher Seite, mit allen Antworten und dem Ergebnis. Verbinde die Website mit einem kostenlosen Konto.',
+					'Every run of a wizard on your website: who, when, on which page, with all answers and the result. Connect the website with a free account.',
 					'engenty-wizards'
 				) }
 			>
@@ -350,23 +347,21 @@ export function ResultsBeforeConnect( { status } ) {
 						type="search"
 						className="en-search"
 						placeholder={ __(
-							'Suchen: Name, E-Mail, Antwort, Seite …',
+							'Search: name, email, answer, page …',
 							'engenty-wizards'
 						) }
 						readOnly
 					/>
 					<select aria-label={ __( 'Wizard', 'engenty-wizards' ) }>
 						<option>
-							{ __( 'Alle Wizards', 'engenty-wizards' ) }
+							{ __( 'All wizards', 'engenty-wizards' ) }
 						</option>
 					</select>
-					<select aria-label={ __( 'Zeitraum', 'engenty-wizards' ) }>
-						<option>
-							{ __( 'Jederzeit', 'engenty-wizards' ) }
-						</option>
+					<select aria-label={ __( 'Period', 'engenty-wizards' ) }>
+						<option>{ __( 'Any time', 'engenty-wizards' ) }</option>
 					</select>
 					<select aria-label={ __( 'Status', 'engenty-wizards' ) }>
-						<option>{ __( 'Fertige', 'engenty-wizards' ) }</option>
+						<option>{ __( 'Finished', 'engenty-wizards' ) }</option>
 					</select>
 				</div>
 				<RunsTable runs={ SAMPLE } onOpen={ () => {} } />
@@ -414,12 +409,12 @@ export default function Results( { status } ) {
 	return (
 		<>
 			<div className="en-row en-row--between en-page-head">
-				<h1>{ __( 'Ergebnisse', 'engenty-wizards' ) }</h1>
+				<h1>{ __( 'Results', 'engenty-wizards' ) }</h1>
 				{ data ? (
 					<span className="en-muted">
 						{ sprintf(
 							/* translators: %d: number of results */
-							__( '%d insgesamt', 'engenty-wizards' ),
+							__( '%d in total', 'engenty-wizards' ),
 							data.total
 						) }
 					</span>
@@ -430,7 +425,7 @@ export default function Results( { status } ) {
 					type="search"
 					className="en-search"
 					placeholder={ __(
-						'Suchen: Name, E-Mail, Antwort, Seite …',
+						'Search: name, email, answer, page …',
 						'engenty-wizards'
 					) }
 					value={ filter.q }
@@ -442,7 +437,7 @@ export default function Results( { status } ) {
 					aria-label={ __( 'Wizard', 'engenty-wizards' ) }
 				>
 					<option value="">
-						{ __( 'Alle Wizards', 'engenty-wizards' ) }
+						{ __( 'All wizards', 'engenty-wizards' ) }
 					</option>
 					{ wizards.map( ( w ) => (
 						<option key={ w.id } value={ w.id }>
@@ -453,19 +448,19 @@ export default function Results( { status } ) {
 				<select
 					value={ filter.days }
 					onChange={ ( e ) => set( { days: e.target.value } ) }
-					aria-label={ __( 'Zeitraum', 'engenty-wizards' ) }
+					aria-label={ __( 'Period', 'engenty-wizards' ) }
 				>
 					<option value="">
-						{ __( 'Jederzeit', 'engenty-wizards' ) }
+						{ __( 'Any time', 'engenty-wizards' ) }
 					</option>
 					<option value="1">
-						{ __( 'Heute', 'engenty-wizards' ) }
+						{ __( 'Today', 'engenty-wizards' ) }
 					</option>
 					<option value="7">
-						{ __( '7 Tage', 'engenty-wizards' ) }
+						{ __( '7 days', 'engenty-wizards' ) }
 					</option>
 					<option value="30">
-						{ __( '30 Tage', 'engenty-wizards' ) }
+						{ __( '30 days', 'engenty-wizards' ) }
 					</option>
 				</select>
 				<select
@@ -474,13 +469,13 @@ export default function Results( { status } ) {
 					aria-label={ __( 'Status', 'engenty-wizards' ) }
 				>
 					<option value="done">
-						{ __( 'Fertige', 'engenty-wizards' ) }
+						{ __( 'Finished', 'engenty-wizards' ) }
 					</option>
 					<option value="open">
-						{ __( 'Angefangene', 'engenty-wizards' ) }
+						{ __( 'Started', 'engenty-wizards' ) }
 					</option>
 					<option value="all">
-						{ __( 'Alle', 'engenty-wizards' ) }
+						{ __( 'All', 'engenty-wizards' ) }
 					</option>
 				</select>
 			</div>
@@ -488,12 +483,10 @@ export default function Results( { status } ) {
 			{ ! data && ! error ? <Spinner /> : null }
 			{ data &&
 				( ! data.runs.length ? (
-					<Empty
-						title={ __( 'Keine Ergebnisse', 'engenty-wizards' ) }
-					>
+					<Empty title={ __( 'No results', 'engenty-wizards' ) }>
 						<p>
 							{ __(
-								'Sobald Besucher einen Wizard abschließen, stehen ihre Antworten hier. Ergebnisse ohne Konto hält engenty eine Woche.',
+								'As soon as visitors complete a wizard, their answers are here. Without an account, engenty keeps results for a week.',
 								'engenty-wizards'
 							) }
 						</p>
@@ -532,7 +525,7 @@ export default function Results( { status } ) {
 			{ status.me?.missing?.includes( 'contacts' ) ? (
 				<p className="en-muted en-small">
 					{ __(
-						'Mit Pro wird aus jedem Ergebnis mit E-Mail ein Kontakt unter „Kontakte“.',
+						'With Pro, every result with an email becomes a contact under “Contacts”.',
 						'engenty-wizards'
 					) }
 				</p>

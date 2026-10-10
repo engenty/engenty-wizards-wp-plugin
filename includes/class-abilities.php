@@ -62,7 +62,7 @@ class Engenty_Abilities {
 			self::CATEGORY,
 			array(
 				'label'       => __( 'engenty Wizards', 'engenty-wizards' ),
-				'description' => __( 'Was ein Wizard darf, während er auf dieser Website denkt.', 'engenty-wizards' ),
+				'description' => __( 'What a wizard may do while it thinks on this website.', 'engenty-wizards' ),
 			)
 		);
 	}
@@ -77,7 +77,7 @@ class Engenty_Abilities {
 		wp_register_ability(
 			self::FETCH,
 			array(
-				'label'               => __( 'Webseite lesen', 'engenty-wizards' ),
+				'label'               => __( 'Read a web page', 'engenty-wizards' ),
 				'description'         => 'Fetch a public web page or file and return its readable text (Markdown).',
 				'category'            => self::CATEGORY,
 				'input_schema'        => array(
@@ -98,7 +98,7 @@ class Engenty_Abilities {
 		wp_register_ability(
 			self::HTTP,
 			array(
-				'label'               => __( 'API aufrufen', 'engenty-wizards' ),
+				'label'               => __( 'Call an API', 'engenty-wizards' ),
 				'description'         => 'Call a public HTTP API. Use for REST endpoints the instructions name.',
 				'category'            => self::CATEGORY,
 				'input_schema'        => array(

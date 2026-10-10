@@ -45,7 +45,7 @@ export default function Import( { onImported, kind = 'ghost' } ) {
 			if ( blocking.length ) {
 				setFailed( {
 					message: __(
-						'Der Wizard hat Fehler, die zuerst im Studio behoben werden müssen.',
+						'The wizard has errors that must be fixed in the Studio first.',
 						'engenty-wizards'
 					),
 					issues: blocking.map(
@@ -59,7 +59,7 @@ export default function Import( { onImported, kind = 'ghost' } ) {
 				const { needLines } = await import( './fit' );
 				setFailed( {
 					message: __(
-						'Dieser Wizard braucht ein engenty-Konto – auf dieser Website läuft er nicht.',
+						'This wizard needs an engenty account – it does not run on this website.',
 						'engenty-wizards'
 					),
 					issues: [
@@ -108,8 +108,7 @@ export default function Import( { onImported, kind = 'ghost' } ) {
 				busy={ busy }
 				onClick={ () => input.current?.click() }
 			>
-				<Icon name="upload" />{ ' ' }
-				{ __( 'Importieren', 'engenty-wizards' ) }
+				<Icon name="upload" /> { __( 'Import', 'engenty-wizards' ) }
 			</Button>
 			<input
 				ref={ input }
@@ -125,9 +124,7 @@ export default function Import( { onImported, kind = 'ghost' } ) {
 			/>
 			{ failed ? (
 				<Modal onClose={ () => setFailed( null ) } small>
-					<h2>
-						{ __( 'Import hat nicht geklappt', 'engenty-wizards' ) }
-					</h2>
+					<h2>{ __( 'Import did not work', 'engenty-wizards' ) }</h2>
 					<p>{ failed.message }</p>
 					{ failed.issues.length ? (
 						<ul className="en-issues">
@@ -138,7 +135,7 @@ export default function Import( { onImported, kind = 'ghost' } ) {
 					) : null }
 					<div className="en-dialog__foot en-dialog__foot--small">
 						<Button onClick={ () => setFailed( null ) }>
-							{ __( 'Schließen', 'engenty-wizards' ) }
+							{ __( 'Close', 'engenty-wizards' ) }
 						</Button>
 						{ failed.account ? (
 							<Button
@@ -147,7 +144,7 @@ export default function Import( { onImported, kind = 'ghost' } ) {
 								onClick={ () => go( true ) }
 							>
 								{ __(
-									'Kostenloses Konto anlegen',
+									'Create a free account',
 									'engenty-wizards'
 								) }{ ' ' }
 								→

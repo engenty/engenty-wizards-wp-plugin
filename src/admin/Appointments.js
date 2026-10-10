@@ -4,9 +4,9 @@ import { api, query, problem } from './api';
 import { Button, Chip, Empty, Notice, ProUpsell, Spinner } from './ui';
 
 const FILTERS = [
-	[ 'upcoming', __( 'Kommende', 'engenty-wizards' ) ],
-	[ 'past', __( 'Vergangene', 'engenty-wizards' ) ],
-	[ 'cancelled', __( 'Abgesagte', 'engenty-wizards' ) ],
+	[ 'upcoming', __( 'Upcoming', 'engenty-wizards' ) ],
+	[ 'past', __( 'Past', 'engenty-wizards' ) ],
+	[ 'cancelled', __( 'Canceled', 'engenty-wizards' ) ],
 ];
 
 const placeOf = ( location ) => {
@@ -51,7 +51,7 @@ export default function Appointments( { status } ) {
 		return (
 			<>
 				<h1 className="en-page-head">
-					{ __( 'Termine', 'engenty-wizards' ) }
+					{ __( 'Appointments', 'engenty-wizards' ) }
 				</h1>
 				<ProUpsell feature="appointments" me={ me } />
 			</>
@@ -71,11 +71,11 @@ export default function Appointments( { status } ) {
 	return (
 		<>
 			<div className="en-row en-row--between en-page-head">
-				<h1>{ __( 'Termine', 'engenty-wizards' ) }</h1>
+				<h1>{ __( 'Appointments', 'engenty-wizards' ) }</h1>
 				{ me?.urls?.space ? (
 					<Button kind="ghost" href={ me.urls.space } external>
 						{ __(
-							'Kalender im Studio einstellen',
+							'Set up the calendar in the Studio',
 							'engenty-wizards'
 						) }
 					</Button>
@@ -97,10 +97,10 @@ export default function Appointments( { status } ) {
 			{ ! data && ! error ? <Spinner /> : null }
 			{ data &&
 				( ! data.bookings.length ? (
-					<Empty title={ __( 'Keine Termine', 'engenty-wizards' ) }>
+					<Empty title={ __( 'No appointments', 'engenty-wizards' ) }>
 						<p>
 							{ __(
-								'Wizards mit Terminbuchung tragen sie hier ein. Leg einen aus der Vorlage „Termin buchen“ an.',
+								'Wizards with booking enter them here. Create one from the “Book an appointment” template.',
 								'engenty-wizards'
 							) }
 						</p>
@@ -109,10 +109,10 @@ export default function Appointments( { status } ) {
 					<table className="en-table">
 						<thead>
 							<tr>
-								<th>{ __( 'Wann', 'engenty-wizards' ) }</th>
-								<th>{ __( 'Was', 'engenty-wizards' ) }</th>
-								<th>{ __( 'Wer', 'engenty-wizards' ) }</th>
-								<th>{ __( 'Wo', 'engenty-wizards' ) }</th>
+								<th>{ __( 'When', 'engenty-wizards' ) }</th>
+								<th>{ __( 'What', 'engenty-wizards' ) }</th>
+								<th>{ __( 'Who', 'engenty-wizards' ) }</th>
+								<th>{ __( 'Where', 'engenty-wizards' ) }</th>
 								<th />
 							</tr>
 						</thead>
@@ -146,7 +146,7 @@ export default function Appointments( { status } ) {
 										{ b.status === 'cancelled' ? (
 											<Chip tone="rose">
 												{ __(
-													'abgesagt',
+													'canceled',
 													'engenty-wizards'
 												) }
 											</Chip>
@@ -165,7 +165,7 @@ export default function Appointments( { status } ) {
 											rel="noopener noreferrer"
 											className="en-small"
 										>
-											{ __( 'Seite', 'engenty-wizards' ) }
+											{ __( 'Page', 'engenty-wizards' ) }
 										</a>
 									</td>
 								</tr>

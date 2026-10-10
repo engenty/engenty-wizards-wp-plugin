@@ -166,7 +166,7 @@ export function Drawer( { title, onClose, children } ) {
 			<button
 				type="button"
 				className="en-drawer__backdrop"
-				aria-label={ __( 'Schließen', 'engenty-wizards' ) }
+				aria-label={ __( 'Close', 'engenty-wizards' ) }
 				onClick={ onClose }
 			/>
 			<div className="en-drawer__panel">
@@ -176,7 +176,7 @@ export function Drawer( { title, onClose, children } ) {
 						type="button"
 						className="en-icon-btn"
 						onClick={ onClose }
-						aria-label={ __( 'Schließen', 'engenty-wizards' ) }
+						aria-label={ __( 'Close', 'engenty-wizards' ) }
 					>
 						×
 					</button>
@@ -203,8 +203,8 @@ export function CopyField( { value, label } ) {
 				} }
 			>
 				{ copied
-					? __( 'Kopiert', 'engenty-wizards' )
-					: __( 'Kopieren', 'engenty-wizards' ) }
+					? __( 'Copied', 'engenty-wizards' )
+					: __( 'Copy', 'engenty-wizards' ) }
 			</button>
 		</div>
 	);
@@ -215,52 +215,52 @@ export const isFree = ( me ) =>
 
 const FEATURES = {
 	contacts: {
-		title: __( 'Kontakte – mit Pro', 'engenty-wizards' ),
+		title: __( 'Contacts – with Pro', 'engenty-wizards' ),
 		text: __(
-			'Jeder Wizard, der nach Name und E-Mail fragt, legt den Kontakt an. Hier siehst du, wer über welche Seite kam, suchst und exportierst als CSV – ohne ein eigenes CRM.',
+			'Every wizard that asks for name and email creates the contact. Here you see who came through which page, search, and export as CSV – without a CRM of your own.',
 			'engenty-wizards'
 		),
 		points: [
 			__(
-				'Leads aus jedem Wizard, mit der Seite, auf der sie kamen',
+				'Leads from every wizard, with the page they came from',
 				'engenty-wizards'
 			),
-			__( 'Personen und Firmen, Rollen, Notizen', 'engenty-wizards' ),
-			__( 'Export als CSV', 'engenty-wizards' ),
+			__( 'People and companies, roles, notes', 'engenty-wizards' ),
+			__( 'Export as CSV', 'engenty-wizards' ),
 		],
 	},
 	appointments: {
-		title: __( 'Termine – mit Pro', 'engenty-wizards' ),
+		title: __( 'Appointments – with Pro', 'engenty-wizards' ),
 		text: __(
-			'Wizards buchen freie Zeiten in deinem Kalender: Öffnungszeiten, Feiertage, Google- oder Microsoft-Kalender. Die Buchungen siehst du hier, Besucher bekommen ihre Bestätigung.',
+			'Wizards book free slots in your calendar: opening hours, holidays, Google or Microsoft calendar. You see the bookings here, visitors get their confirmation.',
 			'engenty-wizards'
 		),
 		points: [
 			__(
-				'Terminbuchung auf der Website, ohne Doppelbuchungen',
+				'Booking on the website, without double bookings',
 				'engenty-wizards'
 			),
-			__( 'Vor Ort, am Telefon oder online', 'engenty-wizards' ),
+			__( 'On site, by phone or online', 'engenty-wizards' ),
 			__(
-				'Kalender-Datei und Absage-Link für jeden Gast',
+				'Calendar file and cancellation link for every guest',
 				'engenty-wizards'
 			),
 		],
 	},
 	build: {
-		title: __( 'Wizards direkt hier anlegen – mit Pro', 'engenty-wizards' ),
+		title: __( 'Create wizards right here – with Pro', 'engenty-wizards' ),
 		text: __(
-			'Mit Free baust du Wizards in der kostenlosen App auf deinem Rechner und veröffentlichst sie, dann stehen sie hier zur Wahl. Mit Pro legst du sie in der Cloud an, aus Vorlagen oder im Studio, und engenty liest deine Website ein.',
+			'With Free you build wizards in the free app on your computer and publish them, then they are available here. With Pro you create them in the cloud, from templates or in the Studio, and engenty reads your website.',
 			'engenty-wizards'
 		),
 		points: [
-			__( 'Vorlagen mit einem Klick live', 'engenty-wizards' ),
+			__( 'Templates live with one click', 'engenty-wizards' ),
 			__(
-				'Deine Website als Wissen: Leistungen, Preise, Kontakt',
+				'Your website as knowledge: services, prices, contact',
 				'engenty-wizards'
 			),
 			__(
-				'Monatliche Credits, Kontakte und Termine dabei',
+				'Monthly credits, contacts and appointments included',
 				'engenty-wizards'
 			),
 		],
@@ -291,12 +291,12 @@ export function ProUpsell( { feature, me, compact = false } ) {
 			<div className="en-row">
 				{ me?.urls?.upgrade ? (
 					<Button kind="primary" href={ me.urls.upgrade } external>
-						{ __( 'Auf Pro upgraden', 'engenty-wizards' ) }
+						{ __( 'Upgrade to Pro', 'engenty-wizards' ) }
 					</Button>
 				) : null }
 				{ me?.urls?.billing ? (
 					<Button kind="ghost" href={ me.urls.billing } external>
-						{ __( 'Pakete vergleichen', 'engenty-wizards' ) }
+						{ __( 'Compare plans', 'engenty-wizards' ) }
 					</Button>
 				) : null }
 			</div>
@@ -352,10 +352,7 @@ export function ConnectOverlay( { title, text, status, children } ) {
 							disabled={ busy !== null }
 							onClick={ () => go( true ) }
 						>
-							{ __(
-								'Kostenloses Konto anlegen',
-								'engenty-wizards'
-							) }{ ' ' }
+							{ __( 'Create a free account', 'engenty-wizards' ) }{ ' ' }
 							→
 						</Button>
 						<Button
@@ -364,13 +361,13 @@ export function ConnectOverlay( { title, text, status, children } ) {
 							disabled={ busy !== null }
 							onClick={ () => go( false ) }
 						>
-							{ __( 'Anmelden', 'engenty-wizards' ) }
+							{ __( 'Sign in', 'engenty-wizards' ) }
 						</Button>
 					</div>
 				) : (
 					<p className="en-muted">
 						{ __(
-							'Bitte eine Administratorin oder einen Administrator, die Website zu verbinden.',
+							'Ask an administrator to connect the website.',
 							'engenty-wizards'
 						) }
 					</p>
@@ -407,8 +404,8 @@ export function ProBeforeConnect( { feature, status } ) {
 		<>
 			<h1 className="en-page-head">
 				{ feature === 'contacts'
-					? __( 'Kontakte', 'engenty-wizards' )
-					: __( 'Termine', 'engenty-wizards' ) }
+					? __( 'Contacts', 'engenty-wizards' )
+					: __( 'Appointments', 'engenty-wizards' ) }
 			</h1>
 			<div className="en-upsell">
 				<div className="en-upsell__badge">Pro</div>
@@ -421,7 +418,7 @@ export function ProBeforeConnect( { feature, status } ) {
 				</ul>
 				<p className="en-muted">
 					{ __(
-						'Zuerst verbindest du die Website mit einem kostenlosen Konto. Auf Pro wechselst du danach, wann du willst.',
+						'First you connect the website with a free account. You switch to Pro afterwards, whenever you like.',
 						'engenty-wizards'
 					) }
 				</p>
@@ -433,10 +430,7 @@ export function ProBeforeConnect( { feature, status } ) {
 							disabled={ busy !== null }
 							onClick={ () => go( true ) }
 						>
-							{ __(
-								'Kostenloses Konto anlegen',
-								'engenty-wizards'
-							) }{ ' ' }
+							{ __( 'Create a free account', 'engenty-wizards' ) }{ ' ' }
 							→
 						</Button>
 						<Button
@@ -445,13 +439,13 @@ export function ProBeforeConnect( { feature, status } ) {
 							disabled={ busy !== null }
 							onClick={ () => go( false ) }
 						>
-							{ __( 'Anmelden', 'engenty-wizards' ) }
+							{ __( 'Sign in', 'engenty-wizards' ) }
 						</Button>
 					</div>
 				) : (
 					<p>
 						{ __(
-							'Bitte eine Administratorin oder einen Administrator, die Website zu verbinden.',
+							'Ask an administrator to connect the website.',
 							'engenty-wizards'
 						) }
 					</p>
@@ -495,7 +489,7 @@ export function Shell( { status, children } ) {
 				{ ! me && local?.mode === 'local' ? (
 					<div className="en-account">
 						<span className="en-account__credits en-status">
-							{ __( 'Lokal', 'engenty-wizards' ) }
+							{ __( 'Local', 'engenty-wizards' ) }
 							{ local.provider?.name
 								? ` · ${ local.provider.name }`
 								: '' }
@@ -508,7 +502,7 @@ export function Shell( { status, children } ) {
 								onClick={ () => go( false ) }
 							>
 								{ __(
-									'Mit Konto verbinden',
+									'Connect with an account',
 									'engenty-wizards'
 								) }
 							</Button>
@@ -519,7 +513,7 @@ export function Shell( { status, children } ) {
 					<div className="en-account">
 						{ local?.wizards ? (
 							<span className="en-account__credits en-status">
-								{ __( 'Lokal', 'engenty-wizards' ) }
+								{ __( 'Local', 'engenty-wizards' ) }
 								{ local.provider?.name
 									? ` · ${ local.provider.name }`
 									: '' }
@@ -538,7 +532,7 @@ export function Shell( { status, children } ) {
 							>
 								{ sprintf(
 									/* translators: %s: credits */
-									__( '%s Credits', 'engenty-wizards' ),
+									__( '%s credits', 'engenty-wizards' ),
 									Math.floor(
 										me.tenant.credits
 									).toLocaleString()
@@ -566,7 +560,7 @@ export function Shell( { status, children } ) {
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					{ __( 'Hilfe', 'engenty-wizards' ) }
+					{ __( 'Help', 'engenty-wizards' ) }
 				</a>
 			</footer>
 		</div>
@@ -626,7 +620,7 @@ export function Modal( { onClose, children, wide = false, small = false } ) {
 			<button
 				type="button"
 				className="en-modal__backdrop"
-				aria-label={ __( 'Schließen', 'engenty-wizards' ) }
+				aria-label={ __( 'Close', 'engenty-wizards' ) }
 				onClick={ onClose }
 			/>
 			<div
@@ -637,7 +631,7 @@ export function Modal( { onClose, children, wide = false, small = false } ) {
 				<button
 					type="button"
 					className="en-dialog__close"
-					aria-label={ __( 'Schließen', 'engenty-wizards' ) }
+					aria-label={ __( 'Close', 'engenty-wizards' ) }
 					onClick={ onClose }
 				>
 					<Icon name="x" />
@@ -660,7 +654,7 @@ export function FitChip( { fit } ) {
 	if ( fit.fit === 'no' ) {
 		return (
 			<Chip tone="rose">
-				{ __( 'Braucht ein Konto', 'engenty-wizards' ) }
+				{ __( 'Needs an account', 'engenty-wizards' ) }
 			</Chip>
 		);
 	}
@@ -675,8 +669,8 @@ const NEED_ICON = {
 };
 const NEED_NOTE = {
 	ok: null,
-	missing: __( 'nicht eingerichtet', 'engenty-wizards' ),
-	optional: __( 'geht auch ohne', 'engenty-wizards' ),
+	missing: __( 'not set up', 'engenty-wizards' ),
+	optional: __( 'works without', 'engenty-wizards' ),
 };
 
 /**
@@ -718,7 +712,7 @@ export function NeedList( { fit, thinks = true } ) {
 					<span>
 						{ sprintf(
 							/* translators: %s: plugins */ __(
-								'Mit Konto: braucht %s',
+								'With an account: needs %s',
 								'engenty-wizards'
 							),
 							fit.needs.join( ', ' )

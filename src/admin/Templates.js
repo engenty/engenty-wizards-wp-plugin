@@ -78,7 +78,7 @@ const locked = ( t, me ) =>
  */
 const minutes = ( t ) =>
 	sprintf(
-		/* translators: %d: minutes */ __( '~ %d Min.', 'engenty-wizards' ),
+		/* translators: %d: minutes */ __( '~ %d min', 'engenty-wizards' ),
 		t.effort?.minutes ?? 1
 	);
 
@@ -126,7 +126,7 @@ function EntryCard( { entry, local, me, onOpen } ) {
 					<Chip tone="ember">
 						{ sprintf(
 							/* translators: %s: plugins */ __(
-								'Mit Konto: braucht %s',
+								'With an account: needs %s',
 								'engenty-wizards'
 							),
 							fit.needs.join( ', ' )
@@ -168,7 +168,7 @@ function Flow( { steps } ) {
 						<span>{ s.title }</span>
 						{ s.branches?.length ? (
 							<span className="en-muted en-small">
-								{ __( 'verzweigt', 'engenty-wizards' ) }
+								{ __( 'branches', 'engenty-wizards' ) }
 							</span>
 						) : null }
 					</div>
@@ -188,21 +188,18 @@ function costLine( entry, local, provider ) {
 	if ( local ) {
 		return sprintf(
 			/* translators: %s: the provider */
-			__(
-				'Aufrufe an %s pro Lauf, auf deinem Schlüssel',
-				'engenty-wizards'
-			),
-			provider || __( 'deinen KI-Anbieter', 'engenty-wizards' )
+			__( 'calls to %s per run, on your key', 'engenty-wizards' ),
+			provider || __( 'your AI provider', 'engenty-wizards' )
 		);
 	}
 	if ( entry.credits ) {
 		return sprintf(
 			/* translators: %d: credits */
-			__( '≈ %d Credits pro Lauf', 'engenty-wizards' ),
+			__( '≈ %d credits per run', 'engenty-wizards' ),
 			Math.round( entry.credits.credits )
 		);
 	}
-	return __( 'in Credits deines Kontos', 'engenty-wizards' );
+	return __( 'in credits of your account', 'engenty-wizards' );
 }
 
 /**
@@ -213,18 +210,18 @@ function costLine( entry, local, provider ) {
 function madeText( made, local ) {
 	if ( ! made.published ) {
 		return __(
-			'Der Wizard ist angelegt, braucht aber noch Arbeit im Studio, bevor er live geht.',
+			'The wizard is created but still needs work in the Studio before it goes live.',
 			'engenty-wizards'
 		);
 	}
 	if ( local ) {
 		return __(
-			'Dein Wizard läuft jetzt auf dieser Website. Als Nächstes bringst du ihn auf eine Seite.',
+			'Your wizard now runs on this website. Next, you put it on a page.',
 			'engenty-wizards'
 		);
 	}
 	return __(
-		'Dein Wizard ist live. Probier ihn aus, dann bringen wir ihn auf die Website.',
+		'Your wizard is live. Try it out, then we put it on the website.',
 		'engenty-wizards'
 	);
 }
@@ -269,7 +266,7 @@ function EntryDialog( {
 		if ( can ) {
 			return (
 				<Button kind="primary" busy={ busy } onClick={ onUse }>
-					{ __( 'Mit dieser Vorlage starten', 'engenty-wizards' ) }
+					{ __( 'Start with this template', 'engenty-wizards' ) }
 				</Button>
 			);
 		}
@@ -280,14 +277,14 @@ function EntryDialog( {
 					href={ me?.urls?.signup ?? '#' }
 					onClick={ onClose }
 				>
-					{ __( 'Kostenloses Konto anlegen', 'engenty-wizards' ) } →
+					{ __( 'Create a free account', 'engenty-wizards' ) } →
 				</Button>
 			);
 		}
 		if ( me?.urls?.upgrade ) {
 			return (
 				<Button kind="primary" href={ me.urls.upgrade } external>
-					{ __( 'Auf Pro upgraden', 'engenty-wizards' ) }
+					{ __( 'Upgrade to Pro', 'engenty-wizards' ) }
 				</Button>
 			);
 		}
@@ -322,7 +319,7 @@ function EntryDialog( {
 			</div>
 			<div className="en-dialog__body">
 				<div>
-					<Fact title={ __( 'Dauer', 'engenty-wizards' ) }>
+					<Fact title={ __( 'Duration', 'engenty-wizards' ) }>
 						<div className="en-detail">
 							<span className="en-detail__icon">
 								<Icon name="clock" />
@@ -333,7 +330,7 @@ function EntryDialog( {
 									{ sprintf(
 										/* translators: %d: fields */
 										__(
-											'vom Start bis zum Ergebnis, mit %d Angaben von dir',
+											'from start to result, with %d inputs from you',
 											'engenty-wizards'
 										),
 										entry.effort?.fields ?? 0
@@ -342,7 +339,7 @@ function EntryDialog( {
 							</span>
 						</div>
 					</Fact>
-					<Fact title={ __( 'Kosten', 'engenty-wizards' ) }>
+					<Fact title={ __( 'Cost', 'engenty-wizards' ) }>
 						<div className="en-detail">
 							<span className="en-detail__icon">
 								<Icon name="coin" />
@@ -355,7 +352,7 @@ function EntryDialog( {
 							</span>
 						</div>
 					</Fact>
-					<Fact title={ __( 'Ergebnis', 'engenty-wizards' ) }>
+					<Fact title={ __( 'Result', 'engenty-wizards' ) }>
 						{ results.map( ( r ) => (
 							<div key={ r.title } className="en-detail">
 								<span className="en-detail__icon">
@@ -378,7 +375,7 @@ function EntryDialog( {
 							</div>
 						) ) }
 					</Fact>
-					<Fact title={ __( 'Braucht', 'engenty-wizards' ) }>
+					<Fact title={ __( 'Needs', 'engenty-wizards' ) }>
 						{ local ? (
 							<NeedList fit={ fit } />
 						) : (
@@ -403,7 +400,7 @@ function EntryDialog( {
 										</span>
 										{ sprintf(
 											/* translators: %s: plugins */ __(
-												'Mit Pro: braucht %s',
+												'With Pro: needs %s',
 												'engenty-wizards'
 											),
 											entry.needs.join( ', ' )
@@ -416,7 +413,7 @@ function EntryDialog( {
 				</div>
 				<div>
 					<div className="en-fact__title">
-						{ __( 'So läuft der Wizard ab', 'engenty-wizards' ) }
+						{ __( 'How the wizard runs', 'engenty-wizards' ) }
 					</div>
 					{ local && ! outline ? <Spinner /> : null }
 					{ outline ? <Flow steps={ outline.outline } /> : null }
@@ -424,7 +421,7 @@ function EntryDialog( {
 						<p className="en-muted en-small">
 							{ sprintf(
 								/* translators: %d: steps */ __(
-									'%d Schritte',
+									'%d steps',
 									'engenty-wizards'
 								),
 								entry.steps ?? 0
@@ -440,7 +437,7 @@ function EntryDialog( {
 			) : null }
 			<div className="en-dialog__foot">
 				<Button kind="ghost" onClick={ onClose }>
-					{ __( 'Schließen', 'engenty-wizards' ) }
+					{ __( 'Close', 'engenty-wizards' ) }
 				</Button>
 				{ action() }
 			</div>
@@ -543,7 +540,7 @@ export default function Templates( {
 				<div className="en-row">
 					{ made.wizard?.shareUrl ? (
 						<Button href={ made.wizard.shareUrl } external>
-							{ __( 'Ausprobieren', 'engenty-wizards' ) }
+							{ __( 'Try it out', 'engenty-wizards' ) }
 						</Button>
 					) : null }
 					{ made.wizard?.studioUrl ? (
@@ -552,21 +549,21 @@ export default function Templates( {
 							href={ made.wizard.studioUrl }
 							external
 						>
-							{ __( 'Im Studio anpassen', 'engenty-wizards' ) }
+							{ __( 'Adjust in the Studio', 'engenty-wizards' ) }
 						</Button>
 					) : null }
 					<Button
 						kind="primary"
 						onClick={ () => onCreated?.( made.wizard ) }
 					>
-						{ __( 'Weiter', 'engenty-wizards' ) }
+						{ __( 'Continue', 'engenty-wizards' ) }
 					</Button>
 					<button
 						type="button"
 						className="en-link"
 						onClick={ () => setMade( null ) }
 					>
-						{ __( 'Noch einen wählen', 'engenty-wizards' ) }
+						{ __( 'Choose another', 'engenty-wizards' ) }
 					</button>
 				</div>
 			</div>
@@ -579,7 +576,7 @@ export default function Templates( {
 				<ProUpsell feature="build" me={ me } compact />
 				<p className="en-muted">
 					{ __(
-						'Mit Free: lade die kostenlose App, baue deinen Wizard dort und veröffentliche ihn – dann erscheint er hier.',
+						'With Free: download the free app, build your wizard there and publish it – then it appears here.',
 						'engenty-wizards'
 					) }{ ' ' }
 					<a
@@ -587,7 +584,7 @@ export default function Templates( {
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						{ __( 'So geht’s', 'engenty-wizards' ) }
+						{ __( 'How it works', 'engenty-wizards' ) }
 					</a>
 					{ onSkip ? (
 						<>
@@ -597,7 +594,7 @@ export default function Templates( {
 								className="en-link"
 								onClick={ onSkip }
 							>
-								{ __( 'Überspringen', 'engenty-wizards' ) }
+								{ __( 'Skip', 'engenty-wizards' ) }
 							</button>
 						</>
 					) : null }
@@ -613,9 +610,12 @@ export default function Templates( {
 					<Icon name="search" />
 					<input
 						type="search"
-						aria-label={ __( 'Vorlage suchen', 'engenty-wizards' ) }
+						aria-label={ __(
+							'Search templates',
+							'engenty-wizards'
+						) }
 						placeholder={ __(
-							'Vorlage suchen …',
+							'Search templates …',
 							'engenty-wizards'
 						) }
 						value={ q }
@@ -630,7 +630,7 @@ export default function Templates( {
 						className={ `en-pill ${ ! useCase ? 'is-on' : '' }` }
 						onClick={ () => setUseCase( '' ) }
 					>
-						{ __( 'Alle', 'engenty-wizards' ) }
+						{ __( 'All', 'engenty-wizards' ) }
 					</button>
 					{ cases.map( ( u ) => (
 						<button
@@ -655,14 +655,14 @@ export default function Templates( {
 						{ local
 							? sprintf(
 									/* translators: %d: templates */ __(
-										'%d Vorlagen · laufen alle hier',
+										'%d templates · all run here',
 										'engenty-wizards'
 									),
 									shown.length
 							  )
 							: sprintf(
 									/* translators: %d: templates */ __(
-										'%d Vorlagen',
+										'%d templates',
 										'engenty-wizards'
 									),
 									shown.length

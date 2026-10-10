@@ -6,18 +6,55 @@
 	"title": "engenty Wizard",
 	"category": "widgets",
 	"icon": "format-chat",
-	"description": "Ein Wizard von engenty.ai: im Text, hinter einem Button oder als Blase unten rechts.",
-	"keywords": [ "engenty", "wizard", "formular", "anfrage", "ki", "chat", "termin" ],
+	"description": "A wizard from engenty.ai: in the text, behind a button or as a bubble at the bottom right.",
+	"keywords": [
+		"engenty",
+		"wizard",
+		"form",
+		"request",
+		"ai",
+		"chat",
+		"appointment"
+	],
 	"textdomain": "engenty-wizards",
 	"attributes": {
-		"token": { "type": "string", "default": "" },
-		"title": { "type": "string", "default": "" },
-		"mode": { "type": "string", "enum": [ "inline", "modal", "bubble" ], "default": "inline" },
-		"label": { "type": "string", "default": "" },
-		"text": { "type": "string", "default": "" },
-		"color": { "type": "string", "default": "" }
+		"token": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"mode": {
+			"type": "string",
+			"enum": [
+				"inline",
+				"modal",
+				"bubble"
+			],
+			"default": "inline"
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"text": {
+			"type": "string",
+			"default": ""
+		},
+		"color": {
+			"type": "string",
+			"default": ""
+		}
 	},
-	"supports": { "html": false, "align": [ "wide", "full" ] },
+	"supports": {
+		"html": false,
+		"align": [
+			"wide",
+			"full"
+		]
+	},
 	"editorScript": "file:../../build/block.js",
 	"editorStyle": "file:../../build/block.css",
 	"render": "file:./render.php"

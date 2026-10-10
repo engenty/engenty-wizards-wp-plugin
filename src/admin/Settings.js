@@ -37,26 +37,26 @@ function Standalone( { status, local, onChange } ) {
 	return (
 		<>
 			<h2 className="en-section">
-				{ __( 'Eigenständige Wizards', 'engenty-wizards' ) }
+				{ __( 'Standalone wizards', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<div className="en-row en-row--between">
 					<span className="en-status">
 						{ provider?.ready ? (
 							<>
-								{ __( 'Denkt mit', 'engenty-wizards' ) }{ ' ' }
+								{ __( 'Thinks with', 'engenty-wizards' ) }{ ' ' }
 								<strong>{ provider.name }</strong>
 								{ provider.model
 									? ` · ${ provider.model }`
 									: '' }
 								{ ' · ' }
 								{ __(
-									'eingestellt in WordPress unter',
+									'set in WordPress under',
 									'engenty-wizards'
 								) }{ ' ' }
 								<a href={ connectors }>
 									{ __(
-										'Einstellungen → Connectors',
+										'Settings → Connectors',
 										'engenty-wizards'
 									) }{ ' ' }
 									↗
@@ -66,13 +66,13 @@ function Standalone( { status, local, onChange } ) {
 							<>
 								{ provider?.note ||
 									__(
-										'Kein KI-Anbieter eingerichtet',
+										'No AI provider set up',
 										'engenty-wizards'
 									) }
 								{ ' · ' }
 								<a href={ connectors }>
 									{ __(
-										'Einstellungen → Connectors',
+										'Settings → Connectors',
 										'engenty-wizards'
 									) }{ ' ' }
 									↗
@@ -86,25 +86,25 @@ function Standalone( { status, local, onChange } ) {
 							busy={ testing }
 							onClick={ runTest }
 						>
-							{ __( 'Testen', 'engenty-wizards' ) }
+							{ __( 'Run a test', 'engenty-wizards' ) }
 						</Button>
 						{ test?.ok ? (
 							<span className="en-muted en-small">
-								{ __( 'antwortet', 'engenty-wizards' ) } ·{ ' ' }
+								{ __( 'answers', 'engenty-wizards' ) } ·{ ' ' }
 								{ String( test.seconds ).replace( '.', ',' ) } s
 								{ test.json
 									? ' · JSON ok'
 									: ` · ${ __(
-											'kein JSON',
+											'no JSON',
 											'engenty-wizards'
 									  ) }` }
 								{ test.provider?.images
 									? ` · ${ __(
-											'nimmt Bilder',
+											'takes images',
 											'engenty-wizards'
 									  ) }`
 									: ` · ${ __(
-											'nimmt keine Bilder',
+											'takes no images',
 											'engenty-wizards'
 									  ) }` }
 							</span>
@@ -116,7 +116,7 @@ function Standalone( { status, local, onChange } ) {
 				</div>
 				<p className="en-muted en-small">
 					{ __(
-						'Welcher Anbieter und welcher Schlüssel: das regelt WordPress, nicht das Plugin. Jeder Durchlauf kostet beim Anbieter, was seine Aufrufe kosten.',
+						'Which provider and which key: WordPress settles that, not the plugin. Every run costs at the provider what its calls cost.',
 						'engenty-wizards'
 					) }
 				</p>
@@ -124,7 +124,7 @@ function Standalone( { status, local, onChange } ) {
 					<div className="en-field">
 						<label htmlFor="en-rph">
 							{ __(
-								'Runs pro Stunde und Besucher',
+								'Runs per hour and visitor',
 								'engenty-wizards'
 							) }
 						</label>
@@ -143,7 +143,7 @@ function Standalone( { status, local, onChange } ) {
 					<div className="en-field">
 						<label htmlFor="en-rpd">
 							{ __(
-								'Runs pro Tag und Wizard',
+								'Runs per day and wizard',
 								'engenty-wizards'
 							) }
 						</label>
@@ -162,7 +162,7 @@ function Standalone( { status, local, onChange } ) {
 					<div className="en-field">
 						<label htmlFor="en-timeout">
 							{ __(
-								'Sekunden pro Denkschritt',
+								'Seconds per thinking step',
 								'engenty-wizards'
 							) }
 						</label>
@@ -181,7 +181,7 @@ function Standalone( { status, local, onChange } ) {
 					</div>
 					<div className="en-field">
 						<label htmlFor="en-keep">
-							{ __( 'Ergebnisse behalten', 'engenty-wizards' ) }
+							{ __( 'Keep results', 'engenty-wizards' ) }
 						</label>
 						<select
 							id="en-keep"
@@ -193,28 +193,28 @@ function Standalone( { status, local, onChange } ) {
 							}
 						>
 							<option value="30">
-								{ __( '30 Tage', 'engenty-wizards' ) }
+								{ __( '30 days', 'engenty-wizards' ) }
 							</option>
 							<option value="90">
-								{ __( '90 Tage', 'engenty-wizards' ) }
+								{ __( '90 days', 'engenty-wizards' ) }
 							</option>
 							<option value="365">
-								{ __( '1 Jahr', 'engenty-wizards' ) }
+								{ __( '1 year', 'engenty-wizards' ) }
 							</option>
 							<option value="0">
-								{ __( 'Unbegrenzt', 'engenty-wizards' ) }
+								{ __( 'Unlimited', 'engenty-wizards' ) }
 							</option>
 						</select>
 					</div>
 					<div className="en-field">
 						<label htmlFor="en-bots">
-							{ __( 'Schutz vor Bots', 'engenty-wizards' ) }
+							{ __( 'Protection from bots', 'engenty-wizards' ) }
 						</label>
 						<input
 							id="en-bots"
 							readOnly
 							value={ __(
-								'Honeypot und Limits',
+								'Honeypot and limits',
 								'engenty-wizards'
 							) }
 						/>
@@ -231,7 +231,7 @@ function Standalone( { status, local, onChange } ) {
 					/>
 					<span>
 						{ __(
-							'Fotos an den Anbieter schicken, wenn er Bilder nimmt',
+							'Send photos to the provider when it takes images',
 							'engenty-wizards'
 						) }
 					</span>
@@ -247,7 +247,7 @@ function Standalone( { status, local, onChange } ) {
 					/>
 					<span>
 						{ __(
-							'Wizards dürfen Webseiten lesen und öffentliche APIs aufrufen, wenn ein Schritt das vorsieht',
+							'Wizards may read web pages and call public APIs when a step calls for it',
 							'engenty-wizards'
 						) }
 					</span>
@@ -353,23 +353,23 @@ export default function Settings( { status, reload } ) {
 	return (
 		<>
 			<h1 className="en-page-head">
-				{ __( 'Einstellungen', 'engenty-wizards' ) }
+				{ __( 'Settings', 'engenty-wizards' ) }
 			</h1>
 			{ error ? <Notice tone="error">{ error.message }</Notice> : null }
 			<h2 className="en-section">
-				{ __( 'Verbindung', 'engenty-wizards' ) }
+				{ __( 'Connection', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<dl className="en-facts">
 					<div>
-						<dt>{ __( 'Konto', 'engenty-wizards' ) }</dt>
+						<dt>{ __( 'Account', 'engenty-wizards' ) }</dt>
 						<dd>
 							{ [ me?.user?.name, me?.user?.email ]
 								.filter( Boolean )
 								.join( ' · ' ) || '—' }
 							{ status.method === 'key'
 								? ` · ${ __(
-										'verbunden mit einem API Key',
+										'connected with an API key',
 										'engenty-wizards'
 								  ) }`
 								: '' }
@@ -380,7 +380,7 @@ export default function Settings( { status, reload } ) {
 						<dd>{ me?.tenant?.name || '—' }</dd>
 					</div>
 					<div>
-						<dt>{ __( 'Paket', 'engenty-wizards' ) }</dt>
+						<dt>{ __( 'Plan', 'engenty-wizards' ) }</dt>
 						<dd>
 							{ me?.tenant?.plan?.name ?? 'Free' }
 							{ isFree( me ) && me?.urls?.upgrade ? (
@@ -392,7 +392,7 @@ export default function Settings( { status, reload } ) {
 										rel="noopener noreferrer"
 									>
 										{ __(
-											'auf Pro upgraden',
+											'upgrade to Pro',
 											'engenty-wizards'
 										) }
 									</a>
@@ -409,7 +409,7 @@ export default function Settings( { status, reload } ) {
 						</dd>
 					</div>
 					<div>
-						<dt>{ __( 'Läuft auf', 'engenty-wizards' ) }</dt>
+						<dt>{ __( 'Runs on', 'engenty-wizards' ) }</dt>
 						<dd>{ host }</dd>
 					</div>
 				</dl>
@@ -417,7 +417,7 @@ export default function Settings( { status, reload } ) {
 					<div className="en-confirm">
 						<p>
 							{ __(
-								'Die Website von engenty.ai trennen? Wizards auf deinen Seiten zeigen sich weiter; der Admin sieht nichts mehr, bis du wieder verbindest.',
+								'Disconnect the website from engenty.ai? Wizards on your pages keep showing; the admin sees nothing until you connect again.',
 								'engenty-wizards'
 							) }
 						</p>
@@ -427,13 +427,13 @@ export default function Settings( { status, reload } ) {
 								busy={ busy === 'disconnect' }
 								onClick={ disconnect }
 							>
-								{ __( 'Ja, trennen', 'engenty-wizards' ) }
+								{ __( 'Yes, disconnect', 'engenty-wizards' ) }
 							</Button>
 							<Button
 								kind="ghost"
 								onClick={ () => setAsking( false ) }
 							>
-								{ __( 'Abbrechen', 'engenty-wizards' ) }
+								{ __( 'Cancel', 'engenty-wizards' ) }
 							</Button>
 						</div>
 					</div>
@@ -445,14 +445,14 @@ export default function Settings( { status, reload } ) {
 								href={ me.urls.account }
 								external
 							>
-								{ __( 'Konto verwalten', 'engenty-wizards' ) }
+								{ __( 'Manage account', 'engenty-wizards' ) }
 							</Button>
 						) : null }
 						<Button
 							kind="danger"
 							onClick={ () => setAsking( true ) }
 						>
-							{ __( 'Trennen', 'engenty-wizards' ) }
+							{ __( 'Disconnect', 'engenty-wizards' ) }
 						</Button>
 					</div>
 				) }
@@ -469,16 +469,13 @@ export default function Settings( { status, reload } ) {
 			) : null }
 
 			<h2 className="en-section">
-				{ __( 'Darstellung', 'engenty-wizards' ) }
+				{ __( 'Display', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<div className="en-site__grid">
 					<div className="en-field">
 						<label htmlFor="en-mode">
-							{ __(
-								'Wenn nichts anderes gesagt ist',
-								'engenty-wizards'
-							) }
+							{ __( 'Unless said otherwise', 'engenty-wizards' ) }
 						</label>
 						<select
 							id="en-mode"
@@ -488,19 +485,16 @@ export default function Settings( { status, reload } ) {
 							}
 						>
 							<option value="modal">
-								{ __( 'Button + Fenster', 'engenty-wizards' ) }
+								{ __( 'Button + window', 'engenty-wizards' ) }
 							</option>
 							<option value="inline">
-								{ __( 'Im Text', 'engenty-wizards' ) }
+								{ __( 'In the text', 'engenty-wizards' ) }
 							</option>
 						</select>
 					</div>
 					<div className="en-field">
 						<label htmlFor="en-label">
-							{ __(
-								'Beschriftung des Buttons',
-								'engenty-wizards'
-							) }
+							{ __( 'Button label', 'engenty-wizards' ) }
 						</label>
 						<input
 							id="en-label"
@@ -514,7 +508,7 @@ export default function Settings( { status, reload } ) {
 			</Card>
 
 			<h2 className="en-section">
-				{ __( 'Blase auf jeder Seite', 'engenty-wizards' ) }
+				{ __( 'Bubble on every page', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<div className="en-site__grid">
@@ -539,7 +533,7 @@ export default function Settings( { status, reload } ) {
 							}
 						>
 							<option value="">
-								{ __( '— keine Blase —', 'engenty-wizards' ) }
+								{ __( '— no bubble —', 'engenty-wizards' ) }
 							</option>
 							{ wizards.map( ( w ) => (
 								<option key={ w.id } value={ w.token }>
@@ -550,7 +544,10 @@ export default function Settings( { status, reload } ) {
 					</div>
 					<div className="en-field">
 						<label htmlFor="en-bubble-label">
-							{ __( 'Name für Screenreader', 'engenty-wizards' ) }
+							{ __(
+								'Name for screen readers',
+								'engenty-wizards'
+							) }
 						</label>
 						<input
 							id="en-bubble-label"
@@ -563,7 +560,7 @@ export default function Settings( { status, reload } ) {
 					<div className="en-field">
 						<label htmlFor="en-bubble-text">
 							{ __(
-								'Zeile daneben (optional)',
+								'Line beside it (optional)',
 								'engenty-wizards'
 							) }
 						</label>
@@ -571,7 +568,7 @@ export default function Settings( { status, reload } ) {
 							id="en-bubble-text"
 							value={ s.bubble.text }
 							placeholder={ __(
-								'z. B. Angebot in 2 Minuten',
+								'e.g. a quote in 2 minutes',
 								'engenty-wizards'
 							) }
 							onChange={ ( e ) =>
@@ -581,7 +578,7 @@ export default function Settings( { status, reload } ) {
 					</div>
 					<div className="en-field">
 						<label htmlFor="en-bubble-color">
-							{ __( 'Farbe', 'engenty-wizards' ) }
+							{ __( 'Color', 'engenty-wizards' ) }
 						</label>
 						<input
 							id="en-bubble-color"
@@ -595,7 +592,7 @@ export default function Settings( { status, reload } ) {
 				</div>
 				<div className="en-field">
 					<label htmlFor="en-bubble-exclude">
-						{ __( 'Nicht auf diesen Seiten', 'engenty-wizards' ) }
+						{ __( 'Not on these pages', 'engenty-wizards' ) }
 					</label>
 					<select
 						id="en-bubble-exclude"
@@ -623,7 +620,7 @@ export default function Settings( { status, reload } ) {
 
 			<h2 className="en-section">
 				{ __(
-					'Zugriff auf Ergebnisse, Kontakte und Termine',
+					'Access to results, contacts and appointments',
 					'engenty-wizards'
 				) }
 			</h2>
@@ -666,22 +663,22 @@ export default function Settings( { status, reload } ) {
 					busy={ busy === 'save' }
 					onClick={ save }
 				>
-					{ __( 'Speichern', 'engenty-wizards' ) }
+					{ __( 'Save', 'engenty-wizards' ) }
 				</Button>
 				{ saved ? (
 					<span className="en-muted">
-						{ __( 'Gespeichert.', 'engenty-wizards' ) }
+						{ __( 'Saved.', 'engenty-wizards' ) }
 					</span>
 				) : null }
 			</div>
 
 			<h2 className="en-section">
-				{ __( 'Datenschutz', 'engenty-wizards' ) }
+				{ __( 'Privacy', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<p>
 					{ __(
-						'Besucher reden direkt mit engenty; WordPress speichert keine Antworten. Ein Vorschlag für deine Datenschutzerklärung – prüfe ihn für deinen Fall:',
+						'Visitors talk directly to engenty; WordPress stores no answers. A suggestion for your privacy policy – check it for your case:',
 						'engenty-wizards'
 					) }
 				</p>
@@ -690,7 +687,7 @@ export default function Settings( { status, reload } ) {
 					<>
 						<p>
 							{ __(
-								'Eigenständige Wizards schicken die Antworten der Besucher an den KI-Anbieter der Website. Nenne ihn in der Datenschutzerklärung:',
+								'Standalone wizards send the answers of visitors to the AI provider of the website. Name it in the privacy policy:',
 								'engenty-wizards'
 							) }
 						</p>
@@ -789,16 +786,16 @@ function LocalSettings( { status } ) {
 	return (
 		<>
 			<h1 className="en-page-head">
-				{ __( 'Einstellungen', 'engenty-wizards' ) }
+				{ __( 'Settings', 'engenty-wizards' ) }
 			</h1>
 			{ error ? <Notice tone="error">{ error.message }</Notice> : null }
 			<h2 className="en-section">
-				{ __( 'Verbindung', 'engenty-wizards' ) }
+				{ __( 'Connection', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<p className="en-muted" style={ { marginTop: 0 } }>
 					{ __(
-						'Nicht verbunden – die Wizards laufen auf dieser Website, ohne Konto und ohne engenty-Credits. Mit einem kostenlosen Konto kommen Studio, Kontakte, Termine, PDFs und die Wizards, die mehr brauchen; die lokalen laufen weiter.',
+						'Not connected – the wizards run on this website, without an account and without engenty credits. A free account brings Studio, contacts, appointments, PDFs and the wizards that need more; the local ones keep running.',
 						'engenty-wizards'
 					) }
 				</p>
@@ -810,10 +807,7 @@ function LocalSettings( { status } ) {
 							disabled={ connecting !== null }
 							onClick={ () => go( true ) }
 						>
-							{ __(
-								'Kostenloses Konto anlegen',
-								'engenty-wizards'
-							) }{ ' ' }
+							{ __( 'Create a free account', 'engenty-wizards' ) }{ ' ' }
 							→
 						</Button>
 						<Button
@@ -822,20 +816,17 @@ function LocalSettings( { status } ) {
 							disabled={ connecting !== null }
 							onClick={ () => go( false ) }
 						>
-							{ __( 'Anmelden', 'engenty-wizards' ) }
+							{ __( 'Sign in', 'engenty-wizards' ) }
 						</Button>
 						<span className="en-muted en-small">
 							{ __(
-								'Eigener Server oder keine Anmeldung im Browser?',
+								'Your own server, or no sign-in in the browser?',
 								'engenty-wizards'
 							) }{ ' ' }
 							<a
 								href={ `${ window.location.pathname }?page=engenty-settings&connect=key` }
 							>
-								{ __(
-									'Von Hand verbinden',
-									'engenty-wizards'
-								) }
+								{ __( 'Connect by hand', 'engenty-wizards' ) }
 							</a>
 						</span>
 					</div>
@@ -855,16 +846,13 @@ function LocalSettings( { status } ) {
 				onChange={ ( p ) => patch( { local: { ...s.local, ...p } } ) }
 			/>
 			<h2 className="en-section">
-				{ __( 'Darstellung', 'engenty-wizards' ) }
+				{ __( 'Display', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<div className="en-site__grid">
 					<div className="en-field">
 						<label htmlFor="en-mode">
-							{ __(
-								'Wenn nichts anderes gesagt ist',
-								'engenty-wizards'
-							) }
+							{ __( 'Unless said otherwise', 'engenty-wizards' ) }
 						</label>
 						<select
 							id="en-mode"
@@ -874,19 +862,16 @@ function LocalSettings( { status } ) {
 							}
 						>
 							<option value="modal">
-								{ __( 'Button + Fenster', 'engenty-wizards' ) }
+								{ __( 'Button + window', 'engenty-wizards' ) }
 							</option>
 							<option value="inline">
-								{ __( 'Im Text', 'engenty-wizards' ) }
+								{ __( 'In the text', 'engenty-wizards' ) }
 							</option>
 						</select>
 					</div>
 					<div className="en-field">
 						<label htmlFor="en-label">
-							{ __(
-								'Beschriftung des Buttons',
-								'engenty-wizards'
-							) }
+							{ __( 'Button label', 'engenty-wizards' ) }
 						</label>
 						<input
 							id="en-label"
@@ -899,7 +884,7 @@ function LocalSettings( { status } ) {
 				</div>
 			</Card>
 			<h2 className="en-section">
-				{ __( 'Blase auf jeder Seite', 'engenty-wizards' ) }
+				{ __( 'Bubble on every page', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<div className="en-site__grid">
@@ -924,7 +909,7 @@ function LocalSettings( { status } ) {
 							}
 						>
 							<option value="">
-								{ __( '— keine Blase —', 'engenty-wizards' ) }
+								{ __( '— no bubble —', 'engenty-wizards' ) }
 							</option>
 							{ wizards.map( ( w ) => (
 								<option key={ w.id } value={ w.token }>
@@ -935,7 +920,10 @@ function LocalSettings( { status } ) {
 					</div>
 					<div className="en-field">
 						<label htmlFor="en-bubble-label">
-							{ __( 'Name für Screenreader', 'engenty-wizards' ) }
+							{ __(
+								'Name for screen readers',
+								'engenty-wizards'
+							) }
 						</label>
 						<input
 							id="en-bubble-label"
@@ -948,7 +936,7 @@ function LocalSettings( { status } ) {
 					<div className="en-field">
 						<label htmlFor="en-bubble-text">
 							{ __(
-								'Zeile daneben (optional)',
+								'Line beside it (optional)',
 								'engenty-wizards'
 							) }
 						</label>
@@ -962,7 +950,7 @@ function LocalSettings( { status } ) {
 					</div>
 					<div className="en-field">
 						<label htmlFor="en-bubble-color">
-							{ __( 'Farbe', 'engenty-wizards' ) }
+							{ __( 'Color', 'engenty-wizards' ) }
 						</label>
 						<input
 							id="en-bubble-color"
@@ -976,7 +964,7 @@ function LocalSettings( { status } ) {
 				</div>
 				<div className="en-field">
 					<label htmlFor="en-bubble-exclude">
-						{ __( 'Nicht auf diesen Seiten', 'engenty-wizards' ) }
+						{ __( 'Not on these pages', 'engenty-wizards' ) }
 					</label>
 					<select
 						id="en-bubble-exclude"
@@ -1003,7 +991,7 @@ function LocalSettings( { status } ) {
 			</Card>
 			<h2 className="en-section">
 				{ __(
-					'Zugriff auf Ergebnisse, Kontakte und Termine',
+					'Access to results, contacts and appointments',
 					'engenty-wizards'
 				) }
 			</h2>
@@ -1045,21 +1033,21 @@ function LocalSettings( { status } ) {
 					busy={ busy === 'save' }
 					onClick={ save }
 				>
-					{ __( 'Speichern', 'engenty-wizards' ) }
+					{ __( 'Save', 'engenty-wizards' ) }
 				</Button>
 				{ saved ? (
 					<span className="en-muted">
-						{ __( 'Gespeichert.', 'engenty-wizards' ) }
+						{ __( 'Saved.', 'engenty-wizards' ) }
 					</span>
 				) : null }
 			</div>
 			<h2 className="en-section">
-				{ __( 'Datenschutz', 'engenty-wizards' ) }
+				{ __( 'Privacy', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<p>
 					{ __(
-						'Eigenständige Wizards schicken die Antworten der Besucher an den KI-Anbieter der Website. Nenne ihn in der Datenschutzerklärung:',
+						'Standalone wizards send the answers of visitors to the AI provider of the website. Name it in the privacy policy:',
 						'engenty-wizards'
 					) }
 				</p>
@@ -1093,7 +1081,7 @@ function ByKey() {
 			<div className="en-grid en-grid--2">
 				<div className="en-field">
 					<label htmlFor="en-cloud">
-						{ __( 'Adresse', 'engenty-wizards' ) }
+						{ __( 'Address', 'engenty-wizards' ) }
 					</label>
 					<input
 						id="en-cloud"
@@ -1105,7 +1093,7 @@ function ByKey() {
 				</div>
 				<div className="en-field">
 					<label htmlFor="en-key">
-						{ __( 'API Key', 'engenty-wizards' ) }
+						{ __( 'API key', 'engenty-wizards' ) }
 					</label>
 					<input
 						id="en-key"
@@ -1119,7 +1107,7 @@ function ByKey() {
 				</div>
 			</div>
 			<Button kind="primary" type="submit" busy={ busy === 'key' }>
-				{ __( 'Verbinden', 'engenty-wizards' ) }
+				{ __( 'Connect', 'engenty-wizards' ) }
 			</Button>
 			{ error ? <Notice tone="error">{ error }</Notice> : null }
 		</form>
@@ -1159,15 +1147,15 @@ function ConnectOnly() {
 	return (
 		<>
 			<h1 className="en-page-head">
-				{ __( 'Einstellungen', 'engenty-wizards' ) }
+				{ __( 'Settings', 'engenty-wizards' ) }
 			</h1>
 			<h2 className="en-section">
-				{ __( 'Verbindung', 'engenty-wizards' ) }
+				{ __( 'Connection', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<p className="en-muted">
 					{ __(
-						'Die Website ist mit keinem engenty-Konto verbunden.',
+						'The website is not connected to an engenty account.',
 						'engenty-wizards'
 					) }
 				</p>
@@ -1178,24 +1166,24 @@ function ConnectOnly() {
 						disabled={ busy !== null }
 						onClick={ () => go( true ) }
 					>
-						{ __( 'Kostenloses Konto anlegen', 'engenty-wizards' ) }
+						{ __( 'Create a free account', 'engenty-wizards' ) }
 					</Button>
 					<Button
 						busy={ busy === 'login' }
 						disabled={ busy !== null }
 						onClick={ () => go( false ) }
 					>
-						{ __( 'Anmelden', 'engenty-wizards' ) }
+						{ __( 'Sign in', 'engenty-wizards' ) }
 					</Button>
 				</div>
 			</Card>
 			<h2 className="en-section">
-				{ __( 'Von Hand verbinden', 'engenty-wizards' ) }
+				{ __( 'Connect by hand', 'engenty-wizards' ) }
 			</h2>
 			<Card>
 				<p className="en-muted">
 					{ __(
-						'Für einen eigenen engenty-Server, oder wenn die Anmeldung im Browser nicht geht. Den API Key legst du auf engenty.ai unter Konto an, auf einem eigenen Server im Studio unter Einbinden.',
+						'For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed.',
 						'engenty-wizards'
 					) }
 				</p>
@@ -1203,7 +1191,7 @@ function ConnectOnly() {
 					<div className="en-grid en-grid--2">
 						<div className="en-field">
 							<label htmlFor="en-cloud">
-								{ __( 'Adresse', 'engenty-wizards' ) }
+								{ __( 'Address', 'engenty-wizards' ) }
 							</label>
 							<input
 								id="en-cloud"
@@ -1216,7 +1204,7 @@ function ConnectOnly() {
 						</div>
 						<div className="en-field">
 							<label htmlFor="en-key">
-								{ __( 'API Key', 'engenty-wizards' ) }
+								{ __( 'API key', 'engenty-wizards' ) }
 							</label>
 							<input
 								id="en-key"
@@ -1235,7 +1223,7 @@ function ConnectOnly() {
 						busy={ busy === 'key' }
 						disabled={ busy !== null }
 					>
-						{ __( 'Verbinden', 'engenty-wizards' ) }
+						{ __( 'Connect', 'engenty-wizards' ) }
 					</Button>
 				</form>
 			</Card>

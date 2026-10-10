@@ -12,7 +12,7 @@ bookings in the admin. Two ways:
   step through the AI Client; a step that reads a web page or calls a public API does so through
   the site's own abilities (`includes/class-abilities.php`, the loop in `class-think.php`).
   Wizards come with the plugin (`wizards/`) or as a `.wizard` package from the studio, or over
-  from the account with "Hier laufen lassen"; results stay in WordPress.
+  from the account with "Run here"; results stay in WordPress.
 
 GPLv2 or later. The runner's components come from the open repository's package
 `@engenty-wizards/runner` (MIT), vendored as built under `vendor-runner/`.
@@ -56,7 +56,7 @@ wordpress.org, not part of the zip); the GitHub release on a `v*` tag attaches t
 ```bash
 npm install
 sh bin/sync-runner.sh ../engenty-wizards   # the runner package and the templates from the open repository beside this one
-npm run build        # build/admin.js, build/block.js, build/runner.js
+npm run build        # build/app.js (the admin app), build/block.js, build/runner.js
 npm run start        # rebuild on change
 sh bin/zip.sh        # engenty-wizards.zip with build/, wizards/
 sh bin/smoke.sh      # against a WordPress with wp-cli; the standalone part answers with bin/fake-provider.php

@@ -7,44 +7,47 @@ import { __, sprintf } from '@wordpress/i18n';
  */
 
 export const CAPABILITIES = {
-	text: __( 'Text schreiben', 'engenty-wizards' ),
-	web: __( 'Websuche', 'engenty-wizards' ),
-	browser: __( 'Browser bedienen', 'engenty-wizards' ),
-	documents: __( 'Dokumente & Fotos lesen', 'engenty-wizards' ),
-	image: __( 'Bilder erzeugen', 'engenty-wizards' ),
-	video: __( 'Videos erzeugen', 'engenty-wizards' ),
-	speech: __( 'Sprachausgabe', 'engenty-wizards' ),
-	listening: __( 'Sprachnotizen verstehen', 'engenty-wizards' ),
-	code: __( 'Code ausführen', 'engenty-wizards' ),
-	connectors: __( 'Verbundene Konten & Systeme', 'engenty-wizards' ),
-	film: __( 'Filme mit Claude Code (auf deinem Abo)', 'engenty-wizards' ),
+	text: __( 'Write text', 'engenty-wizards' ),
+	web: __( 'Web search', 'engenty-wizards' ),
+	browser: __( 'Use a browser', 'engenty-wizards' ),
+	documents: __( 'Read documents & photos', 'engenty-wizards' ),
+	image: __( 'Generate images', 'engenty-wizards' ),
+	video: __( 'Generate videos', 'engenty-wizards' ),
+	speech: __( 'Speech output', 'engenty-wizards' ),
+	listening: __( 'Understand voice notes', 'engenty-wizards' ),
+	code: __( 'Run code', 'engenty-wizards' ),
+	connectors: __( 'Connected accounts & systems', 'engenty-wizards' ),
+	film: __(
+		'Films with Claude Code (on your subscription)',
+		'engenty-wizards'
+	),
 };
 
 export const COST_TIERS = {
-	low: __( 'günstig', 'engenty-wizards' ),
-	medium: __( 'mittel', 'engenty-wizards' ),
-	high: __( 'teuer', 'engenty-wizards' ),
+	low: __( 'cheap', 'engenty-wizards' ),
+	medium: __( 'medium', 'engenty-wizards' ),
+	high: __( 'expensive', 'engenty-wizards' ),
 };
 
 export const USE_CASES = {
 	marketing: __( 'Marketing & Social Media', 'engenty-wizards' ),
-	sales: __( 'Angebote & Verkauf', 'engenty-wizards' ),
-	accounting: __( 'Buchhaltung & Belege', 'engenty-wizards' ),
-	service: __( 'Kundenservice', 'engenty-wizards' ),
-	research: __( 'Recherche & Analyse', 'engenty-wizards' ),
-	hr: __( 'Personal & Bewerbungen', 'engenty-wizards' ),
-	operations: __( 'Planung & Abläufe', 'engenty-wizards' ),
-	website: __( 'Helfer für die Website', 'engenty-wizards' ),
-	visuals: __( 'Bilder & Video', 'engenty-wizards' ),
-	inquiries: __( 'Anfragen & Termine', 'engenty-wizards' ),
-	advice: __( 'Beratung & Preise', 'engenty-wizards' ),
+	sales: __( 'Quotes & sales', 'engenty-wizards' ),
+	accounting: __( 'Bookkeeping & receipts', 'engenty-wizards' ),
+	service: __( 'Customer service', 'engenty-wizards' ),
+	research: __( 'Research & analysis', 'engenty-wizards' ),
+	hr: __( 'HR & applications', 'engenty-wizards' ),
+	operations: __( 'Planning & processes', 'engenty-wizards' ),
+	website: __( 'Helpers for the website', 'engenty-wizards' ),
+	visuals: __( 'Images & video', 'engenty-wizards' ),
+	inquiries: __( 'Requests & appointments', 'engenty-wizards' ),
+	advice: __( 'Advice & prices', 'engenty-wizards' ),
 };
 
 export const ITEM_FORMATS = {
 	text: __( 'Text', 'engenty-wizards' ),
-	document: __( 'Dokument (PDF, Word)', 'engenty-wizards' ),
-	table: __( 'Tabelle', 'engenty-wizards' ),
-	image: __( 'Bild', 'engenty-wizards' ),
+	document: __( 'Document (PDF, Word)', 'engenty-wizards' ),
+	table: __( 'Table', 'engenty-wizards' ),
+	image: __( 'Image', 'engenty-wizards' ),
 	video: __( 'Video', 'engenty-wizards' ),
 	audio: __( 'Audio', 'engenty-wizards' ),
 	dashboard: __( 'Dashboard', 'engenty-wizards' ),
@@ -67,18 +70,15 @@ export const FORMAT_LABEL = {
 
 /** What the gallery has no capability for, by its need id (fit.ts Need). */
 const WORDED = {
-	lists: __(
-		'Listen, die der Wizard zwischen Durchläufen behält',
-		'engenty-wizards'
-	),
-	memory: __( 'Das Gedächtnis des Wizards', 'engenty-wizards' ),
+	lists: __( 'Lists the wizard keeps between runs', 'engenty-wizards' ),
+	memory: __( 'The memory of the wizard', 'engenty-wizards' ),
 	each: __(
-		'Ein Durchlauf je Eintrag (hier nacheinander)',
+		'One run per entry (one after the other here)',
 		'engenty-wizards'
 	),
-	'field:slot': __( 'Terminwahl aus freien Zeiten', 'engenty-wizards' ),
-	'tool:pages': __( 'Die Seiten des Space lesen', 'engenty-wizards' ),
-	widget: __( 'Ein Widget', 'engenty-wizards' ),
+	'field:slot': __( 'Choosing a slot from free times', 'engenty-wizards' ),
+	'tool:pages': __( 'Reading the pages of the space', 'engenty-wizards' ),
+	widget: __( 'A widget', 'engenty-wizards' ),
 };
 
 /**
@@ -154,7 +154,7 @@ export function needLines( fit, thinks = true ) {
 		add( `format:${ f }`, {
 			text: sprintf(
 				/* translators: %s: a file format */
-				__( 'Ergebnis als %s', 'engenty-wizards' ),
+				__( 'Result as %s', 'engenty-wizards' ),
 				FORMAT_LABEL[ f ] ?? f
 			),
 			tone: 'optional',
@@ -175,7 +175,7 @@ export function withoutLine( fit ) {
 	return parts.length
 		? sprintf(
 				/* translators: %s: a list */ __(
-					'Geht auch ohne: %s',
+					'Works without: %s',
 					'engenty-wizards'
 				),
 				parts.join( ', ' )
@@ -192,7 +192,7 @@ export function missingLine( fit ) {
 	return parts.length
 		? sprintf(
 				/* translators: %s: a list */ __(
-					'Hier nicht eingerichtet: %s',
+					'Not set up here: %s',
 					'engenty-wizards'
 				),
 				parts.join( ', ' )

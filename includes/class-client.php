@@ -66,7 +66,7 @@ class Engenty_Client {
 		// The token went stale before its time (revoked and given again, the clock off): once more.
 		if ( ! is_wp_error( $res ) && 401 === (int) wp_remote_retrieve_response_code( $res ) ) {
 			if ( ! empty( Engenty_Settings::auth()['api_key'] ) ) {
-				return new WP_Error( 'engenty_key', __( 'Der API Key gilt nicht mehr. Verbinde die Website neu.', 'engenty-wizards' ), array( 'status' => 401 ) );
+				return new WP_Error( 'engenty_key', __( 'The API key no longer works. Connect the website again.', 'engenty-wizards' ), array( 'status' => 401 ) );
 			}
 			$token = Engenty_Connect::refresh();
 			if ( is_wp_error( $token ) ) {
@@ -75,13 +75,13 @@ class Engenty_Client {
 			$res = self::send( $method, $path, $body, $token, $timeout );
 		}
 		if ( is_wp_error( $res ) ) {
-			return new WP_Error( 'engenty_unreachable', __( 'engenty.ai ist gerade nicht erreichbar.', 'engenty-wizards' ), array( 'status' => 502 ) );
+			return new WP_Error( 'engenty_unreachable', __( 'engenty.ai cannot be reached right now.', 'engenty-wizards' ), array( 'status' => 502 ) );
 		}
 		$code = (int) wp_remote_retrieve_response_code( $res );
 		if ( $code >= 400 ) {
 			$json         = json_decode( (string) wp_remote_retrieve_body( $res ), true );
 			$runtime_code = is_array( $json ) && is_string( $json['code'] ?? null ) ? $json['code'] : 'http_' . $code;
-			$message      = is_array( $json ) && is_string( $json['error'] ?? null ) ? $json['error'] : __( 'engenty.ai hat die Anfrage abgelehnt.', 'engenty-wizards' );
+			$message      = is_array( $json ) && is_string( $json['error'] ?? null ) ? $json['error'] : __( 'engenty.ai refused the request.', 'engenty-wizards' );
 			return new WP_Error(
 				'engenty_' . $runtime_code,
 				$message,

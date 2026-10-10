@@ -32,12 +32,12 @@ import Place, { shortcodeOf } from './Place';
  */
 function stateChip( w ) {
 	if ( ! w.published ) {
-		return <Chip>{ __( 'Entwurf', 'engenty-wizards' ) }</Chip>;
+		return <Chip>{ __( 'Draft', 'engenty-wizards' ) }</Chip>;
 	}
 	if ( w.available ) {
 		return <Chip tone="moss">Live</Chip>;
 	}
-	return <Chip tone="rose">{ __( 'Pausiert', 'engenty-wizards' ) }</Chip>;
+	return <Chip tone="rose">{ __( 'Paused', 'engenty-wizards' ) }</Chip>;
 }
 
 export default function Wizards( { status } ) {
@@ -175,7 +175,7 @@ export default function Wizards( { status } ) {
 							onClick={ () => setAdding( true ) }
 						>
 							<Icon name="plus" />{ ' ' }
-							{ __( 'Neuer Wizard', 'engenty-wizards' ) }
+							{ __( 'New wizard', 'engenty-wizards' ) }
 						</Button>
 					) : null }
 				</div>
@@ -184,12 +184,10 @@ export default function Wizards( { status } ) {
 			{ ! list ? <Spinner /> : null }
 			{ list &&
 				( ! list.length ? (
-					<Empty
-						title={ __( 'Noch keine Wizards', 'engenty-wizards' ) }
-					>
+					<Empty title={ __( 'No wizards yet', 'engenty-wizards' ) }>
 						<p>
 							{ __(
-								'Leg einen aus einer Vorlage an – eine Anfrage, ein Angebot, eine Terminbuchung.',
+								'Create one from a template – a request, a quote, a booking.',
 								'engenty-wizards'
 							) }
 						</p>
@@ -198,7 +196,7 @@ export default function Wizards( { status } ) {
 								kind="primary"
 								onClick={ () => setAdding( true ) }
 							>
-								{ __( 'Vorlage wählen', 'engenty-wizards' ) }
+								{ __( 'Choose a template', 'engenty-wizards' ) }
 							</Button>
 						) : null }
 					</Empty>
@@ -236,7 +234,7 @@ export default function Wizards( { status } ) {
 														size={ 12 }
 													/>{ ' ' }
 													{ __(
-														'Lokal',
+														'Local',
 														'engenty-wizards'
 													) }
 												</Chip>
@@ -254,7 +252,7 @@ export default function Wizards( { status } ) {
 													{ w.steps
 														? sprintf(
 																/* translators: %d: steps */ __(
-																	'%d Schritte',
+																	'%d steps',
 																	'engenty-wizards'
 																),
 																w.steps
@@ -279,7 +277,7 @@ export default function Wizards( { status } ) {
 														/>
 														{ copied === w.id
 															? __(
-																	'Kopiert',
+																	'Copied',
 																	'engenty-wizards'
 															  )
 															: __(
@@ -291,7 +289,7 @@ export default function Wizards( { status } ) {
 														type="button"
 														className="en-iconbtn en-iconbtn--round"
 														aria-label={ __(
-															'Einbinden',
+															'Embed',
 															'engenty-wizards'
 														) }
 														onClick={ () =>
@@ -315,7 +313,7 @@ export default function Wizards( { status } ) {
 													external
 												>
 													{ __(
-														'Im Studio',
+														'In the Studio',
 														'engenty-wizards'
 													) }
 												</Button>
@@ -335,28 +333,28 @@ export default function Wizards( { status } ) {
 					{ embed.local ? (
 						<p className="en-muted">
 							{ __(
-								'Läuft auf dieser Website mit dem KI-Anbieter aus den WordPress-Einstellungen. Ergebnisse unter Ergebnisse.',
+								'Runs on this website with the AI provider from the WordPress settings. Results under Results.',
 								'engenty-wizards'
 							) }
 						</p>
 					) : null }
 					<h3>{ __( 'Shortcode', 'engenty-wizards' ) }</h3>
 					<CopyField
-						label={ __( 'Button + Fenster', 'engenty-wizards' ) }
+						label={ __( 'Button + window', 'engenty-wizards' ) }
 						value={ shortcodeOf( embed, 'modal' ) }
 					/>
 					<CopyField
-						label={ __( 'Im Text', 'engenty-wizards' ) }
+						label={ __( 'In the text', 'engenty-wizards' ) }
 						value={ shortcodeOf( embed, 'inline' ) }
 					/>
-					<h3>{ __( 'Im Block-Editor', 'engenty-wizards' ) }</h3>
+					<h3>{ __( 'In the block editor', 'engenty-wizards' ) }</h3>
 					<p>
 						{ __(
-							'Block „engenty Wizard“ einfügen und diesen Wizard wählen. In Elementor heißt das Widget genauso.',
+							'Insert the “engenty Wizard” block and choose this wizard. In Elementor the widget has the same name.',
 							'engenty-wizards'
 						) }
 					</p>
-					<h3>{ __( 'Im Theme (PHP)', 'engenty-wizards' ) }</h3>
+					<h3>{ __( 'In the theme (PHP)', 'engenty-wizards' ) }</h3>
 					<CopyField
 						value={ `<?php engenty_wizard( '${
 							embed.code || embed.token
@@ -365,19 +363,17 @@ export default function Wizards( { status } ) {
 					{ status.can?.manage ? (
 						<>
 							<h3>
-								{ __( 'Mit einem Klick', 'engenty-wizards' ) }
+								{ __( 'With one click', 'engenty-wizards' ) }
 							</h3>
 							<Place me={ me } wizard={ embed } />
 						</>
 					) : null }
 					{ ! embed.local && canRunHere( embed ) ? (
 						<>
-							<h3>
-								{ __( 'Dieser Wizard', 'engenty-wizards' ) }
-							</h3>
+							<h3>{ __( 'This wizard', 'engenty-wizards' ) }</h3>
 							<p className="en-muted en-small">
 								{ __(
-									'Läuft gerade über engenty.ai. Hier laufen lassen holt die veröffentlichte Version auf diese Website: Sie denkt dann mit dem KI-Anbieter von WordPress, ohne Credits, und die Ergebnisse bleiben hier.',
+									'Runs through engenty.ai right now. Run here brings the published version to this website: it then thinks with the AI provider of WordPress, without credits, and the results stay here.',
 									'engenty-wizards'
 								) }
 								{ withoutLine( embed.standalone )
@@ -389,23 +385,18 @@ export default function Wizards( { status } ) {
 									disabled={ pulling }
 									onClick={ () => pull( embed ) }
 								>
-									{ __(
-										'Hier laufen lassen',
-										'engenty-wizards'
-									) }
+									{ __( 'Run here', 'engenty-wizards' ) }
 								</Button>
 							</div>
 						</>
 					) : null }
 					{ embed.local && status.can?.manage ? (
 						<>
-							<h3>
-								{ __( 'Dieser Wizard', 'engenty-wizards' ) }
-							</h3>
+							<h3>{ __( 'This wizard', 'engenty-wizards' ) }</h3>
 							{ embed.cloudId ? (
 								<p className="en-muted en-small">
 									{ __(
-										'Aus deinem Konto geholt und läuft hier mit dem KI-Anbieter von WordPress. Neu laden holt die veröffentlichte Version noch einmal.',
+										'Fetched from your account and runs here with the AI provider of WordPress. Reload fetches the published version again.',
 										'engenty-wizards'
 									) }
 								</p>
@@ -418,7 +409,7 @@ export default function Wizards( { status } ) {
 											onClick={ () => pull( embed ) }
 										>
 											{ __(
-												'Neu laden',
+												'Reload',
 												'engenty-wizards'
 											) }
 										</Button>
@@ -427,7 +418,7 @@ export default function Wizards( { status } ) {
 											onClick={ () => release( embed ) }
 										>
 											{ __(
-												'Über engenty.ai laufen lassen',
+												'Run through engenty.ai',
 												'engenty-wizards'
 											) }
 										</Button>
@@ -437,14 +428,14 @@ export default function Wizards( { status } ) {
 									<Button
 										onClick={ () => pause( embed, true ) }
 									>
-										{ __( 'Pausieren', 'engenty-wizards' ) }
+										{ __( 'Pause', 'engenty-wizards' ) }
 									</Button>
 								) : (
 									<Button
 										onClick={ () => pause( embed, false ) }
 									>
 										{ __(
-											'Wieder live',
+											'Live again',
 											'engenty-wizards'
 										) }
 									</Button>
@@ -454,14 +445,14 @@ export default function Wizards( { status } ) {
 										kind="danger"
 										onClick={ () => remove( embed ) }
 									>
-										{ __( 'Entfernen', 'engenty-wizards' ) }
+										{ __( 'Remove', 'engenty-wizards' ) }
 									</Button>
 								) }
 							</div>
 							{ embed.cloudId ? null : (
 								<p className="en-muted en-small">
 									{ __(
-										'Texte und Schritte änderst du im Studio von engenty und importierst das Paket neu.',
+										'You change texts and steps in the engenty Studio and import the package again.',
 										'engenty-wizards'
 									) }
 								</p>
@@ -473,7 +464,7 @@ export default function Wizards( { status } ) {
 			{ adding ? (
 				<Modal onClose={ () => setAdding( false ) } wide>
 					<div className="en-dialog__inner">
-						<h2>{ __( 'Neuer Wizard', 'engenty-wizards' ) }</h2>
+						<h2>{ __( 'New wizard', 'engenty-wizards' ) }</h2>
 						{ picker() }
 					</div>
 				</Modal>

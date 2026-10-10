@@ -52,7 +52,9 @@ function App( { view } ) {
 	if ( ! status ) {
 		return (
 			<Shell>
-				<Spinner label={ __( 'engenty lädt …', 'engenty-wizards' ) } />
+				<Spinner
+					label={ __( 'engenty is loading …', 'engenty-wizards' ) }
+				/>
 			</Shell>
 		);
 	}

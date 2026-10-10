@@ -48,7 +48,7 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 		return (
 			<Notice>
 				{ __(
-					'Noch kein Wizard ist live. Leg einen an oder veröffentliche einen im Studio, dann kommt er hierher.',
+					'No wizard is live yet. Create one or publish one in the Studio, then it comes here.',
 					'engenty-wizards'
 				) }
 				{ me?.urls?.newWizard && me?.build ? (
@@ -59,7 +59,7 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							{ __( 'Zum Studio', 'engenty-wizards' ) }
+							{ __( 'To the Studio', 'engenty-wizards' ) }
 						</a>
 					</>
 				) : null }
@@ -102,7 +102,7 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 			{ given ? null : (
 				<div className="en-field">
 					<label htmlFor="en-place-wizard">
-						{ __( 'Welcher Wizard?', 'engenty-wizards' ) }
+						{ __( 'Which wizard?', 'engenty-wizards' ) }
 					</label>
 					<select
 						id="en-place-wizard"
@@ -120,7 +120,7 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 			{ done === 'bubble' ? (
 				<Notice tone="success">
 					{ __(
-						'Die Blase ist jetzt unten rechts auf jeder Seite. Text, Farbe und Ausnahmen stellst du in den Einstellungen ein.',
+						'The bubble is now at the bottom right of every page. You set text, color and exceptions in the settings.',
 						'engenty-wizards'
 					) }{ ' ' }
 					<a
@@ -128,7 +128,7 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						{ __( 'Website ansehen', 'engenty-wizards' ) }
+						{ __( 'View website', 'engenty-wizards' ) }
 					</a>
 				</Notice>
 			) : null }
@@ -141,11 +141,11 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 						<span />
 					</div>
 					<strong>
-						{ __( 'Als Blase auf jeder Seite', 'engenty-wizards' ) }
+						{ __( 'As a bubble on every page', 'engenty-wizards' ) }
 					</strong>
 					<p>
 						{ __(
-							'Unten rechts, für Fragen und Anfragen von überall.',
+							'Bottom right, for questions and requests from anywhere.',
 							'engenty-wizards'
 						) }
 					</p>
@@ -155,7 +155,7 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 						busy={ busy === 'bubble' }
 						onClick={ bubble }
 					>
-						{ __( 'Einschalten', 'engenty-wizards' ) }
+						{ __( 'Turn on', 'engenty-wizards' ) }
 					</Button>
 				</div>
 				<div className="en-option">
@@ -166,11 +166,11 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 						<span />
 					</div>
 					<strong>
-						{ __( 'Auf einer neuen Seite', 'engenty-wizards' ) }
+						{ __( 'On a new page', 'engenty-wizards' ) }
 					</strong>
 					<p>
 						{ __(
-							'Ein Entwurf mit dem Wizard-Block; du veröffentlichst ihn.',
+							'A draft with the wizard block; you publish it.',
 							'engenty-wizards'
 						) }
 					</p>
@@ -179,7 +179,7 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 						busy={ busy === 'page' }
 						onClick={ page }
 					>
-						{ __( 'Seite anlegen', 'engenty-wizards' ) }
+						{ __( 'Create page', 'engenty-wizards' ) }
 					</Button>
 				</div>
 				<div className="en-option">
@@ -190,11 +190,11 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 						<span />
 					</div>
 					<strong>
-						{ __( 'Selbst platzieren', 'engenty-wizards' ) }
+						{ __( 'Place it yourself', 'engenty-wizards' ) }
 					</strong>
 					<p>
 						{ __(
-							'Block „engenty Wizard“, Elementor-Widget oder dieser Shortcode:',
+							'The “engenty Wizard” block, the Elementor widget or this shortcode:',
 							'engenty-wizards'
 						) }
 					</p>
@@ -204,7 +204,7 @@ export default function Place( { me, onPlaced, wizard: given } ) {
 						className="en-link"
 						onClick={ onPlaced }
 					>
-						{ __( 'Erledigt', 'engenty-wizards' ) }
+						{ __( 'Done', 'engenty-wizards' ) }
 					</button>
 				</div>
 			</div>

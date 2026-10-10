@@ -30,9 +30,9 @@ const loadWizards = () => {
 };
 
 const MODES = [
-	{ value: 'inline', label: __( 'Im Text', 'engenty-wizards' ) },
-	{ value: 'modal', label: __( 'Button + Fenster', 'engenty-wizards' ) },
-	{ value: 'bubble', label: __( 'Blase unten rechts', 'engenty-wizards' ) },
+	{ value: 'inline', label: __( 'In the text', 'engenty-wizards' ) },
+	{ value: 'modal', label: __( 'Button + window', 'engenty-wizards' ) },
+	{ value: 'bubble', label: __( 'Bubble bottom right', 'engenty-wizards' ) },
 ];
 
 function Edit( { attributes, setAttributes } ) {
@@ -56,7 +56,7 @@ function Edit( { attributes, setAttributes } ) {
 					icon="format-chat"
 					label="engenty Wizard"
 					instructions={ __(
-						'Verbinde die Website kostenlos mit engenty.ai: Dann wählst du hier einen Wizard für Anfragen, Angebote oder Termine.',
+						'Connect the website to engenty.ai for free: then you choose a wizard for requests, quotes or appointments here.',
 						'engenty-wizards'
 					) }
 				>
@@ -65,7 +65,7 @@ function Edit( { attributes, setAttributes } ) {
 						href={ boot.setup }
 						target="_blank"
 					>
-						{ __( 'Kostenlos verbinden', 'engenty-wizards' ) }
+						{ __( 'Connect for free', 'engenty-wizards' ) }
 					</Button>
 				</Placeholder>
 			</div>
@@ -73,7 +73,7 @@ function Edit( { attributes, setAttributes } ) {
 	}
 	const current = wizards?.find( ( w ) => w.token === token );
 	const options = [
-		{ value: '', label: __( '— Wizard wählen —', 'engenty-wizards' ) },
+		{ value: '', label: __( '— choose a wizard —', 'engenty-wizards' ) },
 		...( wizards ?? [] ).map( ( w ) => ( {
 			value: w.token,
 			label: w.title,
@@ -118,12 +118,9 @@ function Edit( { attributes, setAttributes } ) {
 					label="engenty Wizard"
 					instructions={
 						wizards.length
-							? __(
-									'Welcher Wizard soll hier stehen?',
-									'engenty-wizards'
-							  )
+							? __( 'Which wizard goes here?', 'engenty-wizards' )
 							: __(
-									'Noch kein Wizard ist live. Leg einen in engenty an.',
+									'No wizard is live yet. Create one in engenty.',
 									'engenty-wizards'
 							  )
 					}
@@ -136,7 +133,7 @@ function Edit( { attributes, setAttributes } ) {
 							href={ boot.setup }
 							target="_blank"
 						>
-							{ __( 'Wizard anlegen', 'engenty-wizards' ) }
+							{ __( 'Create a wizard', 'engenty-wizards' ) }
 						</Button>
 					) }
 				</Placeholder>
@@ -150,7 +147,7 @@ function Edit( { attributes, setAttributes } ) {
 					</span>
 					<span className="engenty-block__note">
 						{ __(
-							'läuft auf dieser Website · im Text',
+							'runs on this website · in the text',
 							'engenty-wizards'
 						) }
 					</span>
@@ -182,13 +179,13 @@ function Edit( { attributes, setAttributes } ) {
 				>
 					{ mode === 'bubble'
 						? ''
-						: label || __( 'Jetzt starten', 'engenty-wizards' ) }
+						: label || __( 'Start now', 'engenty-wizards' ) }
 				</span>
 				<span className="engenty-block__note">
 					{ current.title } ·{ ' ' }
 					{ mode === 'bubble'
-						? __( 'als Blase unten rechts', 'engenty-wizards' )
-						: __( 'öffnet im Fenster', 'engenty-wizards' ) }
+						? __( 'as a bubble bottom right', 'engenty-wizards' )
+						: __( 'opens in a window', 'engenty-wizards' ) }
 				</span>
 			</div>
 		);
@@ -199,7 +196,7 @@ function Edit( { attributes, setAttributes } ) {
 				<PanelBody title="engenty">
 					{ wizards ? pick : <Spinner /> }
 					<SelectControl
-						label={ __( 'Darstellung', 'engenty-wizards' ) }
+						label={ __( 'Display', 'engenty-wizards' ) }
 						value={ mode }
 						options={ MODES }
 						onChange={ ( v ) => setAttributes( { mode: v } ) }
@@ -207,12 +204,9 @@ function Edit( { attributes, setAttributes } ) {
 					/>
 					{ mode !== 'inline' ? (
 						<TextControl
-							label={ __( 'Beschriftung', 'engenty-wizards' ) }
+							label={ __( 'Label', 'engenty-wizards' ) }
 							value={ label }
-							placeholder={ __(
-								'Jetzt starten',
-								'engenty-wizards'
-							) }
+							placeholder={ __( 'Start now', 'engenty-wizards' ) }
 							onChange={ ( v ) => setAttributes( { label: v } ) }
 							__nextHasNoMarginBottom
 						/>
@@ -221,7 +215,7 @@ function Edit( { attributes, setAttributes } ) {
 						<>
 							<TextControl
 								label={ __(
-									'Zeile neben der Blase',
+									'Line beside the bubble',
 									'engenty-wizards'
 								) }
 								value={ text }
@@ -230,7 +224,7 @@ function Edit( { attributes, setAttributes } ) {
 								}
 								__nextHasNoMarginBottom
 							/>
-							<p>{ __( 'Farbe', 'engenty-wizards' ) }</p>
+							<p>{ __( 'Color', 'engenty-wizards' ) }</p>
 							<ColorPalette
 								value={ color }
 								onChange={ ( v ) =>
@@ -241,7 +235,7 @@ function Edit( { attributes, setAttributes } ) {
 					) : null }
 					<p>
 						<ExternalLink href={ boot.wizards }>
-							{ __( 'Alle Wizards', 'engenty-wizards' ) }
+							{ __( 'All wizards', 'engenty-wizards' ) }
 						</ExternalLink>
 					</p>
 				</PanelBody>

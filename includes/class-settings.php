@@ -35,11 +35,11 @@ class Engenty_Settings {
 	public static function defaults() {
 		return array(
 			'mode'   => 'modal',
-			'label'  => __( 'Jetzt starten', 'engenty-wizards' ),
+			'label'  => __( 'Start now', 'engenty-wizards' ),
 			'bubble' => array(
 				'token'   => '',
 				'title'   => '',
-				'label'   => __( 'Fragen? Wir helfen.', 'engenty-wizards' ),
+				'label'   => __( 'Questions? We help.', 'engenty-wizards' ),
 				'text'    => '',
 				'color'   => '',
 				'exclude' => array(),

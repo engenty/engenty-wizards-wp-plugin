@@ -234,7 +234,7 @@ class Engenty_Packages {
 			'shareUrl'          => null,
 			'iconUrl'           => null,
 			'available'         => 'live' === $w['status'],
-			'unavailableReason' => 'live' === $w['status'] ? null : __( 'Pausiert', 'engenty-wizards' ),
+			'unavailableReason' => 'live' === $w['status'] ? null : __( 'Paused', 'engenty-wizards' ),
 			'plugins'           => array(),
 			'standalone'        => array(
 				'fit'      => $w['fit'],
@@ -264,27 +264,27 @@ class Engenty_Packages {
 	 */
 	public static function check_definition( $definition ) {
 		if ( ! is_array( $definition ) || '' === trim( (string) ( $definition['title'] ?? '' ) ) || empty( $definition['steps'] ) || ! is_array( $definition['steps'] ) ) {
-			return new WP_Error( 'engenty_invalid', __( 'Das ist kein Wizard: Titel oder Schritte fehlen.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_invalid', __( 'This is not a wizard: title or steps are missing.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		if ( isset( $definition['version'] ) && (int) $definition['version'] > 1 ) {
-			return new WP_Error( 'engenty_invalid', __( 'Dieser Wizard stammt aus einer neueren Version.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_invalid', __( 'This wizard comes from a newer version.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		$ids = array();
 		foreach ( $definition['steps'] as $step ) {
 			if ( ! is_array( $step ) || ! preg_match( '/^[a-zA-Z][a-zA-Z0-9_]{0,40}$/', (string) ( $step['id'] ?? '' ) ) || '' === (string) ( $step['title'] ?? '' ) ) {
-				return new WP_Error( 'engenty_invalid', __( 'Ein Schritt hat keine gültige ID oder keinen Titel.', 'engenty-wizards' ), array( 'status' => 400 ) );
+				return new WP_Error( 'engenty_invalid', __( 'A step has no valid ID or no title.', 'engenty-wizards' ), array( 'status' => 400 ) );
 			}
 			if ( ! in_array( $step['type'] ?? '', self::STEP_TYPES, true ) ) {
-				return new WP_Error( 'engenty_invalid', sprintf( /* translators: %s: step type */ __( 'Der Schritt-Typ „%s“ ist hier nicht bekannt.', 'engenty-wizards' ), (string) ( $step['type'] ?? '' ) ), array( 'status' => 400 ) );
+				return new WP_Error( 'engenty_invalid', sprintf( /* translators: %s: step type */ __( 'The step type “%s” is not known here.', 'engenty-wizards' ), (string) ( $step['type'] ?? '' ) ), array( 'status' => 400 ) );
 			}
 			if ( isset( $ids[ $step['id'] ] ) ) {
-				return new WP_Error( 'engenty_invalid', __( 'Zwei Schritte tragen dieselbe ID.', 'engenty-wizards' ), array( 'status' => 400 ) );
+				return new WP_Error( 'engenty_invalid', __( 'Two steps carry the same ID.', 'engenty-wizards' ), array( 'status' => 400 ) );
 			}
 			$ids[ $step['id'] ] = true;
 		}
 		$last = end( $definition['steps'] );
 		if ( 'result' !== ( $last['type'] ?? '' ) ) {
-			return new WP_Error( 'engenty_invalid', __( 'Der letzte Schritt muss das Ergebnis sein.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_invalid', __( 'The last step must be the result.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		return true;
 	}
@@ -307,14 +307,14 @@ class Engenty_Packages {
 			return $ok;
 		}
 		if ( 'no' === ( $fit['fit'] ?? '' ) ) {
-			return new WP_Error( 'engenty_fit', __( 'Dieser Wizard braucht ein engenty-Konto – auf dieser Website läuft er nicht.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_fit', __( 'This wizard needs an engenty account – it does not run on this website.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		$total = 0;
 		foreach ( $files as $f ) {
 			$total += (int) ( strlen( (string) ( $f['data'] ?? '' ) ) * 0.75 );
 		}
 		if ( $total > self::MAX_BYTES || count( $files ) > 200 ) {
-			return new WP_Error( 'engenty_too_large', __( 'Das Paket ist größer als 30 MB.', 'engenty-wizards' ), array( 'status' => 413 ) );
+			return new WP_Error( 'engenty_too_large', __( 'The package is larger than 30 MB.', 'engenty-wizards' ), array( 'status' => 413 ) );
 		}
 		$existing = $replace ? self::get( $replace ) : null;
 		$id       = $existing ? $existing['id'] : self::new_id();
@@ -374,7 +374,7 @@ class Engenty_Packages {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
 		$written = $wpdb->replace( self::table(), $data );
 		if ( false === $written ) {
-			return new WP_Error( 'engenty_db', __( 'Der Wizard konnte nicht gespeichert werden.', 'engenty-wizards' ), array( 'status' => 500 ) );
+			return new WP_Error( 'engenty_db', __( 'The wizard could not be saved.', 'engenty-wizards' ), array( 'status' => 500 ) );
 		}
 		delete_transient( 'engenty_wizards_local' );
 		return self::get( $id );
@@ -415,21 +415,21 @@ class Engenty_Packages {
 			}
 		}
 		if ( ! $cloud ) {
-			return new WP_Error( 'engenty_not_found', __( 'Diesen Wizard gibt es im Konto nicht.', 'engenty-wizards' ), array( 'status' => 404 ) );
+			return new WP_Error( 'engenty_not_found', __( 'This wizard does not exist in the account.', 'engenty-wizards' ), array( 'status' => 404 ) );
 		}
 		if ( empty( $cloud['published'] ) ) {
-			return new WP_Error( 'engenty_draft', __( 'Der Wizard ist noch nicht veröffentlicht.', 'engenty-wizards' ), array( 'status' => 409 ) );
+			return new WP_Error( 'engenty_draft', __( 'The wizard is not published yet.', 'engenty-wizards' ), array( 'status' => 409 ) );
 		}
 		$fit = (array) ( $cloud['standalone'] ?? array() );
 		if ( 'no' === ( $fit['fit'] ?? 'no' ) ) {
-			return new WP_Error( 'engenty_fit', __( 'Dieser Wizard braucht ein engenty-Konto – auf dieser Website läuft er nicht.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_fit', __( 'This wizard needs an engenty account – it does not run on this website.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		$bytes = Engenty_Client::fetch_raw( '/wizards/' . rawurlencode( $cloud_id ) . '/package' );
 		if ( is_wp_error( $bytes ) ) {
 			return $bytes;
 		}
 		if ( strlen( $bytes ) > self::MAX_BYTES ) {
-			return new WP_Error( 'engenty_too_large', __( 'Das Paket ist größer als 30 MB.', 'engenty-wizards' ), array( 'status' => 413 ) );
+			return new WP_Error( 'engenty_too_large', __( 'The package is larger than 30 MB.', 'engenty-wizards' ), array( 'status' => 413 ) );
 		}
 		$tmp = wp_tempnam( 'engenty-wizard' );
 		file_put_contents( $tmp, $bytes ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- a temporary file, read and deleted at once.
@@ -574,7 +574,7 @@ class Engenty_Packages {
 		$id   = sanitize_key( $id );
 		$file = ENGENTY_WIZARDS_DIR . 'wizards/' . $id . '.wizard';
 		if ( '' === $id || ! file_exists( $file ) ) {
-			return new WP_Error( 'engenty_not_found', __( 'Diese Vorlage gibt es nicht.', 'engenty-wizards' ), array( 'status' => 404 ) );
+			return new WP_Error( 'engenty_not_found', __( 'This template does not exist.', 'engenty-wizards' ), array( 'status' => 404 ) );
 		}
 		return self::read_package( $file );
 	}
@@ -590,7 +590,7 @@ class Engenty_Packages {
 		if ( class_exists( 'ZipArchive' ) ) {
 			$zip = new ZipArchive();
 			if ( true !== $zip->open( $file ) ) {
-				return new WP_Error( 'engenty_invalid', __( 'Das Wizard-Paket lässt sich nicht öffnen.', 'engenty-wizards' ), array( 'status' => 400 ) );
+				return new WP_Error( 'engenty_invalid', __( 'The wizard package cannot be opened.', 'engenty-wizards' ), array( 'status' => 400 ) );
 			}
 			for ( $i = 0; $i < $zip->numFiles; $i++ ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				$name = (string) $zip->getNameIndex( $i );
@@ -605,7 +605,7 @@ class Engenty_Packages {
 			$archive = new PclZip( $file );
 			$list    = $archive->extract( PCLZIP_OPT_EXTRACT_AS_STRING );
 			if ( ! is_array( $list ) ) {
-				return new WP_Error( 'engenty_invalid', __( 'Das Wizard-Paket lässt sich nicht öffnen.', 'engenty-wizards' ), array( 'status' => 400 ) );
+				return new WP_Error( 'engenty_invalid', __( 'The wizard package cannot be opened.', 'engenty-wizards' ), array( 'status' => 400 ) );
 			}
 			foreach ( $list as $entry ) {
 				if ( empty( $entry['folder'] ) ) {
@@ -614,7 +614,7 @@ class Engenty_Packages {
 			}
 		}
 		if ( ! isset( $entries['wizard.json'] ) ) {
-			return new WP_Error( 'engenty_invalid', __( 'Das ist kein Wizard-Paket: wizard.json fehlt.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_invalid', __( 'This is not a wizard package: wizard.json is missing.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		$manifest   = json_decode( $entries['wizard.json'], true );
 		$definition = is_array( $manifest ) && 'engenty-wizard' === ( $manifest['format'] ?? '' ) ? ( $manifest['definition'] ?? null ) : $manifest;

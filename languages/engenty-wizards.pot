@@ -1,0 +1,2563 @@
+# Copyright (C) 2026 engenty
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: engenty wizards 0.3.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/engenty-wizards\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-10T14:08:27+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: engenty-wizards\n"
+
+#. Plugin Name of the plugin
+#: engenty-wizards.php
+msgid "engenty wizards"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: engenty-wizards.php
+msgid "https://engenty.ai/wordpress"
+msgstr ""
+
+#. Description of the plugin
+#: engenty-wizards.php
+msgid "Your own AI assistants on your website: as a block, a shortcode, an Elementor widget or a bubble on every page. With an engenty.ai account, or on the site itself with its AI provider."
+msgstr ""
+
+#. Author of the plugin
+#: engenty-wizards.php
+msgid "engenty"
+msgstr ""
+
+#. Author URI of the plugin
+#: engenty-wizards.php
+msgid "https://engenty.ai"
+msgstr ""
+
+#: blocks/wizard/render.php:13
+msgid "No wizard is chosen in the block yet."
+msgstr ""
+
+#: includes/class-abilities.php:64
+msgid "engenty Wizards"
+msgstr ""
+
+#: includes/class-abilities.php:65
+msgid "What a wizard may do while it thinks on this website."
+msgstr ""
+
+#: includes/class-abilities.php:80
+msgid "Read a web page"
+msgstr ""
+
+#: includes/class-abilities.php:101
+msgid "Call an API"
+msgstr ""
+
+#: includes/class-admin.php:64
+msgid "Overview"
+msgstr ""
+
+#: includes/class-admin.php:65
+#: build/app.js:10
+#: build/app.js:12
+#: src/admin/Home.js:443
+#: src/admin/Wizards.js:166
+msgid "Wizards"
+msgstr ""
+
+#: includes/class-admin.php:66
+#: build/app.js:12
+#: src/admin/Results.js:332
+#: src/admin/Results.js:412
+msgid "Results"
+msgstr ""
+
+#: includes/class-admin.php:67
+#: build/app.js:2
+#: build/app.js:13
+#: src/admin/Contacts.js:137
+#: src/admin/Contacts.js:160
+#: src/admin/ui.js:407
+msgid "Contacts"
+msgstr ""
+
+#: includes/class-admin.php:68
+#: build/app.js:2
+#: build/app.js:14
+#: src/admin/Appointments.js:54
+#: src/admin/Appointments.js:74
+#: src/admin/ui.js:408
+msgid "Appointments"
+msgstr ""
+
+#: includes/class-admin.php:69
+#: includes/class-admin.php:138
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:356
+#: src/admin/Settings.js:789
+#: src/admin/Settings.js:1150
+msgid "Settings"
+msgstr ""
+
+#: includes/class-admin.php:79
+#: build/app.js:14
+#: src/admin/index.js:56
+msgid "engenty is loading …"
+msgstr ""
+
+#: includes/class-admin.php:139
+#: includes/class-elementor-widget.php:71
+#: build/block.js:1
+#: src/block/index.js:68
+msgid "Connect for free"
+msgstr ""
+
+#: includes/class-admin.php:166
+msgid "Your own AI assistants for your website"
+msgstr ""
+
+#: includes/class-admin.php:167
+msgid "engenty reads your website and builds wizards for requests, quotes and appointments from it – as a block, a shortcode or a chat bubble. Start for free, no credit card."
+msgstr ""
+
+#: includes/class-admin.php:169
+msgid "Start for free"
+msgstr ""
+
+#: includes/class-admin.php:177
+msgid "Your engenty credit is running low"
+msgstr ""
+
+#: includes/class-admin.php:178
+msgid "Without credit, your wizards no longer start on the website. Top up – or take Pro with monthly credits."
+msgstr ""
+
+#: includes/class-admin.php:180
+msgid "Top up credit"
+msgstr ""
+
+#: includes/class-client.php:69
+msgid "The API key no longer works. Connect the website again."
+msgstr ""
+
+#: includes/class-client.php:78
+#: includes/class-connect.php:139
+#: includes/class-connect.php:432
+msgid "engenty.ai cannot be reached right now."
+msgstr ""
+
+#: includes/class-client.php:84
+#: includes/class-connect.php:147
+msgid "engenty.ai refused the request."
+msgstr ""
+
+#: includes/class-connect.php:58
+msgid "The address must start with https://."
+msgstr ""
+
+#: includes/class-connect.php:61
+msgid "An engenty API key starts with wz_."
+msgstr ""
+
+#: includes/class-connect.php:74
+#: includes/class-connect.php:82
+msgid "No engenty answers at this address."
+msgstr ""
+
+#: includes/class-connect.php:79
+msgid "This API key is not valid there."
+msgstr ""
+
+#: includes/class-connect.php:170
+msgid "engenty.ai names no sign-in server."
+msgstr ""
+
+#: includes/class-connect.php:187
+msgid "The sign-in server of engenty.ai answers incompletely."
+msgstr ""
+
+#: includes/class-connect.php:213
+msgid "The sign-in server accepts no new applications."
+msgstr ""
+
+#: includes/class-connect.php:234
+msgid "The website could not be registered with engenty.ai."
+msgstr ""
+
+#: includes/class-connect.php:261
+msgid "The WordPress admin runs without HTTPS. engenty.ai connects only websites with https:// – switch the website address under Settings → General to https (your host helps with the certificate)."
+msgstr ""
+
+#: includes/class-connect.php:307
+msgid "You are not allowed to connect the website."
+msgstr ""
+
+#: includes/class-connect.php:379
+msgid "The website is not connected to engenty.ai."
+msgstr ""
+
+#: includes/class-connect.php:410
+msgid "The connection to engenty.ai has expired. Please connect again."
+msgstr ""
+
+#: includes/class-connect.php:430
+msgid "The connection to engenty.ai was cut. Please connect again."
+msgstr ""
+
+#: includes/class-downloads.php:41
+#: includes/class-downloads.php:92
+msgid "This format does not exist here."
+msgstr ""
+
+#: includes/class-elementor-widget.php:48
+msgid "— no wizards —"
+msgstr ""
+
+#: includes/class-elementor-widget.php:50
+#: build/block.js:1
+#: src/block/index.js:76
+msgid "— choose a wizard —"
+msgstr ""
+
+#: includes/class-elementor-widget.php:69
+msgid "Connect the website to engenty.ai for free, then your wizards are available here."
+msgstr ""
+
+#: includes/class-elementor-widget.php:79
+#: build/app.js:12
+#: build/app.js:13
+#: build/app.js:14
+#: build/block.js:1
+#: src/admin/Results.js:231
+#: src/admin/Results.js:355
+#: src/admin/Results.js:437
+#: src/admin/Settings.js:517
+#: src/admin/Settings.js:893
+#: src/block/index.js:84
+msgid "Wizard"
+msgstr ""
+
+#: includes/class-elementor-widget.php:88
+#: build/app.js:12
+#: build/app.js:14
+#: build/block.js:1
+#: src/admin/Settings.js:472
+#: src/admin/Settings.js:849
+#: src/block/index.js:199
+msgid "Display"
+msgstr ""
+
+#: includes/class-elementor-widget.php:91
+#: build/app.js:12
+#: build/app.js:14
+#: build/block.js:1
+#: src/admin/Settings.js:491
+#: src/admin/Settings.js:868
+#: src/admin/Wizards.js:347
+#: src/block/index.js:33
+msgid "In the text"
+msgstr ""
+
+#: includes/class-elementor-widget.php:92
+#: build/app.js:12
+#: build/app.js:14
+#: build/block.js:1
+#: src/admin/Settings.js:488
+#: src/admin/Settings.js:865
+#: src/admin/Wizards.js:343
+#: src/block/index.js:34
+msgid "Button + window"
+msgstr ""
+
+#: includes/class-elementor-widget.php:93
+#: build/block.js:1
+#: src/block/index.js:35
+msgid "Bubble bottom right"
+msgstr ""
+
+#: includes/class-elementor-widget.php:101
+#: build/block.js:1
+#: src/block/index.js:207
+msgid "Label"
+msgstr ""
+
+#: includes/class-elementor-widget.php:110
+#: build/block.js:1
+#: src/block/index.js:217
+msgid "Line beside the bubble"
+msgstr ""
+
+#: includes/class-elementor-widget.php:119
+#: build/app.js:12
+#: build/app.js:14
+#: build/block.js:1
+#: src/admin/Settings.js:581
+#: src/admin/Settings.js:953
+#: src/block/index.js:227
+msgid "Color"
+msgstr ""
+
+#: includes/class-elementor-widget.php:132
+msgid "Choose a wizard on the left."
+msgstr ""
+
+#: includes/class-embed.php:174
+msgid "The shortcode lacks id=\"…\": the ID or the link token of the wizard."
+msgstr ""
+
+#: includes/class-embed.php:190
+msgid "Open engenty"
+msgstr ""
+
+#: includes/class-packages.php:237
+#: build/app.js:10
+#: src/admin/Home.js:459
+#: src/admin/Wizards.js:40
+msgid "Paused"
+msgstr ""
+
+#: includes/class-packages.php:267
+msgid "This is not a wizard: title or steps are missing."
+msgstr ""
+
+#: includes/class-packages.php:270
+msgid "This wizard comes from a newer version."
+msgstr ""
+
+#: includes/class-packages.php:275
+msgid "A step has no valid ID or no title."
+msgstr ""
+
+#. translators: %s: step type
+#: includes/class-packages.php:278
+#, php-format
+msgid "The step type “%s” is not known here."
+msgstr ""
+
+#: includes/class-packages.php:281
+msgid "Two steps carry the same ID."
+msgstr ""
+
+#: includes/class-packages.php:287
+msgid "The last step must be the result."
+msgstr ""
+
+#: includes/class-packages.php:310
+#: includes/class-packages.php:425
+#: build/app.js:10
+#: src/admin/Import.js:61
+msgid "This wizard needs an engenty account – it does not run on this website."
+msgstr ""
+
+#: includes/class-packages.php:317
+#: includes/class-packages.php:432
+msgid "The package is larger than 30 MB."
+msgstr ""
+
+#: includes/class-packages.php:377
+msgid "The wizard could not be saved."
+msgstr ""
+
+#: includes/class-packages.php:418
+msgid "This wizard does not exist in the account."
+msgstr ""
+
+#: includes/class-packages.php:421
+msgid "The wizard is not published yet."
+msgstr ""
+
+#: includes/class-packages.php:577
+msgid "This template does not exist."
+msgstr ""
+
+#: includes/class-packages.php:593
+#: includes/class-packages.php:608
+msgid "The wizard package cannot be opened."
+msgstr ""
+
+#: includes/class-packages.php:617
+msgid "This is not a wizard package: wizard.json is missing."
+msgstr ""
+
+#: includes/class-rest.php:457
+msgid "depending on the answer"
+msgstr ""
+
+#: includes/class-rest.php:457
+msgid "otherwise"
+msgstr ""
+
+#: includes/class-rest.php:574
+#: includes/class-runs.php:332
+#: includes/class-runs.php:378
+msgid "This wizard does not exist."
+msgstr ""
+
+#: includes/class-rest.php:597
+msgid "Unknown way."
+msgstr ""
+
+#: includes/class-rest.php:602
+msgid "WordPress has no AI provider yet: Settings → Connectors."
+msgstr ""
+
+#: includes/class-rest.php:669
+#: build/app.js:8
+#: src/admin/Place.js:105
+msgid "Which wizard?"
+msgstr ""
+
+#: includes/class-runs.php:206
+msgid "The file could not be saved."
+msgstr ""
+
+#: includes/class-runs.php:278
+msgid "That was enough tries for this hour. Please try again later."
+msgstr ""
+
+#: includes/class-runs.php:290
+msgid "This wizard has had enough to do today. Please try again tomorrow."
+msgstr ""
+
+#: includes/class-runs.php:346
+msgid "This wizard cannot be reached right now."
+msgstr ""
+
+#: includes/class-runs.php:346
+msgid "This wizard is paused."
+msgstr ""
+
+#: includes/class-runs.php:386
+msgid "That did not work."
+msgstr ""
+
+#: includes/class-runs.php:439
+msgid "This run no longer exists."
+msgstr ""
+
+#: includes/class-runs.php:474
+#: includes/class-runs.php:764
+msgid "The wizard is working right now."
+msgstr ""
+
+#: includes/class-runs.php:477
+#: includes/class-runs.php:705
+msgid "This page is no longer current."
+msgstr ""
+
+#: includes/class-runs.php:492
+msgid "That is not available here right now."
+msgstr ""
+
+#: includes/class-runs.php:500
+#: includes/class-runs.php:517
+msgid "Please check the marked fields."
+msgstr ""
+
+#: includes/class-runs.php:523
+msgid "File not found"
+msgstr ""
+
+#: includes/class-runs.php:712
+msgid "Unknown target."
+msgstr ""
+
+#: includes/class-runs.php:715
+msgid "A new variant, please."
+msgstr ""
+
+#: includes/class-runs.php:769
+msgid "No previous step."
+msgstr ""
+
+#: includes/class-runs.php:797
+msgid "Nothing to repeat."
+msgstr ""
+
+#: includes/class-runs.php:841
+msgid "No file."
+msgstr ""
+
+#: includes/class-runs.php:844
+msgid "The file is larger than 4 MB."
+msgstr ""
+
+#: includes/class-runs.php:849
+msgid "Only photos work here (JPEG, PNG, WebP)."
+msgstr ""
+
+#: includes/class-runs.php:923
+msgid "This file does not exist."
+msgstr ""
+
+#: includes/class-runs.php:980
+#: includes/class-runs.php:2156
+msgid "This result does not exist."
+msgstr ""
+
+#: includes/class-runs.php:1798
+msgid "Required"
+msgstr ""
+
+#. translators: %d: files
+#: includes/class-runs.php:1806
+#, php-format
+msgid "Please choose at least %d"
+msgstr ""
+
+#. translators: %d: files
+#: includes/class-runs.php:1813
+#, php-format
+msgid "At most %d – please remove some"
+msgstr ""
+
+#: includes/class-runs.php:1821
+msgid "Please enter a number"
+msgstr ""
+
+#: includes/class-runs.php:1828
+msgid "Invalid choice"
+msgstr ""
+
+#: includes/class-runs.php:1835
+msgid "This slot is not offered"
+msgstr ""
+
+#: includes/class-runs.php:1842
+msgid "Not a valid email address"
+msgstr ""
+
+#: includes/class-runs.php:1849
+msgid "Not a valid URL"
+msgstr ""
+
+#: includes/class-settings.php:38
+#: build/block.js:1
+#: src/block/index.js:182
+#: src/block/index.js:209
+msgid "Start now"
+msgstr ""
+
+#: includes/class-settings.php:42
+msgid "Questions? We help."
+msgstr ""
+
+#: includes/class-site-reader.php:238
+#: build/app.js:12
+#: src/admin/Contacts.js:59
+#: src/admin/Settings.js:1084
+#: src/admin/Settings.js:1194
+msgid "Address"
+msgstr ""
+
+#: includes/class-site-reader.php:239
+#: includes/class-site-reader.php:247
+#: includes/class-site-reader.php:254
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Contacts.js:44
+#: src/admin/Contacts.js:215
+msgid "Email"
+msgstr ""
+
+#: includes/class-site-reader.php:240
+msgid "Currency"
+msgstr ""
+
+#: includes/class-site-reader.php:250
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Contacts.js:52
+#: src/admin/Contacts.js:216
+msgid "Phone"
+msgstr ""
+
+#: includes/class-site-reader.php:359
+#: build/app.js:3
+#: src/admin/SiteRead.js:12
+msgid "Products"
+msgstr ""
+
+#: includes/class-think.php:142
+msgid "This WordPress version does not have the AI Client yet (WordPress 7.0 and later)."
+msgstr ""
+
+#: includes/class-think.php:160
+msgid "WordPress has no AI provider yet: set one up under Settings → Connectors (its plugin comes from WordPress.org)."
+msgstr ""
+
+#: includes/class-think.php:190
+msgid "WordPress knows an AI provider, but without a key: Settings → Connectors."
+msgstr ""
+
+#: includes/class-think.php:290
+msgid "This website has no AI provider: the AI Client is missing (WordPress 7.0)."
+msgstr ""
+
+#: includes/class-think.php:321
+msgid "The AI provider did not answer."
+msgstr ""
+
+#: includes/class-think.php:488
+msgid "The AI Client of this WordPress version does not match the plugin."
+msgstr ""
+
+#: includes/class-think.php:499
+msgid "The AI service is busy right now. Please try again in a moment."
+msgstr ""
+
+#: includes/class-think.php:502
+msgid "The step took too long. Please try again."
+msgstr ""
+
+#: includes/class-think.php:505
+msgid "The AI service cannot be reached right now. Please try again later."
+msgstr ""
+
+#. translators: %s: what went wrong
+#: includes/class-think.php:507
+#, php-format
+msgid "This step failed: %s"
+msgstr ""
+
+#: includes/class-think.php:1079
+#: includes/class-think.php:1083
+#: includes/class-think.php:1252
+msgid "This step needs an engenty account."
+msgstr ""
+
+#: includes/class-think.php:1294
+msgid "The step returned no result."
+msgstr ""
+
+#: includes/class-think.php:1306
+msgid "The AI provider answered with no valid structure."
+msgstr ""
+
+#: includes/class-think.php:1327
+msgid "There are no entries for this step to work on."
+msgstr ""
+
+#: includes/class-think.php:1376
+#: includes/class-think.php:1626
+#: includes/class-think.php:1838
+msgid "The answer of the AI provider does not match the questions."
+msgstr ""
+
+#: includes/class-think.php:1464
+msgid "The document could not be created."
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:10
+msgid "Write text"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:11
+msgid "Web search"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:12
+msgid "Use a browser"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:13
+msgid "Read documents & photos"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:14
+msgid "Generate images"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:15
+msgid "Generate videos"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:16
+msgid "Speech output"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:17
+msgid "Understand voice notes"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:18
+msgid "Run code"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:19
+msgid "Connected accounts & systems"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:20
+msgid "Films with Claude Code (on your subscription)"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:27
+msgid "cheap"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:28
+msgid "medium"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:29
+msgid "expensive"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:33
+msgid "Marketing & Social Media"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:34
+msgid "Quotes & sales"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:35
+msgid "Bookkeeping & receipts"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:36
+msgid "Customer service"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:37
+msgid "Research & analysis"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:38
+msgid "HR & applications"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:39
+msgid "Planning & processes"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:40
+msgid "Helpers for the website"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:41
+msgid "Images & video"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:42
+msgid "Requests & appointments"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:43
+msgid "Advice & prices"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:47
+msgid "Text"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:48
+msgid "Document (PDF, Word)"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:49
+msgid "Table"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:50
+msgid "Image"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:51
+msgid "Video"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:52
+msgid "Audio"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:53
+msgid "Dashboard"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:73
+msgid "Lists the wizard keeps between runs"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:74
+msgid "The memory of the wizard"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:75
+msgid "One run per entry (one after the other here)"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:79
+msgid "Choosing a slot from free times"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:80
+msgid "Reading the pages of the space"
+msgstr ""
+
+#: build/app.js:1
+#: src/admin/fit.js:81
+msgid "A widget"
+msgstr ""
+
+#. translators: %s: a file format
+#: build/app.js:2
+#: src/admin/fit.js:157
+#, js-format
+msgid "Result as %s"
+msgstr ""
+
+#. translators: %s: a list
+#: build/app.js:2
+#: src/admin/fit.js:177
+#, js-format
+msgid "Works without: %s"
+msgstr ""
+
+#. translators: %s: a list
+#: build/app.js:2
+#: src/admin/fit.js:194
+#, js-format
+msgid "Not set up here: %s"
+msgstr ""
+
+#: build/app.js:2
+#: build/app.js:3
+#: build/app.js:8
+#: build/app.js:10
+#: src/admin/Import.js:138
+#: src/admin/Templates.js:440
+#: src/admin/ui.js:169
+#: src/admin/ui.js:179
+#: src/admin/ui.js:623
+#: src/admin/ui.js:634
+msgid "Close"
+msgstr ""
+
+#: build/app.js:2
+#: build/app.js:12
+#: src/admin/ui.js:206
+#: src/admin/Wizards.js:279
+msgid "Copied"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:207
+msgid "Copy"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:218
+msgid "Contacts – with Pro"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:219
+msgid "Every wizard that asks for name and email creates the contact. Here you see who came through which page, search, and export as CSV – without a CRM of your own."
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:224
+msgid "Leads from every wizard, with the page they came from"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:228
+msgid "People and companies, roles, notes"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:229
+msgid "Export as CSV"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:233
+msgid "Appointments – with Pro"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:234
+msgid "Wizards book free slots in your calendar: opening hours, holidays, Google or Microsoft calendar. You see the bookings here, visitors get their confirmation."
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:239
+msgid "Booking on the website, without double bookings"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:243
+msgid "On site, by phone or online"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:244
+msgid "Calendar file and cancellation link for every guest"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:251
+msgid "Create wizards right here – with Pro"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:252
+msgid "With Free you build wizards in the free app on your computer and publish them, then they are available here. With Pro you create them in the cloud, from templates or in the Studio, and engenty reads your website."
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:257
+msgid "Templates live with one click"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:258
+msgid "Your website as knowledge: services, prices, contact"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:262
+msgid "Monthly credits, contacts and appointments included"
+msgstr ""
+
+#: build/app.js:2
+#: build/app.js:8
+#: src/admin/Templates.js:287
+#: src/admin/ui.js:294
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:299
+msgid "Compare plans"
+msgstr ""
+
+#: build/app.js:2
+#: build/app.js:8
+#: build/app.js:10
+#: build/app.js:12
+#: src/admin/Home.js:578
+#: src/admin/Import.js:146
+#: src/admin/Settings.js:810
+#: src/admin/Settings.js:1169
+#: src/admin/Start.js:73
+#: src/admin/Templates.js:280
+#: src/admin/ui.js:355
+#: src/admin/ui.js:433
+msgid "Create a free account"
+msgstr ""
+
+#: build/app.js:2
+#: build/app.js:8
+#: build/app.js:9
+#: build/app.js:10
+#: build/app.js:12
+#: src/admin/Home.js:131
+#: src/admin/Home.js:586
+#: src/admin/Settings.js:819
+#: src/admin/Settings.js:1176
+#: src/admin/Start.js:82
+#: src/admin/ui.js:364
+#: src/admin/ui.js:442
+msgid "Sign in"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:369
+#: src/admin/ui.js:447
+msgid "Ask an administrator to connect the website."
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:420
+msgid "First you connect the website with a free account. You switch to Pro afterwards, whenever you like."
+msgstr ""
+
+#: build/app.js:2
+#: build/app.js:12
+#: src/admin/ui.js:492
+#: src/admin/ui.js:516
+#: src/admin/Wizards.js:236
+msgid "Local"
+msgstr ""
+
+#: build/app.js:2
+#: src/admin/ui.js:504
+msgid "Connect with an account"
+msgstr ""
+
+#. translators: %s: credits
+#: build/app.js:3
+#: src/admin/ui.js:535
+#, js-format
+msgid "%s credits"
+msgstr ""
+
+#: build/app.js:3
+#: src/admin/ui.js:549
+msgid "Upgrade"
+msgstr ""
+
+#: build/app.js:3
+#: src/admin/ui.js:563
+msgid "Help"
+msgstr ""
+
+#: build/app.js:3
+#: src/admin/ui.js:672
+msgid "not set up"
+msgstr ""
+
+#: build/app.js:3
+#: src/admin/ui.js:673
+msgid "works without"
+msgstr ""
+
+#. translators: %s: plugins
+#: build/app.js:3
+#: build/app.js:5
+#: src/admin/Templates.js:128
+#: src/admin/ui.js:714
+#, js-format
+msgid "With an account: needs %s"
+msgstr ""
+
+#: build/app.js:3
+#: src/admin/SiteRead.js:7
+msgid "Home page"
+msgstr ""
+
+#: build/app.js:3
+#: src/admin/SiteRead.js:8
+msgid "Legal notice"
+msgstr ""
+
+#: build/app.js:3
+#: build/app.js:12
+#: src/admin/Contacts.js:34
+#: src/admin/SiteRead.js:9
+msgid "Contact"
+msgstr ""
+
+#: build/app.js:3
+#: src/admin/SiteRead.js:10
+msgid "About us"
+msgstr ""
+
+#: build/app.js:3
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:676
+#: src/admin/Settings.js:1045
+#: src/admin/SiteRead.js:11
+msgid "Privacy"
+msgstr ""
+
+#: build/app.js:3
+#: src/admin/SiteRead.js:91
+msgid "Reading the website …"
+msgstr ""
+
+#. translators: %d: number of pages
+#: build/app.js:4
+#: src/admin/SiteRead.js:103
+#, js-format
+msgid "Taken over: your details and %d pages. Your wizards now know your business."
+msgstr ""
+
+#: build/app.js:4
+#: build/app.js:8
+#: src/admin/SiteRead.js:144
+#: src/admin/Start.js:295
+#: src/admin/Templates.js:559
+msgid "Continue"
+msgstr ""
+
+#: build/app.js:4
+#: src/admin/SiteRead.js:148
+msgid "View and change in the Studio"
+msgstr ""
+
+#: build/app.js:4
+#: src/admin/SiteRead.js:164
+msgid "This is what engenty found on your website. Remove what does not belong; only what is checked goes to engenty.ai."
+msgstr ""
+
+#: build/app.js:4
+#: build/app.js:14
+#: src/admin/Contacts.js:214
+#: src/admin/SiteRead.js:172
+msgid "Name"
+msgstr ""
+
+#: build/app.js:4
+#: src/admin/SiteRead.js:182
+msgid "Tagline"
+msgstr ""
+
+#: build/app.js:4
+#: src/admin/SiteRead.js:201
+msgid "Logo"
+msgstr ""
+
+#: build/app.js:4
+#: src/admin/SiteRead.js:211
+msgid "none found"
+msgstr ""
+
+#: build/app.js:4
+#: src/admin/SiteRead.js:225
+msgid "Theme colors"
+msgstr ""
+
+#: build/app.js:4
+#: src/admin/SiteRead.js:238
+msgid "none"
+msgstr ""
+
+#: build/app.js:4
+#: src/admin/SiteRead.js:245
+msgid "Details"
+msgstr ""
+
+#: build/app.js:4
+#: src/admin/SiteRead.js:309
+msgid "Add a detail (opening hours, phone, VAT ID …)"
+msgstr ""
+
+#. translators: 1: chosen pages, 2: all pages
+#: build/app.js:5
+#: src/admin/SiteRead.js:318
+#, js-format
+msgid "Pages as knowledge (%1$d of %2$d)"
+msgstr ""
+
+#: build/app.js:5
+#: src/admin/SiteRead.js:358
+msgid "No published pages with text."
+msgstr ""
+
+#: build/app.js:5
+#: build/app.js:8
+#: src/admin/SiteRead.js:376
+#: src/admin/SiteRead.js:400
+#: src/admin/Templates.js:597
+msgid "Skip"
+msgstr ""
+
+#: build/app.js:5
+#: src/admin/SiteRead.js:384
+msgid "Reading …"
+msgstr ""
+
+#: build/app.js:5
+#: src/admin/SiteRead.js:385
+msgid "Hand over to engenty"
+msgstr ""
+
+#: build/app.js:5
+#: src/admin/SiteRead.js:389
+msgid "This takes about a minute."
+msgstr ""
+
+#. translators: %d: minutes
+#: build/app.js:5
+#: src/admin/Templates.js:81
+#, js-format
+msgid "~ %d min"
+msgstr ""
+
+#: build/app.js:5
+#: src/admin/Templates.js:171
+msgid "branches"
+msgstr ""
+
+#. translators: %s: the provider
+#: build/app.js:6
+#: src/admin/Templates.js:191
+#, js-format
+msgid "calls to %s per run, on your key"
+msgstr ""
+
+#: build/app.js:6
+#: src/admin/Templates.js:192
+msgid "your AI provider"
+msgstr ""
+
+#. translators: %d: credits
+#: build/app.js:7
+#: src/admin/Templates.js:198
+#, js-format
+msgid "≈ %d credits per run"
+msgstr ""
+
+#: build/app.js:7
+#: src/admin/Templates.js:202
+msgid "in credits of your account"
+msgstr ""
+
+#: build/app.js:7
+#: src/admin/Templates.js:218
+msgid "Your wizard now runs on this website. Next, you put it on a page."
+msgstr ""
+
+#: build/app.js:7
+#: src/admin/Templates.js:223
+msgid "Your wizard is live. Try it out, then we put it on the website."
+msgstr ""
+
+#: build/app.js:7
+#: src/admin/Templates.js:212
+msgid "The wizard is created but still needs work in the Studio before it goes live."
+msgstr ""
+
+#: build/app.js:7
+#: src/admin/Templates.js:322
+msgid "Duration"
+msgstr ""
+
+#. translators: %d: fields
+#: build/app.js:8
+#: src/admin/Templates.js:332
+#, js-format
+msgid "from start to result, with %d inputs from you"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:342
+msgid "Cost"
+msgstr ""
+
+#: build/app.js:8
+#: build/app.js:12
+#: src/admin/Results.js:85
+#: src/admin/Results.js:147
+#: src/admin/Templates.js:355
+msgid "Result"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:378
+msgid "Needs"
+msgstr ""
+
+#. translators: %s: plugins
+#: build/app.js:8
+#: src/admin/Templates.js:402
+#, js-format
+msgid "With Pro: needs %s"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:416
+msgid "How the wizard runs"
+msgstr ""
+
+#. translators: %d: steps
+#: build/app.js:8
+#: build/app.js:12
+#: src/admin/Templates.js:423
+#: src/admin/Wizards.js:254
+#, js-format
+msgid "%d steps"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:269
+msgid "Start with this template"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:543
+msgid "Try it out"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:552
+msgid "Adjust in the Studio"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:566
+msgid "Choose another"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:613
+msgid "Search templates"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:617
+msgid "Search templates …"
+msgstr ""
+
+#: build/app.js:8
+#: build/app.js:10
+#: build/app.js:13
+#: src/admin/Home.js:425
+#: src/admin/Home.js:446
+#: src/admin/Home.js:541
+#: src/admin/Results.js:478
+#: src/admin/Templates.js:633
+msgid "All"
+msgstr ""
+
+#. translators: %d: templates
+#: build/app.js:8
+#: src/admin/Templates.js:657
+#, js-format
+msgid "%d templates · all run here"
+msgstr ""
+
+#. translators: %d: templates
+#: build/app.js:8
+#: src/admin/Templates.js:664
+#, js-format
+msgid "%d templates"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:578
+msgid "With Free: download the free app, build your wizard there and publish it – then it appears here."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Templates.js:587
+msgid "How it works"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:50
+msgid "No wizard is live yet. Create one or publish one in the Studio, then it comes here."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:62
+msgid "To the Studio"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:122
+msgid "The bubble is now at the bottom right of every page. You set text, color and exceptions in the settings."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:131
+msgid "View website"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:144
+msgid "As a bubble on every page"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:147
+msgid "Bottom right, for questions and requests from anywhere."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:158
+msgid "Turn on"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:169
+msgid "On a new page"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:172
+msgid "A draft with the wizard block; you publish it."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:182
+msgid "Create page"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:193
+msgid "Place it yourself"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:196
+msgid "The “engenty Wizard” block, the Elementor widget or this shortcode:"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Place.js:207
+msgid "Done"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:21
+msgid "Wizards from the shipped templates run on this website, without an account and without credits. The provider bills your key."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:27
+msgid "Set up an AI provider first: WordPress → Settings → Connectors."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:32
+msgid "Needs WordPress 7.0 with an AI provider under Settings → Connectors."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:58
+msgid "Your AI at engenty"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:60
+msgid "A free account, and engenty reads your website, builds wizards from templates and shows results, contacts and appointments here in the admin."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:88
+msgid "or"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:93
+msgid "Local, with your own AI provider"
+msgstr ""
+
+#. translators: %s: provider
+#: build/app.js:8
+#: src/admin/Start.js:100
+#, js-format
+msgid "%s found"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:109
+msgid "no provider"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:120
+#: src/admin/Start.js:199
+msgid "Set up locally"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:126
+msgid "Open Connectors"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:131
+msgid "You can switch at any time later."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:140
+msgid "Back"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:150
+msgid "AI provider"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:151
+msgid "Choose wizards"
+msgstr ""
+
+#: build/app.js:8
+#: build/app.js:9
+#: src/admin/Home.js:177
+#: src/admin/Start.js:152
+msgid "Put on the website"
+msgstr ""
+
+#: build/app.js:8
+#: build/app.js:10
+#: src/admin/Home.js:226
+#: src/admin/Start.js:206
+msgid "Later"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Start.js:241
+msgid "Which provider and which key: WordPress settles that under Settings → Connectors, not the plugin. Here you see whether it answers."
+msgstr ""
+
+#: build/app.js:8
+#: build/app.js:12
+#: src/admin/Settings.js:89
+#: src/admin/Start.js:251
+msgid "Run a test"
+msgstr ""
+
+#. translators: %s: seconds
+#: build/app.js:8
+#: src/admin/Start.js:259
+#, js-format
+msgid "answers · %s s"
+msgstr ""
+
+#: build/app.js:8
+#: build/app.js:12
+#: src/admin/Settings.js:97
+#: src/admin/Start.js:269
+msgid "no JSON"
+msgstr ""
+
+#: build/app.js:8
+#: build/app.js:12
+#: src/admin/Settings.js:102
+#: src/admin/Start.js:274
+msgid "takes images"
+msgstr ""
+
+#: build/app.js:8
+#: build/app.js:12
+#: src/admin/Settings.js:106
+#: src/admin/Start.js:278
+msgid "takes no images"
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Home.js:23
+msgid "The connection was refused at engenty.ai. You can try again at any time."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Home.js:27
+msgid "The sign-in took too long. Please try again."
+msgstr ""
+
+#: build/app.js:8
+#: src/admin/Home.js:31
+msgid "The connection did not work. Please try again."
+msgstr ""
+
+#. translators: %s: site name
+#: build/app.js:9
+#: src/admin/Home.js:91
+#, js-format
+msgid "Your own AI for %s"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:96
+msgid "engenty reads your website and turns it into assistants for requests, quotes and appointments. They run on engenty.ai and appear on your site as a block, a shortcode, an Elementor widget or a chat bubble."
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:106
+msgid "Create your own AI"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:109
+msgid "Free account"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:110
+msgid "No credit card"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:112
+msgid "Your website stays as it is"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:119
+msgid "Already have an engenty account?"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:130
+msgid "One moment …"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:137
+msgid "1 · Account"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:139
+msgid "You create an account at engenty.ai or sign in and allow the website access. Then you come back here."
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:145
+msgid "2 · Read the website"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:147
+msgid "Name, logo, colors, contact details and your pages: you see what was found and choose what engenty gets."
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:154
+msgid "3 · Wizard on the site"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:157
+msgid "Choose a template, set it live, show it as a chat bubble or on a page. You see results here in the admin."
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:165
+msgid "Visitors talk directly to engenty.ai; WordPress stores no answers. Mention engenty in your privacy policy – you find the sentence for it in the settings after connecting."
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:65
+msgid "engenty is not connected yet. Ask an administrator to connect the website."
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:175
+msgid "Read the website"
+msgstr ""
+
+#: build/app.js:9
+#: src/admin/Home.js:176
+msgid "Create the first wizard"
+msgstr ""
+
+#. translators: %s: account e-mail
+#: build/app.js:10
+#: src/admin/Home.js:206
+#, js-format
+msgid "Connected as %s. Welcome to engenty!"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:219
+msgid "Set up"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:235
+msgid "Account connected"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:340
+msgid "None yet. As soon as visitors complete a wizard, their answers are here."
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:327
+msgid "Results are visible to the roles chosen for it in the settings."
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:386
+#: src/admin/Home.js:514
+msgid "Wizards live"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:393
+#: src/admin/Home.js:521
+msgid "Results in 30 days"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:404
+msgid "Credits"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:413
+msgid "top up"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:422
+#: src/admin/Home.js:538
+msgid "Latest results"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:502
+msgid "WordPress has no AI provider that answers right now: Settings → Connectors."
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:529
+msgid "thinks for the wizards · without credits"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:548
+msgid "With an account"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Home.js:552
+msgid "Studio, contacts, appointments, PDFs, web search and the wizards that need more. The local ones keep running."
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Import.js:111
+msgid "Import"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Import.js:47
+msgid "The wizard has errors that must be fixed in the Studio first."
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Import.js:71
+msgid "Plugins:"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Import.js:127
+msgid "Import did not work"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Wizards.js:35
+msgid "Draft"
+msgstr ""
+
+#: build/app.js:10
+#: build/app.js:12
+#: build/app.js:13
+#: src/admin/Results.js:17
+#: src/admin/Results.js:364
+#: src/admin/Results.js:472
+msgid "Finished"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Results.js:18
+msgid "Open"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Results.js:19
+msgid "Running"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Results.js:20
+msgid "Error"
+msgstr ""
+
+#: build/app.js:10
+#: src/admin/Results.js:21
+msgid "Stopped"
+msgstr ""
+
+#. translators: 1: calls 2: provider
+#: build/app.js:11
+#: src/admin/Results.js:32
+#, js-format
+msgid "%1$d calls to %2$s"
+msgstr ""
+
+#: build/app.js:11
+#: src/admin/Results.js:34
+msgid "the AI provider"
+msgstr ""
+
+#. translators: %d: credits
+#: build/app.js:12
+#: src/admin/Results.js:39
+#, js-format
+msgid "%d credits"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Results.js:95
+msgid "On this website"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Results.js:123
+msgid "Answers"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Results.js:143
+msgid "None."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Results.js:188
+msgid "No contact created – contacts come with an account and Pro."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Results.js:201
+msgid "Shared result page"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Appointments.js:112
+#: src/admin/Results.js:230
+msgid "When"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Results.js:232
+msgid "From"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Appointments.js:168
+#: src/admin/Results.js:233
+msgid "Page"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:13
+#: src/admin/Results.js:234
+#: src/admin/Results.js:363
+#: src/admin/Results.js:469
+msgid "Status"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Results.js:336
+msgid "The answers of your visitors land here"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Results.js:340
+msgid "Every run of a wizard on your website: who, when, on which page, with all answers and the result. Connect the website with a free account."
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:13
+#: src/admin/Results.js:349
+#: src/admin/Results.js:427
+msgid "Search: name, email, answer, page …"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:13
+#: build/block.js:1
+#: src/admin/Results.js:357
+#: src/admin/Results.js:440
+#: src/block/index.js:238
+msgid "All wizards"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:13
+#: src/admin/Results.js:360
+#: src/admin/Results.js:451
+msgid "Period"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:13
+#: src/admin/Results.js:361
+#: src/admin/Results.js:454
+msgid "Any time"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Contacts.js:61
+#: src/admin/Contacts.js:237
+msgid "Company"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Contacts.js:67
+msgid "Roles"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Contacts.js:71
+#: src/admin/Contacts.js:218
+msgid "Came through"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Contacts.js:75
+msgid "Created"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Contacts.js:78
+msgid "Notes"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Appointments.js:7
+msgid "Upcoming"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Appointments.js:8
+msgid "Past"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Appointments.js:9
+msgid "Canceled"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:40
+msgid "Standalone wizards"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:47
+msgid "Thinks with"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:53
+msgid "set in WordPress under"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:58
+#: src/admin/Settings.js:74
+msgid "Settings → Connectors"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:68
+msgid "No AI provider set up"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:93
+msgid "answers"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:118
+msgid "Which provider and which key: WordPress settles that, not the plugin. Every run costs at the provider what its calls cost."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:126
+msgid "Runs per hour and visitor"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:145
+msgid "Runs per day and wizard"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:164
+msgid "Seconds per thinking step"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:184
+msgid "Keep results"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:13
+#: src/admin/Results.js:463
+#: src/admin/Settings.js:196
+msgid "30 days"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:199
+msgid "90 days"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:202
+msgid "1 year"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:205
+msgid "Unlimited"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:211
+msgid "Protection from bots"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:216
+msgid "Honeypot and limits"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:233
+msgid "Send photos to the provider when it takes images"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:249
+msgid "Wizards may read web pages and call public APIs when a step calls for it"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:360
+#: src/admin/Settings.js:793
+#: src/admin/Settings.js:1153
+msgid "Connection"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:797
+msgid "Not connected – the wizards run on this website, without an account and without engenty credits. A free account brings Studio, contacts, appointments, PDFs and the wizards that need more; the local ones keep running."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:822
+msgid "Your own server, or no sign-in in the browser?"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:829
+#: src/admin/Settings.js:1181
+msgid "Connect by hand"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:478
+#: src/admin/Settings.js:855
+msgid "Unless said otherwise"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:497
+#: src/admin/Settings.js:874
+msgid "Button label"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:511
+#: src/admin/Settings.js:887
+msgid "Bubble on every page"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:536
+#: src/admin/Settings.js:912
+msgid "— no bubble —"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:547
+#: src/admin/Settings.js:923
+msgid "Name for screen readers"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:562
+#: src/admin/Settings.js:938
+msgid "Line beside it (optional)"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:595
+#: src/admin/Settings.js:967
+msgid "Not on these pages"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:622
+#: src/admin/Settings.js:993
+msgid "Access to results, contacts and appointments"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:666
+#: src/admin/Settings.js:1036
+msgid "Save"
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:670
+#: src/admin/Settings.js:1040
+msgid "Saved."
+msgstr ""
+
+#: build/app.js:12
+#: build/app.js:14
+#: src/admin/Settings.js:689
+#: src/admin/Settings.js:1049
+msgid "Standalone wizards send the answers of visitors to the AI provider of the website. Name it in the privacy policy:"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:1096
+#: src/admin/Settings.js:1207
+msgid "API key"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:1110
+#: src/admin/Settings.js:1226
+msgid "Connect"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:1157
+msgid "The website is not connected to an engenty account."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Settings.js:1185
+msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:178
+#: src/admin/Wizards.js:467
+msgid "New wizard"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:283
+msgid "Link"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:291
+msgid "Embed"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:315
+msgid "In the Studio"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:187
+msgid "No wizards yet"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:189
+msgid "Create one from a template – a request, a quote, a booking."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:199
+msgid "Choose a template"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:335
+msgid "Runs on this website with the AI provider from the WordPress settings. Results under Results."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:341
+msgid "Shortcode"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:350
+msgid "In the block editor"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:352
+msgid "Insert the “engenty Wizard” block and choose this wizard. In Elementor the widget has the same name."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:357
+msgid "In the theme (PHP)"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:366
+msgid "With one click"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:373
+#: src/admin/Wizards.js:395
+msgid "This wizard"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:375
+msgid "Runs through engenty.ai right now. Run here brings the published version to this website: it then thinks with the AI provider of WordPress, without credits, and the results stay here."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:388
+msgid "Run here"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:398
+msgid "Fetched from your account and runs here with the AI provider of WordPress. Reload fetches the published version again."
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:411
+msgid "Reload"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:420
+msgid "Run through engenty.ai"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:431
+msgid "Pause"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:437
+msgid "Live again"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:448
+msgid "Remove"
+msgstr ""
+
+#: build/app.js:12
+#: src/admin/Wizards.js:454
+msgid "You change texts and steps in the engenty Studio and import the package again."
+msgstr ""
+
+#. translators: %d: number of results
+#: build/app.js:13
+#: src/admin/Results.js:417
+#, js-format
+msgid "%d in total"
+msgstr ""
+
+#: build/app.js:13
+#: src/admin/Results.js:457
+msgid "Today"
+msgstr ""
+
+#: build/app.js:13
+#: src/admin/Results.js:460
+msgid "7 days"
+msgstr ""
+
+#: build/app.js:13
+#: src/admin/Results.js:475
+msgid "Started"
+msgstr ""
+
+#: build/app.js:13
+#: src/admin/Results.js:486
+msgid "No results"
+msgstr ""
+
+#: build/app.js:13
+#: src/admin/Results.js:488
+msgid "As soon as visitors complete a wizard, their answers are here. Without an account, engenty keeps results for a week."
+msgstr ""
+
+#: build/app.js:13
+#: src/admin/Results.js:527
+msgid "With Pro, every result with an email becomes a contact under “Contacts”."
+msgstr ""
+
+#. translators: 1: people, 2: organisations
+#: build/app.js:14
+#: src/admin/Contacts.js:165
+#, js-format
+msgid "%1$d people · %2$d companies"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Contacts.js:179
+msgid "Name, email, company …"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Contacts.js:194
+msgid "Edit in the Studio"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Contacts.js:220
+msgid "Since"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Contacts.js:202
+msgid "No contacts yet"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Contacts.js:204
+msgid "Wizards that ask for name and email create contacts here."
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Appointments.js:77
+msgid "Set up the calendar in the Studio"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Appointments.js:113
+msgid "What"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Appointments.js:114
+msgid "Who"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Appointments.js:115
+msgid "Where"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Appointments.js:148
+msgid "canceled"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Appointments.js:156
+msgid "Test"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Appointments.js:100
+msgid "No appointments"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Appointments.js:102
+msgid "Wizards with booking enter them here. Create one from the “Book an appointment” template."
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:365
+msgid "Account"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:371
+msgid "connected with an API key"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:379
+msgid "Team"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:383
+msgid "Plan"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:394
+msgid "upgrade to Pro"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:404
+msgid "Plugins"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:412
+msgid "Runs on"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:419
+msgid "Disconnect the website from engenty.ai? Wizards on your pages keep showing; the admin sees nothing until you connect again."
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:430
+msgid "Yes, disconnect"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:436
+msgid "Cancel"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:448
+msgid "Manage account"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:455
+msgid "Disconnect"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:570
+msgid "e.g. a quote in 2 minutes"
+msgstr ""
+
+#: build/app.js:14
+#: src/admin/Settings.js:680
+msgid "Visitors talk directly to engenty; WordPress stores no answers. A suggestion for your privacy policy – check it for your case:"
+msgstr ""
+
+#: build/block.js:1
+#: src/block/index.js:58
+msgid "Connect the website to engenty.ai for free: then you choose a wizard for requests, quotes or appointments here."
+msgstr ""
+
+#: build/block.js:1
+#: src/block/index.js:149
+msgid "runs on this website · in the text"
+msgstr ""
+
+#: build/block.js:1
+#: src/block/index.js:187
+msgid "as a bubble bottom right"
+msgstr ""
+
+#: build/block.js:1
+#: src/block/index.js:188
+msgid "opens in a window"
+msgstr ""
+
+#: build/block.js:1
+#: src/block/index.js:121
+msgid "Which wizard goes here?"
+msgstr ""
+
+#: build/block.js:1
+#: src/block/index.js:122
+msgid "No wizard is live yet. Create one in engenty."
+msgstr ""
+
+#: build/block.js:1
+#: src/block/index.js:136
+msgid "Create a wizard"
+msgstr ""
+
+#: src/admin/ui.js:657
+msgid "Needs an account"
+msgstr ""
+
+#: blocks/wizard/block.json
+msgctxt "block title"
+msgid "engenty Wizard"
+msgstr ""
+
+#: blocks/wizard/block.json
+msgctxt "block description"
+msgid "A wizard from engenty.ai: in the text, behind a button or as a bubble at the bottom right."
+msgstr ""
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "engenty"
+msgstr ""
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "wizard"
+msgstr ""
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "form"
+msgstr ""
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "request"
+msgstr ""
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "ai"
+msgstr ""
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "chat"
+msgstr ""
+
+#: blocks/wizard/block.json
+msgctxt "block keyword"
+msgid "appointment"
+msgstr ""

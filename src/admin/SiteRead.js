@@ -4,12 +4,12 @@ import { api, post, problem } from './api';
 import { Button, Chip, Notice, ProUpsell, Spinner } from './ui';
 
 const ROLES = {
-	front: __( 'Startseite', 'engenty-wizards' ),
-	imprint: __( 'Impressum', 'engenty-wizards' ),
-	contact: __( 'Kontakt', 'engenty-wizards' ),
-	about: __( 'Über uns', 'engenty-wizards' ),
-	privacy: __( 'Datenschutz', 'engenty-wizards' ),
-	product: __( 'Produkte', 'engenty-wizards' ),
+	front: __( 'Home page', 'engenty-wizards' ),
+	imprint: __( 'Legal notice', 'engenty-wizards' ),
+	contact: __( 'Contact', 'engenty-wizards' ),
+	about: __( 'About us', 'engenty-wizards' ),
+	privacy: __( 'Privacy', 'engenty-wizards' ),
+	product: __( 'Products', 'engenty-wizards' ),
 };
 
 /**
@@ -87,7 +87,9 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 		return error ? (
 			<Notice tone="error">{ error.message }</Notice>
 		) : (
-			<Spinner label={ __( 'Liest die Website …', 'engenty-wizards' ) } />
+			<Spinner
+				label={ __( 'Reading the website …', 'engenty-wizards' ) }
+			/>
 		);
 	}
 
@@ -99,7 +101,7 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 					{ sprintf(
 						/* translators: %d: number of pages */
 						__(
-							'Übernommen: deine Angaben und %d Seiten. Deine Wizards kennen jetzt dein Unternehmen.',
+							'Taken over: your details and %d pages. Your wizards now know your business.',
 							'engenty-wizards'
 						),
 						job.pages
@@ -139,12 +141,12 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 				{ job.reply ? <p className="en-reply">{ job.reply }</p> : null }
 				<div className="en-row">
 					<Button kind="primary" onClick={ onDone }>
-						{ __( 'Weiter', 'engenty-wizards' ) }
+						{ __( 'Continue', 'engenty-wizards' ) }
 					</Button>
 					{ me?.urls?.space ? (
 						<Button kind="ghost" href={ me.urls.space } external>
 							{ __(
-								'Im Studio ansehen und ändern',
+								'View and change in the Studio',
 								'engenty-wizards'
 							) }
 						</Button>
@@ -160,7 +162,7 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 		<div className="en-site">
 			<p className="en-muted">
 				{ __(
-					'Das hat engenty auf deiner Website gefunden. Nimm weg, was nicht dazugehört; nur das Angehakte geht an engenty.ai.',
+					'This is what engenty found on your website. Remove what does not belong; only what is checked goes to engenty.ai.',
 					'engenty-wizards'
 				) }
 			</p>
@@ -177,7 +179,7 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 				</div>
 				<div className="en-field">
 					<label htmlFor="en-site-tagline">
-						{ __( 'Untertitel', 'engenty-wizards' ) }
+						{ __( 'Tagline', 'engenty-wizards' ) }
 					</label>
 					<input
 						id="en-site-tagline"
@@ -206,7 +208,7 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 						) : (
 							<em className="en-muted">
 								{ ' ' }
-								{ __( 'keines gefunden', 'engenty-wizards' ) }
+								{ __( 'none found', 'engenty-wizards' ) }
 							</em>
 						) }
 					</span>
@@ -220,7 +222,7 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 						onChange={ ( e ) => setColors( e.target.checked ) }
 					/>
 					<span>
-						{ __( 'Farben des Themes', 'engenty-wizards' ) }
+						{ __( 'Theme colors', 'engenty-wizards' ) }
 						<span className="en-swatches">
 							{ found.colors.map( ( c ) => (
 								<span
@@ -233,14 +235,14 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 							{ found.colors.length ? null : (
 								<em className="en-muted">
 									{ ' ' }
-									{ __( 'keine', 'engenty-wizards' ) }
+									{ __( 'none', 'engenty-wizards' ) }
 								</em>
 							) }
 						</span>
 					</span>
 				</label>
 			</div>
-			<h4>{ __( 'Angaben', 'engenty-wizards' ) }</h4>
+			<h4>{ __( 'Details', 'engenty-wizards' ) }</h4>
 			<div className="en-facts-edit">
 				{ facts.map( ( f, i ) => (
 					<div key={ i } className="en-fact-row">
@@ -305,7 +307,7 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 				>
 					+{ ' ' }
 					{ __(
-						'Angabe hinzufügen (Öffnungszeiten, Telefon, UID …)',
+						'Add a detail (opening hours, phone, VAT ID …)',
 						'engenty-wizards'
 					) }
 				</button>
@@ -314,7 +316,7 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 				{ sprintf(
 					/* translators: 1: chosen pages, 2: all pages */
 					__(
-						'Seiten als Wissen (%1$d von %2$d)',
+						'Pages as knowledge (%1$d of %2$d)',
 						'engenty-wizards'
 					),
 					Object.values( pages ).filter( Boolean ).length,
@@ -354,7 +356,7 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 				{ found.pages.length ? null : (
 					<li className="en-muted">
 						{ __(
-							'Keine veröffentlichten Seiten mit Text.',
+							'No published pages with text.',
 							'engenty-wizards'
 						) }
 					</li>
@@ -371,20 +373,21 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 						className="en-link"
 						onClick={ onSkip }
 					>
-						{ __( 'Überspringen', 'engenty-wizards' ) }
+						{ __( 'Skip', 'engenty-wizards' ) }
 					</button>
 				</>
 			) : (
 				<div className="en-row">
 					<Button kind="primary" busy={ running } onClick={ send }>
 						{ running
-							? job.activity || __( 'Liest …', 'engenty-wizards' )
-							: __( 'An engenty übergeben', 'engenty-wizards' ) }
+							? job.activity ||
+							  __( 'Reading …', 'engenty-wizards' )
+							: __( 'Hand over to engenty', 'engenty-wizards' ) }
 					</Button>
 					{ running ? (
 						<span className="en-muted">
 							{ __(
-								'Das dauert etwa eine Minute.',
+								'This takes about a minute.',
 								'engenty-wizards'
 							) }
 						</span>
@@ -394,7 +397,7 @@ export default function SiteRead( { me, onDone, onSkip } ) {
 							className="en-link"
 							onClick={ onSkip }
 						>
-							{ __( 'Überspringen', 'engenty-wizards' ) }
+							{ __( 'Skip', 'engenty-wizards' ) }
 						</button>
 					) }
 				</div>

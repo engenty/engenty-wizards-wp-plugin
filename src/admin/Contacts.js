@@ -31,7 +31,7 @@ function Contact( { id, onClose } ) {
 		: '';
 	return (
 		<Drawer
-			title={ c?.displayName ?? __( 'Kontakt', 'engenty-wizards' ) }
+			title={ c?.displayName ?? __( 'Contact', 'engenty-wizards' ) }
 			onClose={ onClose }
 		>
 			{ error ? <Notice tone="error">{ error.message }</Notice> : null }
@@ -41,7 +41,7 @@ function Contact( { id, onClose } ) {
 					<dl className="en-facts">
 						{ [
 							[
-								__( 'E-Mail', 'engenty-wizards' ),
+								__( 'Email', 'engenty-wizards' ),
 								c.email ? (
 									<a href={ `mailto:${ c.email }` }>
 										{ c.email }
@@ -49,33 +49,33 @@ function Contact( { id, onClose } ) {
 								) : null,
 							],
 							[
-								__( 'Telefon', 'engenty-wizards' ),
+								__( 'Phone', 'engenty-wizards' ),
 								c.phone ? (
 									<a href={ `tel:${ c.phone }` }>
 										{ c.phone }
 									</a>
 								) : null,
 							],
-							[ __( 'Adresse', 'engenty-wizards' ), address ],
+							[ __( 'Address', 'engenty-wizards' ), address ],
 							[
-								__( 'Firma', 'engenty-wizards' ),
+								__( 'Company', 'engenty-wizards' ),
 								( c.organisations ?? [] )
 									.map( ( o ) => o.name )
 									.join( ', ' ),
 							],
 							[
-								__( 'Rollen', 'engenty-wizards' ),
+								__( 'Roles', 'engenty-wizards' ),
 								( c.roles ?? [] ).join( ', ' ),
 							],
 							[
-								__( 'Kam über', 'engenty-wizards' ),
+								__( 'Came through', 'engenty-wizards' ),
 								c.sourceWizardTitle,
 							],
 							[
-								__( 'Angelegt', 'engenty-wizards' ),
+								__( 'Created', 'engenty-wizards' ),
 								when( c.createdAt ),
 							],
-							[ __( 'Notizen', 'engenty-wizards' ), c.notes ],
+							[ __( 'Notes', 'engenty-wizards' ), c.notes ],
 						]
 							.filter( ( [ , v ] ) => v )
 							.map( ( [ k, v ] ) => (
@@ -134,7 +134,7 @@ export default function Contacts( { status } ) {
 		return (
 			<>
 				<h1 className="en-page-head">
-					{ __( 'Kontakte', 'engenty-wizards' ) }
+					{ __( 'Contacts', 'engenty-wizards' ) }
 				</h1>
 				<ProUpsell feature="contacts" me={ me } />
 				<div className="en-teaser" aria-hidden="true">
@@ -157,13 +157,13 @@ export default function Contacts( { status } ) {
 	return (
 		<>
 			<div className="en-row en-row--between en-page-head">
-				<h1>{ __( 'Kontakte', 'engenty-wizards' ) }</h1>
+				<h1>{ __( 'Contacts', 'engenty-wizards' ) }</h1>
 				{ overview ? (
 					<span className="en-muted">
 						{ sprintf(
 							/* translators: 1: people, 2: organisations */
 							__(
-								'%1$d Personen · %2$d Firmen',
+								'%1$d people · %2$d companies',
 								'engenty-wizards'
 							),
 							overview.counts.person,
@@ -177,7 +177,7 @@ export default function Contacts( { status } ) {
 					type="search"
 					className="en-search"
 					placeholder={ __(
-						'Name, E-Mail, Firma …',
+						'Name, email, company …',
 						'engenty-wizards'
 					) }
 					value={ filter.q }
@@ -191,7 +191,7 @@ export default function Contacts( { status } ) {
 						href={ `${ me.urls.studio }/space` }
 						external
 					>
-						{ __( 'Im Studio bearbeiten', 'engenty-wizards' ) }
+						{ __( 'Edit in the Studio', 'engenty-wizards' ) }
 					</Button>
 				) : null }
 			</div>
@@ -199,12 +199,10 @@ export default function Contacts( { status } ) {
 			{ ! data && ! error ? <Spinner /> : null }
 			{ data &&
 				( ! data.contacts.length ? (
-					<Empty
-						title={ __( 'Noch keine Kontakte', 'engenty-wizards' ) }
-					>
+					<Empty title={ __( 'No contacts yet', 'engenty-wizards' ) }>
 						<p>
 							{ __(
-								'Wizards, die nach Name und E-Mail fragen, legen Kontakte hier an.',
+								'Wizards that ask for name and email create contacts here.',
 								'engenty-wizards'
 							) }
 						</p>
@@ -214,10 +212,12 @@ export default function Contacts( { status } ) {
 						<thead>
 							<tr>
 								<th>{ __( 'Name', 'engenty-wizards' ) }</th>
-								<th>{ __( 'E-Mail', 'engenty-wizards' ) }</th>
-								<th>{ __( 'Telefon', 'engenty-wizards' ) }</th>
-								<th>{ __( 'Kam über', 'engenty-wizards' ) }</th>
-								<th>{ __( 'Seit', 'engenty-wizards' ) }</th>
+								<th>{ __( 'Email', 'engenty-wizards' ) }</th>
+								<th>{ __( 'Phone', 'engenty-wizards' ) }</th>
+								<th>
+									{ __( 'Came through', 'engenty-wizards' ) }
+								</th>
+								<th>{ __( 'Since', 'engenty-wizards' ) }</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -235,7 +235,7 @@ export default function Contacts( { status } ) {
 										{ c.type === 'organisation' ? (
 											<Chip>
 												{ __(
-													'Firma',
+													'Company',
 													'engenty-wizards'
 												) }
 											</Chip>

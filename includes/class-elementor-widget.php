@@ -45,9 +45,9 @@ class Engenty_Elementor_Widget extends \Elementor\Widget_Base {
 	private function choices() {
 		$list = Engenty_Rest::all_wizards();
 		if ( is_wp_error( $list ) || ! $list ) {
-			return array( '' => __( '— keine Wizards —', 'engenty-wizards' ) );
+			return array( '' => __( '— no wizards —', 'engenty-wizards' ) );
 		}
-		$choices = array( '' => __( '— Wizard wählen —', 'engenty-wizards' ) );
+		$choices = array( '' => __( '— choose a wizard —', 'engenty-wizards' ) );
 		foreach ( $list as $wizard ) {
 			if ( ! empty( $wizard['token'] ) ) {
 				$choices[ $wizard['token'] ] = $wizard['title'];
@@ -66,9 +66,9 @@ class Engenty_Elementor_Widget extends \Elementor\Widget_Base {
 					'type' => \Elementor\Controls_Manager::RAW_HTML,
 					'raw'  => sprintf(
 						'<p>%s</p><p><a class="elementor-button elementor-button-success" target="_blank" href="%s">%s</a></p>',
-						esc_html__( 'Verbinde die Website kostenlos mit engenty.ai, dann stehen deine Wizards hier zur Wahl.', 'engenty-wizards' ),
+						esc_html__( 'Connect the website to engenty.ai for free, then your wizards are available here.', 'engenty-wizards' ),
 						esc_url( admin_url( 'admin.php?page=engenty' ) ),
-						esc_html__( 'Kostenlos verbinden', 'engenty-wizards' )
+						esc_html__( 'Connect for free', 'engenty-wizards' )
 					),
 				)
 			);
@@ -85,12 +85,12 @@ class Engenty_Elementor_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'mode',
 			array(
-				'label'   => __( 'Darstellung', 'engenty-wizards' ),
+				'label'   => __( 'Display', 'engenty-wizards' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'options' => array(
-					'inline' => __( 'Im Text', 'engenty-wizards' ),
-					'modal'  => __( 'Button + Fenster', 'engenty-wizards' ),
-					'bubble' => __( 'Blase unten rechts', 'engenty-wizards' ),
+					'inline' => __( 'In the text', 'engenty-wizards' ),
+					'modal'  => __( 'Button + window', 'engenty-wizards' ),
+					'bubble' => __( 'Bubble bottom right', 'engenty-wizards' ),
 				),
 				'default' => 'inline',
 			)
@@ -98,7 +98,7 @@ class Engenty_Elementor_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'label',
 			array(
-				'label'     => __( 'Beschriftung', 'engenty-wizards' ),
+				'label'     => __( 'Label', 'engenty-wizards' ),
 				'type'      => \Elementor\Controls_Manager::TEXT,
 				'default'   => '',
 				'condition' => array( 'mode!' => 'inline' ),
@@ -107,7 +107,7 @@ class Engenty_Elementor_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'text',
 			array(
-				'label'     => __( 'Zeile neben der Blase', 'engenty-wizards' ),
+				'label'     => __( 'Line beside the bubble', 'engenty-wizards' ),
 				'type'      => \Elementor\Controls_Manager::TEXT,
 				'default'   => '',
 				'condition' => array( 'mode' => 'bubble' ),
@@ -116,7 +116,7 @@ class Engenty_Elementor_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'color',
 			array(
-				'label'     => __( 'Farbe', 'engenty-wizards' ),
+				'label'     => __( 'Color', 'engenty-wizards' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'condition' => array( 'mode' => 'bubble' ),
 			)
@@ -129,7 +129,7 @@ class Engenty_Elementor_Widget extends \Elementor\Widget_Base {
 		$s = $this->get_settings_for_display();
 		if ( empty( $s['token'] ) ) {
 			if ( current_user_can( 'edit_posts' ) ) {
-				echo Engenty_Embed::editor_hint( __( 'Wähle links einen Wizard.', 'engenty-wizards' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo Engenty_Embed::editor_hint( __( 'Choose a wizard on the left.', 'engenty-wizards' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 			return;
 		}

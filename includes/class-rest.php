@@ -454,7 +454,7 @@ class Engenty_Rest {
 					static function ( $r ) {
 						return array(
 							'to'   => $r['goto'],
-							'when' => ! empty( $r['ask'] ) ? $r['ask'] : ( isset( $r['when'] ) ? __( 'je nach Antwort', 'engenty-wizards' ) : __( 'sonst', 'engenty-wizards' ) ),
+							'when' => ! empty( $r['ask'] ) ? $r['ask'] : ( isset( $r['when'] ) ? __( 'depending on the answer', 'engenty-wizards' ) : __( 'otherwise', 'engenty-wizards' ) ),
 						);
 					},
 					(array) $s['next']
@@ -571,7 +571,7 @@ class Engenty_Rest {
 	 */
 	public static function pause_package( WP_REST_Request $request ) {
 		$row = Engenty_Packages::set_paused( (string) $request['id'], (bool) ( ( (array) $request->get_json_params() )['paused'] ?? true ) );
-		return $row ? rest_ensure_response( array( 'wizard' => Engenty_Packages::summary( $row ) ) ) : new WP_Error( 'engenty_not_found', __( 'Diesen Wizard gibt es nicht.', 'engenty-wizards' ), array( 'status' => 404 ) );
+		return $row ? rest_ensure_response( array( 'wizard' => Engenty_Packages::summary( $row ) ) ) : new WP_Error( 'engenty_not_found', __( 'This wizard does not exist.', 'engenty-wizards' ), array( 'status' => 404 ) );
 	}
 
 	/**
@@ -594,12 +594,12 @@ class Engenty_Rest {
 	public static function setup( WP_REST_Request $request ) {
 		$mode = (string) ( ( (array) $request->get_json_params() )['mode'] ?? '' );
 		if ( ! in_array( $mode, array( 'local', 'account', '' ), true ) ) {
-			return new WP_Error( 'engenty_invalid', __( 'Unbekannter Weg.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_invalid', __( 'Unknown way.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		if ( 'local' === $mode && empty( Engenty_Think::provider( true )['ready'] ) ) {
 			return new WP_Error(
 				'engenty_provider',
-				Engenty_Think::provider()['note'] ?? __( 'WordPress hat noch keinen KI-Anbieter: Einstellungen → Connectors.', 'engenty-wizards' ),
+				Engenty_Think::provider()['note'] ?? __( 'WordPress has no AI provider yet: Settings → Connectors.', 'engenty-wizards' ),
 				array(
 					'status' => 409,
 					'code'   => 'provider',
@@ -666,7 +666,7 @@ class Engenty_Rest {
 		$token = sanitize_text_field( (string) $request->get_param( 'token' ) );
 		$mode  = in_array( $request->get_param( 'mode' ), array( 'inline', 'modal' ), true ) ? $request->get_param( 'mode' ) : 'inline';
 		if ( '' === $token ) {
-			return new WP_Error( 'engenty_invalid', __( 'Welcher Wizard?', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_invalid', __( 'Which wizard?', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		$block = sprintf(
 			'<!-- wp:engenty/wizard %s /-->',

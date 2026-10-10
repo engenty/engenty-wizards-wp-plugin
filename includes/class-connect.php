@@ -55,10 +55,10 @@ class Engenty_Connect {
 		$host  = (string) wp_parse_url( $cloud, PHP_URL_HOST );
 		$local = in_array( $host, array( 'localhost', '127.0.0.1', '[::1]' ), true ) || str_ends_with( $host, '.localhost' );
 		if ( '' === $host || ( 'https' !== wp_parse_url( $cloud, PHP_URL_SCHEME ) && ! $local ) ) {
-			return new WP_Error( 'engenty_cloud', __( 'Die Adresse muss mit https:// beginnen.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_cloud', __( 'The address must start with https://.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		if ( ! str_starts_with( $key, 'wz_' ) ) {
-			return new WP_Error( 'engenty_key', __( 'Ein API Key von engenty beginnt mit wz_.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_key', __( 'An engenty API key starts with wz_.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		$res = wp_remote_get(
 			$cloud . '/api/v1/me',
@@ -71,15 +71,15 @@ class Engenty_Connect {
 			)
 		);
 		if ( is_wp_error( $res ) ) {
-			return new WP_Error( 'engenty_unreachable', __( 'Unter dieser Adresse antwortet kein engenty.', 'engenty-wizards' ), array( 'status' => 502 ) );
+			return new WP_Error( 'engenty_unreachable', __( 'No engenty answers at this address.', 'engenty-wizards' ), array( 'status' => 502 ) );
 		}
 		$code = (int) wp_remote_retrieve_response_code( $res );
 		$me   = json_decode( (string) wp_remote_retrieve_body( $res ), true );
 		if ( 401 === $code || 403 === $code ) {
-			return new WP_Error( 'engenty_key', __( 'Dieser API Key gilt dort nicht.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			return new WP_Error( 'engenty_key', __( 'This API key is not valid there.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
 		if ( 200 !== $code || ! is_array( $me ) || empty( $me['urls'] ) ) {
-			return new WP_Error( 'engenty_unreachable', __( 'Unter dieser Adresse antwortet kein engenty.', 'engenty-wizards' ), array( 'status' => 502 ) );
+			return new WP_Error( 'engenty_unreachable', __( 'No engenty answers at this address.', 'engenty-wizards' ), array( 'status' => 502 ) );
 		}
 		Engenty_Settings::forget_auth();
 		Engenty_Settings::save_auth(
@@ -136,7 +136,7 @@ class Engenty_Connect {
 		}
 		$res = wp_remote_request( $url, $args );
 		if ( is_wp_error( $res ) ) {
-			return new WP_Error( 'engenty_unreachable', __( 'engenty.ai ist gerade nicht erreichbar.', 'engenty-wizards' ), array( 'status' => 502 ) );
+			return new WP_Error( 'engenty_unreachable', __( 'engenty.ai cannot be reached right now.', 'engenty-wizards' ), array( 'status' => 502 ) );
 		}
 		$code = (int) wp_remote_retrieve_response_code( $res );
 		$body = json_decode( (string) wp_remote_retrieve_body( $res ), true );
@@ -144,7 +144,7 @@ class Engenty_Connect {
 			$message = is_array( $body ) ? ( $body['error_description'] ?? $body['message'] ?? $body['error'] ?? '' ) : '';
 			return new WP_Error(
 				is_array( $body ) && is_string( $body['error'] ?? null ) ? 'engenty_' . $body['error'] : 'engenty_http_' . $code,
-				$message ? $message : __( 'engenty.ai hat die Anfrage abgelehnt.', 'engenty-wizards' ),
+				$message ? $message : __( 'engenty.ai refused the request.', 'engenty-wizards' ),
 				array( 'status' => $code >= 400 ? $code : 502 )
 			);
 		}
@@ -167,7 +167,7 @@ class Engenty_Connect {
 		}
 		$issuer = untrailingslashit( (string) ( $meta['authorization_servers'][0] ?? '' ) );
 		if ( ! $issuer ) {
-			return new WP_Error( 'engenty_discovery', __( 'engenty.ai nennt keinen Anmeldeserver.', 'engenty-wizards' ) );
+			return new WP_Error( 'engenty_discovery', __( 'engenty.ai names no sign-in server.', 'engenty-wizards' ) );
 		}
 		$server = self::request( 'GET', $issuer . '/.well-known/oauth-authorization-server' );
 		if ( is_wp_error( $server ) ) {
@@ -184,7 +184,7 @@ class Engenty_Connect {
 			'revoke'    => (string) ( $server['revocation_endpoint'] ?? '' ),
 		);
 		if ( ! $endpoints['authorize'] || ! $endpoints['token'] ) {
-			return new WP_Error( 'engenty_discovery', __( 'Der Anmeldeserver von engenty.ai antwortet unvollständig.', 'engenty-wizards' ) );
+			return new WP_Error( 'engenty_discovery', __( 'The sign-in server of engenty.ai answers incompletely.', 'engenty-wizards' ) );
 		}
 		Engenty_Settings::save_auth(
 			array_merge(
@@ -210,7 +210,7 @@ class Engenty_Connect {
 			return $auth['client_id'];
 		}
 		if ( ! $endpoints['register'] ) {
-			return new WP_Error( 'engenty_discovery', __( 'Der Anmeldeserver nimmt keine neuen Programme an.', 'engenty-wizards' ) );
+			return new WP_Error( 'engenty_discovery', __( 'The sign-in server accepts no new applications.', 'engenty-wizards' ) );
 		}
 		$name   = wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
 		$client = self::request(
@@ -231,7 +231,7 @@ class Engenty_Connect {
 			return $client;
 		}
 		if ( empty( $client['client_id'] ) ) {
-			return new WP_Error( 'engenty_register', __( 'Die Website ließ sich bei engenty.ai nicht anmelden.', 'engenty-wizards' ) );
+			return new WP_Error( 'engenty_register', __( 'The website could not be registered with engenty.ai.', 'engenty-wizards' ) );
 		}
 		Engenty_Settings::save_auth(
 			array_merge(
@@ -258,7 +258,7 @@ class Engenty_Connect {
 		if ( 'https' !== ( $back['scheme'] ?? '' ) && ! in_array( $host, array( 'localhost', '127.0.0.1', '[::1]' ), true ) && ! str_ends_with( $host, '.localhost' ) ) {
 			return new WP_Error(
 				'engenty_https',
-				__( 'Der WordPress-Admin läuft ohne HTTPS. engenty.ai verbindet nur Websites mit https:// – stelle die Website-Adresse unter Einstellungen → Allgemein auf https um (dein Hoster hilft mit dem Zertifikat).', 'engenty-wizards' ),
+				__( 'The WordPress admin runs without HTTPS. engenty.ai connects only websites with https:// – switch the website address under Settings → General to https (your host helps with the certificate).', 'engenty-wizards' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -304,7 +304,7 @@ class Engenty_Connect {
 	/** The account server sent the admin back: the code becomes the tokens. */
 	public static function callback() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Du darfst die Website nicht verbinden.', 'engenty-wizards' ), 403 );
+			wp_die( esc_html__( 'You are not allowed to connect the website.', 'engenty-wizards' ), 403 );
 		}
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- the OAuth state stands in for the nonce.
 		$state = isset( $_GET['state'] ) ? sanitize_text_field( wp_unslash( $_GET['state'] ) ) : '';
@@ -376,7 +376,7 @@ class Engenty_Connect {
 			return $auth['api_key'];
 		}
 		if ( empty( $auth['access_token'] ) && empty( $auth['refresh_token'] ) ) {
-			return new WP_Error( 'engenty_not_connected', __( 'Die Website ist nicht mit engenty.ai verbunden.', 'engenty-wizards' ), array( 'status' => 401 ) );
+			return new WP_Error( 'engenty_not_connected', __( 'The website is not connected to engenty.ai.', 'engenty-wizards' ), array( 'status' => 401 ) );
 		}
 		if ( ! empty( $auth['access_token'] ) && (int) ( $auth['expires_at'] ?? 0 ) > time() + 60 ) {
 			return $auth['access_token'];
@@ -407,7 +407,7 @@ class Engenty_Connect {
 		$auth = Engenty_Settings::auth();
 		if ( empty( $auth['refresh_token'] ) || empty( $auth['endpoints']['token'] ) ) {
 			delete_transient( $lock );
-			return new WP_Error( 'engenty_not_connected', __( 'Die Verbindung zu engenty.ai ist abgelaufen. Bitte neu verbinden.', 'engenty-wizards' ), array( 'status' => 401 ) );
+			return new WP_Error( 'engenty_not_connected', __( 'The connection to engenty.ai has expired. Please connect again.', 'engenty-wizards' ), array( 'status' => 401 ) );
 		}
 		$tokens = self::request(
 			'POST',
@@ -427,9 +427,9 @@ class Engenty_Connect {
 				$auth['access_token'] = '';
 				unset( $auth['refresh_token'] );
 				Engenty_Settings::save_auth( $auth );
-				return new WP_Error( 'engenty_not_connected', __( 'Die Verbindung zu engenty.ai wurde getrennt. Bitte neu verbinden.', 'engenty-wizards' ), array( 'status' => 401 ) );
+				return new WP_Error( 'engenty_not_connected', __( 'The connection to engenty.ai was cut. Please connect again.', 'engenty-wizards' ), array( 'status' => 401 ) );
 			}
-			return is_wp_error( $tokens ) ? $tokens : new WP_Error( 'engenty_refresh', __( 'engenty.ai ist gerade nicht erreichbar.', 'engenty-wizards' ), array( 'status' => 502 ) );
+			return is_wp_error( $tokens ) ? $tokens : new WP_Error( 'engenty_refresh', __( 'engenty.ai cannot be reached right now.', 'engenty-wizards' ), array( 'status' => 502 ) );
 		}
 		self::keep_tokens( $tokens );
 		return (string) $tokens['access_token'];

@@ -61,12 +61,12 @@ class Engenty_Admin {
 		$missing = self::missing();
 		$pro     = ' <span class="engenty-menu-pro">Pro</span>';
 		add_menu_page( 'engenty', 'engenty', 'edit_posts', 'engenty', $render, self::icon(), 26 );
-		add_submenu_page( 'engenty', __( 'Übersicht', 'engenty-wizards' ), __( 'Übersicht', 'engenty-wizards' ), 'edit_posts', 'engenty', $render );
+		add_submenu_page( 'engenty', __( 'Overview', 'engenty-wizards' ), __( 'Overview', 'engenty-wizards' ), 'edit_posts', 'engenty', $render );
 		add_submenu_page( 'engenty', __( 'Wizards', 'engenty-wizards' ), __( 'Wizards', 'engenty-wizards' ), 'edit_posts', 'engenty-wizards', $render );
-		add_submenu_page( 'engenty', __( 'Ergebnisse', 'engenty-wizards' ), __( 'Ergebnisse', 'engenty-wizards' ), ENGENTY_RESULTS_CAP, 'engenty-results', $render );
-		add_submenu_page( 'engenty', __( 'Kontakte', 'engenty-wizards' ), __( 'Kontakte', 'engenty-wizards' ) . ( in_array( 'contacts', $missing, true ) ? $pro : '' ), ENGENTY_RESULTS_CAP, 'engenty-contacts', $render );
-		add_submenu_page( 'engenty', __( 'Termine', 'engenty-wizards' ), __( 'Termine', 'engenty-wizards' ) . ( in_array( 'appointments', $missing, true ) ? $pro : '' ), ENGENTY_RESULTS_CAP, 'engenty-appointments', $render );
-		add_submenu_page( 'engenty', __( 'Einstellungen', 'engenty-wizards' ), __( 'Einstellungen', 'engenty-wizards' ), 'manage_options', 'engenty-settings', $render );
+		add_submenu_page( 'engenty', __( 'Results', 'engenty-wizards' ), __( 'Results', 'engenty-wizards' ), ENGENTY_RESULTS_CAP, 'engenty-results', $render );
+		add_submenu_page( 'engenty', __( 'Contacts', 'engenty-wizards' ), __( 'Contacts', 'engenty-wizards' ) . ( in_array( 'contacts', $missing, true ) ? $pro : '' ), ENGENTY_RESULTS_CAP, 'engenty-contacts', $render );
+		add_submenu_page( 'engenty', __( 'Appointments', 'engenty-wizards' ), __( 'Appointments', 'engenty-wizards' ) . ( in_array( 'appointments', $missing, true ) ? $pro : '' ), ENGENTY_RESULTS_CAP, 'engenty-appointments', $render );
+		add_submenu_page( 'engenty', __( 'Settings', 'engenty-wizards' ), __( 'Settings', 'engenty-wizards' ), 'manage_options', 'engenty-settings', $render );
 	}
 
 	/** One page: the app draws into it. */
@@ -76,7 +76,7 @@ class Engenty_Admin {
 		printf(
 			'<div class="wrap engenty-wrap"><div id="engenty-app" data-view="%s"><p class="engenty-loading">%s</p></div></div>',
 			esc_attr( self::PAGES[ $page ] ?? 'home' ),
-			esc_html__( 'engenty lädt …', 'engenty-wizards' )
+			esc_html__( 'engenty is loading …', 'engenty-wizards' )
 		);
 	}
 
@@ -90,15 +90,15 @@ class Engenty_Admin {
 		if ( ! isset( self::PAGES[ $page ] ) ) {
 			return;
 		}
-		$asset = ENGENTY_WIZARDS_DIR . 'build/admin.asset.php';
+		$asset = ENGENTY_WIZARDS_DIR . 'build/app.asset.php';
 		$meta  = file_exists( $asset ) ? require $asset : array(
 			'dependencies' => array( 'wp-element', 'wp-api-fetch', 'wp-components', 'wp-i18n' ),
 			'version'      => ENGENTY_WIZARDS_VERSION,
 		);
 		wp_enqueue_style( 'engenty-fonts', 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap', array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_enqueue_style( 'wp-components' );
-		wp_enqueue_style( 'engenty-admin', ENGENTY_WIZARDS_URL . 'build/admin.css', array( 'wp-components' ), $meta['version'] );
-		wp_enqueue_script( 'engenty-admin', ENGENTY_WIZARDS_URL . 'build/admin.js', $meta['dependencies'], $meta['version'], true );
+		wp_enqueue_style( 'engenty-admin', ENGENTY_WIZARDS_URL . 'build/app.css', array( 'wp-components' ), $meta['version'] );
+		wp_enqueue_script( 'engenty-admin', ENGENTY_WIZARDS_URL . 'build/app.js', $meta['dependencies'], $meta['version'], true );
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- flags of the return from engenty.ai, only shown.
 		$boot = array(
 			'view'      => self::PAGES[ $page ],
@@ -135,8 +135,8 @@ class Engenty_Admin {
 	 */
 	public static function action_links( $links ) {
 		$first = Engenty_Settings::connected()
-			? sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=engenty-settings' ) ), esc_html__( 'Einstellungen', 'engenty-wizards' ) )
-			: sprintf( '<a href="%s" style="font-weight:600;color:#e0531b">%s</a>', esc_url( admin_url( 'admin.php?page=engenty' ) ), esc_html__( 'Kostenlos verbinden', 'engenty-wizards' ) );
+			? sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=engenty-settings' ) ), esc_html__( 'Settings', 'engenty-wizards' ) )
+			: sprintf( '<a href="%s" style="font-weight:600;color:#e0531b">%s</a>', esc_url( admin_url( 'admin.php?page=engenty' ) ), esc_html__( 'Connect for free', 'engenty-wizards' ) );
 		array_unshift( $links, $first );
 		return $links;
 	}
@@ -163,10 +163,10 @@ class Engenty_Admin {
 			}
 			self::notice(
 				'connect',
-				__( 'Eigene KI-Assistenten für deine Website', 'engenty-wizards' ),
-				__( 'engenty liest deine Website und baut daraus Wizards für Anfragen, Angebote und Termine – als Block, Shortcode oder Chat-Blase. Kostenlos starten, keine Kreditkarte.', 'engenty-wizards' ),
+				__( 'Your own AI assistants for your website', 'engenty-wizards' ),
+				__( 'engenty reads your website and builds wizards for requests, quotes and appointments from it – as a block, a shortcode or a chat bubble. Start for free, no credit card.', 'engenty-wizards' ),
 				admin_url( 'admin.php?page=engenty' ),
-				__( 'Kostenlos starten', 'engenty-wizards' )
+				__( 'Start for free', 'engenty-wizards' )
 			);
 			return;
 		}
@@ -174,10 +174,10 @@ class Engenty_Admin {
 		if ( is_array( $me ) && isset( $me['tenant']['credits'] ) && null !== $me['tenant']['credits'] && (float) $me['tenant']['credits'] < 20 && ! in_array( 'credits', $dismissed, true ) && ! empty( $me['urls']['billing'] ) ) {
 			self::notice(
 				'credits',
-				__( 'Das Guthaben bei engenty geht zur Neige', 'engenty-wizards' ),
-				__( 'Ohne Guthaben starten deine Wizards auf der Website nicht mehr. Lade auf – oder nimm Pro mit monatlichen Credits.', 'engenty-wizards' ),
+				__( 'Your engenty credit is running low', 'engenty-wizards' ),
+				__( 'Without credit, your wizards no longer start on the website. Top up – or take Pro with monthly credits.', 'engenty-wizards' ),
 				$me['urls']['billing'],
-				__( 'Guthaben aufladen', 'engenty-wizards' )
+				__( 'Top up credit', 'engenty-wizards' )
 			);
 		}
 	}

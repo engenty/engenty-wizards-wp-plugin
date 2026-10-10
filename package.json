@@ -8,7 +8,8 @@
 		"build": "wp-scripts build",
 		"start": "wp-scripts start",
 		"lint:js": "wp-scripts lint-js src",
-		"zip": "npm run build && sh bin/zip.sh"
+		"zip": "npm run build && sh bin/zip.sh",
+		"i18n": "wp i18n make-pot . languages/engenty-wizards.pot --slug=engenty-wizards --domain=engenty-wizards --exclude=node_modules,vendor,vendor-runner,tests,dist,bin,wizards,.wordpress-org && wp i18n update-po languages/engenty-wizards.pot languages/ && wp i18n make-mo languages && wp i18n make-json languages --no-purge --use-map='{\"src/admin/Appointments.js\":\"build/app.js\",\"src/admin/Contacts.js\":\"build/app.js\",\"src/admin/Home.js\":\"build/app.js\",\"src/admin/Import.js\":\"build/app.js\",\"src/admin/Place.js\":\"build/app.js\",\"src/admin/Results.js\":\"build/app.js\",\"src/admin/Settings.js\":\"build/app.js\",\"src/admin/SiteRead.js\":\"build/app.js\",\"src/admin/Start.js\":\"build/app.js\",\"src/admin/Templates.js\":\"build/app.js\",\"src/admin/Wizards.js\":\"build/app.js\",\"src/admin/api.js\":\"build/app.js\",\"src/admin/engenties.js\":\"build/app.js\",\"src/admin/fit.js\":\"build/app.js\",\"src/admin/icons.js\":\"build/app.js\",\"src/admin/index.js\":\"build/app.js\",\"src/admin/ui.js\":\"build/app.js\",\"src/block/index.js\":\"build/block.js\",\"src/runner/index.js\":\"build/runner.js\",\"src/runner/useLocalRun.js\":\"build/runner.js\"}'"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^30.0.0",

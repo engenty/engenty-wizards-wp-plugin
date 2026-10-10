@@ -139,7 +139,7 @@ class Engenty_Think {
 			'note'   => null,
 		);
 		if ( ! $out['client'] ) {
-			$out['note'] = __( 'Diese WordPress-Version hat den AI Client noch nicht (ab WordPress 7.0).', 'engenty-wizards' );
+			$out['note'] = __( 'This WordPress version does not have the AI Client yet (WordPress 7.0 and later).', 'engenty-wizards' );
 			set_transient( 'engenty_wizards_provider', $out, 10 * MINUTE_IN_SECONDS );
 			return $out;
 		}
@@ -157,7 +157,7 @@ class Engenty_Think {
 			}
 			$ids = (array) $registry->getRegisteredProviderIds();
 			if ( ! $ids ) {
-				$out['note'] = __( 'WordPress hat noch keinen KI-Anbieter: einen unter Einstellungen → Connectors einrichten (sein Plugin kommt von WordPress.org).', 'engenty-wizards' );
+				$out['note'] = __( 'WordPress has no AI provider yet: set one up under Settings → Connectors (its plugin comes from WordPress.org).', 'engenty-wizards' );
 			}
 			foreach ( $ids as $id ) {
 				if ( ! $registry->isProviderConfigured( $id ) ) {
@@ -187,7 +187,7 @@ class Engenty_Think {
 				break;
 			}
 			if ( $ids && ! $out['ready'] ) {
-				$out['note'] = __( 'WordPress kennt einen KI-Anbieter, aber ohne Schlüssel: Einstellungen → Connectors.', 'engenty-wizards' );
+				$out['note'] = __( 'WordPress knows an AI provider, but without a key: Settings → Connectors.', 'engenty-wizards' );
 			}
 		} catch ( \Throwable $e ) {
 			$out['note'] = $e->getMessage();
@@ -287,7 +287,7 @@ class Engenty_Think {
 			return $answer;
 		}
 		if ( ! function_exists( 'wp_ai_client_prompt' ) ) {
-			throw new Engenty_Step_Error( esc_html__( 'Diese Website hat keinen KI-Anbieter: der AI Client fehlt (WordPress 7.0).', 'engenty-wizards' ) );
+			throw new Engenty_Step_Error( esc_html__( 'This website has no AI provider: the AI Client is missing (WordPress 7.0).', 'engenty-wizards' ) );
 		}
 		$seconds = self::step_seconds();
 		$timeout = static function () use ( $seconds ) {
@@ -318,7 +318,7 @@ class Engenty_Think {
 			throw new Engenty_Step_Error( esc_html( self::friendly( $text->get_error_message() ) ) );
 		}
 		if ( ! is_string( $text ) ) {
-			throw new Engenty_Step_Error( esc_html__( 'Der KI-Anbieter hat nicht geantwortet.', 'engenty-wizards' ) );
+			throw new Engenty_Step_Error( esc_html__( 'The AI provider did not answer.', 'engenty-wizards' ) );
 		}
 		return $text;
 	}
@@ -485,7 +485,7 @@ class Engenty_Think {
 				return $builder->$name( ...$args );
 			}
 		}
-		throw new Engenty_Step_Error( esc_html__( 'Der AI Client dieser WordPress-Version passt nicht zum Plugin.', 'engenty-wizards' ) );
+		throw new Engenty_Step_Error( esc_html__( 'The AI Client of this WordPress version does not match the plugin.', 'engenty-wizards' ) );
 	}
 
 	/**
@@ -496,15 +496,15 @@ class Engenty_Think {
 	 */
 	private static function friendly( $msg ) {
 		if ( preg_match( '/rate.?limit|429/i', $msg ) ) {
-			return __( 'Der KI-Dienst ist gerade ausgelastet. Bitte gleich noch einmal versuchen.', 'engenty-wizards' );
+			return __( 'The AI service is busy right now. Please try again in a moment.', 'engenty-wizards' );
 		}
 		if ( preg_match( '/timeout|timed out/i', $msg ) ) {
-			return __( 'Der Schritt hat zu lange gedauert. Bitte noch einmal versuchen.', 'engenty-wizards' );
+			return __( 'The step took too long. Please try again.', 'engenty-wizards' );
 		}
 		if ( preg_match( '/budget|quota|insufficient|billing|credit|api key|unauthori[sz]ed|401|403/i', $msg ) ) {
-			return __( 'Der KI-Dienst ist gerade nicht erreichbar. Bitte später noch einmal versuchen.', 'engenty-wizards' );
+			return __( 'The AI service cannot be reached right now. Please try again later.', 'engenty-wizards' );
 		}
-		return sprintf( /* translators: %s: what went wrong */ __( 'Dieser Schritt ist fehlgeschlagen: %s', 'engenty-wizards' ), mb_substr( $msg, 0, 300 ) );
+		return sprintf( /* translators: %s: what went wrong */ __( 'This step failed: %s', 'engenty-wizards' ), mb_substr( $msg, 0, 300 ) );
 	}
 
 	/**
@@ -1076,11 +1076,11 @@ class Engenty_Think {
 				if ( in_array( $step['asset'], array( 'document', 'dashboard' ), true ) ) {
 					return $this->run_document( $step, $state );
 				}
-				throw new Engenty_Step_Error( esc_html__( 'Dieser Schritt braucht ein engenty-Konto.', 'engenty-wizards' ) );
+				throw new Engenty_Step_Error( esc_html__( 'This step needs an engenty account.', 'engenty-wizards' ) );
 			case 'surface':
 				return $this->run_surface( $step, $state );
 			default:
-				throw new Engenty_Step_Error( esc_html__( 'Dieser Schritt braucht ein engenty-Konto.', 'engenty-wizards' ) );
+				throw new Engenty_Step_Error( esc_html__( 'This step needs an engenty account.', 'engenty-wizards' ) );
 		}
 	}
 
@@ -1249,7 +1249,7 @@ class Engenty_Think {
 	 */
 	private function run_agent( array $step, array $state ) {
 		if ( ! empty( $step['call'] ) ) {
-			throw new Engenty_Step_Error( esc_html__( 'Dieser Schritt braucht ein engenty-Konto.', 'engenty-wizards' ) );
+			throw new Engenty_Step_Error( esc_html__( 'This step needs an engenty account.', 'engenty-wizards' ) );
 		}
 		if ( ! empty( $step['each'] ) ) {
 			return $this->run_agent_each( $step, $state );
@@ -1291,7 +1291,7 @@ class Engenty_Think {
 			$text         = trim( self::ask( $system, $prompt, null, $photos, $abilities ) );
 			$this->calls += self::$last_calls;
 			if ( '' === $text ) {
-				throw new Engenty_Step_Error( esc_html__( 'Der Schritt hat kein Ergebnis geliefert.', 'engenty-wizards' ) );
+				throw new Engenty_Step_Error( esc_html__( 'The step returned no result.', 'engenty-wizards' ) );
 			}
 			return array(
 				'text' => $text,
@@ -1303,7 +1303,7 @@ class Engenty_Think {
 		$this->calls            += self::$last_calls;
 		$json                    = json_decode( self::json_in( $answer ), true );
 		if ( ! is_array( $json ) ) {
-			throw new Engenty_Step_Error( esc_html__( 'Die Antwort des KI-Anbieters war keine gültige Struktur.', 'engenty-wizards' ) );
+			throw new Engenty_Step_Error( esc_html__( 'The AI provider answered with no valid structure.', 'engenty-wizards' ) );
 		}
 		return array(
 			'json' => self::tables_to_records( $json, $fields ),
@@ -1324,7 +1324,7 @@ class Engenty_Think {
 		$entries = self::resolve_ref( $ref, $this->def, $state, $this->brand );
 		$entries = is_array( $entries ) && array_is_list( $entries ) ? array_slice( $entries, 0, 20 ) : array();
 		if ( ! $entries ) {
-			throw new Engenty_Step_Error( esc_html__( 'Es gibt keine Einträge, für die dieser Schritt arbeiten könnte.', 'engenty-wizards' ) );
+			throw new Engenty_Step_Error( esc_html__( 'There are no entries for this step to work on.', 'engenty-wizards' ) );
 		}
 		$single = $step;
 		unset( $single['each'] );
@@ -1373,7 +1373,7 @@ class Engenty_Think {
 		++$this->calls;
 		$json = json_decode( self::json_in( $answer ), true );
 		if ( ! is_array( $json ) ) {
-			throw new Engenty_Step_Error( esc_html__( 'Die Antwort des KI-Anbieters passt nicht zu den Fragen.', 'engenty-wizards' ) );
+			throw new Engenty_Step_Error( esc_html__( 'The answer of the AI provider does not match the questions.', 'engenty-wizards' ) );
 		}
 		$decided = array();
 		$lines   = array();
@@ -1461,7 +1461,7 @@ class Engenty_Think {
 		$html = preg_replace( '/^```(?:html)?\s*/i', '', $html );
 		$html = preg_replace( '/```\s*$/', '', $html );
 		if ( ! preg_match( '/<html|<!doctype/i', $html ) ) {
-			throw new Engenty_Step_Error( esc_html__( 'Das Dokument konnte nicht erstellt werden.', 'engenty-wizards' ) );
+			throw new Engenty_Step_Error( esc_html__( 'The document could not be created.', 'engenty-wizards' ) );
 		}
 		if ( 'document' === $kind ) {
 			$html = preg_replace( '#</head>#i', '<style>@media screen{body{padding:48px 56px;background:#fff}}</style></head>', $html, 1 );
@@ -1623,7 +1623,7 @@ class Engenty_Think {
 				++$this->calls;
 				$json = json_decode( self::json_in( $answer ), true );
 				if ( ! is_array( $json ) ) {
-					throw new Engenty_Step_Error( esc_html__( 'Die Antwort des KI-Anbieters passt nicht zu den Fragen.', 'engenty-wizards' ) );
+					throw new Engenty_Step_Error( esc_html__( 'The answer of the AI provider does not match the questions.', 'engenty-wizards' ) );
 				}
 				foreach ( $json as $name => $value ) {
 					if ( str_starts_with( $name, 'p_' ) && $value ) {
@@ -1835,7 +1835,7 @@ class Engenty_Think {
 		++$this->calls;
 		$json = json_decode( self::json_in( $answer ), true );
 		if ( ! is_array( $json ) ) {
-			throw new Engenty_Step_Error( esc_html__( 'Die Antwort des KI-Anbieters passt nicht zu den Fragen.', 'engenty-wizards' ) );
+			throw new Engenty_Step_Error( esc_html__( 'The answer of the AI provider does not match the questions.', 'engenty-wizards' ) );
 		}
 		$kept = array();
 		foreach ( $json as $name => $value ) {

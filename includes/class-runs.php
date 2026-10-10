@@ -203,7 +203,7 @@ class Engenty_Runs {
 		);
 		remove_filter( 'upload_dir', $into );
 		if ( ! is_array( $moved ) || ! empty( $moved['error'] ) || empty( $moved['file'] ) ) {
-			return new WP_Error( 'engenty_io', __( 'Die Datei konnte nicht gespeichert werden.', 'engenty-wizards' ), array( 'status' => 500 ) );
+			return new WP_Error( 'engenty_io', __( 'The file could not be saved.', 'engenty-wizards' ), array( 'status' => 500 ) );
 		}
 		return true;
 	}
@@ -275,7 +275,7 @@ class Engenty_Runs {
 		if ( $by_visitor >= (int) $settings['runsPerHour'] ) {
 			return new WP_Error(
 				'engenty_limit',
-				__( 'Das waren genug Versuche für diese Stunde. Bitte später noch einmal.', 'engenty-wizards' ),
+				__( 'That was enough tries for this hour. Please try again later.', 'engenty-wizards' ),
 				array(
 					'status' => 429,
 					'code'   => 'limit',
@@ -287,7 +287,7 @@ class Engenty_Runs {
 		if ( $by_wizard >= (int) $settings['runsPerDay'] ) {
 			return new WP_Error(
 				'engenty_limit',
-				__( 'Dieser Wizard hat heute genug zu tun gehabt. Bitte morgen noch einmal.', 'engenty-wizards' ),
+				__( 'This wizard has had enough to do today. Please try again tomorrow.', 'engenty-wizards' ),
 				array(
 					'status' => 429,
 					'code'   => 'limit',
@@ -329,7 +329,7 @@ class Engenty_Runs {
 	public static function wizard( WP_REST_Request $request ) {
 		$w = Engenty_Packages::by_token( (string) $request['token'] );
 		if ( ! $w ) {
-			return self::respond( new WP_Error( 'engenty_not_found', __( 'Diesen Wizard gibt es nicht.', 'engenty-wizards' ), array( 'status' => 404 ) ) );
+			return self::respond( new WP_Error( 'engenty_not_found', __( 'This wizard does not exist.', 'engenty-wizards' ), array( 'status' => 404 ) ) );
 		}
 		$provider = Engenty_Think::provider();
 		$ready    = 'live' === $w['status'] && ! empty( $provider['ready'] );
@@ -343,7 +343,7 @@ class Engenty_Runs {
 				'brand'             => self::brand(),
 				'turnstileSiteKey'  => null,
 				'available'         => $ready,
-				'unavailableReason' => $ready ? null : ( 'live' === $w['status'] ? __( 'Dieser Wizard ist gerade nicht erreichbar.', 'engenty-wizards' ) : __( 'Dieser Wizard ist pausiert.', 'engenty-wizards' ) ),
+				'unavailableReason' => $ready ? null : ( 'live' === $w['status'] ? __( 'This wizard cannot be reached right now.', 'engenty-wizards' ) : __( 'This wizard is paused.', 'engenty-wizards' ) ),
 				'steps'             => $w['steps'],
 				'provider'          => $provider['name'] ?? null,
 			)
@@ -375,7 +375,7 @@ class Engenty_Runs {
 		global $wpdb;
 		$w = Engenty_Packages::by_token( (string) $request['token'] );
 		if ( ! $w || 'live' !== $w['status'] ) {
-			return self::respond( new WP_Error( 'engenty_not_found', __( 'Diesen Wizard gibt es nicht.', 'engenty-wizards' ), array( 'status' => 404 ) ) );
+			return self::respond( new WP_Error( 'engenty_not_found', __( 'This wizard does not exist.', 'engenty-wizards' ), array( 'status' => 404 ) ) );
 		}
 		$body = (array) $request->get_json_params();
 		// The honeypot: a field no person sees, filled by a bot.
@@ -383,7 +383,7 @@ class Engenty_Runs {
 			return self::respond(
 				new WP_Error(
 					'engenty_limit',
-					__( 'Das hat nicht geklappt.', 'engenty-wizards' ),
+					__( 'That did not work.', 'engenty-wizards' ),
 					array(
 						'status' => 429,
 						'code'   => 'limit',
@@ -436,7 +436,7 @@ class Engenty_Runs {
 		$run = self::load( (string) $request['id'] );
 		$w   = $run ? Engenty_Packages::get( $run['wizard_id'] ) : null;
 		if ( ! $run || ! $w ) {
-			return new WP_Error( 'engenty_not_found', __( 'Diesen Durchlauf gibt es nicht mehr.', 'engenty-wizards' ), array( 'status' => 404 ) );
+			return new WP_Error( 'engenty_not_found', __( 'This run no longer exists.', 'engenty-wizards' ), array( 'status' => 404 ) );
 		}
 		return array( $run, $w );
 	}
@@ -471,10 +471,10 @@ class Engenty_Runs {
 		$step_id         = (string) $request['step'];
 		$step            = self::step_of( $w['definition'], $step_id );
 		if ( ! in_array( $run['status'], array( 'waiting_input', 'done' ), true ) ) {
-			return self::respond( new WP_Error( 'engenty_conflict', __( 'Der Wizard arbeitet gerade.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
+			return self::respond( new WP_Error( 'engenty_conflict', __( 'The wizard is working right now.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
 		}
 		if ( $run['cursor_id'] !== $step_id || ! $step || 'page' !== $step['type'] ) {
-			return self::respond( new WP_Error( 'engenty_conflict', __( 'Diese Seite ist nicht mehr aktuell.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
+			return self::respond( new WP_Error( 'engenty_conflict', __( 'This page is no longer current.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
 		}
 		$state   = self::maps( $run['state'] );
 		$input   = (array) ( ( (array) $request->get_json_params() )['values'] ?? array() );
@@ -489,7 +489,7 @@ class Engenty_Runs {
 			if ( ! $choice['values'] || in_array( $answer, array_map( array( __CLASS__, 'as_string' ), $choice['values'] ), true ) ) {
 				$read['errors'][] = array(
 					'field'   => $id,
-					'message' => __( 'Das ist hier gerade nicht verfügbar.', 'engenty-wizards' ),
+					'message' => __( 'That is not available here right now.', 'engenty-wizards' ),
 				);
 			}
 		}
@@ -497,7 +497,7 @@ class Engenty_Runs {
 			return self::respond(
 				new WP_Error(
 					'engenty_input',
-					__( 'Bitte die markierten Felder prüfen.', 'engenty-wizards' ),
+					__( 'Please check the marked fields.', 'engenty-wizards' ),
 					array(
 						'status' => 422,
 						'fields' => $read['errors'],
@@ -514,13 +514,13 @@ class Engenty_Runs {
 						return self::respond(
 							new WP_Error(
 								'engenty_input',
-								__( 'Bitte die markierten Felder prüfen.', 'engenty-wizards' ),
+								__( 'Please check the marked fields.', 'engenty-wizards' ),
 								array(
 									'status' => 422,
 									'fields' => array(
 										array(
 											'field'   => $field['id'],
-											'message' => __( 'Datei nicht gefunden', 'engenty-wizards' ),
+											'message' => __( 'File not found', 'engenty-wizards' ),
 										),
 									),
 								)
@@ -702,17 +702,17 @@ class Engenty_Runs {
 		$step_id         = (string) $request['step'];
 		$step            = self::step_of( $w['definition'], $step_id );
 		if ( ! in_array( $run['status'], array( 'waiting_input', 'done' ), true ) || $run['cursor_id'] !== $step_id || ! $step || 'review' !== $step['type'] ) {
-			return self::respond( new WP_Error( 'engenty_conflict', __( 'Diese Seite ist nicht mehr aktuell.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
+			return self::respond( new WP_Error( 'engenty_conflict', __( 'This page is no longer current.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
 		}
 		$body  = (array) $request->get_json_params();
 		$state = self::maps( $run['state'] );
 		if ( 'regenerate' === ( $body['type'] ?? '' ) ) {
 			$target = (string) ( $body['target'] ?? '' );
 			if ( ! in_array( $target, (array) $step['show'], true ) ) {
-				return self::respond( new WP_Error( 'engenty_conflict', __( 'Unbekanntes Ziel.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
+				return self::respond( new WP_Error( 'engenty_conflict', __( 'Unknown target.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
 			}
 			$note                      = mb_substr( sanitize_textarea_field( (string) ( $body['note'] ?? '' ) ), 0, 2000 );
-			$state['notes'][ $target ] = '' !== $note ? $note : __( 'Bitte eine neue Variante.', 'engenty-wizards' );
+			$state['notes'][ $target ] = '' !== $note ? $note : __( 'A new variant, please.', 'engenty-wizards' );
 			if ( ! empty( $body['items'] ) ) {
 				$state['redo'][ $target ] = array_map( 'intval', (array) $body['items'] );
 			} else {
@@ -761,12 +761,12 @@ class Engenty_Runs {
 		}
 		list( $run, $w ) = $found;
 		if ( ! in_array( $run['status'], array( 'waiting_input', 'done', 'failed' ), true ) ) {
-			return self::respond( new WP_Error( 'engenty_conflict', __( 'Der Wizard arbeitet gerade.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
+			return self::respond( new WP_Error( 'engenty_conflict', __( 'The wizard is working right now.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
 		}
 		$state    = self::maps( $run['state'] );
 		$previous = array_pop( $state['history'] );
 		if ( ! $previous ) {
-			return self::respond( new WP_Error( 'engenty_conflict', __( 'Kein vorheriger Schritt.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
+			return self::respond( new WP_Error( 'engenty_conflict', __( 'No previous step.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
 		}
 		unset( $state['deciding'] );
 		$run = self::update(
@@ -794,7 +794,7 @@ class Engenty_Runs {
 		}
 		list( $run, $w ) = $found;
 		if ( 'failed' !== $run['status'] ) {
-			return self::respond( new WP_Error( 'engenty_conflict', __( 'Nichts zu wiederholen.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
+			return self::respond( new WP_Error( 'engenty_conflict', __( 'Nothing to repeat.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
 		}
 		$run = self::update(
 			$run,
@@ -838,15 +838,15 @@ class Engenty_Runs {
 		$files       = $request->get_file_params();
 		$file        = $files['file'] ?? null;
 		if ( ! $file || ! is_uploaded_file( $file['tmp_name'] ?? '' ) ) {
-			return self::respond( new WP_Error( 'engenty_input', __( 'Keine Datei.', 'engenty-wizards' ), array( 'status' => 400 ) ) );
+			return self::respond( new WP_Error( 'engenty_input', __( 'No file.', 'engenty-wizards' ), array( 'status' => 400 ) ) );
 		}
 		if ( (int) $file['size'] > self::MAX_UPLOAD ) {
-			return self::respond( new WP_Error( 'engenty_too_large', __( 'Die Datei ist größer als 4 MB.', 'engenty-wizards' ), array( 'status' => 413 ) ) );
+			return self::respond( new WP_Error( 'engenty_too_large', __( 'The file is larger than 4 MB.', 'engenty-wizards' ), array( 'status' => 413 ) ) );
 		}
 		$type = wp_check_filetype_and_ext( $file['tmp_name'], (string) $file['name'] );
 		$mime = (string) ( $type['type'] ?? '' );
 		if ( ! in_array( $mime, array( 'image/jpeg', 'image/png', 'image/webp', 'image/gif' ), true ) ) {
-			return self::respond( new WP_Error( 'engenty_input', __( 'Hier gehen nur Fotos (JPEG, PNG, WebP).', 'engenty-wizards' ), array( 'status' => 415 ) ) );
+			return self::respond( new WP_Error( 'engenty_input', __( 'Only photos work here (JPEG, PNG, WebP).', 'engenty-wizards' ), array( 'status' => 415 ) ) );
 		}
 		$id  = 'a_' . strtolower( wp_generate_password( 12, false ) ) . '.' . $type['ext'];
 		$dir = self::files_dir( $run['id'] );
@@ -920,7 +920,7 @@ class Engenty_Runs {
 		list( $run ) = $found;
 		$path        = self::asset_path( $run['id'], (string) $request['asset'] );
 		if ( ! $path ) {
-			return self::respond( new WP_Error( 'engenty_not_found', __( 'Diese Datei gibt es nicht.', 'engenty-wizards' ), array( 'status' => 404 ) ) );
+			return self::respond( new WP_Error( 'engenty_not_found', __( 'This file does not exist.', 'engenty-wizards' ), array( 'status' => 404 ) ) );
 		}
 		$meta = self::asset_meta( $run['id'], (string) $request['asset'] );
 		self::send_file( $path, $meta['mime'], $meta['name'], 'text/html' !== $meta['mime'] );
@@ -977,7 +977,7 @@ class Engenty_Runs {
 		$state           = self::maps( $run['state'] );
 		$output          = $step ? ( $state['outputs'][ $step['id'] ] ?? null ) : null;
 		if ( ! $step || ! $output ) {
-			return self::respond( new WP_Error( 'engenty_not_found', __( 'Dieses Ergebnis gibt es nicht.', 'engenty-wizards' ), array( 'status' => 404 ) ) );
+			return self::respond( new WP_Error( 'engenty_not_found', __( 'This result does not exist.', 'engenty-wizards' ), array( 'status' => 404 ) ) );
 		}
 		$format = sanitize_key( (string) $request->get_param( 'format' ) );
 		$file   = Engenty_Downloads::make( $run, $w, $step, $output, $format );
@@ -1795,7 +1795,7 @@ class Engenty_Runs {
 			if ( ! empty( $field['required'] ) && self::is_empty_value( $v ) && 'toggle' !== $field['kind'] ) {
 				$errors[] = array(
 					'field'   => $field['id'],
-					'message' => __( 'Pflichtfeld', 'engenty-wizards' ),
+					'message' => __( 'Required', 'engenty-wizards' ),
 				);
 				continue;
 			}
@@ -1803,14 +1803,14 @@ class Engenty_Runs {
 				if ( ! empty( $field['min'] ) && count( $v ) < (int) $field['min'] ) {
 					$errors[] = array(
 						'field'   => $field['id'],
-						'message' => sprintf( /* translators: %d: files */ __( 'Bitte mindestens %d auswählen', 'engenty-wizards' ), (int) $field['min'] ),
+						'message' => sprintf( /* translators: %d: files */ __( 'Please choose at least %d', 'engenty-wizards' ), (int) $field['min'] ),
 					);
 					continue;
 				}
 				if ( ! empty( $field['max'] ) && count( $v ) > (int) $field['max'] ) {
 					$errors[] = array(
 						'field'   => $field['id'],
-						'message' => sprintf( /* translators: %d: files */ __( 'Höchstens %d – bitte einige entfernen', 'engenty-wizards' ), (int) $field['max'] ),
+						'message' => sprintf( /* translators: %d: files */ __( 'At most %d – please remove some', 'engenty-wizards' ), (int) $field['max'] ),
 					);
 					continue;
 				}
@@ -1818,35 +1818,35 @@ class Engenty_Runs {
 			if ( 'number' === $field['kind'] && is_float( $v ) && is_nan( $v ) ) {
 				$errors[] = array(
 					'field'   => $field['id'],
-					'message' => __( 'Bitte eine Zahl eingeben', 'engenty-wizards' ),
+					'message' => __( 'Please enter a number', 'engenty-wizards' ),
 				);
 				continue;
 			}
 			if ( 'select' === $field['kind'] && ! self::is_empty_value( $v ) && ! in_array( (string) $v, (array) ( $field['options'] ?? array() ), true ) ) {
 				$errors[] = array(
 					'field'   => $field['id'],
-					'message' => __( 'Ungültige Auswahl', 'engenty-wizards' ),
+					'message' => __( 'Invalid choice', 'engenty-wizards' ),
 				);
 				continue;
 			}
 			if ( 'slot' === $field['kind'] && ! self::is_empty_value( $v ) && ! in_array( (string) $v, (array) ( $field['options'] ?? array() ), true ) ) {
 				$errors[] = array(
 					'field'   => $field['id'],
-					'message' => __( 'Dieser Termin wird nicht angeboten', 'engenty-wizards' ),
+					'message' => __( 'This slot is not offered', 'engenty-wizards' ),
 				);
 				continue;
 			}
 			if ( 'email' === $field['kind'] && ! self::is_empty_value( $v ) && ! is_email( (string) $v ) ) {
 				$errors[] = array(
 					'field'   => $field['id'],
-					'message' => __( 'Keine gültige E-Mail-Adresse', 'engenty-wizards' ),
+					'message' => __( 'Not a valid email address', 'engenty-wizards' ),
 				);
 				continue;
 			}
 			if ( 'url' === $field['kind'] && ! self::is_empty_value( $v ) && ! wp_http_validate_url( (string) $v ) && ! filter_var( (string) $v, FILTER_VALIDATE_URL ) ) {
 				$errors[] = array(
 					'field'   => $field['id'],
-					'message' => __( 'Keine gültige URL', 'engenty-wizards' ),
+					'message' => __( 'Not a valid URL', 'engenty-wizards' ),
 				);
 				continue;
 			}
@@ -2153,7 +2153,7 @@ class Engenty_Runs {
 		$run = self::load( $id );
 		$w   = $run ? Engenty_Packages::get( $run['wizard_id'] ) : null;
 		if ( ! $run || ! $w ) {
-			return new WP_Error( 'engenty_not_found', __( 'Dieses Ergebnis gibt es nicht.', 'engenty-wizards' ), array( 'status' => 404 ) );
+			return new WP_Error( 'engenty_not_found', __( 'This result does not exist.', 'engenty-wizards' ), array( 'status' => 404 ) );
 		}
 		$state   = self::maps( $run['state'] );
 		$answers = array();

@@ -171,7 +171,7 @@ class Engenty_Embed {
 			'engenty_wizard'
 		);
 		if ( '' === $atts['id'] ) {
-			return current_user_can( 'edit_posts' ) ? self::editor_hint( __( 'Im Shortcode fehlt id="…": die ID oder der Link-Token des Wizards.', 'engenty-wizards' ) ) : '';
+			return current_user_can( 'edit_posts' ) ? self::editor_hint( __( 'The shortcode lacks id="…": the ID or the link token of the wizard.', 'engenty-wizards' ) ) : '';
 		}
 		return self::tag( $atts['id'], $atts );
 	}
@@ -187,7 +187,7 @@ class Engenty_Embed {
 			'<p class="engenty-wizard-hint" style="padding:12px 16px;border:1px dashed #e0531b;border-radius:10px;font-size:14px;color:#57534e">%s <a href="%s">%s</a></p>',
 			esc_html( $text ),
 			esc_url( admin_url( 'admin.php?page=engenty' ) ),
-			esc_html__( 'engenty öffnen', 'engenty-wizards' )
+			esc_html__( 'Open engenty', 'engenty-wizards' )
 		);
 	}
 

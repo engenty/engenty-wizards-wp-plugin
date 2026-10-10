@@ -38,7 +38,7 @@ class Engenty_Downloads {
 					}
 				}
 			}
-			return new WP_Error( 'engenty_not_found', __( 'Dieses Format gibt es hier nicht.', 'engenty-wizards' ), array( 'status' => 404 ) );
+			return new WP_Error( 'engenty_not_found', __( 'This format does not exist here.', 'engenty-wizards' ), array( 'status' => 404 ) );
 		}
 		if ( 'surface' === $step['type'] ) {
 			return array(
@@ -89,7 +89,7 @@ class Engenty_Downloads {
 					'name' => $base . '.html',
 				);
 		}
-		return new WP_Error( 'engenty_not_found', __( 'Dieses Format gibt es hier nicht.', 'engenty-wizards' ), array( 'status' => 404 ) );
+		return new WP_Error( 'engenty_not_found', __( 'This format does not exist here.', 'engenty-wizards' ), array( 'status' => 404 ) );
 	}
 
 	/**
