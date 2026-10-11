@@ -21,7 +21,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: engenty-wizards.php
-msgid "https://engenty.ai/wordpress"
+msgid "https://engenty.ai/wordpress-plugins/engenty-wizards"
 msgstr ""
 
 #. Description of the plugin
