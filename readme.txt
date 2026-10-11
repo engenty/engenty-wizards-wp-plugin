@@ -4,7 +4,7 @@ Tags: ai, forms, chatbot, appointments, lead generation
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.3.2
+Stable tag: 0.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ Contacts and bookings in the WordPress admin, building wizards from templates in
 6. Settings: the provider line, limits, tools.
 
 == Changelog ==
+
+= 0.3.3 =
+* The runner is the one of engenty wizards v0.2.56: a wizard package the import refuses names the reason in English, as the definition's issues do.
 
 = 0.3.2 =
 * The import takes a wizard that runs with less, as the studio's share dialog offers it: only a wizard that needs an account is refused; a choice that leads to a plugin the site lacks is closed in the run.
