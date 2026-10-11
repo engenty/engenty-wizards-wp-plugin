@@ -64,18 +64,23 @@ msgid "Overview"
 msgstr "Oversigt"
 
 #: includes/class-admin.php:65
+#: build/app.js:10
+#: build/app.js:12
 #: src/admin/Home.js:443
 #: src/admin/Wizards.js:166
 msgid "Wizards"
 msgstr "Wizards"
 
 #: includes/class-admin.php:66
+#: build/app.js:12
 #: src/admin/Results.js:332
 #: src/admin/Results.js:412
 msgid "Results"
 msgstr "Resultater"
 
 #: includes/class-admin.php:67
+#: build/app.js:2
+#: build/app.js:13
 #: src/admin/Contacts.js:137
 #: src/admin/Contacts.js:160
 #: src/admin/ui.js:407
@@ -83,6 +88,8 @@ msgid "Contacts"
 msgstr "Kontakter"
 
 #: includes/class-admin.php:68
+#: build/app.js:2
+#: build/app.js:14
 #: src/admin/Appointments.js:54
 #: src/admin/Appointments.js:74
 #: src/admin/ui.js:408
@@ -91,6 +98,8 @@ msgstr "Aftaler"
 
 #: includes/class-admin.php:69
 #: includes/class-admin.php:138
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:356
 #: src/admin/Settings.js:789
 #: src/admin/Settings.js:1150
@@ -98,12 +107,14 @@ msgid "Settings"
 msgstr "Indstillinger"
 
 #: includes/class-admin.php:79
+#: build/app.js:14
 #: src/admin/index.js:56
 msgid "engenty is loading …"
 msgstr "engenty indlæser …"
 
 #: includes/class-admin.php:139
 #: includes/class-elementor-widget.php:71
+#: build/block.js:1
 #: src/block/index.js:68
 msgid "Connect for free"
 msgstr "Forbind gratis"
@@ -138,7 +149,7 @@ msgstr "API-nøglen virker ikke længere. Forbind hjemmesiden igen."
 
 #: includes/class-client.php:78
 #: includes/class-connect.php:139
-#: includes/class-connect.php:433
+#: includes/class-connect.php:432
 msgid "engenty.ai cannot be reached right now."
 msgstr "engenty.ai kan ikke nås lige nu."
 
@@ -192,16 +203,16 @@ msgstr "Du har ikke lov til at forbinde hjemmesiden."
 msgid "The website is not connected to engenty.ai."
 msgstr "Hjemmesiden er ikke forbundet med engenty.ai."
 
-#: includes/class-connect.php:404
+#: includes/class-connect.php:410
 msgid "The connection to engenty.ai has expired. Please connect again."
 msgstr "Forbindelsen til engenty.ai er udløbet. Forbind igen."
 
-#: includes/class-connect.php:431
+#: includes/class-connect.php:430
 msgid "The connection to engenty.ai was cut. Please connect again."
 msgstr "Forbindelsen til engenty.ai blev afbrudt. Forbind igen."
 
-#: includes/class-downloads.php:41
-#: includes/class-downloads.php:92
+#: includes/class-downloads.php:42
+#: includes/class-downloads.php:95
 msgid "This format does not exist here."
 msgstr "Dette format findes ikke her."
 
@@ -210,6 +221,7 @@ msgid "— no wizards —"
 msgstr "— ingen wizards —"
 
 #: includes/class-elementor-widget.php:50
+#: build/block.js:1
 #: src/block/index.js:76
 msgid "— choose a wizard —"
 msgstr "— vælg en wizard —"
@@ -219,6 +231,10 @@ msgid "Connect the website to engenty.ai for free, then your wizards are availab
 msgstr "Forbind hjemmesiden gratis med engenty.ai, så er dine wizards tilgængelige her."
 
 #: includes/class-elementor-widget.php:79
+#: build/app.js:12
+#: build/app.js:13
+#: build/app.js:14
+#: build/block.js:1
 #: src/admin/Results.js:231
 #: src/admin/Results.js:355
 #: src/admin/Results.js:437
@@ -229,6 +245,9 @@ msgid "Wizard"
 msgstr "Wizard"
 
 #: includes/class-elementor-widget.php:88
+#: build/app.js:12
+#: build/app.js:14
+#: build/block.js:1
 #: src/admin/Settings.js:472
 #: src/admin/Settings.js:849
 #: src/block/index.js:199
@@ -236,6 +255,9 @@ msgid "Display"
 msgstr "Visning"
 
 #: includes/class-elementor-widget.php:91
+#: build/app.js:12
+#: build/app.js:14
+#: build/block.js:1
 #: src/admin/Settings.js:491
 #: src/admin/Settings.js:868
 #: src/admin/Wizards.js:347
@@ -244,6 +266,9 @@ msgid "In the text"
 msgstr "I teksten"
 
 #: includes/class-elementor-widget.php:92
+#: build/app.js:12
+#: build/app.js:14
+#: build/block.js:1
 #: src/admin/Settings.js:488
 #: src/admin/Settings.js:865
 #: src/admin/Wizards.js:343
@@ -252,21 +277,27 @@ msgid "Button + window"
 msgstr "Knap + vindue"
 
 #: includes/class-elementor-widget.php:93
+#: build/block.js:1
 #: src/block/index.js:35
 msgid "Bubble bottom right"
 msgstr "Boble nederst til højre"
 
 #: includes/class-elementor-widget.php:101
+#: build/block.js:1
 #: src/block/index.js:207
 msgid "Label"
 msgstr "Etiket"
 
 #: includes/class-elementor-widget.php:110
+#: build/block.js:1
 #: src/block/index.js:217
 msgid "Line beside the bubble"
 msgstr "Linje ved siden af boblen"
 
 #: includes/class-elementor-widget.php:119
+#: build/app.js:12
+#: build/app.js:14
+#: build/block.js:1
 #: src/admin/Settings.js:581
 #: src/admin/Settings.js:953
 #: src/block/index.js:227
@@ -285,71 +316,73 @@ msgstr "Shortcoden mangler id=\"…\": wizardens ID eller link-token."
 msgid "Open engenty"
 msgstr "Åbn engenty"
 
-#: includes/class-packages.php:236
+#: includes/class-packages.php:237
+#: build/app.js:10
 #: src/admin/Home.js:459
 #: src/admin/Wizards.js:40
 msgid "Paused"
 msgstr "Sat på pause"
 
-#: includes/class-packages.php:266
+#: includes/class-packages.php:267
 msgid "This is not a wizard: title or steps are missing."
 msgstr "Dette er ikke en wizard: titel eller trin mangler."
 
-#: includes/class-packages.php:269
+#: includes/class-packages.php:270
 msgid "This wizard comes from a newer version."
 msgstr "Denne wizard kommer fra en nyere version."
 
-#: includes/class-packages.php:274
+#: includes/class-packages.php:275
 msgid "A step has no valid ID or no title."
 msgstr "Et trin har ikke noget gyldigt ID eller ingen titel."
 
 #. translators: %s: step type
-#: includes/class-packages.php:277
+#: includes/class-packages.php:278
 #, php-format
 msgid "The step type “%s” is not known here."
 msgstr "Trintypen „%s“ kendes ikke her."
 
-#: includes/class-packages.php:280
+#: includes/class-packages.php:281
 msgid "Two steps carry the same ID."
 msgstr "To trin har samme ID."
 
-#: includes/class-packages.php:286
+#: includes/class-packages.php:287
 msgid "The last step must be the result."
 msgstr "Det sidste trin skal være resultatet."
 
-#: includes/class-packages.php:339
-#: includes/class-packages.php:456
+#: includes/class-packages.php:310
+#: includes/class-packages.php:425
+#: build/app.js:10
 #: src/admin/Import.js:61
 msgid "This wizard needs an engenty account – it does not run on this website."
 msgstr "Denne wizard kræver en engenty-konto – den kører ikke på denne hjemmeside."
 
-#: includes/class-packages.php:356
-#: includes/class-packages.php:463
+#: includes/class-packages.php:317
+#: includes/class-packages.php:432
 msgid "The package is larger than 30 MB."
 msgstr "Pakken er større end 30 MB."
 
-#: includes/class-packages.php:408
+#: includes/class-packages.php:377
 msgid "The wizard could not be saved."
 msgstr "Wizarden kunne ikke gemmes."
 
-#: includes/class-packages.php:449
+#: includes/class-packages.php:418
 msgid "This wizard does not exist in the account."
 msgstr "Denne wizard findes ikke i kontoen."
 
-#: includes/class-packages.php:452
+#: includes/class-packages.php:421
 msgid "The wizard is not published yet."
 msgstr "Wizarden er ikke udgivet endnu."
 
-#: includes/class-packages.php:608
+#: includes/class-packages.php:577
 msgid "This template does not exist."
 msgstr "Denne skabelon findes ikke."
 
-#: includes/class-packages.php:624
-#: includes/class-packages.php:639
+#: includes/class-packages.php:593
+#: includes/class-packages.php:608
 msgid "The wizard package cannot be opened."
 msgstr "Wizard-pakken kan ikke åbnes."
 
-#: includes/class-packages.php:648
+#: includes/class-packages.php:617
 msgid "This is not a wizard package: wizard.json is missing."
 msgstr "Dette er ikke en wizard-pakke: wizard.json mangler."
 
@@ -362,8 +395,8 @@ msgid "otherwise"
 msgstr "ellers"
 
 #: includes/class-rest.php:574
-#: includes/class-runs.php:306
-#: includes/class-runs.php:352
+#: includes/class-runs.php:332
+#: includes/class-runs.php:378
 msgid "This wizard does not exist."
 msgstr "Denne wizard findes ikke."
 
@@ -376,139 +409,137 @@ msgid "WordPress has no AI provider yet: Settings → Connectors."
 msgstr "WordPress har ingen AI-udbyder endnu: Indstillinger → Connectors."
 
 #: includes/class-rest.php:669
+#: build/app.js:8
 #: src/admin/Place.js:105
 msgid "Which wizard?"
 msgstr "Hvilken wizard?"
 
-#: includes/class-packages.php:371
-#: includes/class-runs.php:895
+#: includes/class-runs.php:206
 msgid "The file could not be saved."
 msgstr "Filen kunne ikke gemmes."
 
-#: includes/class-runs.php:252
+#: includes/class-runs.php:278
 msgid "That was enough tries for this hour. Please try again later."
 msgstr "Det var nok forsøg for denne time. Prøv igen senere."
 
-#: includes/class-runs.php:264
+#: includes/class-runs.php:290
 msgid "This wizard has had enough to do today. Please try again tomorrow."
 msgstr "Denne wizard har haft nok at gøre i dag. Prøv igen i morgen."
 
-#: includes/class-runs.php:320
+#: includes/class-runs.php:346
 msgid "This wizard cannot be reached right now."
 msgstr "Denne wizard kan ikke nås lige nu."
 
-#: includes/class-runs.php:320
+#: includes/class-runs.php:346
 msgid "This wizard is paused."
 msgstr "Denne wizard er sat på pause."
 
-#: includes/class-runs.php:360
+#: includes/class-runs.php:386
 msgid "That did not work."
 msgstr "Det virkede ikke."
 
-#: includes/class-runs.php:413
+#: includes/class-runs.php:439
 msgid "This run no longer exists."
 msgstr "Denne kørsel findes ikke længere."
 
-#: includes/class-runs.php:448
-#: includes/class-runs.php:548
-#: includes/class-runs.php:759
+#: includes/class-runs.php:474
+#: includes/class-runs.php:764
 msgid "The wizard is working right now."
 msgstr "Wizarden arbejder lige nu."
 
-#: includes/class-runs.php:451
-#: includes/class-runs.php:700
-#: includes/class-runs.php:908
+#: includes/class-runs.php:477
+#: includes/class-runs.php:705
 msgid "This page is no longer current."
 msgstr "Denne side er ikke længere aktuel."
 
-#: includes/class-runs.php:466
+#: includes/class-runs.php:492
 msgid "That is not available here right now."
 msgstr "Det er ikke tilgængeligt her lige nu."
 
-#: includes/class-runs.php:474
-#: includes/class-runs.php:491
+#: includes/class-runs.php:500
+#: includes/class-runs.php:517
 msgid "Please check the marked fields."
 msgstr "Tjek de markerede felter."
 
-#: includes/class-runs.php:497
+#: includes/class-runs.php:523
 msgid "File not found"
 msgstr "Filen blev ikke fundet"
 
-#: includes/class-runs.php:707
+#: includes/class-runs.php:712
 msgid "Unknown target."
 msgstr "Ukendt mål."
 
-#: includes/class-runs.php:710
+#: includes/class-runs.php:715
 msgid "A new variant, please."
 msgstr "En ny variant, tak."
 
-#: includes/class-runs.php:764
+#: includes/class-runs.php:769
 msgid "No previous step."
 msgstr "Intet forrige trin."
 
-#: includes/class-runs.php:792
+#: includes/class-runs.php:797
 msgid "Nothing to repeat."
 msgstr "Intet at gentage."
 
-#: includes/class-runs.php:866
+#: includes/class-runs.php:841
 msgid "No file."
 msgstr "Ingen fil."
 
-#: includes/class-runs.php:869
-#: includes/class-runs.php:878
+#: includes/class-runs.php:844
 msgid "The file is larger than 4 MB."
 msgstr "Filen er større end 4 MB."
 
-#: includes/class-runs.php:874
+#: includes/class-runs.php:849
 msgid "Only photos work here (JPEG, PNG, WebP)."
 msgstr "Kun fotos virker her (JPEG, PNG, WebP)."
 
-#: includes/class-runs.php:1007
+#: includes/class-runs.php:923
 msgid "This file does not exist."
 msgstr "Denne fil findes ikke."
 
-#: includes/class-runs.php:1069
-#: includes/class-runs.php:2245
+#: includes/class-runs.php:987
+#: includes/class-runs.php:2167
 msgid "This result does not exist."
 msgstr "Dette resultat findes ikke."
 
-#: includes/class-runs.php:1887
+#: includes/class-runs.php:1806
 msgid "Required"
 msgstr "Påkrævet"
 
 #. translators: %d: files
-#: includes/class-runs.php:1895
+#: includes/class-runs.php:1814
 #, php-format
 msgid "Please choose at least %d"
 msgstr "Vælg mindst %d"
 
 #. translators: %d: files
-#: includes/class-runs.php:1902
+#: includes/class-runs.php:1821
 #, php-format
 msgid "At most %d – please remove some"
 msgstr "Højst %d – fjern nogle"
 
-#: includes/class-runs.php:1910
+#: includes/class-runs.php:1829
 msgid "Please enter a number"
 msgstr "Indtast et tal"
 
-#: includes/class-runs.php:1917
+#: includes/class-runs.php:1836
 msgid "Invalid choice"
 msgstr "Ugyldigt valg"
 
-#: includes/class-runs.php:1924
+#: includes/class-runs.php:1843
 msgid "This slot is not offered"
 msgstr "Denne tid tilbydes ikke"
 
-#: includes/class-runs.php:1931
+#: includes/class-runs.php:1850
 msgid "Not a valid email address"
 msgstr "Ikke en gyldig e-mailadresse"
 
-#: includes/class-runs.php:1938
+#: includes/class-runs.php:1857
 msgid "Not a valid URL"
 msgstr "Ikke en gyldig URL"
 
 #: includes/class-settings.php:38
+#: build/block.js:1
 #: src/block/index.js:182
 #: src/block/index.js:209
 msgid "Start now"
@@ -519,6 +550,7 @@ msgid "Questions? We help."
 msgstr "Spørgsmål? Vi hjælper."
 
 #: includes/class-site-reader.php:238
+#: build/app.js:12
 #: src/admin/Contacts.js:59
 #: src/admin/Settings.js:1084
 #: src/admin/Settings.js:1194
@@ -528,6 +560,8 @@ msgstr "Adresse"
 #: includes/class-site-reader.php:239
 #: includes/class-site-reader.php:247
 #: includes/class-site-reader.php:254
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Contacts.js:44
 #: src/admin/Contacts.js:215
 msgid "Email"
@@ -538,12 +572,15 @@ msgid "Currency"
 msgstr "Valuta"
 
 #: includes/class-site-reader.php:250
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Contacts.js:52
 #: src/admin/Contacts.js:216
 msgid "Phone"
 msgstr "Telefon"
 
 #: includes/class-site-reader.php:359
+#: build/app.js:3
 #: src/admin/SiteRead.js:12
 msgid "Products"
 msgstr "Produkter"
@@ -560,234 +597,279 @@ msgstr "WordPress har ingen AI-udbyder endnu: opsæt en under Indstillinger → 
 msgid "WordPress knows an AI provider, but without a key: Settings → Connectors."
 msgstr "WordPress kender en AI-udbyder, men uden nøgle: Indstillinger → Connectors."
 
-#: includes/class-think.php:294
+#: includes/class-think.php:290
 msgid "This website has no AI provider: the AI Client is missing (WordPress 7.0)."
 msgstr "Denne hjemmeside har ingen AI-udbyder: AI Client mangler (WordPress 7.0)."
 
-#: includes/class-think.php:328
+#: includes/class-think.php:321
 msgid "The AI provider did not answer."
 msgstr "AI-udbyderen svarede ikke."
 
-#: includes/class-think.php:502
+#: includes/class-think.php:488
 msgid "The AI Client of this WordPress version does not match the plugin."
 msgstr "AI Client i denne WordPress-version passer ikke til pluginnet."
 
-#: includes/class-think.php:513
+#: includes/class-think.php:499
 msgid "The AI service is busy right now. Please try again in a moment."
 msgstr "AI-tjenesten er optaget lige nu. Prøv igen om et øjeblik."
 
-#: includes/class-think.php:516
+#: includes/class-think.php:502
 msgid "The step took too long. Please try again."
 msgstr "Trinnet tog for lang tid. Prøv igen."
 
-#: includes/class-think.php:519
+#: includes/class-think.php:505
 msgid "The AI service cannot be reached right now. Please try again later."
 msgstr "AI-tjenesten kan ikke nås lige nu. Prøv igen senere."
 
 #. translators: %s: what went wrong
-#: includes/class-think.php:521
+#: includes/class-think.php:507
 #, php-format
 msgid "This step failed: %s"
 msgstr "Dette trin mislykkedes: %s"
 
-#: includes/class-think.php:1092
-#: includes/class-think.php:1096
-#: includes/class-think.php:1265
+#: includes/class-think.php:1079
+#: includes/class-think.php:1083
+#: includes/class-think.php:1252
 msgid "This step needs an engenty account."
 msgstr "Dette trin kræver en engenty-konto."
 
-#: includes/class-think.php:1307
+#: includes/class-think.php:1294
 msgid "The step returned no result."
 msgstr "Trinnet gav ikke noget resultat."
 
-#: includes/class-think.php:1319
+#: includes/class-think.php:1306
 msgid "The AI provider answered with no valid structure."
 msgstr "AI-udbyderen svarede uden en gyldig struktur."
 
-#: includes/class-think.php:1340
+#: includes/class-think.php:1327
 msgid "There are no entries for this step to work on."
 msgstr "Der er ingen poster, som dette trin kan arbejde med."
 
-#: includes/class-think.php:1389
-#: includes/class-think.php:1637
-#: includes/class-think.php:1849
+#: includes/class-think.php:1376
+#: includes/class-think.php:1626
+#: includes/class-think.php:1838
 msgid "The answer of the AI provider does not match the questions."
 msgstr "AI-udbyderens svar passer ikke til spørgsmålene."
 
-#: includes/class-think.php:1477
+#: includes/class-think.php:1464
 msgid "The document could not be created."
 msgstr "Dokumentet kunne ikke oprettes."
 
+#: build/app.js:1
 #: src/admin/fit.js:10
 msgid "Write text"
 msgstr "Skrive tekst"
 
+#: build/app.js:1
 #: src/admin/fit.js:11
 msgid "Web search"
 msgstr "Websøgning"
 
+#: build/app.js:1
 #: src/admin/fit.js:12
 msgid "Use a browser"
 msgstr "Bruge en browser"
 
+#: build/app.js:1
 #: src/admin/fit.js:13
 msgid "Read documents & photos"
 msgstr "Læse dokumenter og fotos"
 
+#: build/app.js:1
 #: src/admin/fit.js:14
 msgid "Generate images"
 msgstr "Generere billeder"
 
+#: build/app.js:1
 #: src/admin/fit.js:15
 msgid "Generate videos"
 msgstr "Generere videoer"
 
+#: build/app.js:1
 #: src/admin/fit.js:16
 msgid "Speech output"
 msgstr "Taleoutput"
 
+#: build/app.js:1
 #: src/admin/fit.js:17
 msgid "Understand voice notes"
 msgstr "Forstå talebeskeder"
 
+#: build/app.js:1
 #: src/admin/fit.js:18
 msgid "Run code"
 msgstr "Køre kode"
 
+#: build/app.js:1
 #: src/admin/fit.js:19
 msgid "Connected accounts & systems"
 msgstr "Forbundne konti og systemer"
 
+#: build/app.js:1
 #: src/admin/fit.js:20
 msgid "Films with Claude Code (on your subscription)"
 msgstr "Film med Claude Code (på dit abonnement)"
 
+#: build/app.js:1
 #: src/admin/fit.js:27
 msgid "cheap"
 msgstr "billig"
 
+#: build/app.js:1
 #: src/admin/fit.js:28
 msgid "medium"
 msgstr "mellem"
 
+#: build/app.js:1
 #: src/admin/fit.js:29
 msgid "expensive"
 msgstr "dyr"
 
+#: build/app.js:1
 #: src/admin/fit.js:33
 msgid "Marketing & Social Media"
 msgstr "Marketing og sociale medier"
 
+#: build/app.js:1
 #: src/admin/fit.js:34
 msgid "Quotes & sales"
 msgstr "Tilbud og salg"
 
+#: build/app.js:1
 #: src/admin/fit.js:35
 msgid "Bookkeeping & receipts"
 msgstr "Bogføring og bilag"
 
+#: build/app.js:1
 #: src/admin/fit.js:36
 msgid "Customer service"
 msgstr "Kundeservice"
 
+#: build/app.js:1
 #: src/admin/fit.js:37
 msgid "Research & analysis"
 msgstr "Research og analyse"
 
+#: build/app.js:1
 #: src/admin/fit.js:38
 msgid "HR & applications"
 msgstr "HR og ansøgninger"
 
+#: build/app.js:1
 #: src/admin/fit.js:39
 msgid "Planning & processes"
 msgstr "Planlægning og processer"
 
+#: build/app.js:1
 #: src/admin/fit.js:40
 msgid "Helpers for the website"
 msgstr "Hjælpere til hjemmesiden"
 
+#: build/app.js:1
 #: src/admin/fit.js:41
 msgid "Images & video"
 msgstr "Billeder og video"
 
+#: build/app.js:1
 #: src/admin/fit.js:42
 msgid "Requests & appointments"
 msgstr "Forespørgsler og aftaler"
 
+#: build/app.js:1
 #: src/admin/fit.js:43
 msgid "Advice & prices"
 msgstr "Rådgivning og priser"
 
+#: build/app.js:1
 #: src/admin/fit.js:47
 msgid "Text"
 msgstr "Tekst"
 
+#: build/app.js:1
 #: src/admin/fit.js:48
 msgid "Document (PDF, Word)"
 msgstr "Dokument (PDF, Word)"
 
+#: build/app.js:1
 #: src/admin/fit.js:49
 msgid "Table"
 msgstr "Tabel"
 
+#: build/app.js:1
 #: src/admin/fit.js:50
 msgid "Image"
 msgstr "Billede"
 
+#: build/app.js:1
 #: src/admin/fit.js:51
 msgid "Video"
 msgstr "Video"
 
+#: build/app.js:1
 #: src/admin/fit.js:52
 msgid "Audio"
 msgstr "Lyd"
 
+#: build/app.js:1
 #: src/admin/fit.js:53
 msgid "Dashboard"
 msgstr "Dashboard"
 
+#: build/app.js:1
 #: src/admin/fit.js:73
 msgid "Lists the wizard keeps between runs"
 msgstr "Lister, som wizarden gemmer mellem kørsler"
 
+#: build/app.js:1
 #: src/admin/fit.js:74
 msgid "The memory of the wizard"
 msgstr "Wizardens hukommelse"
 
+#: build/app.js:1
 #: src/admin/fit.js:75
 msgid "One run per entry (one after the other here)"
 msgstr "En kørsel pr. post (en efter en her)"
 
+#: build/app.js:1
 #: src/admin/fit.js:79
 msgid "Choosing a slot from free times"
 msgstr "Valg af en tid blandt ledige tider"
 
+#: build/app.js:1
 #: src/admin/fit.js:80
 msgid "Reading the pages of the space"
 msgstr "Læsning af siderne i dit space"
 
+#: build/app.js:1
 #: src/admin/fit.js:81
 msgid "A widget"
 msgstr "En widget"
 
 #. translators: %s: a file format
+#: build/app.js:2
 #: src/admin/fit.js:157
 #, js-format
 msgid "Result as %s"
 msgstr "Resultat som %s"
 
 #. translators: %s: a list
+#: build/app.js:2
 #: src/admin/fit.js:177
 #, js-format
 msgid "Works without: %s"
 msgstr "Virker uden: %s"
 
 #. translators: %s: a list
+#: build/app.js:2
 #: src/admin/fit.js:194
 #, js-format
 msgid "Not set up here: %s"
 msgstr "Ikke sat op her: %s"
 
+#: build/app.js:2
+#: build/app.js:3
+#: build/app.js:8
+#: build/app.js:10
 #: src/admin/Import.js:138
 #: src/admin/Templates.js:440
 #: src/admin/ui.js:169
@@ -797,84 +879,109 @@ msgstr "Ikke sat op her: %s"
 msgid "Close"
 msgstr "Luk"
 
+#: build/app.js:2
+#: build/app.js:12
 #: src/admin/ui.js:206
 #: src/admin/Wizards.js:279
 msgid "Copied"
 msgstr "Kopieret"
 
+#: build/app.js:2
 #: src/admin/ui.js:207
 msgid "Copy"
 msgstr "Kopiér"
 
+#: build/app.js:2
 #: src/admin/ui.js:218
 msgid "Contacts – with Pro"
 msgstr "Kontakter – med Pro"
 
+#: build/app.js:2
 #: src/admin/ui.js:219
 msgid "Every wizard that asks for name and email creates the contact. Here you see who came through which page, search, and export as CSV – without a CRM of your own."
 msgstr "Hver wizard, der spørger om navn og e-mail, opretter kontakten. Her ser du, hvem der kom via hvilken side, søger og eksporterer som CSV – uden dit eget CRM."
 
+#: build/app.js:2
 #: src/admin/ui.js:224
 msgid "Leads from every wizard, with the page they came from"
 msgstr "Leads fra hver wizard, med den side de kom fra"
 
+#: build/app.js:2
 #: src/admin/ui.js:228
 msgid "People and companies, roles, notes"
 msgstr "Personer og virksomheder, roller, noter"
 
+#: build/app.js:2
 #: src/admin/ui.js:229
 msgid "Export as CSV"
 msgstr "Eksportér som CSV"
 
+#: build/app.js:2
 #: src/admin/ui.js:233
 msgid "Appointments – with Pro"
 msgstr "Aftaler – med Pro"
 
+#: build/app.js:2
 #: src/admin/ui.js:234
 msgid "Wizards book free slots in your calendar: opening hours, holidays, Google or Microsoft calendar. You see the bookings here, visitors get their confirmation."
 msgstr "Wizards booker ledige tider i din kalender: åbningstider, helligdage, Google- eller Microsoft-kalender. Du ser bookingerne her, besøgende får deres bekræftelse."
 
+#: build/app.js:2
 #: src/admin/ui.js:239
 msgid "Booking on the website, without double bookings"
 msgstr "Booking på hjemmesiden, uden dobbeltbookinger"
 
+#: build/app.js:2
 #: src/admin/ui.js:243
 msgid "On site, by phone or online"
 msgstr "På stedet, telefonisk eller online"
 
+#: build/app.js:2
 #: src/admin/ui.js:244
 msgid "Calendar file and cancellation link for every guest"
 msgstr "Kalenderfil og afbestillingslink til hver gæst"
 
+#: build/app.js:2
 #: src/admin/ui.js:251
 msgid "Create wizards right here – with Pro"
 msgstr "Opret wizards lige her – med Pro"
 
+#: build/app.js:2
 #: src/admin/ui.js:252
 msgid "With Free you build wizards in the free app on your computer and publish them, then they are available here. With Pro you create them in the cloud, from templates or in the Studio, and engenty reads your website."
 msgstr "Med Free bygger du wizards i den gratis app på din computer og udgiver dem, så er de tilgængelige her. Med Pro opretter du dem i skyen, ud fra skabeloner eller i Studio, og engenty læser din hjemmeside."
 
+#: build/app.js:2
 #: src/admin/ui.js:257
 msgid "Templates live with one click"
 msgstr "Skabeloner live med ét klik"
 
+#: build/app.js:2
 #: src/admin/ui.js:258
 msgid "Your website as knowledge: services, prices, contact"
 msgstr "Din hjemmeside som viden: ydelser, priser, kontakt"
 
+#: build/app.js:2
 #: src/admin/ui.js:262
 msgid "Monthly credits, contacts and appointments included"
 msgstr "Månedlige credits, kontakter og aftaler inkluderet"
 
+#: build/app.js:2
+#: build/app.js:8
 #: src/admin/Templates.js:287
 #: src/admin/ui.js:294
 msgid "Upgrade to Pro"
 msgstr "Opgradér til Pro"
 
+#: build/app.js:2
 #: src/admin/ui.js:299
 msgid "Compare plans"
 msgstr "Sammenlign planer"
 
+#: build/app.js:2
+#: build/app.js:8
+#: build/app.js:10
+#: build/app.js:12
 #: src/admin/Home.js:578
 #: src/admin/Import.js:146
 #: src/admin/Settings.js:810
@@ -886,6 +993,11 @@ msgstr "Sammenlign planer"
 msgid "Create a free account"
 msgstr "Opret en gratis konto"
 
+#: build/app.js:2
+#: build/app.js:8
+#: build/app.js:9
+#: build/app.js:10
+#: build/app.js:12
 #: src/admin/Home.js:131
 #: src/admin/Home.js:586
 #: src/admin/Settings.js:819
@@ -896,269 +1008,339 @@ msgstr "Opret en gratis konto"
 msgid "Sign in"
 msgstr "Log ind"
 
+#: build/app.js:2
 #: src/admin/ui.js:369
 #: src/admin/ui.js:447
 msgid "Ask an administrator to connect the website."
 msgstr "Bed en administrator om at forbinde hjemmesiden."
 
+#: build/app.js:2
 #: src/admin/ui.js:420
 msgid "First you connect the website with a free account. You switch to Pro afterwards, whenever you like."
 msgstr "Først forbinder du hjemmesiden med en gratis konto. Du skifter til Pro bagefter, når du vil."
 
+#: build/app.js:2
+#: build/app.js:12
 #: src/admin/ui.js:492
 #: src/admin/ui.js:516
 #: src/admin/Wizards.js:236
 msgid "Local"
 msgstr "Lokal"
 
+#: build/app.js:2
 #: src/admin/ui.js:504
 msgid "Connect with an account"
 msgstr "Forbind med en konto"
 
 #. translators: %s: credits
+#: build/app.js:3
 #: src/admin/ui.js:535
 #, js-format
 msgid "%s credits"
 msgstr "%s credits"
 
+#: build/app.js:3
 #: src/admin/ui.js:549
 msgid "Upgrade"
 msgstr "Opgradér"
 
+#: build/app.js:3
 #: src/admin/ui.js:563
 msgid "Help"
 msgstr "Hjælp"
 
+#: build/app.js:3
 #: src/admin/ui.js:672
 msgid "not set up"
 msgstr "ikke sat op"
 
+#: build/app.js:3
 #: src/admin/ui.js:673
 msgid "works without"
 msgstr "virker uden"
 
 #. translators: %s: plugins
+#: build/app.js:3
+#: build/app.js:5
 #: src/admin/Templates.js:128
 #: src/admin/ui.js:714
 #, js-format
 msgid "With an account: needs %s"
 msgstr "Med en konto: kræver %s"
 
+#: build/app.js:3
 #: src/admin/SiteRead.js:7
 msgid "Home page"
 msgstr "Forside"
 
+#: build/app.js:3
 #: src/admin/SiteRead.js:8
 msgid "Legal notice"
 msgstr "Kolofon"
 
+#: build/app.js:3
+#: build/app.js:12
 #: src/admin/Contacts.js:34
 #: src/admin/SiteRead.js:9
 msgid "Contact"
 msgstr "Kontakt"
 
+#: build/app.js:3
 #: src/admin/SiteRead.js:10
 msgid "About us"
 msgstr "Om os"
 
+#: build/app.js:3
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:676
 #: src/admin/Settings.js:1045
 #: src/admin/SiteRead.js:11
 msgid "Privacy"
 msgstr "Privatliv"
 
+#: build/app.js:3
 #: src/admin/SiteRead.js:91
 msgid "Reading the website …"
 msgstr "Læser hjemmesiden …"
 
 #. translators: %d: number of pages
+#: build/app.js:4
 #: src/admin/SiteRead.js:103
 #, js-format
 msgid "Taken over: your details and %d pages. Your wizards now know your business."
 msgstr "Overtaget: dine oplysninger og %d sider. Dine wizards kender nu din virksomhed."
 
+#: build/app.js:4
+#: build/app.js:8
 #: src/admin/SiteRead.js:144
 #: src/admin/Start.js:295
 #: src/admin/Templates.js:559
 msgid "Continue"
 msgstr "Fortsæt"
 
+#: build/app.js:4
 #: src/admin/SiteRead.js:148
 msgid "View and change in the Studio"
 msgstr "Se og ændr i Studio"
 
+#: build/app.js:4
 #: src/admin/SiteRead.js:164
 msgid "This is what engenty found on your website. Remove what does not belong; only what is checked goes to engenty.ai."
 msgstr "Det her fandt engenty på din hjemmeside. Fjern det, der ikke hører til; kun det, der er markeret, sendes til engenty.ai."
 
+#: build/app.js:4
+#: build/app.js:14
 #: src/admin/Contacts.js:214
 #: src/admin/SiteRead.js:172
 msgid "Name"
 msgstr "Navn"
 
+#: build/app.js:4
 #: src/admin/SiteRead.js:182
 msgid "Tagline"
 msgstr "Tagline"
 
+#: build/app.js:4
 #: src/admin/SiteRead.js:201
 msgid "Logo"
 msgstr "Logo"
 
+#: build/app.js:4
 #: src/admin/SiteRead.js:211
 msgid "none found"
 msgstr "ingen fundet"
 
+#: build/app.js:4
 #: src/admin/SiteRead.js:225
 msgid "Theme colors"
 msgstr "Temafarver"
 
+#: build/app.js:4
 #: src/admin/SiteRead.js:238
 msgid "none"
 msgstr "ingen"
 
+#: build/app.js:4
 #: src/admin/SiteRead.js:245
 msgid "Details"
 msgstr "Oplysninger"
 
+#: build/app.js:4
 #: src/admin/SiteRead.js:309
 msgid "Add a detail (opening hours, phone, VAT ID …)"
 msgstr "Tilføj en oplysning (åbningstider, telefon, CVR-nummer …)"
 
 #. translators: 1: chosen pages, 2: all pages
+#: build/app.js:5
 #: src/admin/SiteRead.js:318
 #, js-format
 msgid "Pages as knowledge (%1$d of %2$d)"
 msgstr "Sider som viden (%1$d af %2$d)"
 
+#: build/app.js:5
 #: src/admin/SiteRead.js:358
 msgid "No published pages with text."
 msgstr "Ingen udgivne sider med tekst."
 
+#: build/app.js:5
+#: build/app.js:8
 #: src/admin/SiteRead.js:376
 #: src/admin/SiteRead.js:400
 #: src/admin/Templates.js:597
 msgid "Skip"
 msgstr "Spring over"
 
+#: build/app.js:5
 #: src/admin/SiteRead.js:384
 msgid "Reading …"
 msgstr "Læser …"
 
+#: build/app.js:5
 #: src/admin/SiteRead.js:385
 msgid "Hand over to engenty"
 msgstr "Overdrag til engenty"
 
+#: build/app.js:5
 #: src/admin/SiteRead.js:389
 msgid "This takes about a minute."
 msgstr "Det tager cirka et minut."
 
 #. translators: %d: minutes
+#: build/app.js:5
 #: src/admin/Templates.js:81
 #, js-format
 msgid "~ %d min"
 msgstr "~ %d min."
 
+#: build/app.js:5
 #: src/admin/Templates.js:171
 msgid "branches"
 msgstr "forgreninger"
 
 #. translators: %s: the provider
+#: build/app.js:6
 #: src/admin/Templates.js:191
 #, js-format
 msgid "calls to %s per run, on your key"
 msgstr "kald til %s pr. kørsel, på din nøgle"
 
+#: build/app.js:6
 #: src/admin/Templates.js:192
 msgid "your AI provider"
 msgstr "din AI-udbyder"
 
 #. translators: %d: credits
+#: build/app.js:7
 #: src/admin/Templates.js:198
 #, js-format
 msgid "≈ %d credits per run"
 msgstr "≈ %d credits pr. kørsel"
 
+#: build/app.js:7
 #: src/admin/Templates.js:202
 msgid "in credits of your account"
 msgstr "i credits fra din konto"
 
+#: build/app.js:7
 #: src/admin/Templates.js:218
 msgid "Your wizard now runs on this website. Next, you put it on a page."
 msgstr "Din wizard kører nu på denne hjemmeside. Næste skridt: sæt den på en side."
 
+#: build/app.js:7
 #: src/admin/Templates.js:223
 msgid "Your wizard is live. Try it out, then we put it on the website."
 msgstr "Din wizard er live. Prøv den, så sætter vi den på hjemmesiden."
 
+#: build/app.js:7
 #: src/admin/Templates.js:212
 msgid "The wizard is created but still needs work in the Studio before it goes live."
 msgstr "Wizarden er oprettet, men skal stadig bearbejdes i Studio, før den går live."
 
+#: build/app.js:7
 #: src/admin/Templates.js:322
 msgid "Duration"
 msgstr "Varighed"
 
 #. translators: %d: fields
+#: build/app.js:8
 #: src/admin/Templates.js:332
 #, js-format
 msgid "from start to result, with %d inputs from you"
 msgstr "fra start til resultat, med %d input fra dig"
 
+#: build/app.js:8
 #: src/admin/Templates.js:342
 msgid "Cost"
 msgstr "Pris"
 
+#: build/app.js:8
+#: build/app.js:12
 #: src/admin/Results.js:85
 #: src/admin/Results.js:147
 #: src/admin/Templates.js:355
 msgid "Result"
 msgstr "Resultat"
 
+#: build/app.js:8
 #: src/admin/Templates.js:378
 msgid "Needs"
 msgstr "Kræver"
 
 #. translators: %s: plugins
+#: build/app.js:8
 #: src/admin/Templates.js:402
 #, js-format
 msgid "With Pro: needs %s"
 msgstr "Med Pro: kræver %s"
 
+#: build/app.js:8
 #: src/admin/Templates.js:416
 msgid "How the wizard runs"
 msgstr "Sådan kører wizarden"
 
 #. translators: %d: steps
+#: build/app.js:8
+#: build/app.js:12
 #: src/admin/Templates.js:423
 #: src/admin/Wizards.js:254
 #, js-format
 msgid "%d steps"
 msgstr "%d trin"
 
+#: build/app.js:8
 #: src/admin/Templates.js:269
 msgid "Start with this template"
 msgstr "Start med denne skabelon"
 
+#: build/app.js:8
 #: src/admin/Templates.js:543
 msgid "Try it out"
 msgstr "Prøv den"
 
+#: build/app.js:8
 #: src/admin/Templates.js:552
 msgid "Adjust in the Studio"
 msgstr "Tilpas i Studio"
 
+#: build/app.js:8
 #: src/admin/Templates.js:566
 msgid "Choose another"
 msgstr "Vælg en anden"
 
+#: build/app.js:8
 #: src/admin/Templates.js:613
 msgid "Search templates"
 msgstr "Søg i skabeloner"
 
+#: build/app.js:8
 #: src/admin/Templates.js:617
 msgid "Search templates …"
 msgstr "Søg i skabeloner …"
 
+#: build/app.js:8
+#: build/app.js:10
+#: build/app.js:13
 #: src/admin/Home.js:425
 #: src/admin/Home.js:446
 #: src/admin/Home.js:541
@@ -1168,920 +1350,1165 @@ msgid "All"
 msgstr "Alle"
 
 #. translators: %d: templates
+#: build/app.js:8
 #: src/admin/Templates.js:657
 #, js-format
 msgid "%d templates · all run here"
 msgstr "%d skabeloner · alle kører her"
 
 #. translators: %d: templates
+#: build/app.js:8
 #: src/admin/Templates.js:664
 #, js-format
 msgid "%d templates"
 msgstr "%d skabeloner"
 
+#: build/app.js:8
 #: src/admin/Templates.js:578
 msgid "With Free: download the free app, build your wizard there and publish it – then it appears here."
 msgstr "Med Free: download den gratis app, byg din wizard der og udgiv den – så vises den her."
 
+#: build/app.js:8
 #: src/admin/Templates.js:587
 msgid "How it works"
 msgstr "Sådan virker det"
 
+#: build/app.js:8
 #: src/admin/Place.js:50
 msgid "No wizard is live yet. Create one or publish one in the Studio, then it comes here."
 msgstr "Ingen wizard er live endnu. Opret en, eller udgiv en i Studio, så kommer den her."
 
+#: build/app.js:8
 #: src/admin/Place.js:62
 msgid "To the Studio"
 msgstr "Til Studio"
 
+#: build/app.js:8
 #: src/admin/Place.js:122
 msgid "The bubble is now at the bottom right of every page. You set text, color and exceptions in the settings."
 msgstr "Boblen sidder nu nederst til højre på hver side. Tekst, farve og undtagelser indstiller du i indstillingerne."
 
+#: build/app.js:8
 #: src/admin/Place.js:131
 msgid "View website"
 msgstr "Se hjemmesiden"
 
+#: build/app.js:8
 #: src/admin/Place.js:144
 msgid "As a bubble on every page"
 msgstr "Som boble på hver side"
 
+#: build/app.js:8
 #: src/admin/Place.js:147
 msgid "Bottom right, for questions and requests from anywhere."
 msgstr "Nederst til højre, til spørgsmål og forespørgsler fra hvor som helst."
 
+#: build/app.js:8
 #: src/admin/Place.js:158
 msgid "Turn on"
 msgstr "Slå til"
 
+#: build/app.js:8
 #: src/admin/Place.js:169
 msgid "On a new page"
 msgstr "På en ny side"
 
+#: build/app.js:8
 #: src/admin/Place.js:172
 msgid "A draft with the wizard block; you publish it."
 msgstr "En kladde med wizard-blokken; du udgiver den."
 
+#: build/app.js:8
 #: src/admin/Place.js:182
 msgid "Create page"
 msgstr "Opret side"
 
+#: build/app.js:8
 #: src/admin/Place.js:193
 msgid "Place it yourself"
 msgstr "Placer den selv"
 
+#: build/app.js:8
 #: src/admin/Place.js:196
 msgid "The “engenty Wizard” block, the Elementor widget or this shortcode:"
 msgstr "Blokken „engenty Wizard“, Elementor-widgetten eller denne shortcode:"
 
+#: build/app.js:8
 #: src/admin/Place.js:207
 msgid "Done"
 msgstr "Færdig"
 
+#: build/app.js:8
 #: src/admin/Start.js:21
 msgid "Wizards from the shipped templates run on this website, without an account and without credits. The provider bills your key."
 msgstr "Wizards fra de medfølgende skabeloner kører på denne hjemmeside, uden konto og uden credits. Udbyderen fakturerer din nøgle."
 
+#: build/app.js:8
 #: src/admin/Start.js:27
 msgid "Set up an AI provider first: WordPress → Settings → Connectors."
 msgstr "Opsæt først en AI-udbyder: WordPress → Indstillinger → Connectors."
 
+#: build/app.js:8
 #: src/admin/Start.js:32
 msgid "Needs WordPress 7.0 with an AI provider under Settings → Connectors."
 msgstr "Kræver WordPress 7.0 med en AI-udbyder under Indstillinger → Connectors."
 
+#: build/app.js:8
 #: src/admin/Start.js:58
 msgid "Your AI at engenty"
 msgstr "Din AI hos engenty"
 
+#: build/app.js:8
 #: src/admin/Start.js:60
 msgid "A free account, and engenty reads your website, builds wizards from templates and shows results, contacts and appointments here in the admin."
 msgstr "En gratis konto, og engenty læser din hjemmeside, bygger wizards ud fra skabeloner og viser resultater, kontakter og aftaler her i administrationen."
 
+#: build/app.js:8
 #: src/admin/Start.js:88
 msgid "or"
 msgstr "eller"
 
+#: build/app.js:8
 #: src/admin/Start.js:93
 msgid "Local, with your own AI provider"
 msgstr "Lokalt, med din egen AI-udbyder"
 
 #. translators: %s: provider
+#: build/app.js:8
 #: src/admin/Start.js:100
 #, js-format
 msgid "%s found"
 msgstr "%s fundet"
 
+#: build/app.js:8
 #: src/admin/Start.js:109
 msgid "no provider"
 msgstr "ingen udbyder"
 
+#: build/app.js:8
 #: src/admin/Start.js:120
 #: src/admin/Start.js:199
 msgid "Set up locally"
 msgstr "Opsæt lokalt"
 
+#: build/app.js:8
 #: src/admin/Start.js:126
 msgid "Open Connectors"
 msgstr "Åbn Connectors"
 
+#: build/app.js:8
 #: src/admin/Start.js:131
 msgid "You can switch at any time later."
 msgstr "Du kan skifte når som helst senere."
 
+#: build/app.js:8
 #: src/admin/Start.js:140
 msgid "Back"
 msgstr "Tilbage"
 
+#: build/app.js:8
 #: src/admin/Start.js:150
 msgid "AI provider"
 msgstr "AI-udbyder"
 
+#: build/app.js:8
 #: src/admin/Start.js:151
 msgid "Choose wizards"
 msgstr "Vælg wizards"
 
+#: build/app.js:8
+#: build/app.js:9
 #: src/admin/Home.js:177
 #: src/admin/Start.js:152
 msgid "Put on the website"
 msgstr "Sæt på hjemmesiden"
 
+#: build/app.js:8
+#: build/app.js:10
 #: src/admin/Home.js:226
 #: src/admin/Start.js:206
 msgid "Later"
 msgstr "Senere"
 
+#: build/app.js:8
 #: src/admin/Start.js:241
 msgid "Which provider and which key: WordPress settles that under Settings → Connectors, not the plugin. Here you see whether it answers."
 msgstr "Hvilken udbyder og hvilken nøgle: det afgør WordPress under Indstillinger → Connectors, ikke pluginnet. Her ser du, om den svarer."
 
+#: build/app.js:8
+#: build/app.js:12
 #: src/admin/Settings.js:89
 #: src/admin/Start.js:251
 msgid "Run a test"
 msgstr "Kør en test"
 
 #. translators: %s: seconds
+#: build/app.js:8
 #: src/admin/Start.js:259
 #, js-format
 msgid "answers · %s s"
 msgstr "svarer · %s s"
 
+#: build/app.js:8
+#: build/app.js:12
 #: src/admin/Settings.js:97
 #: src/admin/Start.js:269
 msgid "no JSON"
 msgstr "ingen JSON"
 
+#: build/app.js:8
+#: build/app.js:12
 #: src/admin/Settings.js:102
 #: src/admin/Start.js:274
 msgid "takes images"
 msgstr "tager imod billeder"
 
+#: build/app.js:8
+#: build/app.js:12
 #: src/admin/Settings.js:106
 #: src/admin/Start.js:278
 msgid "takes no images"
 msgstr "tager ikke imod billeder"
 
+#: build/app.js:8
 #: src/admin/Home.js:23
 msgid "The connection was refused at engenty.ai. You can try again at any time."
 msgstr "Forbindelsen blev afvist hos engenty.ai. Du kan prøve igen når som helst."
 
+#: build/app.js:8
 #: src/admin/Home.js:27
 msgid "The sign-in took too long. Please try again."
 msgstr "Login tog for lang tid. Prøv igen."
 
+#: build/app.js:8
 #: src/admin/Home.js:31
 msgid "The connection did not work. Please try again."
 msgstr "Forbindelsen virkede ikke. Prøv igen."
 
 #. translators: %s: site name
+#: build/app.js:9
 #: src/admin/Home.js:91
 #, js-format
 msgid "Your own AI for %s"
 msgstr "Din egen AI til %s"
 
+#: build/app.js:9
 #: src/admin/Home.js:96
 msgid "engenty reads your website and turns it into assistants for requests, quotes and appointments. They run on engenty.ai and appear on your site as a block, a shortcode, an Elementor widget or a chat bubble."
 msgstr "engenty læser din hjemmeside og gør den til assistenter til forespørgsler, tilbud og aftaler. De kører på engenty.ai og vises på dit websted som blok, shortcode, Elementor-widget eller chatboble."
 
+#: build/app.js:9
 #: src/admin/Home.js:106
 msgid "Create your own AI"
 msgstr "Opret din egen AI"
 
+#: build/app.js:9
 #: src/admin/Home.js:109
 msgid "Free account"
 msgstr "Gratis konto"
 
+#: build/app.js:9
 #: src/admin/Home.js:110
 msgid "No credit card"
 msgstr "Intet kreditkort"
 
+#: build/app.js:9
 #: src/admin/Home.js:112
 msgid "Your website stays as it is"
 msgstr "Din hjemmeside forbliver, som den er"
 
+#: build/app.js:9
 #: src/admin/Home.js:119
 msgid "Already have an engenty account?"
 msgstr "Har du allerede en engenty-konto?"
 
+#: build/app.js:9
 #: src/admin/Home.js:130
 msgid "One moment …"
 msgstr "Et øjeblik …"
 
+#: build/app.js:9
 #: src/admin/Home.js:137
 msgid "1 · Account"
 msgstr "1 · Konto"
 
+#: build/app.js:9
 #: src/admin/Home.js:139
 msgid "You create an account at engenty.ai or sign in and allow the website access. Then you come back here."
 msgstr "Du opretter en konto på engenty.ai eller logger ind og giver hjemmesiden adgang. Så kommer du tilbage her."
 
+#: build/app.js:9
 #: src/admin/Home.js:145
 msgid "2 · Read the website"
 msgstr "2 · Læs hjemmesiden"
 
+#: build/app.js:9
 #: src/admin/Home.js:147
 msgid "Name, logo, colors, contact details and your pages: you see what was found and choose what engenty gets."
 msgstr "Navn, logo, farver, kontaktoplysninger og dine sider: du ser, hvad der blev fundet, og vælger, hvad engenty får."
 
+#: build/app.js:9
 #: src/admin/Home.js:154
 msgid "3 · Wizard on the site"
 msgstr "3 · Wizard på webstedet"
 
+#: build/app.js:9
 #: src/admin/Home.js:157
 msgid "Choose a template, set it live, show it as a chat bubble or on a page. You see results here in the admin."
 msgstr "Vælg en skabelon, sæt den live, vis den som chatboble eller på en side. Resultaterne ser du her i administrationen."
 
+#: build/app.js:9
 #: src/admin/Home.js:165
 msgid "Visitors talk directly to engenty.ai; WordPress stores no answers. Mention engenty in your privacy policy – you find the sentence for it in the settings after connecting."
 msgstr "Besøgende taler direkte med engenty.ai; WordPress gemmer ingen svar. Nævn engenty i din privatlivspolitik – sætningen til det finder du i indstillingerne, når du har forbundet."
 
+#: build/app.js:9
 #: src/admin/Home.js:65
 msgid "engenty is not connected yet. Ask an administrator to connect the website."
 msgstr "engenty er ikke forbundet endnu. Bed en administrator om at forbinde hjemmesiden."
 
+#: build/app.js:9
 #: src/admin/Home.js:175
 msgid "Read the website"
 msgstr "Læs hjemmesiden"
 
+#: build/app.js:9
 #: src/admin/Home.js:176
 msgid "Create the first wizard"
 msgstr "Opret den første wizard"
 
 #. translators: %s: account e-mail
+#: build/app.js:10
 #: src/admin/Home.js:206
 #, js-format
 msgid "Connected as %s. Welcome to engenty!"
 msgstr "Forbundet som %s. Velkommen til engenty!"
 
+#: build/app.js:10
 #: src/admin/Home.js:219
 msgid "Set up"
 msgstr "Opsæt"
 
+#: build/app.js:10
 #: src/admin/Home.js:235
 msgid "Account connected"
 msgstr "Konto forbundet"
 
+#: build/app.js:10
 #: src/admin/Home.js:340
 msgid "None yet. As soon as visitors complete a wizard, their answers are here."
 msgstr "Ingen endnu. Så snart besøgende gennemfører en wizard, er deres svar her."
 
+#: build/app.js:10
 #: src/admin/Home.js:327
 msgid "Results are visible to the roles chosen for it in the settings."
 msgstr "Resultater kan ses af de roller, der er valgt til det i indstillingerne."
 
+#: build/app.js:10
 #: src/admin/Home.js:386
 #: src/admin/Home.js:514
 msgid "Wizards live"
 msgstr "Wizards live"
 
+#: build/app.js:10
 #: src/admin/Home.js:393
 #: src/admin/Home.js:521
 msgid "Results in 30 days"
 msgstr "Resultater på 30 dage"
 
+#: build/app.js:10
 #: src/admin/Home.js:404
 msgid "Credits"
 msgstr "Credits"
 
+#: build/app.js:10
 #: src/admin/Home.js:413
 msgid "top up"
 msgstr "fyld op"
 
+#: build/app.js:10
 #: src/admin/Home.js:422
 #: src/admin/Home.js:538
 msgid "Latest results"
 msgstr "Seneste resultater"
 
+#: build/app.js:10
 #: src/admin/Home.js:502
 msgid "WordPress has no AI provider that answers right now: Settings → Connectors."
 msgstr "WordPress har ingen AI-udbyder, der svarer lige nu: Indstillinger → Connectors."
 
+#: build/app.js:10
 #: src/admin/Home.js:529
 msgid "thinks for the wizards · without credits"
 msgstr "tænker for dine wizards · uden credits"
 
+#: build/app.js:10
 #: src/admin/Home.js:548
 msgid "With an account"
 msgstr "Med en konto"
 
+#: build/app.js:10
 #: src/admin/Home.js:552
 msgid "Studio, contacts, appointments, PDFs, web search and the wizards that need more. The local ones keep running."
 msgstr "Studio, kontakter, aftaler, PDF'er, websøgning og de wizards, der kræver mere. De lokale kører videre."
 
+#: build/app.js:10
 #: src/admin/Import.js:111
 msgid "Import"
 msgstr "Importér"
 
+#: build/app.js:10
 #: src/admin/Import.js:47
 msgid "The wizard has errors that must be fixed in the Studio first."
 msgstr "Wizarden har fejl, der først skal rettes i Studio."
 
+#: build/app.js:10
 #: src/admin/Import.js:71
 msgid "Plugins:"
 msgstr "Plugins:"
 
+#: build/app.js:10
 #: src/admin/Import.js:127
 msgid "Import did not work"
 msgstr "Import virkede ikke"
 
+#: build/app.js:10
 #: src/admin/Wizards.js:35
 msgid "Draft"
 msgstr "Kladde"
 
+#: build/app.js:10
+#: build/app.js:12
+#: build/app.js:13
 #: src/admin/Results.js:17
 #: src/admin/Results.js:364
 #: src/admin/Results.js:472
 msgid "Finished"
 msgstr "Afsluttet"
 
+#: build/app.js:10
 #: src/admin/Results.js:18
 msgid "Open"
 msgstr "Åben"
 
+#: build/app.js:10
 #: src/admin/Results.js:19
 msgid "Running"
 msgstr "Kører"
 
+#: build/app.js:10
 #: src/admin/Results.js:20
 msgid "Error"
 msgstr "Fejl"
 
+#: build/app.js:10
 #: src/admin/Results.js:21
 msgid "Stopped"
 msgstr "Stoppet"
 
 #. translators: 1: calls 2: provider
+#: build/app.js:11
 #: src/admin/Results.js:32
 #, js-format
 msgid "%1$d calls to %2$s"
 msgstr "%1$d kald til %2$s"
 
+#: build/app.js:11
 #: src/admin/Results.js:34
 msgid "the AI provider"
 msgstr "AI-udbyderen"
 
 #. translators: %d: credits
+#: build/app.js:12
 #: src/admin/Results.js:39
 #, js-format
 msgid "%d credits"
 msgstr "%d credits"
 
+#: build/app.js:12
 #: src/admin/Results.js:95
 msgid "On this website"
 msgstr "På denne hjemmeside"
 
+#: build/app.js:12
 #: src/admin/Results.js:123
 msgid "Answers"
 msgstr "Svar"
 
+#: build/app.js:12
 #: src/admin/Results.js:143
 msgid "None."
 msgstr "Ingen."
 
+#: build/app.js:12
 #: src/admin/Results.js:188
 msgid "No contact created – contacts come with an account and Pro."
 msgstr "Ingen kontakt oprettet – kontakter følger med en konto og Pro."
 
+#: build/app.js:12
 #: src/admin/Results.js:201
 msgid "Shared result page"
 msgstr "Delt resultatside"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Appointments.js:112
 #: src/admin/Results.js:230
 msgid "When"
 msgstr "Hvornår"
 
+#: build/app.js:12
 #: src/admin/Results.js:232
 msgid "From"
 msgstr "Fra"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Appointments.js:168
 #: src/admin/Results.js:233
 msgid "Page"
 msgstr "Side"
 
+#: build/app.js:12
+#: build/app.js:13
 #: src/admin/Results.js:234
 #: src/admin/Results.js:363
 #: src/admin/Results.js:469
 msgid "Status"
 msgstr "Status"
 
+#: build/app.js:12
 #: src/admin/Results.js:336
 msgid "The answers of your visitors land here"
 msgstr "Dine besøgendes svar lander her"
 
+#: build/app.js:12
 #: src/admin/Results.js:340
 msgid "Every run of a wizard on your website: who, when, on which page, with all answers and the result. Connect the website with a free account."
 msgstr "Hver kørsel af en wizard på din hjemmeside: hvem, hvornår, på hvilken side, med alle svar og resultatet. Forbind hjemmesiden med en gratis konto."
 
+#: build/app.js:12
+#: build/app.js:13
 #: src/admin/Results.js:349
 #: src/admin/Results.js:427
 msgid "Search: name, email, answer, page …"
 msgstr "Søg: navn, e-mail, svar, side …"
 
+#: build/app.js:12
+#: build/app.js:13
+#: build/block.js:1
 #: src/admin/Results.js:357
 #: src/admin/Results.js:440
 #: src/block/index.js:238
 msgid "All wizards"
 msgstr "Alle wizards"
 
+#: build/app.js:12
+#: build/app.js:13
 #: src/admin/Results.js:360
 #: src/admin/Results.js:451
 msgid "Period"
 msgstr "Periode"
 
+#: build/app.js:12
+#: build/app.js:13
 #: src/admin/Results.js:361
 #: src/admin/Results.js:454
 msgid "Any time"
 msgstr "Hele perioden"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Contacts.js:61
 #: src/admin/Contacts.js:237
 msgid "Company"
 msgstr "Virksomhed"
 
+#: build/app.js:12
 #: src/admin/Contacts.js:67
 msgid "Roles"
 msgstr "Roller"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Contacts.js:71
 #: src/admin/Contacts.js:218
 msgid "Came through"
 msgstr "Kom via"
 
+#: build/app.js:12
 #: src/admin/Contacts.js:75
 msgid "Created"
 msgstr "Oprettet"
 
+#: build/app.js:12
 #: src/admin/Contacts.js:78
 msgid "Notes"
 msgstr "Noter"
 
+#: build/app.js:12
 #: src/admin/Appointments.js:7
 msgid "Upcoming"
 msgstr "Kommende"
 
+#: build/app.js:12
 #: src/admin/Appointments.js:8
 msgid "Past"
 msgstr "Tidligere"
 
+#: build/app.js:12
 #: src/admin/Appointments.js:9
 msgid "Canceled"
 msgstr "Aflyst"
 
+#: build/app.js:12
 #: src/admin/Settings.js:40
 msgid "Standalone wizards"
 msgstr "Selvstændige wizards"
 
+#: build/app.js:12
 #: src/admin/Settings.js:47
 msgid "Thinks with"
 msgstr "Tænker med"
 
+#: build/app.js:12
 #: src/admin/Settings.js:53
 msgid "set in WordPress under"
 msgstr "indstillet i WordPress under"
 
+#: build/app.js:12
 #: src/admin/Settings.js:58
 #: src/admin/Settings.js:74
 msgid "Settings → Connectors"
 msgstr "Indstillinger → Connectors"
 
+#: build/app.js:12
 #: src/admin/Settings.js:68
 msgid "No AI provider set up"
 msgstr "Ingen AI-udbyder sat op"
 
+#: build/app.js:12
 #: src/admin/Settings.js:93
 msgid "answers"
 msgstr "svarer"
 
+#: build/app.js:12
 #: src/admin/Settings.js:118
 msgid "Which provider and which key: WordPress settles that, not the plugin. Every run costs at the provider what its calls cost."
 msgstr "Hvilken udbyder og hvilken nøgle: det afgør WordPress, ikke pluginnet. Hver kørsel koster hos udbyderen, hvad dens kald koster."
 
+#: build/app.js:12
 #: src/admin/Settings.js:126
 msgid "Runs per hour and visitor"
 msgstr "Kørsler pr. time og besøgende"
 
+#: build/app.js:12
 #: src/admin/Settings.js:145
 msgid "Runs per day and wizard"
 msgstr "Kørsler pr. dag og wizard"
 
+#: build/app.js:12
 #: src/admin/Settings.js:164
 msgid "Seconds per thinking step"
 msgstr "Sekunder pr. tænketrin"
 
+#: build/app.js:12
 #: src/admin/Settings.js:184
 msgid "Keep results"
 msgstr "Gem resultater"
 
+#: build/app.js:12
+#: build/app.js:13
 #: src/admin/Results.js:463
 #: src/admin/Settings.js:196
 msgid "30 days"
 msgstr "30 dage"
 
+#: build/app.js:12
 #: src/admin/Settings.js:199
 msgid "90 days"
 msgstr "90 dage"
 
+#: build/app.js:12
 #: src/admin/Settings.js:202
 msgid "1 year"
 msgstr "1 år"
 
+#: build/app.js:12
 #: src/admin/Settings.js:205
 msgid "Unlimited"
 msgstr "Ubegrænset"
 
+#: build/app.js:12
 #: src/admin/Settings.js:211
 msgid "Protection from bots"
 msgstr "Beskyttelse mod bots"
 
+#: build/app.js:12
 #: src/admin/Settings.js:216
 msgid "Honeypot and limits"
 msgstr "Honeypot og grænser"
 
+#: build/app.js:12
 #: src/admin/Settings.js:233
 msgid "Send photos to the provider when it takes images"
 msgstr "Send fotos til udbyderen, når den tager imod billeder"
 
+#: build/app.js:12
 #: src/admin/Settings.js:249
 msgid "Wizards may read web pages and call public APIs when a step calls for it"
 msgstr "Wizards må læse websider og kalde offentlige API'er, når et trin kræver det"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:360
 #: src/admin/Settings.js:793
 #: src/admin/Settings.js:1153
 msgid "Connection"
 msgstr "Forbindelse"
 
+#: build/app.js:12
 #: src/admin/Settings.js:797
 msgid "Not connected – the wizards run on this website, without an account and without engenty credits. A free account brings Studio, contacts, appointments, PDFs and the wizards that need more; the local ones keep running."
 msgstr "Ikke forbundet – dine wizards kører på denne hjemmeside, uden konto og uden engenty-credits. En gratis konto giver Studio, kontakter, aftaler, PDF'er og de wizards, der kræver mere; de lokale kører videre."
 
+#: build/app.js:12
 #: src/admin/Settings.js:822
 msgid "Your own server, or no sign-in in the browser?"
 msgstr "Din egen server, eller intet login i browseren?"
 
+#: build/app.js:12
 #: src/admin/Settings.js:829
 #: src/admin/Settings.js:1181
 msgid "Connect by hand"
 msgstr "Forbind manuelt"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:478
 #: src/admin/Settings.js:855
 msgid "Unless said otherwise"
 msgstr "Medmindre andet er angivet"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:497
 #: src/admin/Settings.js:874
 msgid "Button label"
 msgstr "Knaptekst"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:511
 #: src/admin/Settings.js:887
 msgid "Bubble on every page"
 msgstr "Boble på hver side"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:536
 #: src/admin/Settings.js:912
 msgid "— no bubble —"
 msgstr "— ingen boble —"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:547
 #: src/admin/Settings.js:923
 msgid "Name for screen readers"
 msgstr "Navn til skærmlæsere"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:562
 #: src/admin/Settings.js:938
 msgid "Line beside it (optional)"
 msgstr "Linje ved siden af (valgfri)"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:595
 #: src/admin/Settings.js:967
 msgid "Not on these pages"
 msgstr "Ikke på disse sider"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:622
 #: src/admin/Settings.js:993
 msgid "Access to results, contacts and appointments"
 msgstr "Adgang til resultater, kontakter og aftaler"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:666
 #: src/admin/Settings.js:1036
 msgid "Save"
 msgstr "Gem"
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:670
 #: src/admin/Settings.js:1040
 msgid "Saved."
 msgstr "Gemt."
 
+#: build/app.js:12
+#: build/app.js:14
 #: src/admin/Settings.js:689
 #: src/admin/Settings.js:1049
 msgid "Standalone wizards send the answers of visitors to the AI provider of the website. Name it in the privacy policy:"
 msgstr "Selvstændige wizards sender de besøgendes svar til hjemmesidens AI-udbyder. Nævn den i privatlivspolitikken:"
 
+#: build/app.js:12
 #: src/admin/Settings.js:1096
 #: src/admin/Settings.js:1207
 msgid "API key"
 msgstr "API-nøgle"
 
+#: build/app.js:12
 #: src/admin/Settings.js:1110
 #: src/admin/Settings.js:1226
 msgid "Connect"
 msgstr "Forbind"
 
+#: build/app.js:12
 #: src/admin/Settings.js:1157
 msgid "The website is not connected to an engenty account."
 msgstr "Hjemmesiden er ikke forbundet med en engenty-konto."
 
+#: build/app.js:12
 #: src/admin/Settings.js:1185
 msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed."
 msgstr "Til din egen engenty-server, eller når login i browseren ikke virker. API-nøglen opretter du på engenty.ai under Konto, på din egen server i Studio under Indlejring."
 
+#: build/app.js:12
 #: src/admin/Wizards.js:178
 #: src/admin/Wizards.js:467
 msgid "New wizard"
 msgstr "Ny wizard"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:283
 msgid "Link"
 msgstr "Link"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:291
 msgid "Embed"
 msgstr "Indlejring"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:315
 msgid "In the Studio"
 msgstr "I Studio"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:187
 msgid "No wizards yet"
 msgstr "Ingen wizards endnu"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:189
 msgid "Create one from a template – a request, a quote, a booking."
 msgstr "Opret en ud fra en skabelon – en forespørgsel, et tilbud, en booking."
 
+#: build/app.js:12
 #: src/admin/Wizards.js:199
 msgid "Choose a template"
 msgstr "Vælg en skabelon"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:335
 msgid "Runs on this website with the AI provider from the WordPress settings. Results under Results."
 msgstr "Kører på denne hjemmeside med AI-udbyderen fra WordPress-indstillingerne. Resultater under Resultater."
 
+#: build/app.js:12
 #: src/admin/Wizards.js:341
 msgid "Shortcode"
 msgstr "Shortcode"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:350
 msgid "In the block editor"
 msgstr "I blokeditoren"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:352
 msgid "Insert the “engenty Wizard” block and choose this wizard. In Elementor the widget has the same name."
 msgstr "Indsæt blokken „engenty Wizard“, og vælg denne wizard. I Elementor har widgetten samme navn."
 
+#: build/app.js:12
 #: src/admin/Wizards.js:357
 msgid "In the theme (PHP)"
 msgstr "I temaet (PHP)"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:366
 msgid "With one click"
 msgstr "Med ét klik"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:373
 #: src/admin/Wizards.js:395
 msgid "This wizard"
 msgstr "Denne wizard"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:375
 msgid "Runs through engenty.ai right now. Run here brings the published version to this website: it then thinks with the AI provider of WordPress, without credits, and the results stay here."
 msgstr "Kører via engenty.ai lige nu. „Kør her“ henter den udgivne version til denne hjemmeside: så tænker den med WordPress' AI-udbyder, uden credits, og resultaterne bliver her."
 
+#: build/app.js:12
 #: src/admin/Wizards.js:388
 msgid "Run here"
 msgstr "Kør her"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:398
 msgid "Fetched from your account and runs here with the AI provider of WordPress. Reload fetches the published version again."
 msgstr "Hentet fra din konto og kører her med WordPress' AI-udbyder. „Genindlæs“ henter den udgivne version igen."
 
+#: build/app.js:12
 #: src/admin/Wizards.js:411
 msgid "Reload"
 msgstr "Genindlæs"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:420
 msgid "Run through engenty.ai"
 msgstr "Kør via engenty.ai"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:431
 msgid "Pause"
 msgstr "Sæt på pause"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:437
 msgid "Live again"
 msgstr "Live igen"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:448
 msgid "Remove"
 msgstr "Fjern"
 
+#: build/app.js:12
 #: src/admin/Wizards.js:454
 msgid "You change texts and steps in the engenty Studio and import the package again."
 msgstr "Tekster og trin ændrer du i engenty Studio og importerer pakken igen."
 
 #. translators: %d: number of results
+#: build/app.js:13
 #: src/admin/Results.js:417
 #, js-format
 msgid "%d in total"
 msgstr "%d i alt"
 
+#: build/app.js:13
 #: src/admin/Results.js:457
 msgid "Today"
 msgstr "I dag"
 
+#: build/app.js:13
 #: src/admin/Results.js:460
 msgid "7 days"
 msgstr "7 dage"
 
+#: build/app.js:13
 #: src/admin/Results.js:475
 msgid "Started"
 msgstr "Startet"
 
+#: build/app.js:13
 #: src/admin/Results.js:486
 msgid "No results"
 msgstr "Ingen resultater"
 
+#: build/app.js:13
 #: src/admin/Results.js:488
 msgid "As soon as visitors complete a wizard, their answers are here. Without an account, engenty keeps results for a week."
 msgstr "Så snart besøgende gennemfører en wizard, er deres svar her. Uden konto gemmer engenty resultater i en uge."
 
+#: build/app.js:13
 #: src/admin/Results.js:527
 msgid "With Pro, every result with an email becomes a contact under “Contacts”."
 msgstr "Med Pro bliver hvert resultat med en e-mail til en kontakt under „Kontakter“."
 
 #. translators: 1: people, 2: organisations
+#: build/app.js:14
 #: src/admin/Contacts.js:165
 #, js-format
 msgid "%1$d people · %2$d companies"
 msgstr "%1$d personer · %2$d virksomheder"
 
+#: build/app.js:14
 #: src/admin/Contacts.js:179
 msgid "Name, email, company …"
 msgstr "Navn, e-mail, virksomhed …"
 
+#: build/app.js:14
 #: src/admin/Contacts.js:194
 msgid "Edit in the Studio"
 msgstr "Rediger i Studio"
 
+#: build/app.js:14
 #: src/admin/Contacts.js:220
 msgid "Since"
 msgstr "Siden"
 
+#: build/app.js:14
 #: src/admin/Contacts.js:202
 msgid "No contacts yet"
 msgstr "Ingen kontakter endnu"
 
+#: build/app.js:14
 #: src/admin/Contacts.js:204
 msgid "Wizards that ask for name and email create contacts here."
 msgstr "Wizards, der spørger om navn og e-mail, opretter kontakter her."
 
+#: build/app.js:14
 #: src/admin/Appointments.js:77
 msgid "Set up the calendar in the Studio"
 msgstr "Opsæt kalenderen i Studio"
 
+#: build/app.js:14
 #: src/admin/Appointments.js:113
 msgid "What"
 msgstr "Hvad"
 
+#: build/app.js:14
 #: src/admin/Appointments.js:114
 msgid "Who"
 msgstr "Hvem"
 
+#: build/app.js:14
 #: src/admin/Appointments.js:115
 msgid "Where"
 msgstr "Hvor"
 
+#: build/app.js:14
 #: src/admin/Appointments.js:148
 msgid "canceled"
 msgstr "aflyst"
 
+#: build/app.js:14
 #: src/admin/Appointments.js:156
 msgid "Test"
 msgstr "Test"
 
+#: build/app.js:14
 #: src/admin/Appointments.js:100
 msgid "No appointments"
 msgstr "Ingen aftaler"
 
+#: build/app.js:14
 #: src/admin/Appointments.js:102
 msgid "Wizards with booking enter them here. Create one from the “Book an appointment” template."
 msgstr "Wizards med booking skriver dem ind her. Opret en ud fra skabelonen „Book en aftale“."
 
+#: build/app.js:14
 #: src/admin/Settings.js:365
 msgid "Account"
 msgstr "Konto"
 
+#: build/app.js:14
 #: src/admin/Settings.js:371
 msgid "connected with an API key"
 msgstr "forbundet med en API-nøgle"
 
+#: build/app.js:14
 #: src/admin/Settings.js:379
 msgid "Team"
 msgstr "Team"
 
+#: build/app.js:14
 #: src/admin/Settings.js:383
 msgid "Plan"
 msgstr "Plan"
 
+#: build/app.js:14
 #: src/admin/Settings.js:394
 msgid "upgrade to Pro"
 msgstr "opgradér til Pro"
 
+#: build/app.js:14
 #: src/admin/Settings.js:404
 msgid "Plugins"
 msgstr "Plugins"
 
+#: build/app.js:14
 #: src/admin/Settings.js:412
 msgid "Runs on"
 msgstr "Kører på"
 
+#: build/app.js:14
 #: src/admin/Settings.js:419
 msgid "Disconnect the website from engenty.ai? Wizards on your pages keep showing; the admin sees nothing until you connect again."
 msgstr "Afbryd hjemmesidens forbindelse til engenty.ai? Wizards på dine sider vises stadig; administrationen ser intet, før du forbinder igen."
 
+#: build/app.js:14
 #: src/admin/Settings.js:430
 msgid "Yes, disconnect"
 msgstr "Ja, afbryd"
 
+#: build/app.js:14
 #: src/admin/Settings.js:436
 msgid "Cancel"
 msgstr "Annuller"
 
+#: build/app.js:14
 #: src/admin/Settings.js:448
 msgid "Manage account"
 msgstr "Administrer konto"
 
+#: build/app.js:14
 #: src/admin/Settings.js:455
 msgid "Disconnect"
 msgstr "Afbryd forbindelsen"
 
+#: build/app.js:14
 #: src/admin/Settings.js:570
 msgid "e.g. a quote in 2 minutes"
 msgstr "f.eks. et tilbud på 2 minutter"
 
+#: build/app.js:14
 #: src/admin/Settings.js:680
 msgid "Visitors talk directly to engenty; WordPress stores no answers. A suggestion for your privacy policy – check it for your case:"
 msgstr "Besøgende taler direkte med engenty; WordPress gemmer ingen svar. Et forslag til din privatlivspolitik – tjek det for dit tilfælde:"
 
+#: build/block.js:1
 #: src/block/index.js:58
 msgid "Connect the website to engenty.ai for free: then you choose a wizard for requests, quotes or appointments here."
 msgstr "Forbind hjemmesiden gratis med engenty.ai: så vælger du her en wizard til forespørgsler, tilbud eller aftaler."
 
+#: build/block.js:1
 #: src/block/index.js:149
 msgid "runs on this website · in the text"
 msgstr "kører på denne hjemmeside · i teksten"
 
+#: build/block.js:1
 #: src/block/index.js:187
 msgid "as a bubble bottom right"
 msgstr "som boble nederst til højre"
 
+#: build/block.js:1
 #: src/block/index.js:188
 msgid "opens in a window"
 msgstr "åbner i et vindue"
 
+#: build/block.js:1
 #: src/block/index.js:121
 msgid "Which wizard goes here?"
 msgstr "Hvilken wizard skal være her?"
 
+#: build/block.js:1
 #: src/block/index.js:122
 msgid "No wizard is live yet. Create one in engenty."
 msgstr "Ingen wizard er live endnu. Opret en i engenty."
 
+#: build/block.js:1
 #: src/block/index.js:136
 msgid "Create a wizard"
 msgstr "Opret en wizard"
@@ -2135,45 +2562,10 @@ msgctxt "block keyword"
 msgid "appointment"
 msgstr "aftale"
 
-#: includes/class-connect.php:395
-#: includes/class-connect.php:418
-msgid "The connection is being refreshed. Please retry shortly."
-msgstr ""
+#: includes/class-downloads.php:55
+msgid "The PDF is made in the browser, not on this site."
+msgstr "PDF-filen laves i browseren, ikke på dette websted."
 
-#: includes/class-packages.php:61
-msgid "Wizard files could not be moved into private storage. Check database capacity and the system temporary directory, then reload."
-msgstr ""
-
-#: includes/class-packages.php:305
-msgid "A package is being installed. Please retry shortly."
-msgstr ""
-
-#: includes/class-packages.php:348
-msgid "This package contains an unsupported file type."
-msgstr ""
-
-#: includes/class-packages.php:352
-msgid "This package contains invalid file data."
-msgstr ""
-
-#: includes/class-runs.php:829
-msgid "Please try the upload again."
-msgstr ""
-
-#: includes/class-runs.php:861
-msgid "This page does not accept uploads."
-msgstr ""
-
-#: includes/class-runs.php:881
-msgid "The upload limit has been reached."
-msgstr ""
-
-#: includes/class-think.php:286
-#: includes/class-think.php:392
-#: includes/class-think.php:405
-msgid "This request no longer owns the run. Please retry."
-msgstr ""
-
-#: includes/class-think.php:1492
-msgid "The document could not be saved."
-msgstr ""
+#: includes/class-downloads.php:355
+msgid "Print or save as PDF"
+msgstr "Udskriv eller gem som PDF"
