@@ -4,7 +4,7 @@ Tags: ai, forms, chatbot, appointments, lead generation
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.3.1
+Stable tag: 0.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,11 @@ Contacts and bookings in the WordPress admin, building wizards from templates in
 6. Settings: the provider line, limits, tools.
 
 == Changelog ==
+
+= 0.3.2 =
+* The import takes a wizard that runs with less, as the studio's share dialog offers it: only a wizard that needs an account is refused; a choice that leads to a plugin the site lacks is closed in the run.
+* A thinking step gets the knowledge pages that match it: the wizard's own files first, then the pages best matching the step's task and the answers, within the same 60 000 characters.
+* "Connect by hand" names the studio's Settings → Integrate.
 
 = 0.3.1 =
 * The Plugin URI points at the plugin's page on engenty.ai. The licences of everything the runner bundles are listed in COPYRIGHTS.md; the wizard format it contains is MIT.
