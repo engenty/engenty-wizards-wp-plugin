@@ -258,9 +258,8 @@ function EntryDialog( {
 			.catch( () => setOutline( { outline: [], results: [] } ) );
 	}, [ entry.id, local ] );
 	const fit = entry.standalone ?? { fit: 'full' };
-	const can = local
-		? fit.fit !== 'no' && ! fit.needs?.length
-		: ! locked( entry, me );
+	// On the site the shared check decides, as on import: only `no` needs the account.
+	const can = local ? fit.fit !== 'no' : ! locked( entry, me );
 	/** The primary button: use it, or the way to what it needs. */
 	const action = () => {
 		if ( can ) {

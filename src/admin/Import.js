@@ -7,7 +7,9 @@ import { Icon } from './icons';
 /**
  * As the studio's ImportWizard: a button, the file picker, done. The package is checked in the
  * browser (the shared check of @engenty-wizards/runner/check) and posted with its files and its
- * fit; one that needs the account is refused with what it needs and the way to the account.
+ * fit. The check decides as in the studio's share dialog: one that needs the account (`no`) is
+ * refused with what it needs and the way to the account; one that runs with less (a plugin only
+ * on a branch the site can leave out) is imported, and its run closes the choices leading there.
  * @param {Object} root0
  * @param {Object} root0.onImported
  * @param {Object} root0.kind       'ghost' | 'secondary'.
@@ -55,7 +57,7 @@ export default function Import( { onImported, kind = 'ghost' } ) {
 				} );
 				return;
 			}
-			if ( checked.fit.fit === 'no' || checked.fit.needs.length ) {
+			if ( checked.fit.fit === 'no' ) {
 				const { needLines } = await import( './fit' );
 				setFailed( {
 					message: __(
@@ -69,6 +71,7 @@ export default function Import( { onImported, kind = 'ghost' } ) {
 						...( checked.fit.needs.length
 							? [
 									__( 'Plugins:', 'engenty-wizards' ) +
+										' ' +
 										checked.fit.needs.join( ', ' ),
 							  ]
 							: [] ),
