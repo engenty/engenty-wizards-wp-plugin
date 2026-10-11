@@ -2179,8 +2179,8 @@ msgstr "Webbplatsen är inte ansluten till ett engenty-konto."
 
 #: build/app.js:12
 #: src/admin/Settings.js:1185
-msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed."
-msgstr "För din egen engenty-server, eller när inloggningen i webbläsaren inte fungerar. API-nyckeln skapar du på engenty.ai under Konto, på din egen server i Studio under Bädda in."
+msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Integrate."
+msgstr "För din egen engenty-server, eller när inloggningen i webbläsaren inte fungerar. API-nyckeln skapar du på engenty.ai under Konto, på din egen server i Studio under Integrera."
 
 #: build/app.js:12
 #: src/admin/Wizards.js:178

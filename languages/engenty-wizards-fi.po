@@ -2179,8 +2179,8 @@ msgstr "Sivustoa ei ole yhdistetty engenty-tiliin."
 
 #: build/app.js:12
 #: src/admin/Settings.js:1185
-msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed."
-msgstr "Omaa engenty-palvelinta varten, tai kun kirjautuminen selaimessa ei toimi. API-avaimen luot engenty.ai:ssa kohdassa Tili, omalla palvelimellasi Studiossa kohdassa Upota."
+msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Integrate."
+msgstr "Omaa engenty-palvelinta varten, tai kun kirjautuminen selaimessa ei toimi. API-avaimen luot engenty.ai:ssa kohdassa Tili, omalla palvelimellasi Studiossa kohdassa Integroi."
 
 #: build/app.js:12
 #: src/admin/Wizards.js:178

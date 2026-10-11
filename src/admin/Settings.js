@@ -1183,7 +1183,7 @@ function ConnectOnly() {
 			<Card>
 				<p className="en-muted">
 					{ __(
-						'For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed.',
+						'For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Integrate.',
 						'engenty-wizards'
 					) }
 				</p>

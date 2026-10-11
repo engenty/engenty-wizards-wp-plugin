@@ -2187,7 +2187,7 @@ msgstr ""
 
 #: build/app.js:12
 #: src/admin/Settings.js:1185
-msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed."
+msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Integrate."
 msgstr ""
 
 #: build/app.js:12

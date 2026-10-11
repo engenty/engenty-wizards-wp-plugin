@@ -2179,7 +2179,7 @@ msgstr "Le site n’est pas connecté à un compte engenty."
 
 #: build/app.js:12
 #: src/admin/Settings.js:1185
-msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed."
+msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Integrate."
 msgstr "Pour votre propre serveur engenty, ou quand la connexion dans le navigateur ne fonctionne pas. Vous créez la clé API sur engenty.ai sous Compte, sur votre propre serveur dans le Studio sous Intégrer."
 
 #: build/app.js:12

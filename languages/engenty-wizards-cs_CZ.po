@@ -2179,8 +2179,8 @@ msgstr "Web není propojen s účtem engenty."
 
 #: build/app.js:12
 #: src/admin/Settings.js:1185
-msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed."
-msgstr "Pro vlastní server engenty, nebo když přihlášení v prohlížeči nefunguje. API klíč vytvoříte na engenty.ai v části Účet, na vlastním serveru ve Studiu v části Vložit."
+msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Integrate."
+msgstr "Pro vlastní server engenty, nebo když přihlášení v prohlížeči nefunguje. API klíč vytvoříte na engenty.ai v části Účet, na vlastním serveru ve Studiu v části Integrace."
 
 #: build/app.js:12
 #: src/admin/Wizards.js:178

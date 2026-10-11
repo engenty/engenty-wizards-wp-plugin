@@ -2179,8 +2179,8 @@ msgstr "Witryna nie jest połączona z kontem engenty."
 
 #: build/app.js:12
 #: src/admin/Settings.js:1185
-msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Embed."
-msgstr "Dla własnego serwera engenty albo gdy logowanie w przeglądarce nie działa. Klucz API tworzysz na engenty.ai w sekcji Konto, a na własnym serwerze w Studio w sekcji Osadzanie."
+msgid "For your own engenty server, or when the sign-in in the browser does not work. You create the API key at engenty.ai under Account, on your own server in the Studio under Integrate."
+msgstr "Dla własnego serwera engenty albo gdy logowanie w przeglądarce nie działa. Klucz API tworzysz na engenty.ai w sekcji Konto, a na własnym serwerze w Studio w sekcji Integracja."
 
 #: build/app.js:12
 #: src/admin/Wizards.js:178
