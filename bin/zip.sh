@@ -6,6 +6,8 @@ cd "$(dirname "$0")/.."
 rm -rf dist && mkdir -p dist/engenty-wizards
 cp -R engenty-wizards.php uninstall.php readme.txt LICENSE includes blocks build languages wizards dist/engenty-wizards/
 mkdir -p dist/engenty-wizards/vendor-runner && cp vendor-runner/LICENSE dist/engenty-wizards/vendor-runner/
+# Who owns what, the bundled libraries and their licences; a .md in the root is not expected there.
+cp COPYRIGHTS.md dist/engenty-wizards/COPYRIGHTS.txt
 find dist -name '.*' -type f -delete
 rm -f engenty-wizards.zip
 (cd dist && zip -qr ../engenty-wizards.zip engenty-wizards)
