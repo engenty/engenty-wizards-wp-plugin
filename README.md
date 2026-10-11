@@ -15,7 +15,8 @@ bookings in the admin. Two ways:
   from the account with "Run here"; results stay in WordPress.
 
 GPLv2 or later. The runner's components come from the open repository's package
-`@engenty-wizards/runner` (MIT), vendored as built under `vendor-runner/`.
+`@engenty-wizards/runner` (MIT), vendored as built under `vendor-runner/`. [COPYRIGHTS.md](COPYRIGHTS.md)
+names the owner, the marks, what comes from elsewhere and the development tooling.
 
 ## Layout
 
