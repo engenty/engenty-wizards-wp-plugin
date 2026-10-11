@@ -81,6 +81,14 @@ class Engenty_Think {
 	public $calls = 0;
 
 	/**
+	 * What the thinking step at hand is about, its task and the person's answers: the words the
+	 * space's pages in a package are picked by. run_agent sets it before the system prompt.
+	 *
+	 * @var string
+	 */
+	private $focus = '';
+
+	/**
 	 * Binds the step runner to a run.
 	 *
 	 * @param array $def    The definition.
@@ -949,10 +957,18 @@ class Engenty_Think {
 	/** The wizard's text files are handed over up to this many characters, all together. */
 	const MAX_WORKSPACE_CHARS = 60000;
 
+	/** Where a package keeps the space's pages, one Markdown file each (package.ts KNOWLEDGE_DIR). */
+	const KNOWLEDGE_DIR = 'wissen/';
+
+	/** Less than this is not worth a page cut short: what is left stays empty. */
+	const MIN_CUT_CHARS = 1000;
+
 	/**
 	 * The wizard's workspace, inline: a thinking step on a runtime reads its files with a tool;
 	 * here the text files (Markdown, text, CSV, JSON) go into the system prompt, as far as they
-	 * fit. What a template calls "Wissen" or a price list is usually one of them.
+	 * fit. What a template calls "Wissen" or a price list is usually one of them. The wizard's own
+	 * files come first, in their order; the space's pages a package took along (`wissen/`) fill
+	 * what they leave, the ones that match the step best first (pick_pages).
 	 *
 	 * @return string
 	 *
@@ -962,6 +978,7 @@ class Engenty_Think {
 		$dir   = Engenty_Packages::files_dir( $this->wizard['id'] );
 		$parts = array();
 		$left  = self::MAX_WORKSPACE_CHARS;
+		$pages = array();
 		foreach ( (array) $this->wizard['files'] as $f ) {
 			$ext = strtolower( pathinfo( (string) $f['path'], PATHINFO_EXTENSION ) );
 			if ( ! in_array( $ext, array( 'md', 'txt', 'csv', 'json' ), true ) || $left <= 0 ) {
@@ -973,8 +990,21 @@ class Engenty_Think {
 			}
 			$text    = (string) file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- the plugin's own folder under uploads.
 			$text    = mb_substr( $text, 0, $left );
+			$is_page = str_starts_with( (string) $f['path'], self::KNOWLEDGE_DIR );
+			if ( $is_page ) {
+				// Picked below, once the own files are in; cut at what was left, it is not whole.
+				$pages[] = array(
+					'path'  => (string) $f['path'],
+					'text'  => $text,
+					'whole' => mb_strlen( $text ) < $left,
+				);
+				continue;
+			}
 			$left   -= mb_strlen( $text );
 			$parts[] = "## {$f['path']}\n{$text}";
+		}
+		foreach ( self::pick_pages( $pages, $this->focus, $left ) as $page ) {
+			$parts[] = "## {$page['path']}\n{$page['text']}";
 		}
 		if ( ! $parts ) {
 			return '';
@@ -983,6 +1013,80 @@ class Engenty_Think {
 			? 'Your only tools here are the functions offered to you (reading a web page, calling an API). What the task tells you to read with a file tool (read_workspace_file, scan_documents, …) is given below instead; use it as it is.'
 			: 'You have no tools here. What the task tells you to read with a tool (read_workspace_file, scan_documents, …) is given below instead; use it as it is.';
 		return "# THE WIZARD'S FILES\n" . $tools . "\n\n" . implode( "\n\n", $parts );
+	}
+
+	/**
+	 * The space's pages a step gets (package.ts knowledgeSnapshot wrote them, title and path in
+	 * front). Each is scored by the words of the step it holds: a word counts by how few pages
+	 * hold it (one every page holds says nothing), twice in the title or the path. Best first,
+	 * every page goes in whole while it fits into what is left; then the best one that did not
+	 * fit, cut to the rest. Ties keep the package's order: the same step gets the same pages.
+	 *
+	 * @param array  $pages `[{ path, text, whole }]` as read; `whole` false where the read cut it.
+	 * @param string $focus What the step is about: its task and the person's answers.
+	 * @param int    $left  The characters the wizard's own files left.
+	 * @return array `[{ path, text }]` in the order they go in.
+	 */
+	private static function pick_pages( array $pages, $focus, $left ) {
+		if ( ! $pages || $left <= 0 ) {
+			return array();
+		}
+		$wanted = self::words_of( $focus );
+		$held   = array();
+		$counts = array();
+		foreach ( $pages as $i => $page ) {
+			preg_match( '/^title: (.*)$/m', mb_substr( $page['text'], 0, 500 ), $head );
+			$title      = self::words_of( ( $head[1] ?? '' ) . ' ' . $page['path'] );
+			$found      = array_intersect_key( self::words_of( $page['text'] ), $wanted ) + array_intersect_key( $title, $wanted );
+			$held[ $i ] = array( $found, $title );
+			foreach ( array_keys( $found ) as $word ) {
+				$counts[ $word ] = ( $counts[ $word ] ?? 0 ) + 1;
+			}
+		}
+		$all    = count( $pages );
+		$scores = array();
+		foreach ( $held as $i => list( $found, $title ) ) {
+			$scores[ $i ] = 0.0;
+			foreach ( array_keys( $found ) as $word ) {
+				$scores[ $i ] += log( $all / $counts[ $word ] ) * ( isset( $title[ $word ] ) ? 2 : 1 );
+			}
+		}
+		$order = array_keys( $pages );
+		usort(
+			$order,
+			static function ( $a, $b ) use ( $scores ) {
+				return $scores[ $a ] === $scores[ $b ] ? $a <=> $b : $scores[ $b ] <=> $scores[ $a ];
+			}
+		);
+		$picked = array();
+		$over   = null;
+		foreach ( $order as $i ) {
+			$size = mb_strlen( $pages[ $i ]['text'] );
+			if ( $pages[ $i ]['whole'] && $size <= $left ) {
+				$picked[] = $pages[ $i ];
+				$left    -= $size;
+			} elseif ( null === $over ) {
+				$over = $i;
+			}
+		}
+		if ( null !== $over && $left >= self::MIN_CUT_CHARS ) {
+			$picked[] = array(
+				'path' => $pages[ $over ]['path'],
+				'text' => mb_substr( $pages[ $over ]['text'], 0, $left ),
+			);
+		}
+		return $picked;
+	}
+
+	/**
+	 * The words of a text as a set, lower case: letters and digits, two or more.
+	 *
+	 * @param string $text The text.
+	 * @return array Word → true.
+	 */
+	private static function words_of( $text ) {
+		preg_match_all( '/[\p{L}\p{N}]{2,}/u', mb_strtolower( (string) $text ), $m );
+		return array_fill_keys( $m[0] ?? array(), true );
 	}
 
 	/**
@@ -1254,6 +1358,11 @@ class Engenty_Think {
 		if ( ! empty( $step['each'] ) ) {
 			return $this->run_agent_each( $step, $state );
 		}
+		$task    = $this->render( (string) $step['instructions'], $state );
+		$answers = $this->answers_as_text( $state );
+		// The words the space's pages in a package are picked by (workspace_block).
+		$this->focus = $task . "\n" . $answers;
+
 		$format    = (string) ( $step['output']['format'] ?? 'markdown' );
 		$hint      = 'markdown' === $format
 			? 'Answer with the finished result in clean Markdown — no preamble, no closing remarks.'
@@ -1267,8 +1376,8 @@ class Engenty_Think {
 			"\n\n",
 			array_filter(
 				array(
-					"# TASK\n" . $this->render( (string) $step['instructions'], $state ),
-					"# THE PERSON'S ANSWERS (data)\n" . self::or_none( $this->answers_as_text( $state ) ),
+					"# TASK\n" . $task,
+					"# THE PERSON'S ANSWERS (data)\n" . self::or_none( $answers ),
 					$photos ? "# PHOTOS THE PERSON GAVE\nThey are attached to this message, in this order — look at them yourself.\n" . implode(
 						"\n",
 						array_map(
