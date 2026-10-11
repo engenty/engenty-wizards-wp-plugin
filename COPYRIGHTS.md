@@ -14,7 +14,7 @@ licence covers the code; it does not license the marks for another product or se
 | Here | From | Terms |
 |---|---|---|
 | `vendor-runner/` | the package `@engenty-wizards/runner` of the open repo [engenty/engenty-wizards](https://github.com/engenty/engenty-wizards), as built; `bin/sync-runner.sh` brings it over with its licence file, and the zip ships that file | MIT, © engenty (`vendor-runner/LICENSE`) |
-| inside `vendor-runner/` (built in) | the runner's own dependencies: [zod](https://zod.dev), [marked](https://marked.js.org) | MIT |
+| inside `vendor-runner/` (built in) | the runner's own dependencies: [zod](https://zod.dev), [marked](https://marked.js.org), [pdfmake](https://pdfmake.github.io/docs/) with its copy of [Roboto](https://fonts.google.com/specimen/Roboto) (Apache-2.0), loaded on the first PDF | MIT |
 | `wizards/*.wizard`, `wizards/index.json` | eleven entries of the marketplace at [engenty.ai/wizards](https://engenty.ai/wizards) (the closed repo engenty-wizards-manage, `apps/marketplace/entries`), exported as the ones that run on a site (`bin/sync-runner.sh`; `index.json` names the source and date) | © Matthias Platzer; shipped as part of the plugin, so under its licence in the zip; the marketplace's own copies are not licensed by that |
 
 What `build/` leaves out: React and the `@wordpress/*` packages, which the site's WordPress

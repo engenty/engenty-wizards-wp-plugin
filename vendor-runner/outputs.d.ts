@@ -46,10 +46,15 @@ export declare function OutputView({ base, step, output, editable, draft, onDraf
 }): import("react").JSX.Element | null;
 /** A download format as a person reads it. */
 export declare const FORMAT_LABEL: Record<Format, string>;
-export declare function DownloadButtons({ base, stepId, formats, title, }: {
+export declare function DownloadButtons({ base, stepId, formats, title, step, output, foot, }: {
     base: string;
     stepId: string;
     formats: Format[];
     /** Named in the share sheet. */
     title?: string;
+    /** The step and its output: on a standalone host a written output's PDF is made here. */
+    step?: Step;
+    output?: StepOutput;
+    /** The foot of a PDF made here: the wizard, the date. */
+    foot?: string;
 }): import("react").JSX.Element;

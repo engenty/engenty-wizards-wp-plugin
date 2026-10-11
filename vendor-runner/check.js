@@ -94,7 +94,7 @@ function m(t, r) {
 			let t = r.steps.find((e) => e.id === n.from);
 			if (t?.type !== "agent" && (t?.type !== "generate" || t.asset !== "document" && t.asset !== "dashboard")) continue;
 			let i = n.formats.some((e) => c.has(e));
-			for (let e of n.formats) c.has(e) || o(`format:${e}`, e !== "pdf" && !i);
+			for (let e of n.formats) c.has(e) || (e !== "pdf" || t?.type !== "agent") && o(`format:${e}`, e !== "pdf" && !i);
 		}
 	}
 	return a;

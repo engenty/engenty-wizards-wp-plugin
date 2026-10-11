@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-10-09T10:25:07.684Z",
+  "exportedAt": "2026-10-11T09:07:49.787Z",
   "source": "https://engenty.ai/wizards",
   "templates": [
     {
@@ -397,20 +397,12 @@
       "hash": "cf3f20e204e9c509f75f0d108b16b530",
       "revision": 3,
       "standalone": {
-        "fit": "less",
-        "notes": [
-          {
-            "stepId": "done",
-            "need": "format:pdf",
-            "hard": false
-          }
-        ],
+        "fit": "full",
+        "notes": [],
         "missing": [],
         "optional": [],
         "needs": [],
-        "without": [
-          "pdf"
-        ]
+        "without": []
       }
     },
     {
@@ -455,11 +447,6 @@
             "stepId": "concern",
             "need": "field:audio",
             "hard": false
-          },
-          {
-            "stepId": "done",
-            "need": "format:pdf",
-            "hard": false
           }
         ],
         "missing": [],
@@ -467,9 +454,7 @@
           "listening"
         ],
         "needs": [],
-        "without": [
-          "pdf"
-        ]
+        "without": []
       }
     },
     {
@@ -573,20 +558,12 @@
       "hash": "b29f89233de6ea3b657a4dec8c8a89ac",
       "revision": 3,
       "standalone": {
-        "fit": "less",
-        "notes": [
-          {
-            "stepId": "done",
-            "need": "format:pdf",
-            "hard": false
-          }
-        ],
+        "fit": "full",
+        "notes": [],
         "missing": [],
         "optional": [],
         "needs": [],
-        "without": [
-          "pdf"
-        ]
+        "without": []
       }
     },
     {
@@ -625,20 +602,12 @@
       "hash": "810a5edf47b7c15e93e1866f6822a57a",
       "revision": 3,
       "standalone": {
-        "fit": "less",
-        "notes": [
-          {
-            "stepId": "done",
-            "need": "format:pdf",
-            "hard": false
-          }
-        ],
+        "fit": "full",
+        "notes": [],
         "missing": [],
         "optional": [],
         "needs": [],
-        "without": [
-          "pdf"
-        ]
+        "without": []
       }
     }
   ]

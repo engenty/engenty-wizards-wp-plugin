@@ -948,7 +948,8 @@ class Engenty_Runs {
 	}
 
 	/**
-	 * Writes a text as a download and ends the request.
+	 * Writes a text to the browser and ends the request: a download, or for HTML a page shown as
+	 * it is — a result to print (class-downloads.php), whose script may open the print dialog.
 	 *
 	 * @param string $text The content.
 	 * @param string $mime Its type.
@@ -956,8 +957,14 @@ class Engenty_Runs {
 	 */
 	public static function send_text( $text, $mime, $name ) {
 		nocache_headers();
+		header( 'X-Content-Type-Options: nosniff' );
+		$inline = 'text/html' === $mime;
+		if ( $inline ) {
+			// Shown in the browser, so with no way out: no network, no other origin, the print dialog allowed.
+			header( "Content-Security-Policy: sandbox allow-scripts allow-modals; default-src 'none'; img-src * data: blob:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; font-src * data:" );
+		}
 		header( 'Content-Type: ' . $mime . '; charset=utf-8' );
-		header( 'Content-Disposition: attachment; filename="' . rawurlencode( $name ) . '"' );
+		header( 'Content-Disposition: ' . ( $inline ? 'inline' : 'attachment' ) . '; filename="' . rawurlencode( $name ) . '"' );
 		echo $text; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- a file the person downloads.
 		exit;
 	}
@@ -985,7 +992,8 @@ class Engenty_Runs {
 			return self::respond( $file );
 		}
 		if ( isset( $file['path'] ) ) {
-			self::send_file( $file['path'], $file['mime'], $file['name'], false );
+			// A document a step wrote: shown as a page, so the browser prints it (the "Print" button).
+			self::send_file( $file['path'], $file['mime'], $file['name'], 'text/html' === $file['mime'] );
 		}
 		self::send_text( $file['text'], $file['mime'], $file['name'] );
 	}
@@ -1887,9 +1895,12 @@ class Engenty_Runs {
 		if ( null === $wanted ) {
 			return $possible;
 		}
-		$formats = array_values( array_intersect( $wanted, $possible ) );
-		// A PDF or Word file asked of a written output: the HTML stands in, the browser prints it.
-		if ( ! $formats && in_array( 'html', $possible, true ) && array_intersect( $wanted, array( 'pdf', 'docx' ) ) ) {
+		// A PDF asked of a written output (an agent's text or JSON): the runner makes the file in
+		// the browser (the open repository's packages/runner/src/pdf.ts); this server writes none.
+		$offered = 'agent' === $step['type'] ? array_merge( $possible, array( 'pdf' ) ) : $possible;
+		$formats = array_values( array_intersect( $wanted, $offered ) );
+		// A PDF or Word file asked of a written output: its HTML comes along as a page to print.
+		if ( in_array( 'html', $possible, true ) && ! in_array( 'html', $formats, true ) && array_intersect( $wanted, array( 'pdf', 'docx' ) ) ) {
 			$formats[] = 'html';
 		}
 		return $formats;

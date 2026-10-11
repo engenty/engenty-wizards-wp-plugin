@@ -61,6 +61,8 @@ configureRunner( {
 	asset: () => boot.icon || '',
 	headers: { 'X-Engenty-Visitor': visitorId() },
 	Mascot,
+	// This server writes no PDF: the runner makes one in the browser; HTML is a page to print.
+	standalone: true,
 } );
 
 const lastRunKey = ( token ) => `engenty.run.${ token }`;

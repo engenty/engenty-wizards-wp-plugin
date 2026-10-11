@@ -9,7 +9,8 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * What the result step offers of a text or JSON output. A document a step wrote is its own
- * HTML file; a PDF is the browser's print of it.
+ * HTML file. A PDF of a written output the runner makes in the browser; the HTML made here is
+ * the page to print, and a document's PDF is the browser's print of its HTML.
  */
 class Engenty_Downloads {
 
@@ -50,6 +51,8 @@ class Engenty_Downloads {
 		$json = $output['json'] ?? null;
 		$text = (string) ( $output['text'] ?? '' );
 		switch ( $format ) {
+			case 'pdf':
+				return new WP_Error( 'engenty_not_found', __( 'The PDF is made in the browser, not on this site.', 'engenty-wizards' ), array( 'status' => 404 ) );
 			case 'json':
 				if ( null === $json ) {
 					break;
@@ -339,16 +342,22 @@ class Engenty_Downloads {
 	}
 
 	/**
-	 * A page around a result: the site's name, the title, a calm style.
+	 * A page around a result: the site's name, the title, a calm style, and the browser's print
+	 * dialog — where "Save as PDF" lives on every system. Opened in a tab of its own, the dialog
+	 * comes up by itself; a button stays for a second go and is not printed.
 	 *
 	 * @param string $title The title.
 	 * @param string $body  The body's HTML.
 	 * @return string
 	 */
 	private static function page( $title, $body ) {
-		$site = esc_html( wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ) );
-		return '<!doctype html><html lang="' . esc_attr( substr( get_locale(), 0, 2 ) ) . '"><head><meta charset="utf-8"><title>' . esc_html( $title ) . ' · ' . $site . '</title>'
-			. '<style>body{max-width:760px;margin:40px auto;padding:0 24px;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#282623}h1,h2,h3{line-height:1.25}table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid #dbd9d6;padding:6px 8px;text-align:left}code{background:#eae7e4;padding:1px 4px;border-radius:4px}pre{overflow:auto;background:#f7f5f2;padding:12px;border-radius:8px}.foot{margin-top:40px;color:#81807e;font-size:13px}</style></head>'
-			. '<body><h1>' . esc_html( $title ) . '</h1>' . $body . '<p class="foot">' . $site . ' · ' . esc_html( date_i18n( get_option( 'date_format' ) ) ) . '</p></body></html>';
+		$site  = esc_html( wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ) );
+		$print = esc_html__( 'Print or save as PDF', 'engenty-wizards' );
+		return '<!doctype html><html lang="' . esc_attr( substr( get_locale(), 0, 2 ) ) . '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' . esc_html( $title ) . ' · ' . $site . '</title>'
+			. '<style>body{max-width:760px;margin:40px auto;padding:0 24px;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#282623}h1,h2,h3{line-height:1.25}table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid #dbd9d6;padding:6px 8px;text-align:left}code{background:#eae7e4;padding:1px 4px;border-radius:4px}pre{overflow:auto;background:#f7f5f2;padding:12px;border-radius:8px}.foot{margin-top:40px;color:#81807e;font-size:13px}'
+			. '.print{position:fixed;top:16px;right:16px;border:0;border-radius:999px;background:#282623;color:#fff;font:600 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:12px 18px;cursor:pointer}'
+			. '@page{size:A4;margin:18mm 16mm}@media print{body{max-width:none;margin:0;padding:0;font-size:12pt}.print{display:none}a{color:inherit;text-decoration:none}tr,li,pre{break-inside:avoid}h1,h2,h3{break-after:avoid}}</style></head>'
+			. '<body><button type="button" class="print" onclick="window.print()">' . $print . '</button><h1>' . esc_html( $title ) . '</h1>' . $body . '<p class="foot">' . $site . ' · ' . esc_html( date_i18n( get_option( 'date_format' ) ) ) . '</p>'
+			. '<script>addEventListener("load",function(){setTimeout(function(){window.print()},300)})</script></body></html>';
 	}
 }

@@ -48,6 +48,12 @@ export interface RunnerEnv {
     ShareResultButton?: ComponentType<ShareResultProps>;
     /** Extra headers on every request (a WordPress nonce). */
     headers?: Record<string, string>;
+    /**
+     * A host that runs wizards on its own (the WordPress plugin): its server writes no PDF, so the
+     * runner writes one from a written output in the browser (pdf.ts); an HTML download of a
+     * written output is a page to print.
+     */
+    standalone?: boolean;
 }
 /** The host names its environment once, before the first render. */
 export declare function configureRunner(next: RunnerEnv): void;
@@ -62,3 +68,4 @@ export declare const appTell: (ability: AppAbility, args?: unknown) => void;
 export declare const appDownload: (event: {
     preventDefault(): void;
 }, href: string, filename?: string) => boolean;
+export declare const standalone: () => boolean;
