@@ -1,7 +1,11 @@
 import { ValidationIssue, WizardDefinition } from '@engenty-wizards/shared/definition';
 import { StandaloneFit, standaloneEntry } from '@engenty-wizards/shared/fit';
-export declare const PACKAGE_EXTENSION = ".wizard";
-export declare const PACKAGE_MIME = "application/vnd.engenty.wizard+zip";
+/**
+ * The check a host runs on a `.wizard` package before it keeps it: the definition read, its
+ * shape checked, and whether it runs on its own (packages/shared/src/fit.ts). The WordPress
+ * plugin's import runs this in the browser; the studio computes the same on its server.
+ */
+export { PACKAGE_EXTENSION, PACKAGE_MIME } from '@engenty-wizards/shared/wizard-package';
 export interface PackageFile {
     path: string;
     data: Uint8Array;

@@ -4704,6 +4704,13 @@ var Pc = [
 		K(H())
 	]).optional()
 }), Vc = xs([Bc, K(Bc).min(1)]), Hc = q({
+	label: H().min(1),
+	value: H().optional(),
+	image: H().optional(),
+	subtitle: H().optional(),
+	meta: H().optional(),
+	link: H().optional()
+}), Uc = q({
 	id: Z,
 	label: H().min(1),
 	kind: J(Ec),
@@ -4735,13 +4742,14 @@ var Pc = [
 	prefill: H().optional(),
 	when: Vc.optional(),
 	optionsFrom: H().optional(),
+	cards: Hc.optional(),
 	ask: H().min(1).optional(),
 	group: H().optional()
-}), Uc = q({
+}), Wc = q({
 	id: Z,
 	instructions: H().min(1),
 	optional: G().optional()
-}), Wc = q({
+}), Gc = q({
 	when: Vc.optional(),
 	ask: H().min(1).optional(),
 	goto: H(),
@@ -4750,8 +4758,8 @@ var Pc = [
 	id: Z,
 	title: H().min(1),
 	description: H().optional(),
-	next: K(Wc).optional()
-}, Gc = q({
+	next: K(Gc).optional()
+}, Kc = q({
 	id: Z,
 	kind: J([
 		"text",
@@ -4771,25 +4779,25 @@ var Pc = [
 }).refine((e) => e.kind !== "score" || (e.options?.length ?? 0) <= 10, {
 	message: "A score has at most ten levels.",
 	path: ["options"]
-}), Kc = q({
+}), qc = q({
 	...Q,
 	type: Y("page"),
-	fields: K(Hc).min(1),
-	groups: K(Uc).max(6).optional(),
+	fields: K(Uc).min(1),
+	groups: K(Wc).max(6).optional(),
 	cta: H().optional()
-}), qc = Zs([
+}), Jc = Zs([
 	H().regex(Ac),
 	".",
 	H().regex(jc)
-]), Jc = q({
+]), Yc = q({
 	...Q,
 	type: Y("agent"),
 	instructions: H().default(""),
 	call: q({
-		tool: qc,
+		tool: Jc,
 		input: Ds(H(), ms()).default({})
 	}).optional(),
-	tools: K(xs([J(kc), qc])).default([]),
+	tools: K(xs([J(kc), Jc])).default([]),
 	mcp: K(H()).optional(),
 	connections: K(H()).optional(),
 	output: q({
@@ -4798,14 +4806,14 @@ var Pc = [
 			"markdown",
 			"json"
 		]),
-		fields: K(Gc).optional(),
+		fields: K(Kc).optional(),
 		surface: G().optional()
 	}).default({ format: "markdown" }),
 	model: J(Nc).optional(),
 	effort: J(Pc).optional(),
 	each: H().optional(),
 	working: H().optional()
-}), Yc = q({
+}), Xc = q({
 	...Q,
 	type: Y("generate"),
 	asset: J(Fc),
@@ -4829,7 +4837,7 @@ var Pc = [
 	model: J(Nc).optional(),
 	effort: J(Pc).optional(),
 	working: H().optional()
-}), Xc = q({
+}), Zc = q({
 	...Q,
 	type: Y("widget"),
 	entry: H().min(1),
@@ -4841,38 +4849,38 @@ var Pc = [
 	}).optional(),
 	video: G().optional(),
 	working: H().optional()
-}), Zc = [
+}), Qc = [
 	"16:9",
 	"9:16",
 	"1:1"
-], Qc = q({
+], $c = q({
 	...Q,
 	type: Y("film"),
 	brief: H().min(1),
 	skills: K(H().min(1)).max(12).default(["hyperframes"]),
 	kit: H().optional(),
 	inputs: Ds(H(), H()).default({}),
-	format: J(Zc).default("16:9"),
+	format: J(Qc).default("16:9"),
 	seconds: W().int().min(3).max(600).optional(),
 	model: J(Nc).optional(),
 	effort: J(Pc).optional(),
 	working: H().optional()
-}), $c = q({
+}), el = q({
 	id: Z,
 	description: H().min(1),
 	components: yc,
 	group: H().optional(),
 	required: G().optional()
-}), el = q({
+}), tl = q({
 	...Q,
 	type: Y("surface"),
 	components: yc.optional(),
-	candidates: K($c).max(16).optional(),
-	groups: K(Uc).max(6).optional(),
+	candidates: K(el).max(16).optional(),
+	groups: K(Wc).max(6).optional(),
 	data: Ds(H(), H()).default({}),
 	working: H().optional()
 }).refine((e) => !!e.components != !!e.candidates, { message: "A surface step has either \"components\" or \"candidates\"." });
-function tl(e, t) {
+function nl(e, t) {
 	let n = new Set(t), r = e.filter((e) => n.has(e.id));
 	return [{
 		id: "root",
@@ -4880,36 +4888,36 @@ function tl(e, t) {
 		children: r.map((e) => e.components[0]?.id ?? e.id)
 	}, ...r.flatMap((e) => e.components)];
 }
-var nl = q({
+var rl = q({
 	...Q,
 	type: Y("review"),
 	show: K(H()).min(1),
 	edit: G().optional(),
 	regenerate: G().optional()
-}), rl = q({
+}), il = q({
 	from: H(),
 	label: H().optional(),
 	formats: K(J(Ic)).min(1)
-}), il = Cs("type", [
-	Kc,
-	Jc,
+}), al = Cs("type", [
+	qc,
 	Yc,
 	Xc,
-	el,
-	Qc,
-	nl,
+	Zc,
+	tl,
+	$c,
+	rl,
 	q({
 		...Q,
 		type: Y("result"),
 		message: H().optional(),
-		deliverables: K(rl)
+		deliverables: K(il)
 	})
 ]);
-function al(e) {
+function ol(e) {
 	let t = e.output.fields ?? [];
 	return !e.call && e.model === "classifier" && e.output.format === "json" && t.length > 0 && t.every((e) => e.kind === "yesno" || e.kind === "choice" || e.kind === "score") && !e.each && e.tools.length === 0 && !e.mcp?.length && !e.connections?.length;
 }
-var ol = q({
+var sl = q({
 	id: Z,
 	title: H().min(1),
 	description: H().optional(),
@@ -4920,7 +4928,7 @@ var ol = q({
 		status: H().optional()
 	}).optional(),
 	shared: G().optional()
-}), sl = q({
+}), cl = q({
 	id: Z,
 	kind: J(mc).optional(),
 	connector: H().optional(),
@@ -4928,27 +4936,27 @@ var ol = q({
 	policy: Ds(H(), J(["allow", "ask"])).optional(),
 	title: H().optional(),
 	description: H().optional()
-}), cl = q({
+}), ll = q({
 	version: Y(1).default(1),
 	title: H().min(1),
 	description: H().default(""),
 	avatar: J(Tc).default("round"),
 	intro: H().optional(),
-	lists: K(ol).max(12).optional(),
-	connections: K(sl).max(12).optional(),
-	steps: K(il).min(1)
-}), ll = /^lists\.([a-zA-Z][a-zA-Z0-9_]*)$/;
-function ul(e) {
-	return e.match(ll)?.[1] ?? null;
+	lists: K(sl).max(12).optional(),
+	connections: K(cl).max(12).optional(),
+	steps: K(al).min(1)
+}), ul = /^lists\.([a-zA-Z][a-zA-Z0-9_]*)$/;
+function dl(e) {
+	return e.match(ul)?.[1] ?? null;
 }
 function $(e) {
 	return e.trim().replace(/^\{\{\s*/, "").replace(/\s*\}\}$/, "");
 }
-var dl = /\{\{\s*([^}]+?)\s*\}\}/g;
-function fl(e) {
-	return [...e.matchAll(dl)].map((e) => e[1]);
+var fl = /\{\{\s*([^}]+?)\s*\}\}/g;
+function pl(e) {
+	return [...e.matchAll(fl)].map((e) => e[1]);
 }
-function pl(e, t) {
+function ml(e, t) {
 	let n = [], r = /* @__PURE__ */ new Set(), i = /* @__PURE__ */ new Set(), a = /* @__PURE__ */ new Set(), o = /* @__PURE__ */ new Set(), s = /* @__PURE__ */ new Set(), c = /* @__PURE__ */ new Set(), l = /* @__PURE__ */ new Set(), u = (e) => `List "${e}" is shared: every run writes it, so the person running the wizard never sees it.`;
 	for (let t of e.lists ?? []) {
 		s.has(t.id) && n.push({ message: `Duplicate list id "${t.id}".` }), s.add(t.id), t.shared && (c.add(t.id), t.check && n.push({ message: `${u(t.id)} It cannot be checked row by row.` })), t.key && !t.columns.some((e) => e.id === t.key) && n.push({ message: `List "${t.id}": key "${t.key}" is not one of its columns.` });
@@ -4969,7 +4977,7 @@ function pl(e, t) {
 			stepId: t.id,
 			message: `Field "${e.id}" needs options.`
 		}), e.kind === "slot") {
-			let r = (e.options ?? []).find((e) => !Tl(e));
+			let r = (e.options ?? []).find((e) => !Ol(e));
 			r !== void 0 && n.push({
 				stepId: t.id,
 				message: `Field "${e.id}": "${r}" is not a date and time with its offset, like "2026-10-12T09:00:00+02:00".`
@@ -5006,7 +5014,7 @@ function pl(e, t) {
 	}
 	e.steps.at(-1)?.type !== "result" && n.push({ message: "The last step must be a result step." });
 	let d = (e, t) => {
-		for (let r of fl(t)) {
+		for (let r of pl(t)) {
 			let [t, i] = r.split(".");
 			t === "steps" ? (!i || !a.has(i)) && n.push({
 				stepId: e.id,
@@ -5029,7 +5037,7 @@ function pl(e, t) {
 		let d = u.length === 1 && u[0] === "p";
 		if (i !== "steps" || !l || u.length > 0 && !d || !(a.has(c) || r && c === t.id)) return !1;
 		let f = e.steps.find((e) => e.id === c);
-		return f?.type === "agent" && (!d || al(f)) && ((f.output.fields ?? []).some((e) => e.id === l) || !!f.each && l === "rows" && !d);
+		return f?.type === "agent" && (!d || ol(f)) && ((f.output.fields ?? []).some((e) => e.id === l) || !!f.each && l === "rows" && !d);
 	}, p = (e, t) => (t.op === "gt" || t.op === "lt") && typeof t.value != "number" ? [{
 		stepId: e,
 		message: `"${t.op}" on "${t.field}" compares with a number value.`
@@ -5039,17 +5047,24 @@ function pl(e, t) {
 	}] : t.op !== "empty" && t.op !== "notEmpty" && t.value === void 0 ? [{
 		stepId: e,
 		message: `"${t.op}" on "${t.field}" needs a value.`
-	}] : [], m = (t) => {
-		let [n, r, i, o, ...s] = $(t).split(".");
-		if (n === "lists" && r && i && !o) {
-			let t = e.lists?.find((e) => e.id === r);
-			return t ? c.has(r) ? u(r) : t.columns.some((e) => e.id === i) ? null : `"optionsFrom": list "${r}" has no column "${i}".` : `"optionsFrom" names an unknown list "${r}".`;
+	}] : [], m = (t, n) => {
+		let [r, i, o, s, ...l] = $(t).split(".");
+		if (r === "lists" && i && o && !s) {
+			let t = e.lists?.find((e) => e.id === i);
+			return t ? c.has(i) ? u(i) : t.columns.some((e) => e.id === o) ? null : `"optionsFrom": list "${i}" has no column "${o}".` : `"optionsFrom" names an unknown list "${i}".`;
 		}
-		if (n === "steps" && r && i && s.length === 0) {
-			let t = a.has(r) ? e.steps.find((e) => e.id === r) : void 0;
-			if (t?.type === "agent" && t.each && i === "rows") return o ? null : `"optionsFrom": "${r}.rows" is a table; name one of its columns.`;
-			let n = t?.type === "agent" ? (t.output.fields ?? []).find((e) => e.id === i) : void 0;
-			return n ? o ? n.kind === "table" && (!n.columns?.length || n.columns.includes(o)) ? null : `"optionsFrom": "${r}.${i}" is not a table with the column "${o}".` : n.kind === "list" ? null : `"optionsFrom": "${r}.${i}" is not a list.` : `"optionsFrom" names "${r}.${i}", which is not an output of an earlier agent step.`;
+		if (r === "steps" && i && o && l.length === 0) {
+			let t = a.has(i) ? e.steps.find((e) => e.id === i) : void 0;
+			if (t?.type === "agent" && t.each && o === "rows") return s ? null : `"optionsFrom": "${i}.rows" is a table; name one of its columns.`;
+			let r = t?.type === "agent" ? (t.output.fields ?? []).find((e) => e.id === o) : void 0;
+			if (!r) return `"optionsFrom" names "${i}.${o}", which is not an output of an earlier agent step.`;
+			if (s) return r.kind === "table" && (!r.columns?.length || r.columns.includes(s)) ? null : `"optionsFrom": "${i}.${o}" is not a table with the column "${s}".`;
+			if (n) {
+				if (r.kind !== "table") return `"cards": "${i}.${o}" is not a table.`;
+				let e = Object.values(n).find((e) => r.columns?.length && !r.columns.includes(e));
+				return e ? `"cards": table "${i}.${o}" has no column "${e}".` : null;
+			}
+			return r.kind === "list" ? null : `"optionsFrom": "${i}.${o}" is not a list (a table takes a column, or "cards").`;
 		}
 		return "\"optionsFrom\" is \"steps.<id>.<key>\", \"steps.<id>.<key>.<column>\" or \"lists.<id>.<column>\".";
 	};
@@ -5076,17 +5091,20 @@ function pl(e, t) {
 					message: `Field "${t.id}" names an unknown group "${t.group}".`
 				});
 				for (let e of h.fields) {
-					for (let t of _l(e.when)) !h.fields.some((n) => n.id === t.field && n.id !== e.id) && !f(h, t.field) && n.push({
+					for (let t of bl(e.when)) !h.fields.some((n) => n.id === t.field && n.id !== e.id) && !f(h, t.field) && n.push({
 						stepId: h.id,
 						message: `Field "${e.id}": "when" reads "${t.field}", which is neither on this page nor known before it.`
 					}), n.push(...p(h.id, t));
 					if (e.optionsFrom) {
-						let t = e.kind !== "select" && e.kind !== "multiselect" && e.kind !== "slot" ? `"optionsFrom" fills the choices of a select, multiselect or slot; kind is "${e.kind}".` : m(e.optionsFrom);
+						let t = e.kind !== "select" && e.kind !== "multiselect" && e.kind !== "slot" ? `"optionsFrom" fills the choices of a select, multiselect or slot; kind is "${e.kind}".` : e.cards && e.kind === "slot" ? "\"cards\" draws the choices of a select or multiselect, not of a slot." : m(e.optionsFrom, e.cards);
 						t && n.push({
 							stepId: h.id,
 							message: `Field "${e.id}": ${t}`
 						});
-					}
+					} else e.cards && n.push({
+						stepId: h.id,
+						message: `Field "${e.id}": "cards" needs "optionsFrom" naming a table output.`
+					});
 					if (e.prefill) {
 						let t = $(e.prefill);
 						t.split(".")[0] === "steps" ? d(h, `{{${t}}}`) : n.push({
@@ -5161,7 +5179,7 @@ function pl(e, t) {
 						stepId: h.id,
 						message: `Surface data key "${e}" is not an identifier.`
 					});
-					let r = ul($(t));
+					let r = dl($(t));
 					r ? s.has(r) || n.push({
 						stepId: h.id,
 						message: `Surface data reads an unknown list "${r}".`
@@ -5175,7 +5193,7 @@ function pl(e, t) {
 					stepId: h.id,
 					message: `Surface piece "${t.id}" names an unknown group "${t.group}".`
 				});
-				let t = h.components ?? tl(h.candidates ?? [], (h.candidates ?? []).map((e) => e.id));
+				let t = h.components ?? nl(h.candidates ?? [], (h.candidates ?? []).map((e) => e.id));
 				for (let e of Sc(t, Object.keys(h.data))) n.push({
 					stepId: h.id,
 					message: `Surface: ${e.message}`
@@ -5209,7 +5227,7 @@ function pl(e, t) {
 				break;
 			case "review":
 				for (let e of h.show) {
-					let t = ul(e);
+					let t = dl(e);
 					(t ? !s.has(t) : !a.has(e)) ? n.push({
 						stepId: h.id,
 						message: `Review shows unknown ${t ? "list" : "step"} "${e}".`
@@ -5220,7 +5238,7 @@ function pl(e, t) {
 				}
 				break;
 			case "result": for (let e of h.deliverables) {
-				let t = ul(e.from);
+				let t = dl(e.from);
 				(t ? !s.has(t) : !a.has(e.from)) ? n.push({
 					stepId: h.id,
 					message: `Deliverable from unknown ${t ? "list" : "step"} "${e.from}".`
@@ -5230,7 +5248,7 @@ function pl(e, t) {
 				});
 			}
 		}
-		(h.next ?? []).filter(hl).length > 1 && n.push({
+		(h.next ?? []).filter(vl).length > 1 && n.push({
 			stepId: h.id,
 			message: "A step has at most one \"otherwise\" branch (one without \"when\" and \"ask\")."
 		});
@@ -5239,7 +5257,7 @@ function pl(e, t) {
 				stepId: h.id,
 				message: `Branch goes to unknown step "${e.goto}".`
 			});
-			for (let t of _l(e.when)) !i.has(t.field) && !f(h, t.field, !0) && n.push({
+			for (let t of bl(e.when)) !i.has(t.field) && !f(h, t.field, !0) && n.push({
 				stepId: h.id,
 				message: `Branch reads unknown field "${t.field}".`
 			}), n.push(...p(h.id, t));
@@ -5248,70 +5266,80 @@ function pl(e, t) {
 	}
 	return n;
 }
-function ml(e, t) {
-	let n = cl.safeParse(e);
+function hl(e, t) {
+	let n = ll.safeParse(e);
 	if (!n.success) return {
 		ok: !1,
-		issues: n.error.issues.map((e) => ({ message: `${e.path.join(".")}: ${e.message}` }))
+		issues: _l(n.error, e)
 	};
-	let r = pl(n.data, t);
+	let r = ml(n.data, t);
 	return {
 		ok: !0,
 		wizard: n.data,
 		issues: r
 	};
 }
-function hl(e) {
-	return e.when === void 0 && e.ask === void 0;
+function gl(e, t) {
+	let n = e?.steps?.[t]?.id;
+	return typeof n == "string" ? `steps[${t}] "${n}"` : `steps[${t}]`;
 }
-function gl(e) {
-	return e == null || e === "" || Array.isArray(e) && e.length === 0;
-}
-function _l(e) {
-	return e === void 0 ? [] : Array.isArray(e) ? e : [e];
+function _l(e, t) {
+	return e.issues.map((e) => {
+		let [n, r, ...i] = e.path;
+		return { message: `${(n === "steps" && typeof r == "number" ? [gl(t, r), ...i].join(".") : e.path.join(".")) || "wizard"}: ${e.message}` };
+	});
 }
 function vl(e) {
+	return e.when === void 0 && e.ask === void 0;
+}
+function yl(e) {
+	return e == null || e === "" || Array.isArray(e) && e.length === 0;
+}
+function bl(e) {
+	return e === void 0 ? [] : Array.isArray(e) ? e : [e];
+}
+function xl(e) {
 	if (typeof e == "number") return Number.isFinite(e) ? e : null;
 	if (typeof e != "string" || !e.trim()) return null;
 	let t = Number(e.replace(/\s/g, "").replace(",", "."));
 	return Number.isFinite(t) ? t : null;
 }
-function yl(e, t) {
+function Sl(e, t) {
 	let n = t[e.field];
 	switch (e.op) {
-		case "empty": return gl(n);
-		case "notEmpty": return !gl(n);
+		case "empty": return yl(n);
+		case "notEmpty": return !yl(n);
 		case "equals": return String(n) === String(e.value);
 		case "notEquals": return String(n) !== String(e.value);
 		case "in": return Array.isArray(e.value) && e.value.map(String).includes(String(n));
 		case "gt":
 		case "lt": {
-			let t = vl(n), r = vl(e.value);
+			let t = xl(n), r = xl(e.value);
 			return t !== null && r !== null && (e.op === "gt" ? t > r : t < r);
 		}
 		case "contains": return Array.isArray(n) ? n.map(String).includes(String(e.value)) : typeof n == "string" && e.value !== void 0 && n.toLowerCase().includes(String(e.value).toLowerCase());
 	}
 }
-function bl(e, t) {
-	return _l(e).every((e) => yl(e, t));
+function Cl(e, t) {
+	return bl(e).every((e) => Sl(e, t));
 }
-function xl(e, t) {
-	return e.when !== void 0 && bl(e.when, t);
+function wl(e, t) {
+	return e.when !== void 0 && Cl(e.when, t);
 }
-function Sl(e) {
+function Tl(e) {
 	return !!(e.ask || e.group);
 }
-function Cl(e, t, n) {
+function El(e, t, n) {
 	let r = {
 		...t,
 		...n
 	}, i = [];
-	for (let t of e) bl(t.when, r) ? i.push(t) : delete r[t.id];
+	for (let t of e) Cl(t.when, r) ? i.push(t) : delete r[t.id];
 	return i;
 }
-var wl = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?(Z|[+-]\d{2}:\d{2})$/;
-function Tl(e) {
-	let t = wl.exec(e.trim());
+var Dl = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?(Z|[+-]\d{2}:\d{2})$/;
+function Ol(e) {
+	let t = Dl.exec(e.trim());
 	if (!t) return null;
 	let [, n, r, i, a, o] = t.map(Number), s = new Date(Date.UTC(n, r - 1, i, a, o));
 	return s.getUTCMonth() !== r - 1 || s.getUTCDate() !== i || a > 23 || o > 59 || !Number.isFinite(Date.parse(e)) ? null : {
@@ -5320,10 +5348,10 @@ function Tl(e) {
 		wall: s
 	};
 }
-function El(e, t = "de") {
-	let n = Tl(e);
+function kl(e, t = "de") {
+	let n = Ol(e);
 	if (!n) return e;
-	let r = Al[t];
+	let r = Nl[t];
 	return `${n.wall.toLocaleDateString(r, {
 		weekday: "long",
 		timeZone: "UTC"
@@ -5333,40 +5361,40 @@ function El(e, t = "de") {
 		timeZone: "UTC"
 	})}`;
 }
-function Dl(e, t, n) {
+function Al(e, t, n) {
 	let r = Array.isArray(t) ? t : [], i = (e.columns ?? []).filter((e) => e.kind !== "text"), a = r.map((e) => {
-		let t = i.length ? i.reduce((t, n) => t * Ol(e[n.id]), 1) : 0;
+		let t = i.length ? i.reduce((t, n) => t * jl(e[n.id]), 1) : 0;
 		return {
 			...e,
-			amount: kl(t)
+			amount: Ml(t)
 		};
-	}), o = kl(a.reduce((e, t) => e + t.amount, 0)), s = e.vat?.rate ?? 0;
+	}), o = Ml(a.reduce((e, t) => e + t.amount, 0)), s = e.vat?.rate ?? 0;
 	if (e.vat?.field) {
 		let t = n[e.vat.field], r = Number.parseFloat(String(t ?? "").replace(",", "."));
 		Number.isFinite(r) && (s = r);
 	}
-	let c = kl(o * s / 100);
+	let c = Ml(o * s / 100);
 	return {
 		rows: a,
 		net: o,
 		vatRate: s,
 		vat: c,
-		gross: kl(o + c),
+		gross: Ml(o + c),
 		currency: e.currency ?? "EUR"
 	};
 }
-function Ol(e) {
+function jl(e) {
 	let t = Number(typeof e == "string" ? e.replace(/\s/g, "").replace(",", ".") : e);
 	return Number.isFinite(t) ? t : 0;
 }
-function kl(e) {
+function Ml(e) {
 	return Math.round(e * 100) / 100;
 }
-var Al = {
+var Nl = {
 	de: "de-DE",
 	en: "en-GB"
 };
 //#endregion
-export { Dc as a, ul as c, xl as d, Cl as f, wc as g, fl as h, Sl as i, ml as l, Tl as m, $ as n, hl as o, El as p, Oc as r, Dl as s, _l as t, Mc as u };
+export { H as C, q as S, J as _, Dc as a, Y as b, dl as c, wl as d, El as f, wc as g, pl as h, Tl as i, hl as l, Ol as m, $ as n, vl as o, kl as p, Oc as r, Al as s, bl as t, Mc as u, K as v, ms as w, W as x, G as y };
 
-//# sourceMappingURL=definition-c4zYmQVf.js.map
+//# sourceMappingURL=definition-dqKu0H5N.js.map

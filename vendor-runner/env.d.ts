@@ -7,7 +7,7 @@ import { Lang } from './i18n.js';
  * plugin with its REST routes and its own engenty. The runner itself knows no server.
  */
 /** What a mobile app around the page may offer (apps/web/src/lib/app.ts names them). */
-export type AppAbility = "scan" | "share" | "download" | "keepAwake" | "notify" | "notifyPermission" | "signIn" | "run";
+export type AppAbility = "scan" | "share" | "download" | "keepAwake" | "notify" | "notifyPermission" | "signIn" | "run" | "transcribe" | "think";
 export interface AppBridge {
     can(ability: AppAbility): boolean;
     call<T = unknown>(ability: AppAbility, args?: unknown): Promise<T>;
@@ -46,6 +46,8 @@ export interface RunnerEnv {
     Mascot: ComponentType<MascotProps>;
     /** The result's share button; a host without shared results has none. */
     ShareResultButton?: ComponentType<ShareResultProps>;
+    /** Told of every answer of 500 and above, e.g. to send it to the host's log. */
+    onServerError?: (line: string) => void;
     /** Extra headers on every request (a WordPress nonce). */
     headers?: Record<string, string>;
     /**

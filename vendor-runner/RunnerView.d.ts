@@ -1,4 +1,6 @@
+import { PageStep } from '@engenty-wizards/shared/definition';
 import { RunView } from '@engenty-wizards/shared/run';
+import { Values } from './fields';
 /**
  * A run as the runner drives it: the view, and the commands a person can give. `useRun` in the
  * studio (a server-sent stream), `useLocalRun` in the WordPress plugin (one request per step).
@@ -15,6 +17,12 @@ export interface RunSource {
     back(): Promise<boolean>;
     retry(): Promise<boolean>;
 }
+export declare function initialValues(step: PageStep, view: RunView): Values;
+/**
+ * Tells the person when a step that took a while is done, or when it needs them (a sign-in, a
+ * confirmation) — if they asked for it. A page in the background also marks its title.
+ */
+export declare function useDoneSignal(view: RunView | null): void;
 export declare function RunnerBody({ run, compact, onRestart, onView, stickyProgress, }: {
     run: RunSource;
     compact?: boolean;

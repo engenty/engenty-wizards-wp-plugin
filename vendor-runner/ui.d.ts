@@ -37,6 +37,20 @@ export declare function Segmented({ value, onChange, options, multi, disabled, }
     /** Options shown but not to be picked. */
     disabled?: string[];
 }): import("react").JSX.Element;
+/**
+ * A row of tabs as one button group, in the look of the theme switch: a thumb slides to the
+ * pick and takes its width. The tabs' panels are the caller's.
+ */
+export declare function Tabs<T extends string>({ value, onChange, options, label, }: {
+    value: T;
+    onChange: (next: T) => void;
+    options: {
+        id: T;
+        label: string;
+    }[];
+    /** The group's name for a screen reader. */
+    label?: string;
+}): import("react").JSX.Element;
 export declare function Switch({ checked, onChange, label, disabled, }: {
     checked: boolean;
     onChange: (v: boolean) => void;
@@ -62,8 +76,14 @@ export declare function Chip({ children, tone, icon, title, }: {
     icon?: ReactNode;
     title?: string;
 }): import("react").JSX.Element;
-/** A centred modal on the native <dialog>. */
-export declare function Dialog({ open, onClose, title, children, wide, bare, }: {
+/**
+ * A centred modal on the native <dialog>; on a phone it fills the screen, with no gutter. Its
+ * height does not jump while it is open: a dialog
+ * with tabs, folds or lists (`height="tall"`) stands at a height taken from the window and
+ * scrolls inside; any other keeps the tallest height it has had, so switching to a shorter tab
+ * or folding a section leaves it where it is.
+ */
+export declare function Dialog({ open, onClose, title, children, wide, bare, height, }: {
     open: boolean;
     onClose: () => void;
     title?: ReactNode;
@@ -75,6 +95,8 @@ export declare function Dialog({ open, onClose, title, children, wide, bare, }: 
      * may sit on the panel's edge) and fills the screen of a phone.
      */
     bare?: boolean;
+    /** `"tall"`: as tall as the window allows (up to 56 rem), whatever is in it. */
+    height?: "auto" | "tall";
 }): import("react").JSX.Element;
 export declare function Empty({ children }: {
     children: ReactNode;

@@ -72,11 +72,17 @@
   .engenty-runner .inset-0 {
     inset: 0px;
   }
+  .engenty-runner .inset-x-0 {
+    inset-inline: 0px;
+  }
   .engenty-runner .inset-x-6 {
     inset-inline: calc(var(--spacing) * 6);
   }
   .engenty-runner .top-0 {
     top: 0px;
+  }
+  .engenty-runner .top-0\.5 {
+    top: calc(var(--spacing) * 0.5);
   }
   .engenty-runner .top-1\/2 {
     top: calc(1 / 2 * 100%);
@@ -92,6 +98,12 @@
   }
   .engenty-runner .right-3 {
     right: calc(var(--spacing) * 3);
+  }
+  .engenty-runner .bottom-0 {
+    bottom: 0px;
+  }
+  .engenty-runner .bottom-0\.5 {
+    bottom: calc(var(--spacing) * 0.5);
   }
   .engenty-runner .bottom-2 {
     bottom: calc(var(--spacing) * 2);
@@ -168,6 +180,9 @@
   .engenty-runner .mt-10 {
     margin-top: calc(var(--spacing) * 10);
   }
+  .engenty-runner .mt-auto {
+    margin-top: auto;
+  }
   .engenty-runner .-mr-1 {
     margin-right: calc(var(--spacing) * -1);
   }
@@ -179,6 +194,9 @@
   }
   .engenty-runner .mb-1 {
     margin-bottom: var(--spacing);
+  }
+  .engenty-runner .mb-1\.5 {
+    margin-bottom: calc(var(--spacing) * 1.5);
   }
   .engenty-runner .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
@@ -227,6 +245,9 @@
   }
   .engenty-runner .aspect-\[5\/2\] {
     aspect-ratio: 5/2;
+  }
+  .engenty-runner .aspect-\[1280\/900\] {
+    aspect-ratio: 1280/900;
   }
   .engenty-runner .aspect-square {
     aspect-ratio: 1 / 1;
@@ -401,12 +422,6 @@
   }
   .engenty-runner .w-full {
     width: 100%;
-  }
-  .engenty-runner .max-w-2xl {
-    max-width: var(--container-2xl);
-  }
-  .engenty-runner .max-w-4xl {
-    max-width: var(--container-4xl);
   }
   .engenty-runner .max-w-\[620px\] {
     max-width: 620px;
@@ -785,6 +800,21 @@
       background-color: color-mix(in oklab, var(--color-white) 12%, transparent);
     }
   }
+  .engenty-runner .bg-gradient-to-t {
+    --tw-gradient-position: to top in oklab;
+    background-image: linear-gradient(var(--tw-gradient-stops));
+  }
+  .engenty-runner .from-black\/75 {
+    --tw-gradient-from: color-mix(in srgb, #000 75%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-gradient-from: color-mix(in oklab, var(--color-black) 75%, transparent);
+    }
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .engenty-runner .to-transparent {
+    --tw-gradient-to: transparent;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
   .engenty-runner .fill-current {
     fill: currentcolor;
   }
@@ -793,6 +823,9 @@
   }
   .engenty-runner .object-cover {
     object-fit: cover;
+  }
+  .engenty-runner .object-top {
+    object-position: top;
   }
   .engenty-runner .p-0 {
     padding: 0px;
@@ -1097,6 +1130,9 @@
   .engenty-runner .opacity-0 {
     opacity: 0%;
   }
+  .engenty-runner .opacity-50 {
+    opacity: 50%;
+  }
   .engenty-runner .opacity-70 {
     opacity: 70%;
   }
@@ -1181,6 +1217,11 @@
   }
   .engenty-runner .transition-\[width\] {
     transition-property: width;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .engenty-runner .transition-colors {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
@@ -1429,6 +1470,11 @@
   .engenty-runner .data-\[open\=true\]\:w-\[var\(--ai-long\)\][data-open="true"] {
     width: var(--ai-long);
   }
+  @media (prefers-reduced-motion: reduce) {
+    .engenty-runner .motion-reduce\:transition-none {
+      transition-property: none;
+    }
+  }
   @media (width < 40rem) {
     .engenty-runner .max-sm\:m-0 {
       margin: 0px;
@@ -1447,6 +1493,15 @@
     }
     .engenty-runner .max-sm\:basis-full {
       flex-basis: 100%;
+    }
+    .engenty-runner .max-sm\:rounded-none {
+      border-radius: 0;
+    }
+    .engenty-runner .max-sm\:pt-\[env\(safe-area-inset-top\)\] {
+      padding-top: env(safe-area-inset-top);
+    }
+    .engenty-runner .max-sm\:pb-\[env\(safe-area-inset-bottom\)\] {
+      padding-bottom: env(safe-area-inset-bottom);
     }
   }
   @media (width >= 40rem) {
@@ -1474,6 +1529,9 @@
     .engenty-runner .sm\:size-20 {
       width: calc(var(--spacing) * 20);
       height: calc(var(--spacing) * 20);
+    }
+    .engenty-runner .sm\:h-\[min\(calc\(100dvh-32px\)\,56rem\)\] {
+      height: min(calc(100dvh - 32px), 56rem);
     }
     .engenty-runner .sm\:w-56 {
       width: calc(var(--spacing) * 56);
@@ -1561,6 +1619,9 @@
     .engenty-runner .coarse\:size-11 {
       width: calc(var(--spacing) * 11);
       height: calc(var(--spacing) * 11);
+    }
+    .engenty-runner .coarse\:h-9 {
+      height: calc(var(--spacing) * 9);
     }
     .engenty-runner .coarse\:h-11 {
       height: calc(var(--spacing) * 11);
@@ -1965,6 +2026,48 @@
   inherits: false;
   initial-value: solid;
 }
+@property --tw-gradient-position {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-via {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-to {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-via-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --tw-gradient-via-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+@property --tw-gradient-to-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
 @property --tw-leading {
   syntax: "*";
   inherits: false;
@@ -2195,6 +2298,15 @@
       --tw-skew-y: initial;
       --tw-divide-y-reverse: 0;
       --tw-border-style: solid;
+      --tw-gradient-position: initial;
+      --tw-gradient-from: #0000;
+      --tw-gradient-via: #0000;
+      --tw-gradient-to: #0000;
+      --tw-gradient-stops: initial;
+      --tw-gradient-via-stops: initial;
+      --tw-gradient-from-position: 0%;
+      --tw-gradient-via-position: 50%;
+      --tw-gradient-to-position: 100%;
       --tw-leading: initial;
       --tw-font-weight: initial;
       --tw-tracking: initial;
