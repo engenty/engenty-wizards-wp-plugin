@@ -15,6 +15,16 @@ defined( 'ABSPATH' ) || exit;
 class Engenty_Client {
 
 	/**
+	 * The language engenty.ai answers in: German for a German WordPress, English for any other.
+	 * The runtime reads it from `accept-language`; without one it answers in English.
+	 *
+	 * @return string `de` or `en`.
+	 */
+	public static function lang() {
+		return str_starts_with( determine_locale(), 'de' ) ? 'de' : 'en';
+	}
+
+	/**
 	 * Calls the runtime.
 	 *
 	 * @param string     $method HTTP method.
@@ -110,9 +120,10 @@ class Engenty_Client {
 			'method'  => $method,
 			'timeout' => $timeout,
 			'headers' => array(
-				'authorization' => 'Bearer ' . $token,
-				'accept'        => 'application/json',
-				'user-agent'    => 'engenty-wizards-wordpress/' . ENGENTY_WIZARDS_VERSION . '; ' . home_url( '/' ),
+				'authorization'   => 'Bearer ' . $token,
+				'accept'          => 'application/json',
+				'accept-language' => self::lang(),
+				'user-agent'      => 'engenty-wizards-wordpress/' . ENGENTY_WIZARDS_VERSION . '; ' . home_url( '/' ),
 			),
 		);
 		if ( null !== $body ) {

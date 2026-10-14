@@ -65,8 +65,9 @@ class Engenty_Connect {
 			array(
 				'timeout' => 15,
 				'headers' => array(
-					'Authorization' => 'Bearer ' . $key,
-					'Accept'        => 'application/json',
+					'Authorization'   => 'Bearer ' . $key,
+					'Accept'          => 'application/json',
+					'Accept-Language' => Engenty_Client::lang(),
 				),
 			)
 		);
@@ -125,7 +126,10 @@ class Engenty_Connect {
 		$args = array(
 			'method'  => $method,
 			'timeout' => 20,
-			'headers' => array( 'accept' => 'application/json' ),
+			'headers' => array(
+				'accept'          => 'application/json',
+				'accept-language' => Engenty_Client::lang(),
+			),
 		);
 		if ( null !== $form ) {
 			$args['body'] = $form;

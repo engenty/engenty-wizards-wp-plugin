@@ -54,7 +54,7 @@ function Mascot( { kind = 'round', size = 64 } ) {
 }
 
 configureRunner( {
-	lang: boot.lang === 'en' ? 'en' : 'de',
+	lang: boot.lang === 'de' ? 'de' : 'en',
 	runBase: ( runId ) =>
 		`${ REST }/local/runs/${ encodeURIComponent( runId ) }`,
 	withBase: ( path ) => path,
