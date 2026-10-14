@@ -14,7 +14,7 @@ const ROLES = {
 
 /**
  * Reads the site's base data, shows what was found and sends the admin's choice to engenty.ai,
- * where the space takes it: details, logo, colours, the pages as Wissen.
+ * where the space takes it: details, logo, colours, the pages as Knowledge.
  * @param {Object} root0
  * @param {Object} root0.me
  * @param {Object} root0.onDone

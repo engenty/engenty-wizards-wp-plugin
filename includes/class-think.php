@@ -958,7 +958,7 @@ class Engenty_Think {
 	const MAX_WORKSPACE_CHARS = 60000;
 
 	/** Where a package keeps the space's pages, one Markdown file each (package.ts KNOWLEDGE_DIR). */
-	const KNOWLEDGE_DIR = 'wissen/';
+	const KNOWLEDGE_DIR = 'knowledge/';
 
 	/** Less than this is not worth a page cut short: what is left stays empty. */
 	const MIN_CUT_CHARS = 1000;
@@ -966,8 +966,8 @@ class Engenty_Think {
 	/**
 	 * The wizard's workspace, inline: a thinking step on a runtime reads its files with a tool;
 	 * here the text files (Markdown, text, CSV, JSON) go into the system prompt, as far as they
-	 * fit. What a template calls "Wissen" or a price list is usually one of them. The wizard's own
-	 * files come first, in their order; the space's pages a package took along (`wissen/`) fill
+	 * fit. What a template calls knowledge or a price list is usually one of them. The wizard's own
+	 * files come first, in their order; the space's pages a package took along (`knowledge/`) fill
 	 * what they leave, the ones that match the step best first (pick_pages).
 	 *
 	 * @return string
