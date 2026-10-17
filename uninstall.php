@@ -22,7 +22,7 @@ delete_transient( 'engenty_wizards_local' );
 wp_clear_scheduled_hook( 'engenty_wizards_daily' );
 global $wpdb;
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- the plugin's own tables.
-$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}engenty_wizards, {$wpdb->prefix}engenty_runs" );
+$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}engenty_wizards, {$wpdb->prefix}engenty_runs, {$wpdb->prefix}engenty_assets, {$wpdb->prefix}engenty_upload_budgets" );
 $engenty_upload = wp_upload_dir();
 $engenty_dir    = trailingslashit( $engenty_upload['basedir'] ) . 'engenty-wizards';
 if ( is_dir( $engenty_dir ) ) {
@@ -38,3 +38,6 @@ if ( is_dir( $engenty_dir ) ) {
 }
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- the codes' cache has one entry per wizard ID.
 $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_engenty_code_%' OR option_name LIKE '_transient_timeout_engenty_code_%'" );
+
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- request leases are plugin-owned, never autoloaded.
+$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE option_name LIKE %s', $wpdb->options, $wpdb->esc_like( 'engenty_lock_' ) . '%' ) );

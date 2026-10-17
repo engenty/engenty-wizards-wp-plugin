@@ -290,6 +290,13 @@ class Engenty_Think {
 		 * @param array       $photos    `[{ path, mime }]` attached to the message.
 		 * @param array       $abilities The abilities the model may call.
 		 */
+		if ( ! Engenty_Storage::heartbeat() || ! Engenty_Runs::dispatch_allowed() ) {
+			throw new Engenty_Step_Error( esc_html__( 'This request no longer owns the run. Please retry.', 'engenty-wizards' ) );
+		}
+		$custom_provider = false !== has_filter( 'engenty_wizards_answer' );
+		if ( $custom_provider && ! Engenty_Runs::record_call() ) {
+			throw new Engenty_Step_Error( esc_html__( 'This request no longer owns the run. Please retry.', 'engenty-wizards' ) );
+		}
 		$answer = apply_filters( 'engenty_wizards_answer', null, $system, $prompt, $schema, $photos, $abilities );
 		if ( is_string( $answer ) ) {
 			return $answer;
@@ -310,7 +317,10 @@ class Engenty_Think {
 		}
 		try {
 			$builder = self::builder( $system, $prompt, $schema, $photos, $abilities, array() );
-			$text    = $abilities
+			if ( ! $abilities && ! $custom_provider && ! Engenty_Runs::record_call() ) {
+				throw new Engenty_Step_Error( esc_html__( 'This request no longer owns the run. Please retry.', 'engenty-wizards' ) );
+			}
+			$text = $abilities
 				? self::with_tools( $builder, $system, $prompt, $schema, $abilities )
 				: self::call_method( $builder, array( 'generate_text', 'generateText' ), array() );
 		} catch ( Engenty_Step_Error $e ) {
@@ -389,6 +399,12 @@ class Engenty_Think {
 
 		Engenty_Abilities::$open = true;
 		for ( $turn = 0; ; $turn++ ) {
+			if ( ! Engenty_Storage::heartbeat() || ! Engenty_Runs::dispatch_allowed() ) {
+				throw new Engenty_Step_Error( esc_html__( 'This request no longer owns the run. Please retry.', 'engenty-wizards' ) );
+			}
+			if ( ! Engenty_Runs::record_call() ) {
+				throw new Engenty_Step_Error( esc_html__( 'This request no longer owns the run. Please retry.', 'engenty-wizards' ) );
+			}
 			$result = self::call_method( $builder, array( 'generate_text_result', 'generateTextResult' ), array() );
 			if ( is_wp_error( $result ) ) {
 				return $result;
@@ -397,6 +413,9 @@ class Engenty_Think {
 			$message          = $result->toMessage();
 			if ( $turn >= self::MAX_TOOL_TURNS || ! $resolver->has_ability_calls( $message ) ) {
 				return self::text_of( $result );
+			}
+			if ( ! Engenty_Storage::heartbeat() || ! Engenty_Runs::dispatch_allowed() ) {
+				throw new Engenty_Step_Error( esc_html__( 'This request no longer owns the run. Please retry.', 'engenty-wizards' ) );
 			}
 			$answers   = $resolver->execute_abilities( $message );
 			$history[] = $message;
@@ -975,7 +994,6 @@ class Engenty_Think {
 	 * @param bool $with_tools Whether the step has the site's abilities (a web page, an API) as tools.
 	 */
 	private function workspace_block( $with_tools = false ) {
-		$dir   = Engenty_Packages::files_dir( $this->wizard['id'] );
 		$parts = array();
 		$left  = self::MAX_WORKSPACE_CHARS;
 		$pages = array();
@@ -984,11 +1002,11 @@ class Engenty_Think {
 			if ( ! in_array( $ext, array( 'md', 'txt', 'csv', 'json' ), true ) || $left <= 0 ) {
 				continue;
 			}
-			$path = $dir . '/' . $f['path'];
-			if ( ! file_exists( $path ) ) {
+			$asset = Engenty_Storage::get( 'wizard:' . $this->wizard['id'], $f['path'] );
+			if ( ! $asset ) {
 				continue;
 			}
-			$text    = (string) file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- the plugin's own folder under uploads.
+			$text    = $asset['data'];
 			$text    = mb_substr( $text, 0, $left );
 			$is_page = str_starts_with( (string) $f['path'], self::KNOWLEDGE_DIR );
 			if ( $is_page ) {
@@ -1575,20 +1593,18 @@ class Engenty_Think {
 		if ( 'document' === $kind ) {
 			$html = preg_replace( '#</head>#i', '<style>@media screen{body{padding:48px 56px;background:#fff}}</style></head>', $html, 1 );
 		}
-		$id  = 'd_' . strtolower( wp_generate_password( 12, false ) ) . '.html';
-		$dir = Engenty_Runs::files_dir( $this->run['id'] );
-		wp_mkdir_p( $dir );
-		file_put_contents( $dir . '/index.html', '' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- no listing of the folder.
-		file_put_contents( $dir . '/' . $id, $html ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- the run's own folder.
-		file_put_contents( // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- the plugin's own folder under uploads.
-			$dir . '/' . $id . '.json',
-			wp_json_encode(
-				array(
-					'name' => $step['id'] . '.html',
-					'mime' => 'text/html',
-				)
+		$id = 'd_' . strtolower( wp_generate_password( 12, false ) ) . '.html';
+		if ( ! Engenty_Storage::put(
+			'run:' . $this->run['id'],
+			$id,
+			$html,
+			array(
+				'name' => $step['id'] . '.html',
+				'mime' => 'text/html',
 			)
-		); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- beside the file.
+		) ) {
+			throw new Engenty_Step_Error( esc_html__( 'The document could not be saved.', 'engenty-wizards' ) );
+		}
 		return array(
 			'assets' => array(
 				array(

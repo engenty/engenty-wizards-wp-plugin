@@ -17,6 +17,40 @@ class Engenty_Runs {
 
 	const NS = 'engenty/v1';
 
+	/**
+	 * Run whose lease this request owns; external work is charged before dispatch.
+	 *
+	 * @var string
+	 */
+	private static $executing_run = '';
+
+	/** Accounts for a dispatched model request even when the worker later fails or is cancelled. */
+	public static function record_call() {
+		global $wpdb;
+		if ( '' === self::$executing_run ) {
+			return true;
+		}
+		if ( ! Engenty_Storage::owns( 'run:' . self::$executing_run ) ) {
+			return false;
+		}
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- reserve only while the run still permits paid work.
+		return 1 === $wpdb->query( $wpdb->prepare( 'UPDATE %i SET calls = calls + 1 WHERE id = %s AND status = %s', Engenty_Packages::runs_table(), self::$executing_run, 'running' ) );
+	}
+
+	/**
+	 * A cancelled run may neither spend another call nor execute another ability.
+	 *
+	 * @return bool
+	 */
+	public static function dispatch_allowed() {
+		global $wpdb;
+		if ( '' === self::$executing_run ) {
+			return true;
+		}
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- live cancellation check, independent of the snapshot.
+		return Engenty_Storage::owns( 'run:' . self::$executing_run ) && 'running' === $wpdb->get_var( $wpdb->prepare( 'SELECT status FROM %i WHERE id = %s', Engenty_Packages::runs_table(), self::$executing_run ) );
+	}
+
 	/** A run keeps files up to this size; images only. */
 	const MAX_UPLOAD = 4000000;
 
@@ -83,8 +117,9 @@ class Engenty_Runs {
 		if ( ! $row ) {
 			return null;
 		}
-		$row['state'] = Engenty_Packages::json_or( $row['state'], self::fresh_state() );
-		$row['calls'] = (int) $row['calls'];
+		$row['_state_json'] = $row['state'];
+		$row['state']       = Engenty_Packages::json_or( $row['state'], self::fresh_state() );
+		$row['calls']       = (int) $row['calls'];
 		return $row;
 	}
 
@@ -104,8 +139,21 @@ class Engenty_Runs {
 		if ( isset( $patch['status'] ) && in_array( $patch['status'], array( 'done', 'failed', 'cancelled' ), true ) && empty( $run['finished_at'] ) ) {
 			$patch['finished_at'] = $patch['updated_at'];
 		}
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
-		$wpdb->update( Engenty_Packages::runs_table(), $patch, array( 'id' => $run['id'] ) );
+		unset( $patch['calls'] ); // Calls are reserved atomically before provider requests.
+		if ( isset( $run['_executing'] ) && ! Engenty_Storage::owns( 'run:' . $run['id'] ) ) {
+			return self::load( $run['id'] );
+		}
+		$where = array( 'id' => $run['id'] );
+		if ( 'cancelled' !== ( $patch['status'] ?? '' ) ) {
+			$where['status']    = $run['status'];
+			$where['cursor_id'] = $run['cursor_id'];
+			$where['state']     = $run['_state_json'];
+		}
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- conditional snapshot prevents stale state writes.
+		$wpdb->update( Engenty_Packages::runs_table(), $patch, $where );
+		if ( 'cancelled' === ( $patch['status'] ?? '' ) ) {
+			Engenty_Storage::revoke( 'run:' . $run['id'] );
+		}
 		return self::load( $run['id'] );
 	}
 
@@ -156,59 +204,6 @@ class Engenty_Runs {
 	}
 
 	/**
-	 * Where a run's files live.
-	 *
-	 * @param string $run_id The run.
-	 * @return string
-	 */
-	public static function files_dir( $run_id ) {
-		$upload = wp_upload_dir();
-		return trailingslashit( $upload['basedir'] ) . 'engenty-wizards/runs/' . sanitize_key( $run_id );
-	}
-
-	/**
-	 * Moves an uploaded photo into a run's folder through WordPress' own upload handling.
-	 *
-	 * @param array  $file The entry of the request's files.
-	 * @param string $dir  The run's folder under uploads.
-	 * @param string $id   The name the file keeps there.
-	 * @return true|WP_Error
-	 */
-	private static function keep_upload( array $file, $dir, $id ) {
-		if ( ! function_exists( 'wp_handle_upload' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-		}
-		$upload = wp_upload_dir();
-		$into   = static function ( $dirs ) use ( $dir, $upload ) {
-			$dirs['path']   = $dir;
-			$dirs['url']    = str_replace( $upload['basedir'], $upload['baseurl'], $dir );
-			$dirs['subdir'] = '';
-			return $dirs;
-		};
-		add_filter( 'upload_dir', $into );
-		$moved = wp_handle_upload(
-			$file,
-			array(
-				'test_form'                => false,
-				'mimes'                    => array(
-					'jpg|jpeg' => 'image/jpeg',
-					'png'      => 'image/png',
-					'webp'     => 'image/webp',
-					'gif'      => 'image/gif',
-				),
-				'unique_filename_callback' => static function () use ( $id ) {
-					return $id;
-				},
-			)
-		);
-		remove_filter( 'upload_dir', $into );
-		if ( ! is_array( $moved ) || ! empty( $moved['error'] ) || empty( $moved['file'] ) ) {
-			return new WP_Error( 'engenty_io', __( 'The file could not be saved.', 'engenty-wizards' ), array( 'status' => 500 ) );
-		}
-		return true;
-	}
-
-	/**
 	 * Removes a wizard's runs with their files.
 	 *
 	 * @param string $wizard_id The wizard.
@@ -219,7 +214,7 @@ class Engenty_Runs {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
 		$ids = $wpdb->get_col( $wpdb->prepare( 'SELECT id FROM %i WHERE wizard_id = %s', $table, $wizard_id ) );
 		foreach ( (array) $ids as $id ) {
-			Engenty_Packages::remove_dir( self::files_dir( $id ) );
+			Engenty_Storage::remove( 'run:' . $id );
 		}
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
 		$wpdb->delete( $table, array( 'wizard_id' => $wizard_id ) );
@@ -237,7 +232,7 @@ class Engenty_Runs {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
 		$ids = $wpdb->get_col( $wpdb->prepare( 'SELECT id FROM %i WHERE started_at < %s', $table, $before ) );
 		foreach ( (array) $ids as $id ) {
-			Engenty_Packages::remove_dir( self::files_dir( $id ) );
+			Engenty_Storage::remove( 'run:' . $id );
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
 			$wpdb->delete( $table, array( 'id' => $id ) );
 		}
@@ -569,6 +564,26 @@ class Engenty_Runs {
 	 * @return WP_REST_Response
 	 */
 	public static function run_step( WP_REST_Request $request ) {
+		$key = 'run:' . (string) $request['id'];
+		if ( ! Engenty_Storage::lock( $key ) ) {
+			return self::respond( new WP_Error( 'engenty_busy', __( 'The wizard is working right now.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
+		}
+		self::$executing_run = (string) $request['id'];
+		try {
+			return self::execute_step( $request );
+		} finally {
+			self::$executing_run = '';
+			Engenty_Storage::unlock( $key );
+		}
+	}
+
+	/**
+	 * Executes one step while the request owns its lease.
+	 *
+	 * @param WP_REST_Request $request Request.
+	 * @return WP_REST_Response
+	 */
+	private static function execute_step( WP_REST_Request $request ) {
 		$found = self::find( $request );
 		if ( is_wp_error( $found ) ) {
 			return self::respond( $found );
@@ -588,7 +603,8 @@ class Engenty_Runs {
 		if ( ! $step ) {
 			return self::respond( self::view( self::update( $run, array( 'status' => 'done' ) ), $w ) );
 		}
-		$think = new Engenty_Think( $def, $w, $run );
+		$run['_executing'] = true;
+		$think             = new Engenty_Think( $def, $w, $run );
 		try {
 			if ( ! empty( $state['deciding'] ) ) {
 				$cursor = $think->decide_branch( $step, $state );
@@ -830,13 +846,43 @@ class Engenty_Runs {
 	 * @return WP_REST_Response
 	 */
 	public static function upload( WP_REST_Request $request ) {
+		if ( ! Engenty_Storage::lock( 'upload-budgets' ) ) {
+			return self::respond( new WP_Error( 'engenty_busy', __( 'Please try the upload again.', 'engenty-wizards' ), array( 'status' => 429 ) ) );
+		}
+		try {
+			return self::store_upload( $request );
+		} finally {
+			Engenty_Storage::unlock( 'upload-budgets' );
+		}
+	}
+
+	/**
+	 * Checks and consumes cumulative budgets under the shared upload lease.
+	 *
+	 * @param WP_REST_Request $request Request.
+	 * @return WP_REST_Response
+	 */
+	private static function store_upload( WP_REST_Request $request ) {
 		$found = self::find( $request );
 		if ( is_wp_error( $found ) ) {
 			return self::respond( $found );
 		}
-		list( $run ) = $found;
-		$files       = $request->get_file_params();
-		$file        = $files['file'] ?? null;
+		list( $run, $w ) = $found;
+		$step            = self::step_of( $w['definition'], $run['cursor_id'] );
+		$state           = self::maps( $run['state'] );
+		$context         = $step && 'page' === $step['type'] ? self::page_context( $w['definition'], $state, $step ) : array();
+		$fields          = $step && 'page' === $step['type'] ? (array) $step['fields'] : array();
+		$images          = array_filter(
+			$fields,
+			static function ( $field ) use ( $context ) {
+				return 'image' === $field['kind'] && ( ( empty( $field['ask'] ) && empty( $field['group'] ) ) || in_array( $field['id'], (array) $context['decided'], true ) );
+			}
+		);
+		if ( 'waiting_input' !== $run['status'] || ! $images ) {
+			return self::respond( new WP_Error( 'engenty_conflict', __( 'This page does not accept uploads.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
+		}
+		$files = $request->get_file_params();
+		$file  = $files['file'] ?? null;
 		if ( ! $file || ! is_uploaded_file( $file['tmp_name'] ?? '' ) ) {
 			return self::respond( new WP_Error( 'engenty_input', __( 'No file.', 'engenty-wizards' ), array( 'status' => 400 ) ) );
 		}
@@ -848,24 +894,40 @@ class Engenty_Runs {
 		if ( ! in_array( $mime, array( 'image/jpeg', 'image/png', 'image/webp', 'image/gif' ), true ) ) {
 			return self::respond( new WP_Error( 'engenty_input', __( 'Only photos work here (JPEG, PNG, WebP).', 'engenty-wizards' ), array( 'status' => 415 ) ) );
 		}
-		$id  = 'a_' . strtolower( wp_generate_password( 12, false ) ) . '.' . $type['ext'];
-		$dir = self::files_dir( $run['id'] );
-		wp_mkdir_p( $dir );
-		file_put_contents( $dir . '/index.html', '' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- no listing of the folder.
-		$kept = self::keep_upload( $file, $dir, $id );
-		if ( is_wp_error( $kept ) ) {
-			return self::respond( $kept );
+		$size = filesize( $file['tmp_name'] );
+		if ( false === $size || $size < 1 || $size > self::MAX_UPLOAD ) {
+			return self::respond( new WP_Error( 'engenty_too_large', __( 'The file is larger than 4 MB.', 'engenty-wizards' ), array( 'status' => 413 ) ) );
 		}
+		if ( ! self::reserve_upload( $run, $size ) ) {
+			return self::respond( new WP_Error( 'engenty_quota', __( 'The upload limit has been reached.', 'engenty-wizards' ), array( 'status' => 429 ) ) );
+		}
+		$id   = 'a_' . strtolower( wp_generate_password( 12, false ) ) . '.' . $type['ext'];
 		$name = sanitize_file_name( (string) $file['name'] );
-		file_put_contents( // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- the plugin's own folder under uploads.
-			$dir . '/' . $id . '.json',
-			wp_json_encode(
-				array(
-					'name' => $name,
-					'mime' => $mime,
-				)
+		$data = file_get_contents( $file['tmp_name'] ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( false === $data || ! Engenty_Storage::put(
+			'run:' . $run['id'],
+			$id,
+			$data,
+			array(
+				'name' => $name,
+				'mime' => $mime,
 			)
-		); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- beside the file.
+		) ) {
+			return self::respond( new WP_Error( 'engenty_io', __( 'The file could not be saved.', 'engenty-wizards' ), array( 'status' => 500 ) ) );
+		}
+		$current = self::load( $run['id'] );
+		if ( ! $current || $current['status'] !== $run['status'] || $current['cursor_id'] !== $run['cursor_id'] || $current['_state_json'] !== $run['_state_json'] ) {
+			global $wpdb;
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- discard bytes if page/cancellation changed during persistence.
+			$wpdb->delete(
+				$wpdb->prefix . 'engenty_assets',
+				array(
+					'owner' => 'run:' . $run['id'],
+					'path'  => $id,
+				)
+			);
+			return self::respond( new WP_Error( 'engenty_conflict', __( 'This page is no longer current.', 'engenty-wizards' ), array( 'status' => 409 ) ) );
+		}
 		return self::respond(
 			array(
 				'id'   => $id,
@@ -874,6 +936,51 @@ class Engenty_Runs {
 				'name' => $name,
 			)
 		);
+	}
+
+	/**
+	 * Reserves run lifetime, visitor daily and site daily budgets while upload-budgets is held.
+	 * Failed writes retain reservations, so retries cannot turn failures into unbounded work.
+	 *
+	 * @param array $run Run.
+	 * @param int   $size Bytes.
+	 * @return bool
+	 */
+	private static function reserve_upload( array $run, $size ) {
+		global $wpdb;
+		$day     = gmdate( 'Y-m-d' );
+		$budgets = array(
+			array( 'run:' . $run['id'], 20, 40000000 ),
+			array( 'visitor:' . $run['visitor'] . ':' . $day, 40, 80000000 ),
+			array( 'site:' . $day, 500, 1000000000 ),
+		);
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- prune elapsed daily and run budgets.
+		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE expires_at > 0 AND expires_at < %d', $wpdb->prefix . 'engenty_upload_budgets', time() ) );
+		$rows = array();
+		foreach ( $budgets as list( $id, $files, $bytes ) ) {
+			$expires = str_starts_with( $id, 'run:' ) ? 0 : strtotime( 'tomorrow UTC' );
+			$id      = hash( 'sha256', $id );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table, protected by shared lease.
+			$row   = $wpdb->get_row( $wpdb->prepare( 'SELECT files, bytes FROM %i WHERE id = %s', $wpdb->prefix . 'engenty_upload_budgets', $id ), ARRAY_A );
+			$count = (int) ( $row['files'] ?? 0 );
+			$total = (int) ( $row['bytes'] ?? 0 );
+			if ( $count >= $files || $total + $size > $bytes ) {
+				return false;
+			}
+			$rows[] = array(
+				'id'         => $id,
+				'files'      => $count + 1,
+				'bytes'      => $total + $size,
+				'expires_at' => $expires,
+			);
+		}
+		foreach ( $rows as $row ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table, protected by shared lease.
+			if ( false === $wpdb->replace( $wpdb->prefix . 'engenty_upload_budgets', $row ) ) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -887,8 +994,7 @@ class Engenty_Runs {
 		if ( ! preg_match( '/^[A-Za-z0-9_-]+(\.[A-Za-z0-9]+)?$/', $asset_id ) ) {
 			return null;
 		}
-		$path = self::files_dir( $run_id ) . '/' . $asset_id;
-		return file_exists( $path ) ? $path : null;
+		return Engenty_Storage::temporary_path( 'run:' . $run_id, $asset_id );
 	}
 
 	/**
@@ -899,11 +1005,10 @@ class Engenty_Runs {
 	 * @return array `{ name, mime }`.
 	 */
 	public static function asset_meta( $run_id, $asset_id ) {
-		$meta = self::files_dir( $run_id ) . '/' . $asset_id . '.json';
-		$data = file_exists( $meta ) ? json_decode( (string) file_get_contents( $meta ), true ) : null; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- beside the file.
-		return is_array( $data ) ? $data : array(
+		$asset = Engenty_Storage::get( 'run:' . $run_id, $asset_id );
+		return $asset ? $asset['meta'] : array(
 			'name' => $asset_id,
-			'mime' => Engenty_Packages::mime_or( wp_check_filetype( $asset_id )['type'] ),
+			'mime' => 'application/octet-stream',
 		);
 	}
 
@@ -936,12 +1041,13 @@ class Engenty_Runs {
 	 */
 	private static function send_file( $path, $mime, $name, $inline ) {
 		nocache_headers();
+		header( 'X-Content-Type-Options: nosniff' );
 		header( 'Content-Type: ' . $mime );
 		header( 'Content-Length: ' . (string) filesize( $path ) );
 		header( 'Content-Disposition: ' . ( $inline ? 'inline' : 'attachment' ) . '; filename="' . rawurlencode( $name ) . '"' );
 		if ( 'text/html' === $mime ) {
 			// A document a model wrote: shown in a frame that runs nothing but its own scripts.
-			header( 'Content-Security-Policy: default-src \'none\'; img-src * data: blob:; style-src \'unsafe-inline\'; script-src \'unsafe-inline\'; font-src * data:' );
+			header( 'Content-Security-Policy: sandbox allow-scripts; default-src \'none\'; img-src * data: blob:; style-src \'unsafe-inline\'; script-src \'unsafe-inline\'; font-src * data:' );
 		}
 		readfile( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile -- the plugin's own folder under uploads.
 		exit;

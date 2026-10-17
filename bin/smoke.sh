@@ -82,7 +82,7 @@ $def = array("version" => 1, "title" => "Foto", "avatar" => "round", "steps" => 
 $row = Engenty_Packages::install($def, array(), array("fit" => "full", "notes" => array()), "upload", "photo-test");
 $req = new WP_REST_Request("POST", "/engenty/v1/local/wizards/" . $row["token"] . "/runs"); $req->set_header("content-type", "application/json"); $req->set_body(json_encode(["origin" => "x", "website" => ""]));
 $d = rest_do_request($req)->get_data(); $id = $d["runId"];
-$dir = Engenty_Runs::files_dir($id); wp_mkdir_p($dir); file_put_contents("$dir/a_smoke.png", $png); file_put_contents("$dir/a_smoke.png.json", json_encode(["name" => "p.png", "mime" => "image/png"]));
+if (!Engenty_Storage::put("run:$id", "a_smoke.png", $png, ["name" => "p.png", "mime" => "image/png"])) { echo "ERR the photo was not stored"; exit(1); }
 $req = new WP_REST_Request("POST", "/engenty/v1/local/runs/$id/pages/ask"); $req->set_header("content-type", "application/json"); $req->set_body(json_encode(["values" => ["photo" => "a_smoke.png"]]));
 $d = rest_do_request($req)->get_data(); if ($d["status"] !== "running") { echo "ERR after page: ", json_encode($d); exit(1); }
 $req = new WP_REST_Request("POST", "/engenty/v1/local/runs/$id/steps/look"); $req->set_header("content-type", "application/json"); $req->set_body("{}");
