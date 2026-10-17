@@ -149,7 +149,7 @@ msgstr "A chave de API já não funciona. Volte a ligar o site."
 
 #: includes/class-client.php:78
 #: includes/class-connect.php:139
-#: includes/class-connect.php:432
+#: includes/class-connect.php:441
 msgid "engenty.ai cannot be reached right now."
 msgstr "Não é possível contactar engenty.ai neste momento."
 
@@ -199,15 +199,16 @@ msgstr "A administração do WordPress corre sem HTTPS. engenty.ai só liga site
 msgid "You are not allowed to connect the website."
 msgstr "Não tem permissão para ligar o site."
 
-#: includes/class-connect.php:379
+#: includes/class-connect.php:381
 msgid "The website is not connected to engenty.ai."
 msgstr "O site não está ligado a engenty.ai."
 
+#: includes/class-connect.php:403
 #: includes/class-connect.php:410
 msgid "The connection to engenty.ai has expired. Please connect again."
 msgstr "A ligação a engenty.ai expirou. Volte a ligar, por favor."
 
-#: includes/class-connect.php:430
+#: includes/class-connect.php:439
 msgid "The connection to engenty.ai was cut. Please connect again."
 msgstr "A ligação a engenty.ai foi interrompida. Volte a ligar, por favor."
 
@@ -316,73 +317,73 @@ msgstr "Ao shortcode falta id=\"…\": o ID ou o token de ligação do wizard."
 msgid "Open engenty"
 msgstr "Abrir engenty"
 
-#: includes/class-packages.php:237
+#: includes/class-packages.php:236
 #: build/app.js:10
 #: src/admin/Home.js:459
 #: src/admin/Wizards.js:40
 msgid "Paused"
 msgstr "Em pausa"
 
-#: includes/class-packages.php:267
+#: includes/class-packages.php:266
 msgid "This is not a wizard: title or steps are missing."
 msgstr "Isto não é um wizard: faltam o título ou os passos."
 
-#: includes/class-packages.php:270
+#: includes/class-packages.php:269
 msgid "This wizard comes from a newer version."
 msgstr "Este wizard vem de uma versão mais recente."
 
-#: includes/class-packages.php:275
+#: includes/class-packages.php:274
 msgid "A step has no valid ID or no title."
 msgstr "Um passo não tem ID válido ou não tem título."
 
 #. translators: %s: step type
-#: includes/class-packages.php:278
+#: includes/class-packages.php:277
 #, php-format
 msgid "The step type “%s” is not known here."
 msgstr "O tipo de passo “%s” não é conhecido aqui."
 
-#: includes/class-packages.php:281
+#: includes/class-packages.php:280
 msgid "Two steps carry the same ID."
 msgstr "Dois passos têm o mesmo ID."
 
-#: includes/class-packages.php:287
+#: includes/class-packages.php:286
 msgid "The last step must be the result."
 msgstr "O último passo tem de ser o resultado."
 
-#: includes/class-packages.php:310
-#: includes/class-packages.php:425
+#: includes/class-packages.php:345
+#: includes/class-packages.php:462
 #: build/app.js:10
 #: src/admin/Import.js:61
 msgid "This wizard needs an engenty account – it does not run on this website."
 msgstr "Este wizard precisa de uma conta engenty – não corre neste site."
 
-#: includes/class-packages.php:317
-#: includes/class-packages.php:432
+#: includes/class-packages.php:362
+#: includes/class-packages.php:469
 msgid "The package is larger than 30 MB."
 msgstr "O pacote tem mais de 30 MB."
 
-#: includes/class-packages.php:377
+#: includes/class-packages.php:414
 msgid "The wizard could not be saved."
 msgstr "Não foi possível guardar o wizard."
 
-#: includes/class-packages.php:418
+#: includes/class-packages.php:455
 msgid "This wizard does not exist in the account."
 msgstr "Este wizard não existe na conta."
 
-#: includes/class-packages.php:421
+#: includes/class-packages.php:458
 msgid "The wizard is not published yet."
 msgstr "O wizard ainda não está publicado."
 
-#: includes/class-packages.php:577
+#: includes/class-packages.php:614
 msgid "This template does not exist."
 msgstr "Este modelo não existe."
 
-#: includes/class-packages.php:593
-#: includes/class-packages.php:608
+#: includes/class-packages.php:630
+#: includes/class-packages.php:645
 msgid "The wizard package cannot be opened."
 msgstr "Não é possível abrir o pacote do wizard."
 
-#: includes/class-packages.php:617
+#: includes/class-packages.php:654
 msgid "This is not a wizard package: wizard.json is missing."
 msgstr "Isto não é um pacote de wizard: falta o wizard.json."
 
@@ -395,8 +396,8 @@ msgid "otherwise"
 msgstr "caso contrário"
 
 #: includes/class-rest.php:574
-#: includes/class-runs.php:332
-#: includes/class-runs.php:378
+#: includes/class-runs.php:327
+#: includes/class-runs.php:373
 msgid "This wizard does not exist."
 msgstr "Este wizard não existe."
 
@@ -414,127 +415,131 @@ msgstr "O WordPress ainda não tem fornecedor de IA: Definições → Connectors
 msgid "Which wizard?"
 msgstr "Que wizard?"
 
-#: includes/class-runs.php:206
+#: includes/class-packages.php:377
+#: includes/class-runs.php:916
 msgid "The file could not be saved."
 msgstr "Não foi possível guardar o ficheiro."
 
-#: includes/class-runs.php:278
+#: includes/class-runs.php:273
 msgid "That was enough tries for this hour. Please try again later."
 msgstr "Já chegaram as tentativas por esta hora. Tente de novo mais tarde, por favor."
 
-#: includes/class-runs.php:290
+#: includes/class-runs.php:285
 msgid "This wizard has had enough to do today. Please try again tomorrow."
 msgstr "Este wizard já teve que fazer por hoje. Tente de novo amanhã, por favor."
 
-#: includes/class-runs.php:346
+#: includes/class-runs.php:341
 msgid "This wizard cannot be reached right now."
 msgstr "Não é possível contactar este wizard neste momento."
 
-#: includes/class-runs.php:346
+#: includes/class-runs.php:341
 msgid "This wizard is paused."
 msgstr "Este wizard está em pausa."
 
-#: includes/class-runs.php:386
+#: includes/class-runs.php:381
 msgid "That did not work."
 msgstr "Isso não funcionou."
 
-#: includes/class-runs.php:439
+#: includes/class-runs.php:434
 msgid "This run no longer exists."
 msgstr "Esta execução já não existe."
 
-#: includes/class-runs.php:474
-#: includes/class-runs.php:764
+#: includes/class-runs.php:469
+#: includes/class-runs.php:569
+#: includes/class-runs.php:780
 msgid "The wizard is working right now."
 msgstr "O wizard está a trabalhar neste momento."
 
-#: includes/class-runs.php:477
-#: includes/class-runs.php:705
+#: includes/class-runs.php:472
+#: includes/class-runs.php:721
+#: includes/class-runs.php:929
 msgid "This page is no longer current."
 msgstr "Esta página já não está atual."
 
-#: includes/class-runs.php:492
+#: includes/class-runs.php:487
 msgid "That is not available here right now."
 msgstr "Isso não está disponível aqui neste momento."
 
-#: includes/class-runs.php:500
-#: includes/class-runs.php:517
+#: includes/class-runs.php:495
+#: includes/class-runs.php:512
 msgid "Please check the marked fields."
 msgstr "Verifique os campos assinalados, por favor."
 
-#: includes/class-runs.php:523
+#: includes/class-runs.php:518
 msgid "File not found"
 msgstr "Ficheiro não encontrado"
 
-#: includes/class-runs.php:712
+#: includes/class-runs.php:728
 msgid "Unknown target."
 msgstr "Destino desconhecido."
 
-#: includes/class-runs.php:715
+#: includes/class-runs.php:731
 msgid "A new variant, please."
 msgstr "Uma nova variante, por favor."
 
-#: includes/class-runs.php:769
+#: includes/class-runs.php:785
 msgid "No previous step."
 msgstr "Não há passo anterior."
 
-#: includes/class-runs.php:797
+#: includes/class-runs.php:813
 msgid "Nothing to repeat."
 msgstr "Nada para repetir."
 
-#: includes/class-runs.php:841
+#: includes/class-runs.php:887
 msgid "No file."
 msgstr "Nenhum ficheiro."
 
-#: includes/class-runs.php:844
+#: includes/class-runs.php:890
+#: includes/class-runs.php:899
 msgid "The file is larger than 4 MB."
 msgstr "O ficheiro tem mais de 4 MB."
 
-#: includes/class-runs.php:849
+#: includes/class-runs.php:895
 msgid "Only photos work here (JPEG, PNG, WebP)."
 msgstr "Aqui só funcionam fotos (JPEG, PNG, WebP)."
 
-#: includes/class-runs.php:923
+#: includes/class-runs.php:1028
 msgid "This file does not exist."
 msgstr "Este ficheiro não existe."
 
-#: includes/class-runs.php:987
-#: includes/class-runs.php:2167
+#: includes/class-runs.php:1093
+#: includes/class-runs.php:2273
 msgid "This result does not exist."
 msgstr "Este resultado não existe."
 
-#: includes/class-runs.php:1806
+#: includes/class-runs.php:1912
 msgid "Required"
 msgstr "Obrigatório"
 
 #. translators: %d: files
-#: includes/class-runs.php:1814
+#: includes/class-runs.php:1920
 #, php-format
 msgid "Please choose at least %d"
 msgstr "Escolha pelo menos %d, por favor"
 
 #. translators: %d: files
-#: includes/class-runs.php:1821
+#: includes/class-runs.php:1927
 #, php-format
 msgid "At most %d – please remove some"
 msgstr "No máximo %d – remova alguns, por favor"
 
-#: includes/class-runs.php:1829
+#: includes/class-runs.php:1935
 msgid "Please enter a number"
 msgstr "Introduza um número, por favor"
 
-#: includes/class-runs.php:1836
+#: includes/class-runs.php:1942
 msgid "Invalid choice"
 msgstr "Escolha inválida"
 
-#: includes/class-runs.php:1843
+#: includes/class-runs.php:1949
 msgid "This slot is not offered"
 msgstr "Este horário não está disponível"
 
-#: includes/class-runs.php:1850
+#: includes/class-runs.php:1956
 msgid "Not a valid email address"
 msgstr "Endereço de email inválido"
 
-#: includes/class-runs.php:1857
+#: includes/class-runs.php:1963
 msgid "Not a valid URL"
 msgstr "URL inválido"
 
@@ -597,61 +602,61 @@ msgstr "O WordPress ainda não tem fornecedor de IA: configure um em Definiçõe
 msgid "WordPress knows an AI provider, but without a key: Settings → Connectors."
 msgstr "O WordPress conhece um fornecedor de IA, mas sem chave: Definições → Connectors."
 
-#: includes/class-think.php:290
+#: includes/class-think.php:297
 msgid "This website has no AI provider: the AI Client is missing (WordPress 7.0)."
 msgstr "Este site não tem fornecedor de IA: falta o AI Client (WordPress 7.0)."
 
-#: includes/class-think.php:321
+#: includes/class-think.php:331
 msgid "The AI provider did not answer."
 msgstr "O fornecedor de IA não respondeu."
 
-#: includes/class-think.php:488
+#: includes/class-think.php:507
 msgid "The AI Client of this WordPress version does not match the plugin."
 msgstr "O AI Client desta versão do WordPress não corresponde ao plugin."
 
-#: includes/class-think.php:499
+#: includes/class-think.php:518
 msgid "The AI service is busy right now. Please try again in a moment."
 msgstr "O serviço de IA está ocupado neste momento. Tente de novo daqui a pouco, por favor."
 
-#: includes/class-think.php:502
+#: includes/class-think.php:521
 msgid "The step took too long. Please try again."
 msgstr "O passo demorou demasiado. Tente de novo, por favor."
 
-#: includes/class-think.php:505
+#: includes/class-think.php:524
 msgid "The AI service cannot be reached right now. Please try again later."
 msgstr "Não é possível contactar o serviço de IA neste momento. Tente de novo mais tarde, por favor."
 
 #. translators: %s: what went wrong
-#: includes/class-think.php:507
+#: includes/class-think.php:526
 #, php-format
 msgid "This step failed: %s"
 msgstr "Este passo falhou: %s"
 
-#: includes/class-think.php:1079
-#: includes/class-think.php:1083
-#: includes/class-think.php:1252
+#: includes/class-think.php:1097
+#: includes/class-think.php:1101
+#: includes/class-think.php:1270
 msgid "This step needs an engenty account."
 msgstr "Este passo precisa de uma conta engenty."
 
-#: includes/class-think.php:1294
+#: includes/class-think.php:1312
 msgid "The step returned no result."
 msgstr "O passo não devolveu nenhum resultado."
 
-#: includes/class-think.php:1306
+#: includes/class-think.php:1324
 msgid "The AI provider answered with no valid structure."
 msgstr "O fornecedor de IA respondeu sem uma estrutura válida."
 
-#: includes/class-think.php:1327
+#: includes/class-think.php:1345
 msgid "There are no entries for this step to work on."
 msgstr "Não há entradas para este passo trabalhar."
 
-#: includes/class-think.php:1376
-#: includes/class-think.php:1626
-#: includes/class-think.php:1838
+#: includes/class-think.php:1394
+#: includes/class-think.php:1642
+#: includes/class-think.php:1854
 msgid "The answer of the AI provider does not match the questions."
 msgstr "A resposta do fornecedor de IA não corresponde às perguntas."
 
-#: includes/class-think.php:1464
+#: includes/class-think.php:1482
 msgid "The document could not be created."
 msgstr "Não foi possível criar o documento."
 
@@ -2561,6 +2566,56 @@ msgstr "chat"
 msgctxt "block keyword"
 msgid "appointment"
 msgstr "marcação"
+
+#: includes/class-connect.php:397
+#: includes/class-connect.php:424
+msgid "The connection is being refreshed. Please retry shortly."
+msgstr ""
+
+#: includes/class-packages.php:305
+msgid "A package is being installed. Please retry shortly."
+msgstr ""
+
+#: includes/class-packages.php:354
+msgid "This package contains an unsupported file type."
+msgstr ""
+
+#: includes/class-packages.php:358
+msgid "This package contains invalid file data."
+msgstr ""
+
+#: includes/class-runs.php:850
+msgid "Please try the upload again."
+msgstr ""
+
+#: includes/class-runs.php:882
+msgid "This page does not accept uploads."
+msgstr ""
+
+#: includes/class-runs.php:902
+msgid "The upload limit has been reached."
+msgstr ""
+
+#: includes/class-think.php:286
+#: includes/class-think.php:290
+#: includes/class-think.php:313
+#: includes/class-think.php:395
+#: includes/class-think.php:398
+#: includes/class-think.php:410
+msgid "This request no longer owns the run. Please retry."
+msgstr ""
+
+#: includes/class-think.php:1497
+msgid "The document could not be saved."
+msgstr ""
+
+#: includes/class-packages.php:61
+msgid "Private wizard storage migration failed. Legacy files may still be publicly accessible: move uploads/engenty-wizards outside the web root before enabling Wizards. Check database capacity and the system temporary directory, then reload."
+msgstr ""
+
+#: includes/class-packages.php:310
+msgid "Private storage is busy. Please retry shortly."
+msgstr ""
 
 #: includes/class-downloads.php:55
 msgid "The PDF is made in the browser, not on this site."

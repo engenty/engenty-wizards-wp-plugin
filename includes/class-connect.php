@@ -355,10 +355,12 @@ class Engenty_Connect {
 	/**
 	 * Keeps a token answer with the connection.
 	 *
-	 * @param array $tokens The token endpoint's answer.
+	 * @param array       $tokens The token endpoint's answer.
+	 * @param string|null $expected Raw prior connection value.
+	 * @return bool
 	 */
-	private static function keep_tokens( array $tokens ) {
-		$auth                 = Engenty_Settings::auth();
+	private static function keep_tokens( array $tokens, $expected = null ) {
+		$auth                 = Engenty_Settings::auth( $expected );
 		$auth['access_token'] = (string) $tokens['access_token'];
 		$auth['expires_at']   = time() + (int) ( $tokens['expires_in'] ?? 3600 );
 		$auth['connected_by'] = $auth['connected_by'] ?? get_current_user_id();
@@ -366,7 +368,7 @@ class Engenty_Connect {
 		if ( ! empty( $tokens['refresh_token'] ) ) {
 			$auth['refresh_token'] = (string) $tokens['refresh_token'];
 		}
-		Engenty_Settings::save_auth( $auth );
+		return Engenty_Settings::save_auth( $auth, $expected );
 	}
 
 	/**
@@ -395,48 +397,60 @@ class Engenty_Connect {
 	 * @return string|WP_Error
 	 */
 	public static function refresh() {
-		$lock = 'engenty_wizards_refreshing';
-		if ( get_transient( $lock ) ) {
-			// Another request refreshes right now: wait for it a moment.
-			for ( $i = 0; $i < 10; $i++ ) {
-				usleep( 300000 );
-				wp_cache_delete( Engenty_Settings::AUTH_OPTION, 'options' );
-				$auth = Engenty_Settings::auth();
-				if ( ! empty( $auth['access_token'] ) && (int) ( $auth['expires_at'] ?? 0 ) > time() + 60 ) {
-					return $auth['access_token'];
+		if ( ! Engenty_Storage::lock( 'oauth-refresh' ) ) {
+			return new WP_Error( 'engenty_refresh_busy', __( 'The connection is being refreshed. Please retry shortly.', 'engenty-wizards' ), array( 'status' => 503 ) );
+		}
+		try {
+			wp_cache_delete( Engenty_Settings::AUTH_OPTION, 'options' );
+			$expected = Engenty_Settings::raw_auth();
+			if ( null === $expected ) {
+				return new WP_Error( 'engenty_not_connected', __( 'The connection to engenty.ai has expired. Please connect again.', 'engenty-wizards' ), array( 'status' => 401 ) );
+			}
+			$auth = Engenty_Settings::auth( $expected );
+			if ( ! empty( $auth['access_token'] ) && (int) ( $auth['expires_at'] ?? 0 ) > time() + 60 ) {
+				return $auth['access_token'];
+			}
+			if ( empty( $auth['refresh_token'] ) || empty( $auth['endpoints']['token'] ) ) {
+				return new WP_Error( 'engenty_not_connected', __( 'The connection to engenty.ai has expired. Please connect again.', 'engenty-wizards' ), array( 'status' => 401 ) );
+			}
+			$tokens = self::request(
+				'POST',
+				$auth['endpoints']['token'],
+				array(
+					'grant_type'    => 'refresh_token',
+					'refresh_token' => $auth['refresh_token'],
+					'client_id'     => $auth['client_id'] ?? '',
+					'resource'      => self::resource(),
+				)
+			);
+			wp_cache_delete( Engenty_Settings::AUTH_OPTION, 'options' );
+			if ( ! Engenty_Storage::owns( 'oauth-refresh' ) ) {
+				return new WP_Error( 'engenty_refresh_busy', __( 'The connection is being refreshed. Please retry shortly.', 'engenty-wizards' ), array( 'status' => 503 ) );
+			}
+			$current = Engenty_Settings::auth();
+			// A disconnect/reconnect while HTTP was pending invalidates this response.
+			if ( ( $current['refresh_token'] ?? '' ) !== $auth['refresh_token'] ) {
+				return self::access_token();
+			}
+			if ( is_wp_error( $tokens ) || empty( $tokens['access_token'] ) ) {
+				$status = is_wp_error( $tokens ) ? (int) ( $tokens->get_error_data()['status'] ?? 0 ) : 0;
+				if ( 400 === $status || 401 === $status ) {
+					$current['access_token'] = '';
+					unset( $current['refresh_token'] );
+					if ( ! Engenty_Settings::save_auth( $current, $expected ) ) {
+						return self::access_token();
+					}
+					return new WP_Error( 'engenty_not_connected', __( 'The connection to engenty.ai was cut. Please connect again.', 'engenty-wizards' ), array( 'status' => 401 ) );
 				}
+				return is_wp_error( $tokens ) ? $tokens : new WP_Error( 'engenty_refresh', __( 'engenty.ai cannot be reached right now.', 'engenty-wizards' ), array( 'status' => 502 ) );
 			}
-		}
-		set_transient( $lock, 1, 30 );
-		$auth = Engenty_Settings::auth();
-		if ( empty( $auth['refresh_token'] ) || empty( $auth['endpoints']['token'] ) ) {
-			delete_transient( $lock );
-			return new WP_Error( 'engenty_not_connected', __( 'The connection to engenty.ai has expired. Please connect again.', 'engenty-wizards' ), array( 'status' => 401 ) );
-		}
-		$tokens = self::request(
-			'POST',
-			$auth['endpoints']['token'],
-			array(
-				'grant_type'    => 'refresh_token',
-				'refresh_token' => $auth['refresh_token'],
-				'client_id'     => $auth['client_id'] ?? '',
-				'resource'      => self::resource(),
-			)
-		);
-		delete_transient( $lock );
-		if ( is_wp_error( $tokens ) || empty( $tokens['access_token'] ) ) {
-			$status = is_wp_error( $tokens ) ? (int) ( $tokens->get_error_data()['status'] ?? 0 ) : 0;
-			// Refused (revoked, expired): the connection is gone. Unreachable: it stays for later.
-			if ( 400 === $status || 401 === $status ) {
-				$auth['access_token'] = '';
-				unset( $auth['refresh_token'] );
-				Engenty_Settings::save_auth( $auth );
-				return new WP_Error( 'engenty_not_connected', __( 'The connection to engenty.ai was cut. Please connect again.', 'engenty-wizards' ), array( 'status' => 401 ) );
+			if ( ! self::keep_tokens( $tokens, $expected ) ) {
+				return self::access_token();
 			}
-			return is_wp_error( $tokens ) ? $tokens : new WP_Error( 'engenty_refresh', __( 'engenty.ai cannot be reached right now.', 'engenty-wizards' ), array( 'status' => 502 ) );
+			return (string) $tokens['access_token'];
+		} finally {
+			Engenty_Storage::unlock( 'oauth-refresh' );
 		}
-		self::keep_tokens( $tokens );
-		return (string) $tokens['access_token'];
 	}
 
 	/** Disconnects: the refresh token is revoked at the account server, the connection forgotten. */

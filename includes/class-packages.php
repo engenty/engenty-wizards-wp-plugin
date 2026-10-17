@@ -1,7 +1,7 @@
 <?php
 /**
  * Wizards that run on this site by themselves: kept as packages in a table of WordPress, their
- * workspace files under uploads/engenty-wizards/.
+ * workspace files in private database storage.
  *
  * @package Engenty_Wizards
  */
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Engenty_Packages {
 
-	const TABLE_VERSION = 1;
+	const TABLE_VERSION = 2;
 
 	/** Known step types: a definition naming another was written for a newer runner. */
 	const STEP_TYPES = array( 'page', 'agent', 'generate', 'widget', 'surface', 'film', 'review', 'result' );
@@ -54,6 +54,15 @@ class Engenty_Packages {
 			return;
 		}
 		self::create_tables();
+		if ( ! Engenty_Storage::retire_public_files() ) {
+			add_action(
+				'admin_notices',
+				static function () {
+					echo '<div class="notice notice-error"><p>' . esc_html__( 'Private wizard storage migration failed. Legacy files may still be publicly accessible: move uploads/engenty-wizards outside the web root before enabling Wizards. Check database capacity and the system temporary directory, then reload.', 'engenty-wizards' ) . '</p></div>';
+				}
+			);
+			return;
+		}
 		update_option( 'engenty_wizards_tables', self::TABLE_VERSION, true );
 	}
 
@@ -62,6 +71,7 @@ class Engenty_Packages {
 		global $wpdb;
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		$charset = $wpdb->get_charset_collate();
+		Engenty_Storage::create_tables();
 		$wizards = self::table();
 		$runs    = self::runs_table();
 		dbDelta(
@@ -105,17 +115,6 @@ class Engenty_Packages {
 				KEY started (started_at)
 			) {$charset};"
 		);
-	}
-
-	/**
-	 * Where a wizard's files live.
-	 *
-	 * @param string $wizard_id The wizard.
-	 * @return string
-	 */
-	public static function files_dir( $wizard_id ) {
-		$upload = wp_upload_dir();
-		return trailingslashit( $upload['basedir'] ) . 'engenty-wizards/' . sanitize_key( $wizard_id );
 	}
 
 	/**
@@ -302,6 +301,42 @@ class Engenty_Packages {
 	 */
 	public static function install( array $definition, array $files, array $fit, $source, $source_ref, $replace = '' ) {
 		global $wpdb;
+		if ( ! Engenty_Storage::lock( 'package-install' ) ) {
+			return new WP_Error( 'engenty_busy', __( 'A package is being installed. Please retry shortly.', 'engenty-wizards' ), array( 'status' => 409 ) );
+		}
+		// Acquire before the transaction's first snapshot, so cumulative storage reads are current.
+		if ( ! Engenty_Storage::lock( 'asset-budget' ) ) {
+			Engenty_Storage::unlock( 'package-install' );
+			return new WP_Error( 'engenty_busy', __( 'Private storage is busy. Please retry shortly.', 'engenty-wizards' ), array( 'status' => 409 ) );
+		}
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own tables, atomic package replacement.
+		$wpdb->query( 'START TRANSACTION' );
+		try {
+			$result = self::install_package( $definition, $files, $fit, $source, $source_ref, $replace );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared -- restore old package on any validation/storage failure.
+			$wpdb->query( is_wp_error( $result ) ? 'ROLLBACK' : 'COMMIT' );
+			return $result;
+		} finally {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- harmless after commit, cleans up thrown exceptions.
+			$wpdb->query( 'ROLLBACK' );
+			Engenty_Storage::unlock( 'asset-budget' );
+			Engenty_Storage::unlock( 'package-install' );
+		}
+	}
+
+	/**
+	 * Installs a package within the caller's transaction.
+	 *
+	 * @param array  $definition Definition.
+	 * @param array  $files Files.
+	 * @param array  $fit Fit.
+	 * @param string $source Source.
+	 * @param string $source_ref Source reference.
+	 * @param string $replace Existing id.
+	 * @return array|WP_Error
+	 */
+	private static function install_package( array $definition, array $files, array $fit, $source, $source_ref, $replace ) {
+		global $wpdb;
 		$ok = self::check_definition( $definition );
 		if ( is_wp_error( $ok ) ) {
 			return $ok;
@@ -309,41 +344,43 @@ class Engenty_Packages {
 		if ( 'no' === ( $fit['fit'] ?? '' ) ) {
 			return new WP_Error( 'engenty_fit', __( 'This wizard needs an engenty account – it does not run on this website.', 'engenty-wizards' ), array( 'status' => 400 ) );
 		}
-		$total = 0;
+		$total     = 0;
+		$validated = array();
 		foreach ( $files as $f ) {
-			$total += (int) ( strlen( (string) ( $f['data'] ?? '' ) ) * 0.75 );
-		}
-		if ( $total > self::MAX_BYTES || count( $files ) > 200 ) {
-			return new WP_Error( 'engenty_too_large', __( 'The package is larger than 30 MB.', 'engenty-wizards' ), array( 'status' => 413 ) );
+			$path = self::clean_path( (string) ( $f['path'] ?? '' ) );
+			$ext  = strtolower( pathinfo( (string) $path, PATHINFO_EXTENSION ) );
+			// Only passive workspace formats: MIME claims cannot authorize code or HTML.
+			if ( null === $path || ! in_array( $ext, array( 'md', 'txt', 'csv', 'json', 'pdf', 'jpg', 'jpeg', 'png', 'gif', 'webp' ), true ) ) {
+				return new WP_Error( 'engenty_file_type', __( 'This package contains an unsupported file type.', 'engenty-wizards' ), array( 'status' => 415 ) );
+			}
+			$data = base64_decode( (string) ( $f['data'] ?? '' ), true ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+			if ( false === $data ) {
+				return new WP_Error( 'engenty_file_data', __( 'This package contains invalid file data.', 'engenty-wizards' ), array( 'status' => 400 ) );
+			}
+			$total += strlen( $data );
+			if ( $total > self::MAX_BYTES || count( $files ) > 200 ) {
+				return new WP_Error( 'engenty_too_large', __( 'The package is larger than 30 MB.', 'engenty-wizards' ), array( 'status' => 413 ) );
+			}
+			$validated[] = array(
+				'path' => $path,
+				'data' => $data,
+				'mime' => self::mime_or( wp_check_filetype( $path )['type'] ),
+			);
 		}
 		$existing = $replace ? self::get( $replace ) : null;
 		$id       = $existing ? $existing['id'] : self::new_id();
 		$token    = $existing ? $existing['token'] : self::new_token();
-		$dir      = self::files_dir( $id );
-		if ( $existing ) {
-			self::remove_dir( $dir );
-		}
+		Engenty_Storage::remove( 'wizard:' . $id );
 		$kept = array();
-		foreach ( $files as $f ) {
-			$path = self::clean_path( (string) ( $f['path'] ?? '' ) );
-			if ( null === $path ) {
-				continue;
+		foreach ( $validated as $f ) {
+			if ( ! Engenty_Storage::put( 'wizard:' . $id, $f['path'], $f['data'], array( 'mime' => $f['mime'] ) ) ) {
+				return new WP_Error( 'engenty_io', __( 'The file could not be saved.', 'engenty-wizards' ), array( 'status' => 500 ) );
 			}
-			$data = base64_decode( (string) ( $f['data'] ?? '' ), true ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
-			if ( false === $data ) {
-				continue;
-			}
-			$full = $dir . '/' . $path;
-			wp_mkdir_p( dirname( $full ) );
-			file_put_contents( $full, $data ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- the plugin's own folder under uploads.
 			$kept[] = array(
-				'path' => $path,
-				'mime' => sanitize_mime_type( (string) ( $f['mime'] ?? 'application/octet-stream' ) ),
-				'size' => strlen( $data ),
+				'path' => $f['path'],
+				'mime' => $f['mime'],
+				'size' => strlen( $f['data'] ),
 			);
-		}
-		if ( $kept ) {
-			file_put_contents( $dir . '/index.html', '' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- no listing of the folder.
 		}
 		$now  = current_time( 'mysql', true );
 		$data = array(
@@ -470,7 +507,7 @@ class Engenty_Packages {
 		Engenty_Runs::remove_of_wizard( $id );
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- own table.
 		$wpdb->delete( self::table(), array( 'id' => $id ) );
-		self::remove_dir( self::files_dir( $id ) );
+		Engenty_Storage::remove( 'wizard:' . $id );
 	}
 
 	/**
@@ -507,7 +544,7 @@ class Engenty_Packages {
 				continue;
 			}
 			$full = $dir . '/' . $entry;
-			if ( is_dir( $full ) ) {
+			if ( is_dir( $full ) && ! is_link( $full ) ) {
 				self::remove_dir( $full );
 			} else {
 				wp_delete_file( $full );
@@ -673,17 +710,5 @@ class Engenty_Packages {
 			unset( $step['output']['surface'] );
 		}
 		return $step;
-	}
-
-	/**
-	 * Where a wizard's file is served to the browser.
-	 *
-	 * @param array  $w    The wizard.
-	 * @param string $path The file's path.
-	 * @return string
-	 */
-	public static function file_url( array $w, $path ) {
-		$upload = wp_upload_dir();
-		return trailingslashit( $upload['baseurl'] ) . 'engenty-wizards/' . rawurlencode( $w['id'] ) . '/' . implode( '/', array_map( 'rawurlencode', explode( '/', $path ) ) );
 	}
 }

@@ -89,10 +89,11 @@ class Engenty_Settings {
 	/**
 	 * The connection as kept, the tokens unsealed.
 	 *
+	 * @param string|null $raw Optional raw snapshot read directly from the database.
 	 * @return array
 	 */
-	public static function auth() {
-		$saved = get_option( self::AUTH_OPTION, array() );
+	public static function auth( $raw = null ) {
+		$saved = null === $raw ? get_option( self::AUTH_OPTION, array() ) : maybe_unserialize( $raw );
 		if ( ! is_array( $saved ) ) {
 			return array();
 		}
@@ -107,15 +108,44 @@ class Engenty_Settings {
 	/**
 	 * Keeps the connection; the tokens sealed.
 	 *
-	 * @param array $auth The whole connection.
+	 * @param array       $auth The whole connection.
+	 * @param string|null $expected Raw prior value for conditional refresh writes.
+	 * @return bool
 	 */
-	public static function save_auth( array $auth ) {
+	public static function save_auth( array $auth, $expected = null ) {
 		foreach ( array( 'access_token', 'refresh_token', 'api_key' ) as $key ) {
 			if ( ! empty( $auth[ $key ] ) ) {
 				$auth[ $key ] = self::seal( $auth[ $key ] );
 			}
 		}
-		update_option( self::AUTH_OPTION, $auth, false );
+		if ( null === $expected ) {
+			update_option( self::AUTH_OPTION, $auth, false );
+			return true;
+		}
+		global $wpdb;
+		// A refresh response may persist only if the complete connection is still the one it read.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- compare-and-swap preserves concurrent disconnect/reconnect.
+		$saved = $wpdb->update(
+			$wpdb->options,
+			array( 'option_value' => maybe_serialize( $auth ) ),
+			array(
+				'option_name'  => self::AUTH_OPTION,
+				'option_value' => $expected,
+			)
+		);
+		wp_cache_delete( self::AUTH_OPTION, 'options' );
+		return 1 === $saved;
+	}
+
+	/**
+	 * Raw encrypted option value used as the refresh comparison token.
+	 *
+	 * @return string|null
+	 */
+	public static function raw_auth() {
+		global $wpdb;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- comparison tokens must not use stale option caches.
+		return $wpdb->get_var( $wpdb->prepare( 'SELECT option_value FROM %i WHERE option_name = %s', $wpdb->options, self::AUTH_OPTION ) );
 	}
 
 	/** Forgets the connection: the tokens, the client and what was cached from the account. */

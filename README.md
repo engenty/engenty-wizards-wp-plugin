@@ -72,3 +72,51 @@ Against a runtime on your machine, in `wp-config.php`:
 ```php
 define( 'ENGENTY_WIZARDS_CLOUD', 'http://localhost:18891' );
 ```
+
+
+## Private files and runtime limits
+
+Package workspace files and run assets are database blobs, never static upload URLs.
+Imports accept Markdown, text, CSV, JSON, PDF and raster image extensions; HTML,
+SVG and executable formats are rejected regardless of declared MIME. Replacing a
+package commits its definition and assets together. The first upgrade quarantines
+old public files outside the document tree before migration; if persistence fails,
+the source remains quarantined and an admin notice asks for repair and retry.
+If filesystem permissions prevent the initial quarantine move, legacy static files
+can remain accessible. Move `uploads/engenty-wizards` outside the web root manually
+and resolve permissions before enabling Wizards; the upgrade remains incomplete.
+The OS temporary directory must be outside WordPress, uploads and the document
+root. Temporary opaque files for providers/downloads are removed at request end.
+HTML responses carry an opaque-origin CSP sandbox and `nosniff`, including direct
+endpoint navigation.
+
+Uploads require an active input page with an image field selected by the flow.
+Limits are 4 MB per file, 20 files/40 MB per run, 40 files/80 MB per visitor per UTC
+day, and 500 files/1 GB per site per UTC day. Failed writes keep their upload
+reservation. Retained encoded blobs are also capped at 100 MB per owner and 1 GB
+per site. Daily budget rows expire; run budgets remain until their run is removed, including
+when run retention is unlimited.
+
+Request-owned database leases use unique inserts and owner-conditional renewal,
+not object-cache locks. Paid steps renew between model and tool turns and reserve
+call accounting before dispatch. Cancellation revokes the lease and conditional
+state writes cannot restore an obsolete result. OAuth refresh holds its lease
+through a full encrypted-option compare-and-swap; a concurrent reconnect wins.
+Leases recover after fifteen minutes if a process is killed without shutdown.
+
+Security regression tests mutate plugin tables and must run against a disposable
+WordPress installation with Wizards active (SQLite and MySQL are supported):
+
+```sh
+wp --path="$WP_PATH" eval-file tests/security.php
+WP_PATH="$WP_PATH" sh tests/concurrency.sh
+WP_PATH="$WP_PATH" sh tests/cold-lease.sh
+```
+
+`tests/sandbox.sh` creates and cleans its own private HTML fixture and verifies
+actual browser isolation and HTTP headers. Start the disposable server at `WP_URL`
+(default `http://127.0.0.1:8933`), then run:
+
+```sh
+WP_PATH="$WP_PATH" PLAYWRIGHT_MODULE=/path/to/node_modules/playwright sh tests/sandbox.sh
+```

@@ -149,7 +149,7 @@ msgstr "API-nøglen virker ikke længere. Forbind hjemmesiden igen."
 
 #: includes/class-client.php:78
 #: includes/class-connect.php:139
-#: includes/class-connect.php:432
+#: includes/class-connect.php:441
 msgid "engenty.ai cannot be reached right now."
 msgstr "engenty.ai kan ikke nås lige nu."
 
@@ -199,15 +199,16 @@ msgstr "WordPress-administrationen kører uden HTTPS. engenty.ai forbinder kun h
 msgid "You are not allowed to connect the website."
 msgstr "Du har ikke lov til at forbinde hjemmesiden."
 
-#: includes/class-connect.php:379
+#: includes/class-connect.php:381
 msgid "The website is not connected to engenty.ai."
 msgstr "Hjemmesiden er ikke forbundet med engenty.ai."
 
+#: includes/class-connect.php:403
 #: includes/class-connect.php:410
 msgid "The connection to engenty.ai has expired. Please connect again."
 msgstr "Forbindelsen til engenty.ai er udløbet. Forbind igen."
 
-#: includes/class-connect.php:430
+#: includes/class-connect.php:439
 msgid "The connection to engenty.ai was cut. Please connect again."
 msgstr "Forbindelsen til engenty.ai blev afbrudt. Forbind igen."
 
@@ -316,73 +317,73 @@ msgstr "Shortcoden mangler id=\"…\": wizardens ID eller link-token."
 msgid "Open engenty"
 msgstr "Åbn engenty"
 
-#: includes/class-packages.php:237
+#: includes/class-packages.php:236
 #: build/app.js:10
 #: src/admin/Home.js:459
 #: src/admin/Wizards.js:40
 msgid "Paused"
 msgstr "Sat på pause"
 
-#: includes/class-packages.php:267
+#: includes/class-packages.php:266
 msgid "This is not a wizard: title or steps are missing."
 msgstr "Dette er ikke en wizard: titel eller trin mangler."
 
-#: includes/class-packages.php:270
+#: includes/class-packages.php:269
 msgid "This wizard comes from a newer version."
 msgstr "Denne wizard kommer fra en nyere version."
 
-#: includes/class-packages.php:275
+#: includes/class-packages.php:274
 msgid "A step has no valid ID or no title."
 msgstr "Et trin har ikke noget gyldigt ID eller ingen titel."
 
 #. translators: %s: step type
-#: includes/class-packages.php:278
+#: includes/class-packages.php:277
 #, php-format
 msgid "The step type “%s” is not known here."
 msgstr "Trintypen „%s“ kendes ikke her."
 
-#: includes/class-packages.php:281
+#: includes/class-packages.php:280
 msgid "Two steps carry the same ID."
 msgstr "To trin har samme ID."
 
-#: includes/class-packages.php:287
+#: includes/class-packages.php:286
 msgid "The last step must be the result."
 msgstr "Det sidste trin skal være resultatet."
 
-#: includes/class-packages.php:310
-#: includes/class-packages.php:425
+#: includes/class-packages.php:345
+#: includes/class-packages.php:462
 #: build/app.js:10
 #: src/admin/Import.js:61
 msgid "This wizard needs an engenty account – it does not run on this website."
 msgstr "Denne wizard kræver en engenty-konto – den kører ikke på denne hjemmeside."
 
-#: includes/class-packages.php:317
-#: includes/class-packages.php:432
+#: includes/class-packages.php:362
+#: includes/class-packages.php:469
 msgid "The package is larger than 30 MB."
 msgstr "Pakken er større end 30 MB."
 
-#: includes/class-packages.php:377
+#: includes/class-packages.php:414
 msgid "The wizard could not be saved."
 msgstr "Wizarden kunne ikke gemmes."
 
-#: includes/class-packages.php:418
+#: includes/class-packages.php:455
 msgid "This wizard does not exist in the account."
 msgstr "Denne wizard findes ikke i kontoen."
 
-#: includes/class-packages.php:421
+#: includes/class-packages.php:458
 msgid "The wizard is not published yet."
 msgstr "Wizarden er ikke udgivet endnu."
 
-#: includes/class-packages.php:577
+#: includes/class-packages.php:614
 msgid "This template does not exist."
 msgstr "Denne skabelon findes ikke."
 
-#: includes/class-packages.php:593
-#: includes/class-packages.php:608
+#: includes/class-packages.php:630
+#: includes/class-packages.php:645
 msgid "The wizard package cannot be opened."
 msgstr "Wizard-pakken kan ikke åbnes."
 
-#: includes/class-packages.php:617
+#: includes/class-packages.php:654
 msgid "This is not a wizard package: wizard.json is missing."
 msgstr "Dette er ikke en wizard-pakke: wizard.json mangler."
 
@@ -395,8 +396,8 @@ msgid "otherwise"
 msgstr "ellers"
 
 #: includes/class-rest.php:574
-#: includes/class-runs.php:332
-#: includes/class-runs.php:378
+#: includes/class-runs.php:327
+#: includes/class-runs.php:373
 msgid "This wizard does not exist."
 msgstr "Denne wizard findes ikke."
 
@@ -414,127 +415,131 @@ msgstr "WordPress har ingen AI-udbyder endnu: Indstillinger → Connectors."
 msgid "Which wizard?"
 msgstr "Hvilken wizard?"
 
-#: includes/class-runs.php:206
+#: includes/class-packages.php:377
+#: includes/class-runs.php:916
 msgid "The file could not be saved."
 msgstr "Filen kunne ikke gemmes."
 
-#: includes/class-runs.php:278
+#: includes/class-runs.php:273
 msgid "That was enough tries for this hour. Please try again later."
 msgstr "Det var nok forsøg for denne time. Prøv igen senere."
 
-#: includes/class-runs.php:290
+#: includes/class-runs.php:285
 msgid "This wizard has had enough to do today. Please try again tomorrow."
 msgstr "Denne wizard har haft nok at gøre i dag. Prøv igen i morgen."
 
-#: includes/class-runs.php:346
+#: includes/class-runs.php:341
 msgid "This wizard cannot be reached right now."
 msgstr "Denne wizard kan ikke nås lige nu."
 
-#: includes/class-runs.php:346
+#: includes/class-runs.php:341
 msgid "This wizard is paused."
 msgstr "Denne wizard er sat på pause."
 
-#: includes/class-runs.php:386
+#: includes/class-runs.php:381
 msgid "That did not work."
 msgstr "Det virkede ikke."
 
-#: includes/class-runs.php:439
+#: includes/class-runs.php:434
 msgid "This run no longer exists."
 msgstr "Denne kørsel findes ikke længere."
 
-#: includes/class-runs.php:474
-#: includes/class-runs.php:764
+#: includes/class-runs.php:469
+#: includes/class-runs.php:569
+#: includes/class-runs.php:780
 msgid "The wizard is working right now."
 msgstr "Wizarden arbejder lige nu."
 
-#: includes/class-runs.php:477
-#: includes/class-runs.php:705
+#: includes/class-runs.php:472
+#: includes/class-runs.php:721
+#: includes/class-runs.php:929
 msgid "This page is no longer current."
 msgstr "Denne side er ikke længere aktuel."
 
-#: includes/class-runs.php:492
+#: includes/class-runs.php:487
 msgid "That is not available here right now."
 msgstr "Det er ikke tilgængeligt her lige nu."
 
-#: includes/class-runs.php:500
-#: includes/class-runs.php:517
+#: includes/class-runs.php:495
+#: includes/class-runs.php:512
 msgid "Please check the marked fields."
 msgstr "Tjek de markerede felter."
 
-#: includes/class-runs.php:523
+#: includes/class-runs.php:518
 msgid "File not found"
 msgstr "Filen blev ikke fundet"
 
-#: includes/class-runs.php:712
+#: includes/class-runs.php:728
 msgid "Unknown target."
 msgstr "Ukendt mål."
 
-#: includes/class-runs.php:715
+#: includes/class-runs.php:731
 msgid "A new variant, please."
 msgstr "En ny variant, tak."
 
-#: includes/class-runs.php:769
+#: includes/class-runs.php:785
 msgid "No previous step."
 msgstr "Intet forrige trin."
 
-#: includes/class-runs.php:797
+#: includes/class-runs.php:813
 msgid "Nothing to repeat."
 msgstr "Intet at gentage."
 
-#: includes/class-runs.php:841
+#: includes/class-runs.php:887
 msgid "No file."
 msgstr "Ingen fil."
 
-#: includes/class-runs.php:844
+#: includes/class-runs.php:890
+#: includes/class-runs.php:899
 msgid "The file is larger than 4 MB."
 msgstr "Filen er større end 4 MB."
 
-#: includes/class-runs.php:849
+#: includes/class-runs.php:895
 msgid "Only photos work here (JPEG, PNG, WebP)."
 msgstr "Kun fotos virker her (JPEG, PNG, WebP)."
 
-#: includes/class-runs.php:923
+#: includes/class-runs.php:1028
 msgid "This file does not exist."
 msgstr "Denne fil findes ikke."
 
-#: includes/class-runs.php:987
-#: includes/class-runs.php:2167
+#: includes/class-runs.php:1093
+#: includes/class-runs.php:2273
 msgid "This result does not exist."
 msgstr "Dette resultat findes ikke."
 
-#: includes/class-runs.php:1806
+#: includes/class-runs.php:1912
 msgid "Required"
 msgstr "Påkrævet"
 
 #. translators: %d: files
-#: includes/class-runs.php:1814
+#: includes/class-runs.php:1920
 #, php-format
 msgid "Please choose at least %d"
 msgstr "Vælg mindst %d"
 
 #. translators: %d: files
-#: includes/class-runs.php:1821
+#: includes/class-runs.php:1927
 #, php-format
 msgid "At most %d – please remove some"
 msgstr "Højst %d – fjern nogle"
 
-#: includes/class-runs.php:1829
+#: includes/class-runs.php:1935
 msgid "Please enter a number"
 msgstr "Indtast et tal"
 
-#: includes/class-runs.php:1836
+#: includes/class-runs.php:1942
 msgid "Invalid choice"
 msgstr "Ugyldigt valg"
 
-#: includes/class-runs.php:1843
+#: includes/class-runs.php:1949
 msgid "This slot is not offered"
 msgstr "Denne tid tilbydes ikke"
 
-#: includes/class-runs.php:1850
+#: includes/class-runs.php:1956
 msgid "Not a valid email address"
 msgstr "Ikke en gyldig e-mailadresse"
 
-#: includes/class-runs.php:1857
+#: includes/class-runs.php:1963
 msgid "Not a valid URL"
 msgstr "Ikke en gyldig URL"
 
@@ -597,61 +602,61 @@ msgstr "WordPress har ingen AI-udbyder endnu: opsæt en under Indstillinger → 
 msgid "WordPress knows an AI provider, but without a key: Settings → Connectors."
 msgstr "WordPress kender en AI-udbyder, men uden nøgle: Indstillinger → Connectors."
 
-#: includes/class-think.php:290
+#: includes/class-think.php:297
 msgid "This website has no AI provider: the AI Client is missing (WordPress 7.0)."
 msgstr "Denne hjemmeside har ingen AI-udbyder: AI Client mangler (WordPress 7.0)."
 
-#: includes/class-think.php:321
+#: includes/class-think.php:331
 msgid "The AI provider did not answer."
 msgstr "AI-udbyderen svarede ikke."
 
-#: includes/class-think.php:488
+#: includes/class-think.php:507
 msgid "The AI Client of this WordPress version does not match the plugin."
 msgstr "AI Client i denne WordPress-version passer ikke til pluginnet."
 
-#: includes/class-think.php:499
+#: includes/class-think.php:518
 msgid "The AI service is busy right now. Please try again in a moment."
 msgstr "AI-tjenesten er optaget lige nu. Prøv igen om et øjeblik."
 
-#: includes/class-think.php:502
+#: includes/class-think.php:521
 msgid "The step took too long. Please try again."
 msgstr "Trinnet tog for lang tid. Prøv igen."
 
-#: includes/class-think.php:505
+#: includes/class-think.php:524
 msgid "The AI service cannot be reached right now. Please try again later."
 msgstr "AI-tjenesten kan ikke nås lige nu. Prøv igen senere."
 
 #. translators: %s: what went wrong
-#: includes/class-think.php:507
+#: includes/class-think.php:526
 #, php-format
 msgid "This step failed: %s"
 msgstr "Dette trin mislykkedes: %s"
 
-#: includes/class-think.php:1079
-#: includes/class-think.php:1083
-#: includes/class-think.php:1252
+#: includes/class-think.php:1097
+#: includes/class-think.php:1101
+#: includes/class-think.php:1270
 msgid "This step needs an engenty account."
 msgstr "Dette trin kræver en engenty-konto."
 
-#: includes/class-think.php:1294
+#: includes/class-think.php:1312
 msgid "The step returned no result."
 msgstr "Trinnet gav ikke noget resultat."
 
-#: includes/class-think.php:1306
+#: includes/class-think.php:1324
 msgid "The AI provider answered with no valid structure."
 msgstr "AI-udbyderen svarede uden en gyldig struktur."
 
-#: includes/class-think.php:1327
+#: includes/class-think.php:1345
 msgid "There are no entries for this step to work on."
 msgstr "Der er ingen poster, som dette trin kan arbejde med."
 
-#: includes/class-think.php:1376
-#: includes/class-think.php:1626
-#: includes/class-think.php:1838
+#: includes/class-think.php:1394
+#: includes/class-think.php:1642
+#: includes/class-think.php:1854
 msgid "The answer of the AI provider does not match the questions."
 msgstr "AI-udbyderens svar passer ikke til spørgsmålene."
 
-#: includes/class-think.php:1464
+#: includes/class-think.php:1482
 msgid "The document could not be created."
 msgstr "Dokumentet kunne ikke oprettes."
 
@@ -2561,6 +2566,56 @@ msgstr "chat"
 msgctxt "block keyword"
 msgid "appointment"
 msgstr "aftale"
+
+#: includes/class-connect.php:397
+#: includes/class-connect.php:424
+msgid "The connection is being refreshed. Please retry shortly."
+msgstr ""
+
+#: includes/class-packages.php:305
+msgid "A package is being installed. Please retry shortly."
+msgstr ""
+
+#: includes/class-packages.php:354
+msgid "This package contains an unsupported file type."
+msgstr ""
+
+#: includes/class-packages.php:358
+msgid "This package contains invalid file data."
+msgstr ""
+
+#: includes/class-runs.php:850
+msgid "Please try the upload again."
+msgstr ""
+
+#: includes/class-runs.php:882
+msgid "This page does not accept uploads."
+msgstr ""
+
+#: includes/class-runs.php:902
+msgid "The upload limit has been reached."
+msgstr ""
+
+#: includes/class-think.php:286
+#: includes/class-think.php:290
+#: includes/class-think.php:313
+#: includes/class-think.php:395
+#: includes/class-think.php:398
+#: includes/class-think.php:410
+msgid "This request no longer owns the run. Please retry."
+msgstr ""
+
+#: includes/class-think.php:1497
+msgid "The document could not be saved."
+msgstr ""
+
+#: includes/class-packages.php:61
+msgid "Private wizard storage migration failed. Legacy files may still be publicly accessible: move uploads/engenty-wizards outside the web root before enabling Wizards. Check database capacity and the system temporary directory, then reload."
+msgstr ""
+
+#: includes/class-packages.php:310
+msgid "Private storage is busy. Please retry shortly."
+msgstr ""
 
 #: includes/class-downloads.php:55
 msgid "The PDF is made in the browser, not on this site."

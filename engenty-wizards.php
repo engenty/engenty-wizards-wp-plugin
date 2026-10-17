@@ -38,6 +38,8 @@ require_once ENGENTY_WIZARDS_DIR . 'includes/class-settings.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-connect.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-client.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-site-reader.php';
+require_once ENGENTY_WIZARDS_DIR . 'includes/class-coordination.php';
+require_once ENGENTY_WIZARDS_DIR . 'includes/class-storage.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-packages.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-abilities.php';
 require_once ENGENTY_WIZARDS_DIR . 'includes/class-think.php';
