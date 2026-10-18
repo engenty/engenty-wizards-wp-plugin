@@ -23,19 +23,6 @@ wp_clear_scheduled_hook( 'engenty_wizards_daily' );
 global $wpdb;
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- the plugin's own tables.
 $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}engenty_wizards, {$wpdb->prefix}engenty_runs, {$wpdb->prefix}engenty_assets, {$wpdb->prefix}engenty_upload_budgets" );
-$engenty_upload = wp_upload_dir();
-$engenty_dir    = trailingslashit( $engenty_upload['basedir'] ) . 'engenty-wizards';
-if ( is_dir( $engenty_dir ) ) {
-	$engenty_walk = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $engenty_dir, FilesystemIterator::SKIP_DOTS ), RecursiveIteratorIterator::CHILD_FIRST );
-	foreach ( $engenty_walk as $engenty_entry ) {
-		if ( $engenty_entry->isDir() ) {
-			rmdir( $engenty_entry->getPathname() ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
-		} else {
-			wp_delete_file( $engenty_entry->getPathname() );
-		}
-	}
-	rmdir( $engenty_dir ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
-}
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- the codes' cache has one entry per wizard ID.
 $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_engenty_code_%' OR option_name LIKE '_transient_timeout_engenty_code_%'" );
 

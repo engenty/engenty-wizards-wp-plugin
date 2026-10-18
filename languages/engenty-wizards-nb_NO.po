@@ -143,18 +143,18 @@ msgstr "Uten saldo starter ikke wizardene dine lenger på nettstedet. Fyll på �
 msgid "Top up credit"
 msgstr "Fyll på saldo"
 
-#: includes/class-client.php:69
+#: includes/class-client.php:79
 msgid "The API key no longer works. Connect the website again."
 msgstr "API-nøkkelen virker ikke lenger. Koble til nettstedet på nytt."
 
-#: includes/class-client.php:78
-#: includes/class-connect.php:139
-#: includes/class-connect.php:441
+#: includes/class-client.php:88
+#: includes/class-connect.php:143
+#: includes/class-connect.php:445
 msgid "engenty.ai cannot be reached right now."
 msgstr "engenty.ai kan ikke nås akkurat nå."
 
-#: includes/class-client.php:84
-#: includes/class-connect.php:147
+#: includes/class-client.php:94
+#: includes/class-connect.php:151
 msgid "engenty.ai refused the request."
 msgstr "engenty.ai avviste forespørselen."
 
@@ -166,49 +166,49 @@ msgstr "Adressen må begynne med https://."
 msgid "An engenty API key starts with wz_."
 msgstr "En API-nøkkel fra engenty begynner med wz_."
 
-#: includes/class-connect.php:74
-#: includes/class-connect.php:82
+#: includes/class-connect.php:75
+#: includes/class-connect.php:83
 msgid "No engenty answers at this address."
 msgstr "Ingen engenty svarer på denne adressen."
 
-#: includes/class-connect.php:79
+#: includes/class-connect.php:80
 msgid "This API key is not valid there."
 msgstr "Denne API-nøkkelen gjelder ikke der."
 
-#: includes/class-connect.php:170
+#: includes/class-connect.php:174
 msgid "engenty.ai names no sign-in server."
 msgstr "engenty.ai oppgir ingen innloggingsserver."
 
-#: includes/class-connect.php:187
+#: includes/class-connect.php:191
 msgid "The sign-in server of engenty.ai answers incompletely."
 msgstr "Innloggingsserveren til engenty.ai svarer ufullstendig."
 
-#: includes/class-connect.php:213
+#: includes/class-connect.php:217
 msgid "The sign-in server accepts no new applications."
 msgstr "Innloggingsserveren godtar ingen nye applikasjoner."
 
-#: includes/class-connect.php:234
+#: includes/class-connect.php:238
 msgid "The website could not be registered with engenty.ai."
 msgstr "Nettstedet kunne ikke registreres hos engenty.ai."
 
-#: includes/class-connect.php:261
+#: includes/class-connect.php:265
 msgid "The WordPress admin runs without HTTPS. engenty.ai connects only websites with https:// – switch the website address under Settings → General to https (your host helps with the certificate)."
 msgstr "WordPress-administrasjonen kjører uten HTTPS. engenty.ai kobler bare til nettsteder med https:// – bytt nettstedsadressen under Innstillinger → Generelt til https (webhotellet ditt hjelper med sertifikatet)."
 
-#: includes/class-connect.php:307
+#: includes/class-connect.php:311
 msgid "You are not allowed to connect the website."
 msgstr "Du har ikke tilgang til å koble til nettstedet."
 
-#: includes/class-connect.php:381
+#: includes/class-connect.php:385
 msgid "The website is not connected to engenty.ai."
 msgstr "Nettstedet er ikke koblet til engenty.ai."
 
-#: includes/class-connect.php:403
-#: includes/class-connect.php:410
+#: includes/class-connect.php:407
+#: includes/class-connect.php:414
 msgid "The connection to engenty.ai has expired. Please connect again."
 msgstr "Tilkoblingen til engenty.ai er utløpt. Koble til på nytt."
 
-#: includes/class-connect.php:439
+#: includes/class-connect.php:443
 msgid "The connection to engenty.ai was cut. Please connect again."
 msgstr "Tilkoblingen til engenty.ai ble brutt. Koble til på nytt."
 
@@ -317,73 +317,73 @@ msgstr "Kortkoden mangler id=\"…\": ID-en eller lenketokenet til wizarden."
 msgid "Open engenty"
 msgstr "Åpne engenty"
 
-#: includes/class-packages.php:236
+#: includes/class-packages.php:227
 #: build/app.js:10
 #: src/admin/Home.js:459
 #: src/admin/Wizards.js:40
 msgid "Paused"
 msgstr "På pause"
 
-#: includes/class-packages.php:266
+#: includes/class-packages.php:257
 msgid "This is not a wizard: title or steps are missing."
 msgstr "Dette er ikke en wizard: tittel eller steg mangler."
 
-#: includes/class-packages.php:269
+#: includes/class-packages.php:260
 msgid "This wizard comes from a newer version."
 msgstr "Denne wizarden kommer fra en nyere versjon."
 
-#: includes/class-packages.php:274
+#: includes/class-packages.php:265
 msgid "A step has no valid ID or no title."
 msgstr "Et steg mangler gyldig ID eller tittel."
 
 #. translators: %s: step type
-#: includes/class-packages.php:277
+#: includes/class-packages.php:268
 #, php-format
 msgid "The step type “%s” is not known here."
 msgstr "Stegtypen «%s» er ikke kjent her."
 
-#: includes/class-packages.php:280
+#: includes/class-packages.php:271
 msgid "Two steps carry the same ID."
 msgstr "To steg har samme ID."
 
-#: includes/class-packages.php:286
+#: includes/class-packages.php:277
 msgid "The last step must be the result."
 msgstr "Det siste steget må være resultatet."
 
-#: includes/class-packages.php:345
-#: includes/class-packages.php:462
+#: includes/class-packages.php:336
+#: includes/class-packages.php:453
 #: build/app.js:10
-#: src/admin/Import.js:61
+#: src/admin/Import.js:63
 msgid "This wizard needs an engenty account – it does not run on this website."
 msgstr "Denne wizarden trenger en engenty-konto – den kjører ikke på dette nettstedet."
 
-#: includes/class-packages.php:362
-#: includes/class-packages.php:469
+#: includes/class-packages.php:353
+#: includes/class-packages.php:460
 msgid "The package is larger than 30 MB."
 msgstr "Pakken er større enn 30 MB."
 
-#: includes/class-packages.php:414
+#: includes/class-packages.php:405
 msgid "The wizard could not be saved."
 msgstr "Wizarden kunne ikke lagres."
 
-#: includes/class-packages.php:455
+#: includes/class-packages.php:446
 msgid "This wizard does not exist in the account."
 msgstr "Denne wizarden finnes ikke i kontoen."
 
-#: includes/class-packages.php:458
+#: includes/class-packages.php:449
 msgid "The wizard is not published yet."
 msgstr "Wizarden er ikke publisert ennå."
 
-#: includes/class-packages.php:614
+#: includes/class-packages.php:581
 msgid "This template does not exist."
 msgstr "Denne malen finnes ikke."
 
-#: includes/class-packages.php:630
-#: includes/class-packages.php:645
+#: includes/class-packages.php:597
+#: includes/class-packages.php:612
 msgid "The wizard package cannot be opened."
 msgstr "Wizard-pakken kan ikke åpnes."
 
-#: includes/class-packages.php:654
+#: includes/class-packages.php:621
 msgid "This is not a wizard package: wizard.json is missing."
 msgstr "Dette er ikke en wizard-pakke: wizard.json mangler."
 
@@ -415,7 +415,7 @@ msgstr "WordPress har ingen KI-leverandør ennå: Innstillinger → Connectors."
 msgid "Which wizard?"
 msgstr "Hvilken wizard?"
 
-#: includes/class-packages.php:377
+#: includes/class-packages.php:368
 #: includes/class-runs.php:916
 msgid "The file could not be saved."
 msgstr "Filen kunne ikke lagres."
@@ -590,73 +590,73 @@ msgstr "Telefon"
 msgid "Products"
 msgstr "Produkter"
 
-#: includes/class-think.php:142
+#: includes/class-think.php:150
 msgid "This WordPress version does not have the AI Client yet (WordPress 7.0 and later)."
 msgstr "Denne WordPress-versjonen har ikke AI Client ennå (WordPress 7.0 og nyere)."
 
-#: includes/class-think.php:160
+#: includes/class-think.php:168
 msgid "WordPress has no AI provider yet: set one up under Settings → Connectors (its plugin comes from WordPress.org)."
 msgstr "WordPress har ingen KI-leverandør ennå: sett opp en under Innstillinger → Connectors (utvidelsen kommer fra WordPress.org)."
 
-#: includes/class-think.php:190
+#: includes/class-think.php:198
 msgid "WordPress knows an AI provider, but without a key: Settings → Connectors."
 msgstr "WordPress kjenner en KI-leverandør, men uten nøkkel: Innstillinger → Connectors."
 
-#: includes/class-think.php:297
+#: includes/class-think.php:305
 msgid "This website has no AI provider: the AI Client is missing (WordPress 7.0)."
 msgstr "Dette nettstedet har ingen KI-leverandør: AI Client mangler (WordPress 7.0)."
 
-#: includes/class-think.php:331
+#: includes/class-think.php:339
 msgid "The AI provider did not answer."
 msgstr "KI-leverandøren svarte ikke."
 
-#: includes/class-think.php:507
+#: includes/class-think.php:515
 msgid "The AI Client of this WordPress version does not match the plugin."
 msgstr "AI Client i denne WordPress-versjonen passer ikke til utvidelsen."
 
-#: includes/class-think.php:518
+#: includes/class-think.php:526
 msgid "The AI service is busy right now. Please try again in a moment."
 msgstr "KI-tjenesten er opptatt akkurat nå. Prøv igjen om et øyeblikk."
 
-#: includes/class-think.php:521
+#: includes/class-think.php:529
 msgid "The step took too long. Please try again."
 msgstr "Steget tok for lang tid. Prøv igjen."
 
-#: includes/class-think.php:524
+#: includes/class-think.php:532
 msgid "The AI service cannot be reached right now. Please try again later."
 msgstr "KI-tjenesten kan ikke nås akkurat nå. Prøv igjen senere."
 
 #. translators: %s: what went wrong
-#: includes/class-think.php:526
+#: includes/class-think.php:534
 #, php-format
 msgid "This step failed: %s"
 msgstr "Dette steget mislyktes: %s"
 
-#: includes/class-think.php:1097
-#: includes/class-think.php:1101
-#: includes/class-think.php:1270
+#: includes/class-think.php:1201
+#: includes/class-think.php:1205
+#: includes/class-think.php:1374
 msgid "This step needs an engenty account."
 msgstr "Dette steget trenger en engenty-konto."
 
-#: includes/class-think.php:1312
+#: includes/class-think.php:1421
 msgid "The step returned no result."
 msgstr "Steget ga ikke noe resultat."
 
-#: includes/class-think.php:1324
+#: includes/class-think.php:1433
 msgid "The AI provider answered with no valid structure."
 msgstr "KI-leverandøren svarte uten gyldig struktur."
 
-#: includes/class-think.php:1345
+#: includes/class-think.php:1454
 msgid "There are no entries for this step to work on."
 msgstr "Det finnes ingen oppføringer dette steget kan jobbe med."
 
-#: includes/class-think.php:1394
-#: includes/class-think.php:1642
-#: includes/class-think.php:1854
+#: includes/class-think.php:1503
+#: includes/class-think.php:1751
+#: includes/class-think.php:1963
 msgid "The answer of the AI provider does not match the questions."
 msgstr "Svaret fra KI-leverandøren passer ikke til spørsmålene."
 
-#: includes/class-think.php:1482
+#: includes/class-think.php:1591
 msgid "The document could not be created."
 msgstr "Dokumentet kunne ikke opprettes."
 
@@ -875,8 +875,8 @@ msgstr "Ikke satt opp her: %s"
 #: build/app.js:3
 #: build/app.js:8
 #: build/app.js:10
-#: src/admin/Import.js:138
-#: src/admin/Templates.js:440
+#: src/admin/Import.js:141
+#: src/admin/Templates.js:439
 #: src/admin/ui.js:169
 #: src/admin/ui.js:179
 #: src/admin/ui.js:623
@@ -973,7 +973,7 @@ msgstr "Månedlige Credits, kontakter og avtaler inkludert"
 
 #: build/app.js:2
 #: build/app.js:8
-#: src/admin/Templates.js:287
+#: src/admin/Templates.js:286
 #: src/admin/ui.js:294
 msgid "Upgrade to Pro"
 msgstr "Oppgrader til Pro"
@@ -988,11 +988,11 @@ msgstr "Sammenlign planer"
 #: build/app.js:10
 #: build/app.js:12
 #: src/admin/Home.js:578
-#: src/admin/Import.js:146
+#: src/admin/Import.js:149
 #: src/admin/Settings.js:810
 #: src/admin/Settings.js:1169
 #: src/admin/Start.js:73
-#: src/admin/Templates.js:280
+#: src/admin/Templates.js:279
 #: src/admin/ui.js:355
 #: src/admin/ui.js:433
 msgid "Create a free account"
@@ -1120,7 +1120,7 @@ msgstr "Overført: opplysningene dine og %d sider. Wizardene dine kjenner nå be
 #: build/app.js:8
 #: src/admin/SiteRead.js:144
 #: src/admin/Start.js:295
-#: src/admin/Templates.js:559
+#: src/admin/Templates.js:558
 msgid "Continue"
 msgstr "Fortsett"
 
@@ -1192,7 +1192,7 @@ msgstr "Ingen publiserte sider med tekst."
 #: build/app.js:8
 #: src/admin/SiteRead.js:376
 #: src/admin/SiteRead.js:400
-#: src/admin/Templates.js:597
+#: src/admin/Templates.js:596
 msgid "Skip"
 msgstr "Hopp over"
 
@@ -1263,19 +1263,19 @@ msgid "The wizard is created but still needs work in the Studio before it goes l
 msgstr "Wizarden er opprettet, men trenger fortsatt arbeid i Studio før den går live."
 
 #: build/app.js:7
-#: src/admin/Templates.js:322
+#: src/admin/Templates.js:321
 msgid "Duration"
 msgstr "Varighet"
 
 #. translators: %d: fields
 #: build/app.js:8
-#: src/admin/Templates.js:332
+#: src/admin/Templates.js:331
 #, js-format
 msgid "from start to result, with %d inputs from you"
 msgstr "fra start til resultat, med %d svar fra deg"
 
 #: build/app.js:8
-#: src/admin/Templates.js:342
+#: src/admin/Templates.js:341
 msgid "Cost"
 msgstr "Kostnad"
 
@@ -1283,63 +1283,63 @@ msgstr "Kostnad"
 #: build/app.js:12
 #: src/admin/Results.js:85
 #: src/admin/Results.js:147
-#: src/admin/Templates.js:355
+#: src/admin/Templates.js:354
 msgid "Result"
 msgstr "Resultat"
 
 #: build/app.js:8
-#: src/admin/Templates.js:378
+#: src/admin/Templates.js:377
 msgid "Needs"
 msgstr "Trenger"
 
 #. translators: %s: plugins
 #: build/app.js:8
-#: src/admin/Templates.js:402
+#: src/admin/Templates.js:401
 #, js-format
 msgid "With Pro: needs %s"
 msgstr "Med Pro: trenger %s"
 
 #: build/app.js:8
-#: src/admin/Templates.js:416
+#: src/admin/Templates.js:415
 msgid "How the wizard runs"
 msgstr "Slik kjører wizarden"
 
 #. translators: %d: steps
 #: build/app.js:8
 #: build/app.js:12
-#: src/admin/Templates.js:423
+#: src/admin/Templates.js:422
 #: src/admin/Wizards.js:254
 #, js-format
 msgid "%d steps"
 msgstr "%d steg"
 
 #: build/app.js:8
-#: src/admin/Templates.js:269
+#: src/admin/Templates.js:268
 msgid "Start with this template"
 msgstr "Start med denne malen"
 
 #: build/app.js:8
-#: src/admin/Templates.js:543
+#: src/admin/Templates.js:542
 msgid "Try it out"
 msgstr "Prøv den"
 
 #: build/app.js:8
-#: src/admin/Templates.js:552
+#: src/admin/Templates.js:551
 msgid "Adjust in the Studio"
 msgstr "Tilpass i Studio"
 
 #: build/app.js:8
-#: src/admin/Templates.js:566
+#: src/admin/Templates.js:565
 msgid "Choose another"
 msgstr "Velg en annen"
 
 #: build/app.js:8
-#: src/admin/Templates.js:613
+#: src/admin/Templates.js:612
 msgid "Search templates"
 msgstr "Søk i maler"
 
 #: build/app.js:8
-#: src/admin/Templates.js:617
+#: src/admin/Templates.js:616
 msgid "Search templates …"
 msgstr "Søk i maler …"
 
@@ -1350,31 +1350,31 @@ msgstr "Søk i maler …"
 #: src/admin/Home.js:446
 #: src/admin/Home.js:541
 #: src/admin/Results.js:478
-#: src/admin/Templates.js:633
+#: src/admin/Templates.js:632
 msgid "All"
 msgstr "Alle"
 
 #. translators: %d: templates
 #: build/app.js:8
-#: src/admin/Templates.js:657
+#: src/admin/Templates.js:656
 #, js-format
 msgid "%d templates · all run here"
 msgstr "%d maler · alle kjører her"
 
 #. translators: %d: templates
 #: build/app.js:8
-#: src/admin/Templates.js:664
+#: src/admin/Templates.js:663
 #, js-format
 msgid "%d templates"
 msgstr "%d maler"
 
 #: build/app.js:8
-#: src/admin/Templates.js:578
+#: src/admin/Templates.js:577
 msgid "With Free: download the free app, build your wizard there and publish it – then it appears here."
 msgstr "Med Free: last ned gratisappen, bygg wizarden din der og publiser den – så vises den her."
 
 #: build/app.js:8
-#: src/admin/Templates.js:587
+#: src/admin/Templates.js:586
 msgid "How it works"
 msgstr "Slik fungerer det"
 
@@ -1758,22 +1758,22 @@ msgid "Studio, contacts, appointments, PDFs, web search and the wizards that nee
 msgstr "Studio, kontakter, avtaler, PDF-er, nettsøk og de wizardene som trenger mer. De lokale fortsetter å kjøre."
 
 #: build/app.js:10
-#: src/admin/Import.js:111
+#: src/admin/Import.js:114
 msgid "Import"
 msgstr "Importer"
 
 #: build/app.js:10
-#: src/admin/Import.js:47
+#: src/admin/Import.js:49
 msgid "The wizard has errors that must be fixed in the Studio first."
 msgstr "Wizarden har feil som først må rettes i Studio."
 
 #: build/app.js:10
-#: src/admin/Import.js:71
+#: src/admin/Import.js:73
 msgid "Plugins:"
 msgstr "Tillegg:"
 
 #: build/app.js:10
-#: src/admin/Import.js:127
+#: src/admin/Import.js:130
 msgid "Import did not work"
 msgstr "Importen gikk ikke"
 
@@ -2567,20 +2567,20 @@ msgctxt "block keyword"
 msgid "appointment"
 msgstr "avtale"
 
-#: includes/class-connect.php:397
-#: includes/class-connect.php:424
+#: includes/class-connect.php:401
+#: includes/class-connect.php:428
 msgid "The connection is being refreshed. Please retry shortly."
 msgstr ""
 
-#: includes/class-packages.php:305
+#: includes/class-packages.php:296
 msgid "A package is being installed. Please retry shortly."
 msgstr ""
 
-#: includes/class-packages.php:354
+#: includes/class-packages.php:345
 msgid "This package contains an unsupported file type."
 msgstr ""
 
-#: includes/class-packages.php:358
+#: includes/class-packages.php:349
 msgid "This package contains invalid file data."
 msgstr ""
 
@@ -2596,24 +2596,20 @@ msgstr ""
 msgid "The upload limit has been reached."
 msgstr ""
 
-#: includes/class-think.php:286
-#: includes/class-think.php:290
-#: includes/class-think.php:313
-#: includes/class-think.php:395
-#: includes/class-think.php:398
-#: includes/class-think.php:410
+#: includes/class-think.php:294
+#: includes/class-think.php:298
+#: includes/class-think.php:321
+#: includes/class-think.php:403
+#: includes/class-think.php:406
+#: includes/class-think.php:418
 msgid "This request no longer owns the run. Please retry."
 msgstr ""
 
-#: includes/class-think.php:1497
+#: includes/class-think.php:1606
 msgid "The document could not be saved."
 msgstr ""
 
-#: includes/class-packages.php:61
-msgid "Private wizard storage migration failed. Legacy files may still be publicly accessible: move uploads/engenty-wizards outside the web root before enabling Wizards. Check database capacity and the system temporary directory, then reload."
-msgstr ""
-
-#: includes/class-packages.php:310
+#: includes/class-packages.php:301
 msgid "Private storage is busy. Please retry shortly."
 msgstr ""
 

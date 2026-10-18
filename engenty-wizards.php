@@ -71,8 +71,8 @@ register_activation_hook(
 				$role->add_cap( ENGENTY_RESULTS_CAP );
 			}
 		}
-		// Activating newer files over older data (deactivate, replace, activate) migrates like an update.
-		Engenty_Packages::ensure_tables();
+		Engenty_Packages::create_tables();
+		update_option( 'engenty_wizards_tables', Engenty_Packages::TABLE_VERSION, true );
 		// The setup opens once after activation.
 		set_transient( 'engenty_wizards_activated', 1, 60 );
 	}

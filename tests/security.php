@@ -103,20 +103,6 @@ try {
 	$wpdb->update( $wpdb->options, array( 'option_value' => ( time() - 1 ) . ':expired' ), array( 'option_name' => $lease_name ) );
 	engenty_check( Engenty_Storage::lock( 'owner-test' ), 'Expired lease not recoverable' );
 	Engenty_Storage::unlock( 'owner-test' );
-	// A failed private migration leaves a quarantined copy, never public active content.
-	$legacy = $upload['basedir'] . '/engenty-wizards';
-	wp_mkdir_p( $legacy . '/' . $wizard['id'] );
-	file_put_contents( $legacy . '/' . $wizard['id'] . '/notes.txt', 'migrated' );
-	wp_mkdir_p( $legacy . '/runs/' . $id );
-	file_put_contents( $legacy . '/runs/' . $id . '/d_legacy.html', '<html>private</html>' );
-	file_put_contents( $legacy . '/runs/' . $id . '/d_legacy.html.json', wp_json_encode( array( 'mime' => 'text/html', 'name' => 'legacy.html' ) ) );
-	add_option( 'engenty_lock_' . hash( 'sha256', 'asset-budget' ), ( time() + 900 ) . ':foreign', '', false );
-	engenty_check( ! Engenty_Storage::retire_public_files(), 'Migration ignored storage failure' );
-	$quarantine = get_option( 'engenty_wizards_quarantine' );
-	engenty_check( ! is_dir( $legacy ) && is_file( $quarantine . '/runs/' . $id . '/d_legacy.html' ), 'Failed migration lost or exposed assets' );
-	delete_option( 'engenty_lock_' . hash( 'sha256', 'asset-budget' ) );
-	engenty_check( Engenty_Storage::retire_public_files(), 'Migration retry failed' );
-	engenty_check( ! is_dir( $quarantine ) && 'migrated' === Engenty_Storage::get( 'wizard:' . $wizard['id'], 'notes.txt' )['data'], 'Migration did not preserve passive data' );
 	// A response rejected after reconnect cannot clear the newer connection.
 	$previous_auth = Engenty_Settings::auth();
 	$fixture = array( 'access_token' => 'expired', 'refresh_token' => 'old-refresh', 'expires_at' => 0, 'endpoints' => array( 'token' => 'https://oauth.invalid/token' ) );
