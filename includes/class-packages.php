@@ -54,15 +54,6 @@ class Engenty_Packages {
 			return;
 		}
 		self::create_tables();
-		if ( ! Engenty_Storage::retire_public_files() ) {
-			add_action(
-				'admin_notices',
-				static function () {
-					echo '<div class="notice notice-error"><p>' . esc_html__( 'Private wizard storage migration failed. Legacy files may still be publicly accessible: move uploads/engenty-wizards outside the web root before enabling Wizards. Check database capacity and the system temporary directory, then reload.', 'engenty-wizards' ) . '</p></div>';
-				}
-			);
-			return;
-		}
 		update_option( 'engenty_wizards_tables', self::TABLE_VERSION, true );
 	}
 
@@ -527,30 +518,6 @@ class Engenty_Packages {
 			}
 		}
 		return $path;
-	}
-
-	/**
-	 * Deletes a folder and what is in it.
-	 *
-	 * @param string $dir The folder.
-	 */
-	public static function remove_dir( $dir ) {
-		if ( ! is_dir( $dir ) ) {
-			return;
-		}
-		$entries = scandir( $dir );
-		foreach ( $entries ? $entries : array() as $entry ) {
-			if ( '.' === $entry || '..' === $entry ) {
-				continue;
-			}
-			$full = $dir . '/' . $entry;
-			if ( is_dir( $full ) && ! is_link( $full ) ) {
-				self::remove_dir( $full );
-			} else {
-				wp_delete_file( $full );
-			}
-		}
-		rmdir( $dir ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir -- the plugin's own folder under uploads.
 	}
 
 	// --- the shipped set ------------------------------------------------------------------

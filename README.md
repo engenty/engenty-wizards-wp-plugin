@@ -79,12 +79,7 @@ define( 'ENGENTY_WIZARDS_CLOUD', 'http://localhost:18891' );
 Package workspace files and run assets are database blobs, never static upload URLs.
 Imports accept Markdown, text, CSV, JSON, PDF and raster image extensions; HTML,
 SVG and executable formats are rejected regardless of declared MIME. Replacing a
-package commits its definition and assets together. The first upgrade quarantines
-old public files outside the document tree before migration; if persistence fails,
-the source remains quarantined and an admin notice asks for repair and retry.
-If filesystem permissions prevent the initial quarantine move, legacy static files
-can remain accessible. Move `uploads/engenty-wizards` outside the web root manually
-and resolve permissions before enabling Wizards; the upgrade remains incomplete.
+package commits its definition and assets together.
 The OS temporary directory must be outside WordPress, uploads and the document
 root. Temporary opaque files for providers/downloads are removed at request end.
 HTML responses carry an opaque-origin CSP sandbox and `nosniff`, including direct

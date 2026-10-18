@@ -143,18 +143,18 @@ msgstr "Ohne Guthaben starten deine Wizards auf der Website nicht mehr. Lade auf
 msgid "Top up credit"
 msgstr "Guthaben aufladen"
 
-#: includes/class-client.php:69
+#: includes/class-client.php:79
 msgid "The API key no longer works. Connect the website again."
 msgstr "Der API Key gilt nicht mehr. Verbinde die Website neu."
 
-#: includes/class-client.php:78
-#: includes/class-connect.php:139
-#: includes/class-connect.php:441
+#: includes/class-client.php:88
+#: includes/class-connect.php:143
+#: includes/class-connect.php:445
 msgid "engenty.ai cannot be reached right now."
 msgstr "engenty.ai ist gerade nicht erreichbar."
 
-#: includes/class-client.php:84
-#: includes/class-connect.php:147
+#: includes/class-client.php:94
+#: includes/class-connect.php:151
 msgid "engenty.ai refused the request."
 msgstr "engenty.ai hat die Anfrage abgelehnt."
 
@@ -166,49 +166,49 @@ msgstr "Die Adresse muss mit https:// beginnen."
 msgid "An engenty API key starts with wz_."
 msgstr "Ein API Key von engenty beginnt mit wz_."
 
-#: includes/class-connect.php:74
-#: includes/class-connect.php:82
+#: includes/class-connect.php:75
+#: includes/class-connect.php:83
 msgid "No engenty answers at this address."
 msgstr "Unter dieser Adresse antwortet kein engenty."
 
-#: includes/class-connect.php:79
+#: includes/class-connect.php:80
 msgid "This API key is not valid there."
 msgstr "Dieser API Key gilt dort nicht."
 
-#: includes/class-connect.php:170
+#: includes/class-connect.php:174
 msgid "engenty.ai names no sign-in server."
 msgstr "engenty.ai nennt keinen Anmeldeserver."
 
-#: includes/class-connect.php:187
+#: includes/class-connect.php:191
 msgid "The sign-in server of engenty.ai answers incompletely."
 msgstr "Der Anmeldeserver von engenty.ai antwortet unvollständig."
 
-#: includes/class-connect.php:213
+#: includes/class-connect.php:217
 msgid "The sign-in server accepts no new applications."
 msgstr "Der Anmeldeserver nimmt keine neuen Programme an."
 
-#: includes/class-connect.php:234
+#: includes/class-connect.php:238
 msgid "The website could not be registered with engenty.ai."
 msgstr "Die Website ließ sich bei engenty.ai nicht anmelden."
 
-#: includes/class-connect.php:261
+#: includes/class-connect.php:265
 msgid "The WordPress admin runs without HTTPS. engenty.ai connects only websites with https:// – switch the website address under Settings → General to https (your host helps with the certificate)."
 msgstr "Der WordPress-Admin läuft ohne HTTPS. engenty.ai verbindet nur Websites mit https:// – stelle die Website-Adresse unter Einstellungen → Allgemein auf https um (dein Hoster hilft mit dem Zertifikat)."
 
-#: includes/class-connect.php:307
+#: includes/class-connect.php:311
 msgid "You are not allowed to connect the website."
 msgstr "Du darfst die Website nicht verbinden."
 
-#: includes/class-connect.php:381
+#: includes/class-connect.php:385
 msgid "The website is not connected to engenty.ai."
 msgstr "Die Website ist nicht mit engenty.ai verbunden."
 
-#: includes/class-connect.php:403
-#: includes/class-connect.php:410
+#: includes/class-connect.php:407
+#: includes/class-connect.php:414
 msgid "The connection to engenty.ai has expired. Please connect again."
 msgstr "Die Verbindung zu engenty.ai ist abgelaufen. Bitte neu verbinden."
 
-#: includes/class-connect.php:439
+#: includes/class-connect.php:443
 msgid "The connection to engenty.ai was cut. Please connect again."
 msgstr "Die Verbindung zu engenty.ai wurde getrennt. Bitte neu verbinden."
 
@@ -317,73 +317,73 @@ msgstr "Im Shortcode fehlt id=\"…\": die ID oder der Link-Token des Wizards."
 msgid "Open engenty"
 msgstr "engenty öffnen"
 
-#: includes/class-packages.php:236
+#: includes/class-packages.php:227
 #: build/app.js:10
 #: src/admin/Home.js:459
 #: src/admin/Wizards.js:40
 msgid "Paused"
 msgstr "Pausiert"
 
-#: includes/class-packages.php:266
+#: includes/class-packages.php:257
 msgid "This is not a wizard: title or steps are missing."
 msgstr "Das ist kein Wizard: Titel oder Schritte fehlen."
 
-#: includes/class-packages.php:269
+#: includes/class-packages.php:260
 msgid "This wizard comes from a newer version."
 msgstr "Dieser Wizard stammt aus einer neueren Version."
 
-#: includes/class-packages.php:274
+#: includes/class-packages.php:265
 msgid "A step has no valid ID or no title."
 msgstr "Ein Schritt hat keine gültige ID oder keinen Titel."
 
 #. translators: %s: step type
-#: includes/class-packages.php:277
+#: includes/class-packages.php:268
 #, php-format
 msgid "The step type “%s” is not known here."
 msgstr "Der Schritt-Typ „%s“ ist hier nicht bekannt."
 
-#: includes/class-packages.php:280
+#: includes/class-packages.php:271
 msgid "Two steps carry the same ID."
 msgstr "Zwei Schritte tragen dieselbe ID."
 
-#: includes/class-packages.php:286
+#: includes/class-packages.php:277
 msgid "The last step must be the result."
 msgstr "Der letzte Schritt muss das Ergebnis sein."
 
-#: includes/class-packages.php:345
-#: includes/class-packages.php:462
+#: includes/class-packages.php:336
+#: includes/class-packages.php:453
 #: build/app.js:10
-#: src/admin/Import.js:61
+#: src/admin/Import.js:63
 msgid "This wizard needs an engenty account – it does not run on this website."
 msgstr "Dieser Wizard braucht ein engenty-Konto – auf dieser Website läuft er nicht."
 
-#: includes/class-packages.php:362
-#: includes/class-packages.php:469
+#: includes/class-packages.php:353
+#: includes/class-packages.php:460
 msgid "The package is larger than 30 MB."
 msgstr "Das Paket ist größer als 30 MB."
 
-#: includes/class-packages.php:414
+#: includes/class-packages.php:405
 msgid "The wizard could not be saved."
 msgstr "Der Wizard konnte nicht gespeichert werden."
 
-#: includes/class-packages.php:455
+#: includes/class-packages.php:446
 msgid "This wizard does not exist in the account."
 msgstr "Diesen Wizard gibt es im Konto nicht."
 
-#: includes/class-packages.php:458
+#: includes/class-packages.php:449
 msgid "The wizard is not published yet."
 msgstr "Der Wizard ist noch nicht veröffentlicht."
 
-#: includes/class-packages.php:614
+#: includes/class-packages.php:581
 msgid "This template does not exist."
 msgstr "Diese Vorlage gibt es nicht."
 
-#: includes/class-packages.php:630
-#: includes/class-packages.php:645
+#: includes/class-packages.php:597
+#: includes/class-packages.php:612
 msgid "The wizard package cannot be opened."
 msgstr "Das Wizard-Paket lässt sich nicht öffnen."
 
-#: includes/class-packages.php:654
+#: includes/class-packages.php:621
 msgid "This is not a wizard package: wizard.json is missing."
 msgstr "Das ist kein Wizard-Paket: wizard.json fehlt."
 
@@ -415,7 +415,7 @@ msgstr "WordPress hat noch keinen KI-Anbieter: Einstellungen → Connectors."
 msgid "Which wizard?"
 msgstr "Welcher Wizard?"
 
-#: includes/class-packages.php:377
+#: includes/class-packages.php:368
 #: includes/class-runs.php:916
 msgid "The file could not be saved."
 msgstr "Die Datei konnte nicht gespeichert werden."
@@ -590,73 +590,73 @@ msgstr "Telefon"
 msgid "Products"
 msgstr "Produkte"
 
-#: includes/class-think.php:142
+#: includes/class-think.php:150
 msgid "This WordPress version does not have the AI Client yet (WordPress 7.0 and later)."
 msgstr "Diese WordPress-Version hat den AI Client noch nicht (ab WordPress 7.0)."
 
-#: includes/class-think.php:160
+#: includes/class-think.php:168
 msgid "WordPress has no AI provider yet: set one up under Settings → Connectors (its plugin comes from WordPress.org)."
 msgstr "WordPress hat noch keinen KI-Anbieter: einen unter Einstellungen → Connectors einrichten (sein Plugin kommt von WordPress.org)."
 
-#: includes/class-think.php:190
+#: includes/class-think.php:198
 msgid "WordPress knows an AI provider, but without a key: Settings → Connectors."
 msgstr "WordPress kennt einen KI-Anbieter, aber ohne Schlüssel: Einstellungen → Connectors."
 
-#: includes/class-think.php:297
+#: includes/class-think.php:305
 msgid "This website has no AI provider: the AI Client is missing (WordPress 7.0)."
 msgstr "Diese Website hat keinen KI-Anbieter: der AI Client fehlt (WordPress 7.0)."
 
-#: includes/class-think.php:331
+#: includes/class-think.php:339
 msgid "The AI provider did not answer."
 msgstr "Der KI-Anbieter hat nicht geantwortet."
 
-#: includes/class-think.php:507
+#: includes/class-think.php:515
 msgid "The AI Client of this WordPress version does not match the plugin."
 msgstr "Der AI Client dieser WordPress-Version passt nicht zum Plugin."
 
-#: includes/class-think.php:518
+#: includes/class-think.php:526
 msgid "The AI service is busy right now. Please try again in a moment."
 msgstr "Der KI-Dienst ist gerade ausgelastet. Bitte gleich noch einmal versuchen."
 
-#: includes/class-think.php:521
+#: includes/class-think.php:529
 msgid "The step took too long. Please try again."
 msgstr "Der Schritt hat zu lange gedauert. Bitte noch einmal versuchen."
 
-#: includes/class-think.php:524
+#: includes/class-think.php:532
 msgid "The AI service cannot be reached right now. Please try again later."
 msgstr "Der KI-Dienst ist gerade nicht erreichbar. Bitte später noch einmal versuchen."
 
 #. translators: %s: what went wrong
-#: includes/class-think.php:526
+#: includes/class-think.php:534
 #, php-format
 msgid "This step failed: %s"
 msgstr "Dieser Schritt ist fehlgeschlagen: %s"
 
-#: includes/class-think.php:1097
-#: includes/class-think.php:1101
-#: includes/class-think.php:1270
+#: includes/class-think.php:1201
+#: includes/class-think.php:1205
+#: includes/class-think.php:1374
 msgid "This step needs an engenty account."
 msgstr "Dieser Schritt braucht ein engenty-Konto."
 
-#: includes/class-think.php:1312
+#: includes/class-think.php:1421
 msgid "The step returned no result."
 msgstr "Der Schritt hat kein Ergebnis geliefert."
 
-#: includes/class-think.php:1324
+#: includes/class-think.php:1433
 msgid "The AI provider answered with no valid structure."
 msgstr "Die Antwort des KI-Anbieters war keine gültige Struktur."
 
-#: includes/class-think.php:1345
+#: includes/class-think.php:1454
 msgid "There are no entries for this step to work on."
 msgstr "Es gibt keine Einträge, für die dieser Schritt arbeiten könnte."
 
-#: includes/class-think.php:1394
-#: includes/class-think.php:1642
-#: includes/class-think.php:1854
+#: includes/class-think.php:1503
+#: includes/class-think.php:1751
+#: includes/class-think.php:1963
 msgid "The answer of the AI provider does not match the questions."
 msgstr "Die Antwort des KI-Anbieters passt nicht zu den Fragen."
 
-#: includes/class-think.php:1482
+#: includes/class-think.php:1591
 msgid "The document could not be created."
 msgstr "Das Dokument konnte nicht erstellt werden."
 
@@ -1213,7 +1213,7 @@ msgstr "Neueste Ergebnisse"
 #: src/admin/Home.js:446
 #: src/admin/Home.js:541
 #: src/admin/Results.js:478
-#: src/admin/Templates.js:633
+#: src/admin/Templates.js:632
 msgid "All"
 msgstr "Alle"
 
@@ -1242,33 +1242,33 @@ msgstr "Studio, Kontakte, Termine, PDFs, Websuche und die Wizards, die mehr brau
 #: build/app.js:10
 #: build/app.js:12
 #: src/admin/Home.js:578
-#: src/admin/Import.js:146
+#: src/admin/Import.js:149
 #: src/admin/Settings.js:810
 #: src/admin/Settings.js:1169
 #: src/admin/Start.js:73
-#: src/admin/Templates.js:280
+#: src/admin/Templates.js:279
 #: src/admin/ui.js:355
 #: src/admin/ui.js:433
 msgid "Create a free account"
 msgstr "Kostenloses Konto anlegen"
 
 #: build/app.js:10
-#: src/admin/Import.js:47
+#: src/admin/Import.js:49
 msgid "The wizard has errors that must be fixed in the Studio first."
 msgstr "Der Wizard hat Fehler, die zuerst im Studio behoben werden müssen."
 
 #: build/app.js:10
-#: src/admin/Import.js:71
+#: src/admin/Import.js:73
 msgid "Plugins:"
 msgstr "Plugins:"
 
 #: build/app.js:10
-#: src/admin/Import.js:111
+#: src/admin/Import.js:114
 msgid "Import"
 msgstr "Importieren"
 
 #: build/app.js:10
-#: src/admin/Import.js:127
+#: src/admin/Import.js:130
 msgid "Import did not work"
 msgstr "Import hat nicht geklappt"
 
@@ -1276,8 +1276,8 @@ msgstr "Import hat nicht geklappt"
 #: build/app.js:3
 #: build/app.js:8
 #: build/app.js:10
-#: src/admin/Import.js:138
-#: src/admin/Templates.js:440
+#: src/admin/Import.js:141
+#: src/admin/Templates.js:439
 #: src/admin/ui.js:169
 #: src/admin/ui.js:179
 #: src/admin/ui.js:623
@@ -1402,7 +1402,7 @@ msgstr "%d Credits"
 #: build/app.js:12
 #: src/admin/Results.js:85
 #: src/admin/Results.js:147
-#: src/admin/Templates.js:355
+#: src/admin/Templates.js:354
 msgid "Result"
 msgstr "Ergebnis"
 
@@ -1880,7 +1880,7 @@ msgstr "Übernommen: deine Angaben und %d Seiten. Deine Wizards kennen jetzt dei
 #: build/app.js:8
 #: src/admin/SiteRead.js:144
 #: src/admin/Start.js:295
-#: src/admin/Templates.js:559
+#: src/admin/Templates.js:558
 msgid "Continue"
 msgstr "Weiter"
 
@@ -1945,7 +1945,7 @@ msgstr "Keine veröffentlichten Seiten mit Text."
 #: build/app.js:8
 #: src/admin/SiteRead.js:376
 #: src/admin/SiteRead.js:400
-#: src/admin/Templates.js:597
+#: src/admin/Templates.js:596
 msgid "Skip"
 msgstr "Überspringen"
 
@@ -2115,105 +2115,105 @@ msgid "Your wizard is live. Try it out, then we put it on the website."
 msgstr "Dein Wizard ist live. Probier ihn aus, dann bringen wir ihn auf die Website."
 
 #: build/app.js:8
-#: src/admin/Templates.js:269
+#: src/admin/Templates.js:268
 msgid "Start with this template"
 msgstr "Mit dieser Vorlage starten"
 
 #: build/app.js:2
 #: build/app.js:8
-#: src/admin/Templates.js:287
+#: src/admin/Templates.js:286
 #: src/admin/ui.js:294
 msgid "Upgrade to Pro"
 msgstr "Auf Pro upgraden"
 
 #: build/app.js:7
-#: src/admin/Templates.js:322
+#: src/admin/Templates.js:321
 msgid "Duration"
 msgstr "Dauer"
 
 #. translators: %d: fields
 #: build/app.js:8
-#: src/admin/Templates.js:332
+#: src/admin/Templates.js:331
 #, js-format
 msgid "from start to result, with %d inputs from you"
 msgstr "vom Start bis zum Ergebnis, mit %d Angaben von dir"
 
 #: build/app.js:8
-#: src/admin/Templates.js:342
+#: src/admin/Templates.js:341
 msgid "Cost"
 msgstr "Kosten"
 
 #: build/app.js:8
-#: src/admin/Templates.js:378
+#: src/admin/Templates.js:377
 msgid "Needs"
 msgstr "Braucht"
 
 #. translators: %s: plugins
 #: build/app.js:8
-#: src/admin/Templates.js:402
+#: src/admin/Templates.js:401
 #, js-format
 msgid "With Pro: needs %s"
 msgstr "Mit Pro: braucht %s"
 
 #: build/app.js:8
-#: src/admin/Templates.js:416
+#: src/admin/Templates.js:415
 msgid "How the wizard runs"
 msgstr "So läuft der Wizard ab"
 
 #. translators: %d: steps
 #: build/app.js:8
 #: build/app.js:12
-#: src/admin/Templates.js:423
+#: src/admin/Templates.js:422
 #: src/admin/Wizards.js:254
 #, js-format
 msgid "%d steps"
 msgstr "%d Schritte"
 
 #: build/app.js:8
-#: src/admin/Templates.js:543
+#: src/admin/Templates.js:542
 msgid "Try it out"
 msgstr "Ausprobieren"
 
 #: build/app.js:8
-#: src/admin/Templates.js:552
+#: src/admin/Templates.js:551
 msgid "Adjust in the Studio"
 msgstr "Im Studio anpassen"
 
 #: build/app.js:8
-#: src/admin/Templates.js:566
+#: src/admin/Templates.js:565
 msgid "Choose another"
 msgstr "Noch einen wählen"
 
 #: build/app.js:8
-#: src/admin/Templates.js:578
+#: src/admin/Templates.js:577
 msgid "With Free: download the free app, build your wizard there and publish it – then it appears here."
 msgstr "Mit Free: lade die kostenlose App, baue deinen Wizard dort und veröffentliche ihn – dann erscheint er hier."
 
 #: build/app.js:8
-#: src/admin/Templates.js:587
+#: src/admin/Templates.js:586
 msgid "How it works"
 msgstr "So geht’s"
 
 #: build/app.js:8
-#: src/admin/Templates.js:613
+#: src/admin/Templates.js:612
 msgid "Search templates"
 msgstr "Vorlage suchen"
 
 #: build/app.js:8
-#: src/admin/Templates.js:617
+#: src/admin/Templates.js:616
 msgid "Search templates …"
 msgstr "Vorlage suchen …"
 
 #. translators: %d: templates
 #: build/app.js:8
-#: src/admin/Templates.js:657
+#: src/admin/Templates.js:656
 #, js-format
 msgid "%d templates · all run here"
 msgstr "%d Vorlagen · laufen alle hier"
 
 #. translators: %d: templates
 #: build/app.js:8
-#: src/admin/Templates.js:664
+#: src/admin/Templates.js:663
 #, js-format
 msgid "%d templates"
 msgstr "%d Vorlagen"
@@ -2567,20 +2567,20 @@ msgctxt "block keyword"
 msgid "appointment"
 msgstr "termin"
 
-#: includes/class-connect.php:397
-#: includes/class-connect.php:424
+#: includes/class-connect.php:401
+#: includes/class-connect.php:428
 msgid "The connection is being refreshed. Please retry shortly."
 msgstr "Die Verbindung wird gerade erneuert. Bitte versuche es gleich noch einmal."
 
-#: includes/class-packages.php:305
+#: includes/class-packages.php:296
 msgid "A package is being installed. Please retry shortly."
 msgstr "Ein Paket wird gerade installiert. Bitte versuche es gleich noch einmal."
 
-#: includes/class-packages.php:354
+#: includes/class-packages.php:345
 msgid "This package contains an unsupported file type."
 msgstr "Dieses Paket enthält einen nicht unterstützten Dateityp."
 
-#: includes/class-packages.php:358
+#: includes/class-packages.php:349
 msgid "This package contains invalid file data."
 msgstr "Dieses Paket enthält ungültige Dateidaten."
 
@@ -2596,24 +2596,20 @@ msgstr "Diese Seite erlaubt keine Uploads."
 msgid "The upload limit has been reached."
 msgstr "Das Upload-Limit wurde erreicht."
 
-#: includes/class-think.php:286
-#: includes/class-think.php:290
-#: includes/class-think.php:313
-#: includes/class-think.php:395
-#: includes/class-think.php:398
-#: includes/class-think.php:410
+#: includes/class-think.php:294
+#: includes/class-think.php:298
+#: includes/class-think.php:321
+#: includes/class-think.php:403
+#: includes/class-think.php:406
+#: includes/class-think.php:418
 msgid "This request no longer owns the run. Please retry."
 msgstr "Diese Anfrage besitzt den Wizard-Durchlauf nicht mehr. Bitte versuche es erneut."
 
-#: includes/class-think.php:1497
+#: includes/class-think.php:1606
 msgid "The document could not be saved."
 msgstr "Das Dokument konnte nicht gespeichert werden."
 
-#: includes/class-packages.php:61
-msgid "Private wizard storage migration failed. Legacy files may still be publicly accessible: move uploads/engenty-wizards outside the web root before enabling Wizards. Check database capacity and the system temporary directory, then reload."
-msgstr "Die Migration in den privaten Wizard-Speicher ist fehlgeschlagen. Alte Dateien können weiterhin öffentlich erreichbar sein: Verschiebe uploads/engenty-wizards vor dem Aktivieren der Wizards außerhalb des Web-Stammverzeichnisses. Prüfe die Datenbankkapazität und das temporäre Systemverzeichnis und lade die Seite neu."
-
-#: includes/class-packages.php:310
+#: includes/class-packages.php:301
 msgid "Private storage is busy. Please retry shortly."
 msgstr "Der private Speicher ist gerade belegt. Bitte versuche es gleich noch einmal."
 
