@@ -5,6 +5,8 @@ export declare class ApiError extends Error {
 }
 /** The request never reached the server: no network, a tunnel, a phone switching cells. */
 export declare function isOffline(err: unknown): boolean;
+/** A body as JSON; one that is not (a proxy's error page) as `{ error: <the text> }`. */
+export declare function safeJson(text: string): any;
 export interface Api {
     get<T>(path: string): Promise<T>;
     post<T>(path: string, body?: unknown): Promise<T>;

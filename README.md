@@ -15,8 +15,10 @@ bookings in the admin. Two ways:
   from the account with "Run here"; results stay in WordPress.
 
 GPLv2 or later. The runner's components come from the open repository's package
-`@engenty-wizards/runner` (MIT), vendored as built under `vendor-runner/`. [COPYRIGHTS.md](COPYRIGHTS.md)
-names the owner, the marks, what comes from elsewhere and the development tooling.
+`@engenty-wizards/runner` (MIT), vendored as built under `vendor-runner/` from a release of
+[engenty/wizards](https://github.com/engenty/wizards) (`vendor-runner/VERSION` names it).
+[COPYRIGHTS.md](COPYRIGHTS.md) names the owner, the marks, what comes from elsewhere and the
+development tooling.
 
 ## Layout
 
@@ -39,12 +41,13 @@ names the owner, the marks, what comes from elsewhere and the development toolin
 | `src/admin/` | The admin app (React through `@wordpress/element`) |
 | `src/block/` | The block's editor |
 | `src/runner/` | The runner on the site: mounts `@engenty-wizards/runner` on every standalone tag, `useLocalRun` drives a run over the site's routes |
-| `vendor-runner/` | The runner package as built (`bin/sync-runner.sh`) |
-| `wizards/` | The templates that run on a site, exported from the marketplace with their fit (`pnpm templates:export` in the open repository) |
+| `vendor-runner/` | The runner package as built, from a release's `runner.tgz` (`bin/sync-runner.sh vX.Y.Z`); `VERSION` is that release's tag |
+| `wizards/` | The templates that run on a site, from the same release's `templates.tgz`: the entries whose standalone fit is not "no", with their fit in `index.json` |
 
 ## Release
 
 ```bash
+sh bin/sync-runner.sh v0.8.0       # the runner and the templates of that release of the open repository, before the version bump
 sh bin/zip.sh                      # engenty-wizards.zip: what WordPress installs, top folder engenty-wizards/
 wp plugin check <unzipped folder>  # the Plugin Check wordpress.org runs; the zip passes with no errors
 ```
@@ -56,7 +59,8 @@ wordpress.org, not part of the zip); the GitHub release on a `v*` tag attaches t
 
 ```bash
 npm install
-sh bin/sync-runner.sh ../engenty-wizards   # the runner package and the templates from the open repository beside this one
+sh bin/sync-runner.sh v0.8.0               # the runner package and the templates from that release of github.com/engenty/wizards
+sh bin/sync-runner.sh --from ../engenty-wizards   # unreleased work: a checkout of the open repository beside this one, built there
 npm run build        # build/app.js (the admin app), build/block.js, build/runner.js
 npm run start        # rebuild on change
 sh bin/zip.sh        # engenty-wizards.zip with build/, wizards/
