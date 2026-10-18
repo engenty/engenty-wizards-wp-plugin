@@ -1,13 +1,13 @@
 {
-  "exportedAt": "2026-10-11T09:07:49.787Z",
+  "exportedAt": "2026-10-18T07:26:59.512Z",
   "source": "https://engenty.ai/wizards",
   "templates": [
     {
       "id": "invoice",
       "file": "invoice.wizard",
-      "title": "Rechnung",
-      "pitch": "Positionen eingeben, fertige Rechnung als PDF erhalten.",
-      "language": "de",
+      "title": "Invoice",
+      "pitch": "Enter the items, get a finished invoice as a PDF.",
+      "language": "en",
       "avatar": "pebble",
       "useCases": [
         "accounting"
@@ -31,8 +31,8 @@
       "steps": 6,
       "plan": "free",
       "plugins": [],
-      "hash": "69e6b2148216565decfdf510df99fa0b",
-      "revision": 2,
+      "hash": "4be8060a3a2fb70c84af8dad42c93aa7",
+      "revision": 3,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -59,9 +59,9 @@
     {
       "id": "quote",
       "file": "quote.wizard",
-      "title": "Angebot",
-      "pitch": "Angebot mit Einleitung, Leistungsbeschreibung und Preisen.",
-      "language": "de",
+      "title": "Quote",
+      "pitch": "A quote with an introduction, a description of the work and prices.",
+      "language": "en",
       "avatar": "bean",
       "useCases": [
         "sales"
@@ -86,8 +86,8 @@
       "steps": 7,
       "plan": "free",
       "plugins": [],
-      "hash": "8c02f7f3175f3862f991284154286f83",
-      "revision": 2,
+      "hash": "9b96b4f5e9682a7cecba26b352640d6c",
+      "revision": 3,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -114,9 +114,9 @@
     {
       "id": "damage-report",
       "file": "damage-report.wizard",
-      "title": "Schadensmeldung",
-      "pitch": "Vor Ort mit dem Handy: Fotos, Standort, Sprachnotiz, Unterschrift – fertig ist der Bericht.",
-      "language": "de",
+      "title": "Damage report",
+      "pitch": "On site with your phone: photos, location, voice note, signature – and the report is done.",
+      "language": "en",
       "avatar": "pebble",
       "useCases": [
         "operations"
@@ -144,8 +144,8 @@
       "steps": 8,
       "plan": "free",
       "plugins": [],
-      "hash": "8393fd476258d204a17d350c16d95172",
-      "revision": 2,
+      "hash": "d2fc483557fbd42dcb4175c4189537da",
+      "revision": 3,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -190,9 +190,9 @@
     {
       "id": "window-quote",
       "file": "window-quote.wizard",
-      "title": "Angebot Fenstertausch",
-      "pitch": "Vor Ort beim Kunden: Fotos und Maße einsprechen – Positionen aus eurer Preisliste, Angebot als PDF.",
-      "language": "de",
+      "title": "Window replacement quote",
+      "pitch": "At the customer’s: take photos and speak the measurements – items from your price list, the quote as a PDF.",
+      "language": "en",
       "avatar": "bean",
       "useCases": [
         "sales",
@@ -221,8 +221,8 @@
       "steps": 10,
       "plan": "free",
       "plugins": [],
-      "hash": "098e0b8ed286337a041de7545a360eab",
-      "revision": 3,
+      "hash": "169b2af25dfe481c9a5873829cf22b02",
+      "revision": 4,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -273,9 +273,9 @@
     {
       "id": "web-faq",
       "file": "web-faq.wizard",
-      "title": "Frag uns",
-      "pitch": "Besucher stellen eine Frage und bekommen die Antwort aus euren eigenen Angaben.",
-      "language": "de",
+      "title": "Ask us",
+      "pitch": "Visitors ask a question and get the answer from your own information.",
+      "language": "en",
       "avatar": "round",
       "useCases": [
         "website",
@@ -301,8 +301,8 @@
       "steps": 3,
       "plan": "free",
       "plugins": [],
-      "hash": "a9b87486bc231f16630f1f19c85941d4",
-      "revision": 3,
+      "hash": "ae53ede9bd98c460f6e0c1d60e738c39",
+      "revision": 4,
       "standalone": {
         "fit": "full",
         "notes": [],
@@ -315,9 +315,9 @@
     {
       "id": "web-price",
       "file": "web-price.wizard",
-      "title": "Was kostet das?",
-      "pitch": "Richtpreis in einer Minute: Angaben des Besuchers, Preise aus eurer Preisliste.",
-      "language": "de",
+      "title": "What does it cost?",
+      "pitch": "A guide price in one minute: the visitor’s details, the prices from your price list.",
+      "language": "en",
       "avatar": "bean",
       "useCases": [
         "website",
@@ -343,8 +343,8 @@
       "steps": 5,
       "plan": "free",
       "plugins": [],
-      "hash": "ffd88435bc981aafc55f0b51abe68190",
-      "revision": 3,
+      "hash": "2f55623c0f6746e785f90871f169cdc5",
+      "revision": 4,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -365,9 +365,9 @@
     {
       "id": "web-advisor",
       "file": "web-advisor.wizard",
-      "title": "Produktberater",
-      "pitch": "Vier Fragen, dann die passende Empfehlung aus eurem Sortiment – mit Begründung.",
-      "language": "de",
+      "title": "Product adviser",
+      "pitch": "Four questions, then the fitting recommendation from your range – with reasons.",
+      "language": "en",
       "avatar": "wedge",
       "useCases": [
         "website",
@@ -394,8 +394,8 @@
       "steps": 3,
       "plan": "free",
       "plugins": [],
-      "hash": "cf3f20e204e9c509f75f0d108b16b530",
-      "revision": 3,
+      "hash": "9f32fd0bdc76d5d1d804439c3d65ab82",
+      "revision": 4,
       "standalone": {
         "fit": "full",
         "notes": [],
@@ -408,9 +408,9 @@
     {
       "id": "web-appointment",
       "file": "web-appointment.wizard",
-      "title": "Termin vorbereiten",
-      "pitch": "Vor dem Erstgespräch: Anliegen schildern, Checkliste mit allen Unterlagen bekommen.",
-      "language": "de",
+      "title": "Appointment prep",
+      "pitch": "Before the first meeting: describe the matter, get a checklist with every document to bring.",
+      "language": "en",
       "avatar": "dome",
       "useCases": [
         "website",
@@ -438,8 +438,8 @@
       "steps": 3,
       "plan": "free",
       "plugins": [],
-      "hash": "50c3cf7ef0e8f9ce16829e7d32985c93",
-      "revision": 3,
+      "hash": "314c893c8db30dedc5c968616fd9c98f",
+      "revision": 4,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -460,9 +460,9 @@
     {
       "id": "web-complaint",
       "file": "web-complaint.wizard",
-      "title": "Reklamation melden",
-      "pitch": "Foto, Bestellnummer scannen, kurz erzählen – fertig ist die vollständige Reklamation.",
-      "language": "de",
+      "title": "Report a complaint",
+      "pitch": "A photo, scan the order number, say briefly what happened – and the complaint is complete.",
+      "language": "en",
       "avatar": "pebble",
       "useCases": [
         "website",
@@ -490,8 +490,8 @@
       "steps": 5,
       "plan": "free",
       "plugins": [],
-      "hash": "8a1127e1e11c7d24d55a0ff8c1c2dd2b",
-      "revision": 3,
+      "hash": "af54449e1b61c80afcffd43099030522",
+      "revision": 4,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -525,9 +525,9 @@
     {
       "id": "web-event",
       "file": "web-event.wizard",
-      "title": "Feier anfragen",
-      "pitch": "Anlass, Gäste, Budget – sofort ein Vorschlag mit Raum, Menü und Preis pro Person.",
-      "language": "de",
+      "title": "Party enquiry",
+      "pitch": "Occasion, guests, budget – a proposal with room, menu and price per person at once.",
+      "language": "en",
       "avatar": "oval",
       "useCases": [
         "website",
@@ -555,8 +555,8 @@
       "steps": 3,
       "plan": "free",
       "plugins": [],
-      "hash": "b29f89233de6ea3b657a4dec8c8a89ac",
-      "revision": 3,
+      "hash": "b4d4c0765e90efa2592bd8d2a42c65fb",
+      "revision": 4,
       "standalone": {
         "fit": "full",
         "notes": [],
@@ -569,9 +569,9 @@
     {
       "id": "web-dayplan",
       "file": "web-dayplan.wizard",
-      "title": "Dein Tagesplan",
-      "pitch": "Für Hotels und Regionen: Wetter am Tag, Interessen – ein Plan aus euren eigenen Tipps.",
-      "language": "de",
+      "title": "Your day plan",
+      "pitch": "For hotels and regions: the weather on the day, your interests – a plan from your own tips.",
+      "language": "en",
       "avatar": "sprout",
       "useCases": [
         "website",
@@ -599,8 +599,8 @@
       "steps": 3,
       "plan": "free",
       "plugins": [],
-      "hash": "810a5edf47b7c15e93e1866f6822a57a",
-      "revision": 3,
+      "hash": "efae67c2fa23c1fdd9dee649c5abede5",
+      "revision": 4,
       "standalone": {
         "fit": "full",
         "notes": [],

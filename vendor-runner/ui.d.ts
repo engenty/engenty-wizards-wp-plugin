@@ -29,13 +29,15 @@ export declare function Select({ value, onChange, options, className, placeholde
     placeholder?: string;
 }): import("react").JSX.Element;
 /** Pills for a handful of options — calmer than a dropdown. */
-export declare function Segmented({ value, onChange, options, multi, disabled, }: {
+export declare function Segmented({ value, onChange, options, multi, disabled, label, }: {
     value: string | string[];
     onChange: (v: any) => void;
     options: string[];
     multi?: boolean;
     /** Options shown but not to be picked. */
     disabled?: string[];
+    /** What an option shows; default: the option itself. */
+    label?: (option: string) => string;
 }): import("react").JSX.Element;
 /**
  * A row of tabs as one button group, in the look of the theme switch: a thumb slides to the

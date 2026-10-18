@@ -11,13 +11,21 @@ export declare function Markdown({ text, className }: {
  * sandboxed frame whose content changes after mount blank. `page` is the layout width; the frame
  * is scaled to fit.
  */
-export declare function HtmlFrame({ src, page, height, fit, }: {
+export declare function HtmlFrame({ src, page, height, fit, flow, state, onState, }: {
     src: string;
     /** Layout width in CSS px; null = the frame's own width. */
     page: number | null;
     height: number;
     /** Scale up as well as down, so a fixed-size widget fills the width. */
     fit?: boolean;
+    /**
+     * A widget laid out as part of the page: as wide as the page, as tall as its content says
+     * (`height` until it does), never scaled. It may keep a state and share text.
+     */
+    flow?: boolean;
+    /** What the widget kept last time (`wizard.state`). */
+    state?: Record<string, unknown>;
+    onState?: (state: Record<string, unknown>) => void;
 }): import("react").JSX.Element;
 /**
  * The EU's label on media a model made or changed: the round "AI" alone, and on hover, on focus
@@ -30,7 +38,7 @@ export declare function AiBadge({ ai, className, }: {
     className?: string;
 }): import("react").JSX.Element | null;
 /** One step's result: the right preview for what it produced. */
-export declare function OutputView({ base, step, output, editable, draft, onDraft, picked, onPick, onSurfaceAction, }: {
+export declare function OutputView({ base, step, output, editable, draft, onDraft, picked, onPick, onSurfaceAction, onView, }: {
     /** `/api/runs/<id>` or `/api/shares/<token>` — where the output's files are served. */
     base: string;
     step: Step;
@@ -43,6 +51,8 @@ export declare function OutputView({ base, step, output, editable, draft, onDraf
     onPick?: (index: number) => void;
     /** A surface's buttons: "regenerate" where the review allows it. */
     onSurfaceAction?: (a: SurfaceAction) => void;
+    /** Keeps what the person did in the view (ticks, a widget's state) with the run. */
+    onView?: (state: Record<string, unknown>) => void;
 }): import("react").JSX.Element | null;
 /** A download format as a person reads it. */
 export declare const FORMAT_LABEL: Record<Format, string>;

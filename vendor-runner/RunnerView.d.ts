@@ -12,10 +12,12 @@ export interface RunSource {
     busy: boolean;
     fieldErrors: Record<string, string>;
     submitPage(stepId: string, values: Record<string, unknown>): Promise<boolean>;
-    accept(stepId: string, edits?: Record<string, string>): Promise<boolean>;
+    accept(stepId: string, edits?: Record<string, string | Record<string, unknown>>): Promise<boolean>;
     regenerate(stepId: string, target: string, note: string, items?: number[]): Promise<boolean>;
     back(): Promise<boolean>;
     retry(): Promise<boolean>;
+    /** A finished result's text in the language the run is read in (a translated wizard). */
+    translateResult?(stepId: string): Promise<boolean>;
 }
 export declare function initialValues(step: PageStep, view: RunView): Values;
 /**
@@ -23,9 +25,11 @@ export declare function initialValues(step: PageStep, view: RunView): Values;
  * confirmation) — if they asked for it. A page in the background also marks its title.
  */
 export declare function useDoneSignal(view: RunView | null): void;
-export declare function RunnerBody({ run, compact, onRestart, onView, stickyProgress, }: {
+export declare function RunnerBody({ run, compact, onRestart, onView, stickyProgress, studio, }: {
     run: RunSource;
     compact?: boolean;
+    /** In the studio: a json step's data can be viewed, edited and its JSON Schema read. */
+    studio?: boolean;
     onRestart?: () => void;
     onView?: (view: RunView | null) => void;
     /** In a box of its own (an AI app's widget): the progress stays on top while the page scrolls. */
