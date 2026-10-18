@@ -4,7 +4,7 @@ Tags: ai, forms, chatbot, appointments, lead generation
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.3.3
+Stable tag: 0.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,14 @@ Contacts and bookings in the WordPress admin, building wizards from templates in
 6. Settings: the provider line, limits, tools.
 
 == Changelog ==
+
+= 0.4.0 =
+* Private files: a wizard's files and a run's uploads and results are kept in the database, no longer as public files under uploads. The update moves existing files out of the web folder once; if it cannot, a notice in the admin says what to do.
+* An import accepts Markdown, text, CSV, JSON, PDF and images only. Generated pages open in a sandbox, also when called directly.
+* Upload limits: 4 MB per file, 20 files or 40 MB per run, 40 files or 80 MB per visitor a day, 500 files or 1 GB per site a day.
+* A step that costs credits runs once, even when two requests arrive at the same time. A cancelled run stays cancelled. Two refreshes of a connected account no longer undo each other.
+* engenty.ai answers in the site's language: German on a German WordPress, English otherwise.
+* A wizard package keeps the space's pages under knowledge/ instead of wissen/. An older package still imports and runs, but its wissen/ pages are no longer picked as the best match for a step; export it again to get that back.
 
 = 0.3.3 =
 * The runner is the one of engenty wizards v0.2.56: a wizard package the import refuses names the reason in English, as the definition's issues do.
