@@ -3,7 +3,7 @@
  * Plugin Name:       engenty wizards
  * Plugin URI:        https://engenty.ai/wordpress-plugins/engenty-wizards
  * Description:       Your own AI assistants on your website: as a block, a shortcode, an Elementor widget or a bubble on every page. With an engenty.ai account, or on the site itself with its AI provider.
- * Version:           0.4.0
+ * Version:           0.5.0
  * Requires at least: 6.6
  * Requires PHP:      8.1
  * Author:            engenty
@@ -18,7 +18,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ENGENTY_WIZARDS_VERSION', '0.4.0' );
+define( 'ENGENTY_WIZARDS_VERSION', '0.5.0' );
 define( 'ENGENTY_WIZARDS_FILE', __FILE__ );
 define( 'ENGENTY_WIZARDS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ENGENTY_WIZARDS_URL', plugin_dir_url( __FILE__ ) );
