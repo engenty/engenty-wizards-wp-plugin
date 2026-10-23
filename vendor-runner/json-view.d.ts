@@ -1,4 +1,4 @@
-import { AgentStep } from '@engenty-wizards/shared/definition';
+import { AgentStep } from '@engenty/wizards-shared/definition';
 export declare function JsonView({ step, json }: {
     step: AgentStep;
     json: unknown;

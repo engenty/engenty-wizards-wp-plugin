@@ -1,5 +1,5 @@
-import { Field } from '@engenty-wizards/shared/definition';
-import { ClosedChoice, RunView } from '@engenty-wizards/shared/run';
+import { Field } from '@engenty/wizards-shared/definition';
+import { ClosedChoice, RunView } from '@engenty/wizards-shared/run';
 export type Values = Record<string, unknown>;
 /**
  * What the keyboard should offer for a short text: a label that asks for a phone number gets the

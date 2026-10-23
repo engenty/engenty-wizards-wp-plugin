@@ -1,4 +1,5 @@
-import { RunView } from '@engenty-wizards/shared/run';
+import { EngentyCostume } from '@engenty/wizards-shared/definition';
+import { RunView } from '@engenty/wizards-shared/run';
 import { ComponentType } from 'react';
 import { Api } from './api.js';
 import { Lang } from './i18n.js';
@@ -20,6 +21,7 @@ export interface AppBridge {
 }
 export interface MascotProps {
     kind: string;
+    costume?: EngentyCostume;
     size?: number;
     fluffy?: boolean;
 }
@@ -44,6 +46,14 @@ export interface RunnerEnv {
     Mascot: ComponentType<MascotProps>;
     /** The result's share button; a host without shared results has none. */
     ShareResultButton?: ComponentType<ShareResultProps>;
+    /**
+     * What the host shows at a run's end, under the result or the failure: the question how it
+     * went, a way to report a problem. A host without either has none.
+     */
+    RunEnd?: ComponentType<{
+        view: RunView;
+        failed?: boolean;
+    }>;
     /** Told of every answer of 500 and above, e.g. to send it to the host's log. */
     onServerError?: (line: string) => void;
     /** Extra headers on every request (a WordPress nonce). */

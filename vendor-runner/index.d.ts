@@ -11,6 +11,7 @@ export { DataEditor, DataMenu, type DataMode, editableData, JsonSchemaDialog, St
 export { canShareFiles, canUseMedia, isTouch, useKeyboardInset, useNotifyState, useWakeLock, } from './device.js';
 export { type AppAbility, type AppBridge, api, configureRunner, type MascotProps, type RunnerEnv, runnerEnv, type ShareResultProps, } from './env.js';
 export { FieldInput, textHints, type Values } from './fields.js';
+export { loadBrandFace } from './fonts.js';
 export { choiceLabel, eventText, type Lang, RUNNER_TEXTS, type RunnerKey, type RunnerTable, runnerLangCode, runnerTable, setChoiceLabels, setRunnerLang, setRunnerTable, t, useRunnerLang, } from './i18n.js';
 export { AiBadge, DownloadButtons, FORMAT_LABEL, HtmlFrame, Markdown, OutputView, } from './outputs.js';
 export { initialValues, RunnerBody, type RunSource, useDoneSignal } from './RunnerView.js';

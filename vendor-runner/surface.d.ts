@@ -1,4 +1,4 @@
-import { Surface } from '@engenty-wizards/shared/surface';
+import { Surface } from '@engenty/wizards-shared/surface';
 /**
  * A surface drawn with the runner's own components: the catalog in shared/surface.ts, nothing
  * else. Unknown components render nothing; a prop that is not there shows empty.

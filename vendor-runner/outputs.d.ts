@@ -1,5 +1,5 @@
-import { Format, Step } from '@engenty-wizards/shared/definition';
-import { StepOutput } from '@engenty-wizards/shared/run';
+import { Format, Step } from '@engenty/wizards-shared/definition';
+import { StepOutput } from '@engenty/wizards-shared/run';
 import { SurfaceAction } from './surface';
 export declare function Markdown({ text, className }: {
     text: string;

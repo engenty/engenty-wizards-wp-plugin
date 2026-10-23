@@ -1,5 +1,5 @@
-import { ShownList } from '@engenty-wizards/shared/run';
-import { ConnectionView } from '@engenty-wizards/shared/store';
+import { ShownList } from '@engenty/wizards-shared/run';
+import { ConnectionView } from '@engenty/wizards-shared/store';
 /** The person connects an account (their mailbox) to the wizard, or sees which one is connected. */
 export declare function ConnectionField({ runId, connection, }: {
     runId: string;

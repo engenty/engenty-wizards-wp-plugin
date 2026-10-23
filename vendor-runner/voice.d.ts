@@ -1,4 +1,4 @@
-import { AudioValue } from '@engenty-wizards/shared/definition';
+import { AudioValue } from '@engenty/wizards-shared/definition';
 /**
  * A voice note: recorded here with the microphone, or — where the browser cannot record — an
  * audio file from the phone's recorder. The recording is kept as an upload; what is said in it
