@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-10-18T07:26:59.512Z",
+  "exportedAt": "2026-10-23T07:00:38.647Z",
   "source": "https://engenty.ai/wizards",
   "templates": [
     {
@@ -31,8 +31,8 @@
       "steps": 6,
       "plan": "free",
       "plugins": [],
-      "hash": "4be8060a3a2fb70c84af8dad42c93aa7",
-      "revision": 3,
+      "hash": "4aa4e597e00cd9b78aba70fa7c13ed3b",
+      "revision": 4,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -86,8 +86,8 @@
       "steps": 7,
       "plan": "free",
       "plugins": [],
-      "hash": "9b96b4f5e9682a7cecba26b352640d6c",
-      "revision": 3,
+      "hash": "c5961632ca000f82b20005d8885b0581",
+      "revision": 4,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -144,8 +144,8 @@
       "steps": 8,
       "plan": "free",
       "plugins": [],
-      "hash": "d2fc483557fbd42dcb4175c4189537da",
-      "revision": 3,
+      "hash": "a5adce50bf8ddf7d3fbb2d6dfc5df6ba",
+      "revision": 4,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -221,8 +221,8 @@
       "steps": 10,
       "plan": "free",
       "plugins": [],
-      "hash": "169b2af25dfe481c9a5873829cf22b02",
-      "revision": 4,
+      "hash": "6a42f5d350e3ab2b41ba6eb96d010545",
+      "revision": 5,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -301,8 +301,8 @@
       "steps": 3,
       "plan": "free",
       "plugins": [],
-      "hash": "ae53ede9bd98c460f6e0c1d60e738c39",
-      "revision": 4,
+      "hash": "ad862ed21966de51699a81bcc776eba1",
+      "revision": 5,
       "standalone": {
         "fit": "full",
         "notes": [],
@@ -343,8 +343,8 @@
       "steps": 5,
       "plan": "free",
       "plugins": [],
-      "hash": "2f55623c0f6746e785f90871f169cdc5",
-      "revision": 4,
+      "hash": "f5dc7cbf707e912674da83f65d7c7b9d",
+      "revision": 5,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -394,8 +394,8 @@
       "steps": 3,
       "plan": "free",
       "plugins": [],
-      "hash": "9f32fd0bdc76d5d1d804439c3d65ab82",
-      "revision": 4,
+      "hash": "e931cd02a643ecab3970136b872de816",
+      "revision": 5,
       "standalone": {
         "fit": "full",
         "notes": [],
@@ -438,8 +438,8 @@
       "steps": 3,
       "plan": "free",
       "plugins": [],
-      "hash": "314c893c8db30dedc5c968616fd9c98f",
-      "revision": 4,
+      "hash": "d706dc285dc943f8bb25e316af292048",
+      "revision": 5,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -490,8 +490,8 @@
       "steps": 5,
       "plan": "free",
       "plugins": [],
-      "hash": "af54449e1b61c80afcffd43099030522",
-      "revision": 4,
+      "hash": "eda9c503d1af2deb7dbc83d6421997b5",
+      "revision": 5,
       "standalone": {
         "fit": "less",
         "notes": [
@@ -555,8 +555,8 @@
       "steps": 3,
       "plan": "free",
       "plugins": [],
-      "hash": "b4d4c0765e90efa2592bd8d2a42c65fb",
-      "revision": 4,
+      "hash": "91f5cf93750a02215818c78ff6c2abba",
+      "revision": 5,
       "standalone": {
         "fit": "full",
         "notes": [],
@@ -599,8 +599,8 @@
       "steps": 3,
       "plan": "free",
       "plugins": [],
-      "hash": "efae67c2fa23c1fdd9dee649c5abede5",
-      "revision": 4,
+      "hash": "f820b3a7a0abdbfd9383b2986c0e9c0e",
+      "revision": 5,
       "standalone": {
         "fit": "full",
         "notes": [],

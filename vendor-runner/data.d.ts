@@ -1,6 +1,6 @@
-import { AgentStep } from '@engenty-wizards/shared/definition';
-import { StepOutput } from '@engenty-wizards/shared/run';
-import { ObjectShape } from '@engenty-wizards/shared/shape';
+import { AgentStep } from '@engenty/wizards-shared/definition';
+import { StepOutput } from '@engenty/wizards-shared/run';
+import { ObjectShape } from '@engenty/wizards-shared/shape';
 import { ReactNode } from 'react';
 export type DataMode = "view" | "edit" | "json";
 type Entry = Record<string, unknown>;

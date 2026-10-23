@@ -1,7 +1,7 @@
-import { Lang } from '@engenty-wizards/shared/definition';
-import { RunNote } from '@engenty-wizards/shared/run';
-import { RUNNER_TEXTS, RunnerKey } from '@engenty-wizards/shared/runner-texts';
-import { TextTable } from '@engenty-wizards/shared/texts';
+import { Lang } from '@engenty/wizards-shared/definition';
+import { RunNote } from '@engenty/wizards-shared/run';
+import { RUNNER_TEXTS, RunnerKey } from '@engenty/wizards-shared/runner-texts';
+import { TextTable } from '@engenty/wizards-shared/texts';
 export type { Lang };
 /**
  * What the runner says to the person running a wizard: its table lives in shared/runner-texts,

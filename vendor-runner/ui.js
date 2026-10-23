@@ -1,4 +1,4 @@
-import { l as e } from "./chunks/i18n-DLDYAU9t.js";
+import { l as e } from "./chunks/i18n-DHKrgXZE.js";
 import { forwardRef as t, useEffect as n, useLayoutEffect as r, useRef as i, useState as a } from "react";
 import { jsx as o, jsxs as s } from "react/jsx-runtime";
 //#region src/ui.tsx
@@ -15,8 +15,9 @@ var l = {
 	return /* @__PURE__ */ s("button", {
 		ref: d,
 		type: "button",
+		"data-variant": e,
 		disabled: a || n,
-		className: c("inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-[background,filter,color,transform] duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50", t === "sm" && "h-8 px-3 text-[0.8125rem] coarse:h-11 coarse:px-4", t === "md" && "h-10 px-4 text-sm coarse:h-11", t === "lg" && "h-12 px-6 text-[0.9375rem]", l[e], r),
+		className: c("inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-[background,filter,color,transform] duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50", t === "sm" && "h-8 px-3 text-[0.8125rem] coarse:h-11 coarse:px-4", t === "md" && "h-10 px-4 text-sm coarse:h-11", t === "lg" && "h-12 px-6 text-[0.9375rem]", l[e], e === "primary" && "wizard-button", r),
 		...u,
 		children: [n ? /* @__PURE__ */ o(C, { className: "size-4" }) : null, i]
 	});
@@ -31,7 +32,7 @@ function d({ label: e, className: t, children: n, ...r }) {
 		children: n
 	});
 }
-var f = "rounded-lg border border-input bg-card px-3.5 text-[0.9375rem] text-ink shadow-[inset_0_1px_0_oklch(0%_0_0/0.02)] outline-none transition placeholder:text-ink-4 focus:border-focus focus:ring-4 focus:ring-focus-glow disabled:opacity-60";
+var f = "wizard-field rounded-lg border border-input bg-card px-3.5 text-[0.9375rem] text-ink shadow-[inset_0_1px_0_oklch(0%_0_0/0.02)] outline-none transition placeholder:text-ink-4 focus:border-focus focus:ring-4 focus:ring-focus-glow disabled:opacity-60";
 function p(e) {
 	return /(^|\s)w-/.test(e ?? "") ? null : "w-full";
 }
@@ -209,7 +210,7 @@ function C({ className: e }) {
 }
 function w({ className: e, children: t, ...n }) {
 	return /* @__PURE__ */ o("div", {
-		className: c("rounded-xl bg-card shadow-soft ring-1 ring-border-soft", e),
+		className: c("wizard-card rounded-xl bg-card shadow-soft ring-1 ring-border-soft", e),
 		...n,
 		children: t
 	});

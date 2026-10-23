@@ -1,5 +1,5 @@
-import { PageStep } from '@engenty-wizards/shared/definition';
-import { RunView } from '@engenty-wizards/shared/run';
+import { PageStep } from '@engenty/wizards-shared/definition';
+import { RunView } from '@engenty/wizards-shared/run';
 import { Values } from './fields';
 /**
  * A run as the runner drives it: the view, and the commands a person can give. `useRun` in the
