@@ -4,7 +4,7 @@ Tags: ai, forms, chatbot, appointments, lead generation
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.4.0
+Stable tag: 0.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,11 @@ Contacts and bookings in the WordPress admin, building wizards from templates in
 6. Settings: the provider line, limits, tools.
 
 == Changelog ==
+
+= 0.5.0 =
+* The film step is called motion-graphics, as in engenty wizards v0.11.2. A wizard package with a film step no longer imports. Export it again from engenty wizards.
+* The runner and the templates are those of engenty wizards v0.11.2, up from v0.8.0.
+* The one-time move of files out of the web folder that 0.4.0 brought is gone.
 
 = 0.4.0 =
 * Private files: a wizard's files and a run's uploads and results are kept in the database, no longer as public files under uploads. The update moves existing files out of the web folder once; if it cannot, a notice in the admin says what to do.
