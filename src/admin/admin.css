@@ -308,7 +308,7 @@
 .en-flow__icon { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; flex: none; }
 .en-flow__icon--page { background: var(--en-ink); color: #fff; }
 .en-flow__icon--agent { background: var(--en-ember-tint); color: var(--en-ember-strong); }
-.en-flow__icon--generate, .en-flow__icon--surface, .en-flow__icon--widget, .en-flow__icon--film { background: var(--en-ember-tint); color: var(--en-ember-strong); }
+.en-flow__icon--generate, .en-flow__icon--surface, .en-flow__icon--widget, .en-flow__icon--motion-graphics { background: var(--en-ember-tint); color: var(--en-ember-strong); }
 .en-flow__icon--review { background: var(--en-moss-tint); color: var(--en-moss); }
 .en-flow__icon--result { color: var(--en-ink-2); }
 .en-flow__arrow { width: 1px; height: 24px; background: var(--en-ink-4); }

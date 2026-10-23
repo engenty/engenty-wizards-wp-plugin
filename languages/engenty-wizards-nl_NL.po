@@ -712,8 +712,8 @@ msgstr "Gekoppelde accounts & systemen"
 
 #: build/app.js:1
 #: src/admin/fit.js:20
-msgid "Films with Claude Code (on your subscription)"
-msgstr "Films met Claude Code (op je abonnement)"
+msgid "Motion graphics with Claude Code (on your subscription)"
+msgstr "Motion graphics met Claude Code (op je abonnement)"
 
 #: build/app.js:1
 #: src/admin/fit.js:27

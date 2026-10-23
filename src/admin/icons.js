@@ -81,7 +81,7 @@ export const CAPABILITY_ICONS = {
 	listening: 'mic',
 	code: 'terminal',
 	connectors: 'plug',
-	film: 'clap',
+	'motion-graphics': 'clap',
 };
 
 /** The flow's icon per step type (studio/Marketplace.tsx stepIcon). */
@@ -91,7 +91,7 @@ export const STEP_ICONS = {
 	generate: 'file',
 	surface: 'chart',
 	widget: 'chart',
-	film: 'clap',
+	'motion-graphics': 'clap',
 	review: 'eye',
 	result: 'flag',
 };
