@@ -712,8 +712,8 @@ msgstr "Propojené účty a systémy"
 
 #: build/app.js:1
 #: src/admin/fit.js:20
-msgid "Films with Claude Code (on your subscription)"
-msgstr "Filmy s Claude Code (na vaše předplatné)"
+msgid "Motion graphics with Claude Code (on your subscription)"
+msgstr "Pohyblivá grafika s Claude Code (na vaše předplatné)"
 
 #: build/app.js:1
 #: src/admin/fit.js:27

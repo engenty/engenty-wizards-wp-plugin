@@ -17,8 +17,8 @@ export const CAPABILITIES = {
 	listening: __( 'Understand voice notes', 'engenty-wizards' ),
 	code: __( 'Run code', 'engenty-wizards' ),
 	connectors: __( 'Connected accounts & systems', 'engenty-wizards' ),
-	film: __(
-		'Films with Claude Code (on your subscription)',
+	'motion-graphics': __(
+		'Motion graphics with Claude Code (on your subscription)',
 		'engenty-wizards'
 	),
 };
@@ -98,7 +98,7 @@ export function capabilityOf( need ) {
 		case 'asset:image':
 			return 'image';
 		case 'asset:video':
-		case 'film':
+		case 'motion-graphics':
 		case 'widget:video':
 			return 'video';
 		case 'asset:voice':

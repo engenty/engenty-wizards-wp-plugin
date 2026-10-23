@@ -18,7 +18,7 @@ class Engenty_Packages {
 	const TABLE_VERSION = 2;
 
 	/** Known step types: a definition naming another was written for a newer runner. */
-	const STEP_TYPES = array( 'page', 'agent', 'generate', 'widget', 'surface', 'film', 'review', 'result' );
+	const STEP_TYPES = array( 'page', 'agent', 'generate', 'widget', 'surface', 'motion-graphics', 'review', 'result' );
 
 	/** A package may be this large (the workspace's 25 MB with room for the manifest). */
 	const MAX_BYTES = 30000000;

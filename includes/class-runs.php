@@ -1556,7 +1556,7 @@ class Engenty_Runs {
 		if ( in_array( $need, array( 'tool:image', 'asset:image' ), true ) ) {
 			return 'image';
 		}
-		if ( in_array( $need, array( 'asset:video', 'film', 'widget:video' ), true ) ) {
+		if ( in_array( $need, array( 'asset:video', 'motion-graphics', 'widget:video' ), true ) ) {
 			return 'video';
 		}
 		if ( in_array( $need, array( 'asset:voice', 'asset:speech' ), true ) ) {
